@@ -77,7 +77,7 @@ display:flex;align-items:center;justify-content:center;font-weight:800;font-size
 .step-title{font-size:17px;font-weight:800;font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif}
 .step-sub{font-size:12px;color:var(--sub);font-weight:500}
 /* ---------- やり方（3ステップ図解） ---------- */
-.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin-top:12px}
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin-top:12px}
 .step{background:var(--panel2);border:1.5px solid var(--line);border-radius:14px;padding:12px 8px 10px;text-align:center}
 .step svg{width:40px;height:40px;color:var(--accent-strong)}
 @media (prefers-color-scheme: dark){ .step svg{color:var(--accent)}}
@@ -85,7 +85,7 @@ display:flex;align-items:center;justify-content:center;font-weight:800;font-size
 .step .s-num{display:inline-block;background:var(--accent);color:var(--accent-ink);border-radius:999px;
 font-size:11px;font-weight:800;padding:1px 9px;margin-bottom:6px}
 .step-arrow{align-self:center;color:var(--accent);font-weight:900;font-size:18px}
-@media (max-width:560px){.steps{grid-template-columns:1fr}.step-arrow{transform:rotate(90deg);justify-self:center}}
+@media (max-width:560px){.steps{grid-template-columns:1fr 1fr}.step-arrow{display:none}}
 /* ---------- 部屋カード ---------- */
 .room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .room-card{display:block;border-radius:16px;border:2px solid var(--line);background:var(--bg);color:var(--txt);text-decoration:none;overflow:hidden;transition:border-color.15s, transform.15s}
@@ -124,22 +124,28 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 <body>
 <header>
 <h1>プロンプトビルダー <span class="ver">Ver3.1</span></h1>
-<p>選ぶのは<strong>各部屋</strong>で。ここは、選んだタグを<strong>貼って・まとめて・コピーする</strong>場所です。</p>
+<p>まず<strong>キャラクター</strong>を決めて、服や表情は<strong>各部屋</strong>で。ここは、選んだタグを<strong>貼って・まとめて・コピーする</strong>場所です。</p>
 <div class="steps" aria-label="使い方">
 <div class="step">
 <span class="s-num">STEP 1</span>
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="16" r="8"/><path d="M9 42c2.5-8.5 8-13 15-13s12.5 4.5 15 13"/></svg>
+<span class="s-label">キャラクターを<br>選ぶ</span>
+</div>
+<span class="step-arrow" aria-hidden="true">→</span>
+<div class="step">
+<span class="s-num">STEP 2</span>
 <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8h15l17 17-15 15L8 23z"/><circle cx="17" cy="17" r="3.5" fill="currentColor" stroke="none"/></svg>
 <span class="s-label">部屋で選んで<br>タグをコピー</span>
 </div>
 <span class="step-arrow" aria-hidden="true">→</span>
 <div class="step">
-<span class="s-num">STEP 2</span>
+<span class="s-num">STEP 3</span>
 <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="11" y="9" width="26" height="33" rx="3"/><path d="M18 9a6 4 0 0 1 12 0"/><path d="M24 20v10"/><path d="M18 25l6 6 6-6"/></svg>
 <span class="s-label">下の「貼る」に<br>ペースト</span>
 </div>
 <span class="step-arrow" aria-hidden="true">→</span>
 <div class="step">
-<span class="s-num">STEP 3</span>
+<span class="s-num">STEP 4</span>
 <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="24" height="26" rx="3"/><path d="M32 16V9a3 3 0 0 0-3-3H11a3 3 0 0 0-3 3v20a3 3 0 0 0 3 3h5"/></svg>
 <span class="s-label">できあがりを<br>コピーして使う</span>
 </div>
@@ -150,7 +156,33 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 </header>
 <main>
 
-<div class="step-head"><span class="step-num">1</span><span class="step-title">部屋で選ぶ</span><span class="step-sub">タップで部屋へ移動します</span></div>
+<div class="step-head"><span class="step-num">1</span><span class="step-title">キャラクターを選ぶ</span><span class="step-sub">誰を作るか決めます</span></div>
+<section id="charaSec">
+<h2>人数</h2>
+<div class="opts" id="peopleOpts"></div>
+<div style="height:8px"></div>
+<input type="text" id="partnerTags" placeholder="相手のタグ（英語）例：black hair, tall" disabled>
+<div style="height:8px"></div>
+<input type="text" id="partnerTagsJp" placeholder="相手の説明（日本語）例：黒髪で背の高い男性" disabled>
+<div class="row">
+<button id="oreBtn" disabled>「俺」セットを入れる</button>
+</div>
+<p class="memo">二人では、相手の特徴をはっきり書くと混ざりにくいです。</p>
+</section>
+
+<section>
+<h2>プロンプトの長さ</h2>
+<div class="modebar" id="modeOpts"></div>
+<p class="memo mode-desc" id="modeDesc"></p>
+</section>
+
+<section>
+<h2>固定ブロック<span class="note">キャラクターの土台・自動で入ります</span></h2>
+<div class="fixed" id="fixedView"></div>
+<p class="memo" id="fixedMeta" style="margin:8px 0 0"></p>
+</section>
+
+<div class="step-head"><span class="step-num">2</span><span class="step-title">服・表情・ポーズを選ぶ</span><span class="step-sub">タップで部屋へ移動します</span></div>
 <section id="roomMapSec" aria-label="部屋へのリンク">
 <div class="room-grid">
 <a class="room-card" href="../miyuu-kosupurekatarogu/">
@@ -184,7 +216,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 </div>
 </section>
 
-<div class="step-head"><span class="step-num">2</span><span class="step-title">貼る</span><span class="step-sub">部屋でコピーしたものをここへ</span></div>
+<div class="step-head"><span class="step-num">3</span><span class="step-title">貼る</span><span class="step-sub">部屋でコピーしたものをここへ</span></div>
 <section id="fragSec">
 <p class="frag-label"><span class="en">英語タグ</span>（ComfyUI用）</p>
 <textarea class="frag" id="fragEn" rows="3" placeholder="例：maid outfit, apron, headdress"></textarea>
@@ -194,31 +226,6 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 </section>
 
 <div class="step-head"><span class="step-num">＋</span><span class="step-title">細かい設定</span><span class="step-sub">ふだんはそのままでOK</span></div>
-
-<section>
-<h2>プロンプトの長さ</h2>
-<div class="modebar" id="modeOpts"></div>
-<p class="memo mode-desc" id="modeDesc"></p>
-</section>
-
-<section>
-<h2>固定ブロック<span class="note">自動で入ります</span></h2>
-<div class="fixed" id="fixedView"></div>
-<p class="memo" id="fixedMeta" style="margin:8px 0 0"></p>
-</section>
-
-<section>
-<h2>人数</h2>
-<div class="opts" id="peopleOpts"></div>
-<div style="height:8px"></div>
-<input type="text" id="partnerTags" placeholder="相手のタグ（英語）例：black hair, tall" disabled>
-<div style="height:8px"></div>
-<input type="text" id="partnerTagsJp" placeholder="相手の説明（日本語）例：黒髪で背の高い男性" disabled>
-<div class="row">
-<button id="oreBtn" disabled>「俺」セットを入れる</button>
-</div>
-<p class="memo">二人では、相手の特徴をはっきり書くと混ざりにくいです。</p>
-</section>
 
 <section>
 <h2>自分で足すタグ<span class="note">英語・カンマ区切り</span></h2>
@@ -241,7 +248,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 <div class="opts" id="negOpts"></div>
 </section>
 
-<div class="step-head"><span class="step-num">3</span><span class="step-title">できあがり</span><span class="step-sub">コピーして使ってください</span></div>
+<div class="step-head"><span class="step-num">4</span><span class="step-title">できあがり</span><span class="step-sub">コピーして使ってください</span></div>
 
 <section id="outSec">
 <h2>英語プロンプト（ComfyUI用） <span class="count" id="posCount"></span></h2>
@@ -276,6 +283,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 <footer>プロンプトビルダー Ver3.1 — 選ぶのは各部屋、ここは貼って・まとめて・コピーする場所です。</footer>
 
 <nav class="float-nav" id="floatNav" aria-label="ページ内ショートカット">
+<a href="#charaSec">キャラ</a>
 <a href="#fragSec">貼る</a>
 <a href="#outSec">できあがり</a>
 <button type="button" id="toTopBtn" aria-label="ページの一番上へ戻る">↑ トップへ</button>
