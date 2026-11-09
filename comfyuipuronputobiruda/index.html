@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>プロンプトビルダー Ver3.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+color-scheme:light dark;
+--bg:#fdf7f3; --panel:#fffdf9; --panel2:#fbeef3; --chip:#fbf0f4;
+--line:#ecd9d2; --txt:#2e2126; --sub:#7d6570;
+--accent:#d81b74; --accent-strong:#b8125f; --accent-ink:#ffffff;
+--gold:#9a741f; --gold-soft:#faf3e0;
+--code-bg:#2b1d23;
+--shadow:0 10px 28px rgba(196,30,110,.08);
+}
+@media (prefers-color-scheme: dark){
+:root{
+--bg:#1b1318; --panel:#271d24; --panel2:#33252f; --chip:#2c2229;
+--line:#463443; --txt:#f7edf2; --sub:#c3a6b5;
+--accent:#ff5da2; --accent-strong:#ff77ae; --accent-ink:#2a0f1e;
+--gold:#d9ab4e; --gold-soft:#38301d;
+--code-bg:#171114;
+--shadow:none;
+}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;line-height:1.6}
+header{padding:24px 16px 4px;text-align:center}
+header h1{margin:0;font-size:26px;letter-spacing:.04em;font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif;font-weight:800}
+header h1 .ver{font-size:16px;color:var(--accent-strong);margin-left:6px}
+@media (prefers-color-scheme: dark){ header h1 .ver{color:var(--accent)}}
+header p{color:var(--sub);font-size:14px;margin:8px auto 0;max-width:560px;line-height:1.7}
+header p strong{color:var(--txt)}
+main{max-width:860px;margin:0 auto;padding:12px 14px 40px}
+section{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:16px 18px;margin:12px 0}
+section h2{font-size:15.5px;margin:0 0 10px;color:var(--accent-strong);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif;font-weight:800}
+@media (prefers-color-scheme: dark){ section h2{color:var(--accent)}}
+section h2 .note{color:var(--sub);font-size:12px;font-weight:500;margin-left:8px;font-family:"Zen Kaku Gothic New",sans-serif}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:1;background:transparent;border:0;appearance:none;-webkit-appearance:none;cursor:pointer;z-index:2}
+.opt label{position:relative;z-index:1}
+.opt input:focus-visible + label{outline:2px solid var(--accent);outline-offset:2px}
+.opt label{display:inline-block;padding:8px 14px;border:1.5px solid var(--line);border-radius:999px;background:var(--chip);
+font-size:13px;font-weight:700;cursor:pointer;transition:.15s;user-select:none}
+.opt input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:800}
+textarea,input[type=text]{width:100%;background:var(--bg);color:var(--txt);border:1.5px solid var(--line);border-radius:12px;
+padding:10px 12px;font-size:13px;line-height:1.6;font-family:ui-monospace,Menlo,Consolas,monospace}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--accent)}
+textarea.out{min-height:110px;resize:vertical}
+.row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+button{background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:9px 18px;font-size:13px;
+font-weight:800;cursor:pointer;font-family:inherit}
+button:hover{background:var(--accent-strong)}
+@media (prefers-color-scheme: dark){ button:hover{background:var(--accent-strong);color:#2a0f1e}}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.45;cursor:default}
+.memo{font-size:12.5px;color:var(--sub);line-height:1.75}
+.fixed{font-size:12px;color:var(--sub);line-height:1.7;word-break:break-all;background:var(--panel2);border:1px dashed var(--line);
+border-radius:12px;padding:10px 12px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.copied{color:var(--accent-strong);font-size:12px;min-height:1em;font-weight:700}
+@media (prefers-color-scheme: dark){.copied{color:var(--accent)}}
+.count{color:var(--sub);font-size:12px;font-weight:500}
+.modebar{display:flex;gap:8px;flex-wrap:wrap}
+.mode-desc{margin:10px 0 0}
+.mode-desc strong{color:var(--txt)}
+/* ---------- ステップ見出し ---------- */
+.step-head{display:flex;align-items:center;gap:10px;margin:22px 2px 0}
+.step-head:first-child{margin-top:6px}
+.step-num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);
+display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;font-family:"M PLUS Rounded 1c",sans-serif}
+.step-title{font-size:17px;font-weight:800;font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif}
+.step-sub{font-size:12px;color:var(--sub);font-weight:500}
+/* ---------- やり方（3ステップ図解） ---------- */
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin-top:12px}
+.step{background:var(--panel2);border:1.5px solid var(--line);border-radius:14px;padding:12px 8px 10px;text-align:center}
+.step svg{width:40px;height:40px;color:var(--accent-strong)}
+@media (prefers-color-scheme: dark){ .step svg{color:var(--accent)}}
+.step .s-label{display:block;font-size:13.5px;font-weight:800;margin-top:6px;line-height:1.45}
+.step .s-num{display:inline-block;background:var(--accent);color:var(--accent-ink);border-radius:999px;
+font-size:11px;font-weight:800;padding:1px 9px;margin-bottom:6px}
+.step-arrow{align-self:center;color:var(--accent);font-weight:900;font-size:18px}
+@media (max-width:560px){.steps{grid-template-columns:1fr}.step-arrow{transform:rotate(90deg);justify-self:center}}
+/* ---------- 部屋カード ---------- */
+.room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.room-card{display:block;border-radius:16px;border:2px solid var(--line);background:var(--bg);color:var(--txt);text-decoration:none;overflow:hidden;transition:border-color.15s, transform.15s}
+.room-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.room-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.room-card img{display:block;width:100%;height:190px;object-fit:cover;object-position:center 22%}
+.room-card .room-body{padding:10px 12px 12px;text-align:center}
+.room-card .room-name{display:block;font-size:19px;font-weight:800;font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif;line-height:1.3}
+.room-card .room-sub{display:block;font-size:12px;color:var(--sub);margin-top:3px}
+.room-card .room-go{display:inline-block;margin-top:8px;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:12.5px;border-radius:999px;padding:5px 14px}
+@media (max-width:560px){.room-grid{grid-template-columns:1fr}.room-card img{height:170px}}
+.noroom{display:flex;gap:10px;align-items:flex-start;margin-top:12px;background:var(--gold-soft);border:1.5px dashed var(--gold);
+border-radius:14px;padding:10px 14px;font-size:12.5px;line-height:1.7;color:var(--txt)}
+.noroom .nr-icon{font-size:20px;line-height:1.3;flex:none}
+.noroom strong{color:var(--gold)}
+textarea.frag{min-height:56px;resize:vertical}
+section[id]{scroll-margin-top:12px}
+.frag-label{font-size:13.5px;font-weight:800;margin:0 0 6px}
+.frag-label .en{color:var(--accent-strong)}
+@media (prefers-color-scheme: dark){.frag-label .en{color:var(--accent)}}
+footer{text-align:center;color:var(--sub);font-size:12px;padding:0 16px 84px;line-height:1.7}
+/* ---------- フローティングナビ（スクロール補助） ---------- */
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+.float-nav{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;gap:8px;align-items:center;
+background:var(--panel);border:1.5px solid var(--line);border-radius:999px;padding:6px;box-shadow:0 12px 32px rgba(46,33,38,.18)}
+.float-nav a,.float-nav button{border-radius:999px;font-size:12.5px;font-weight:800;line-height:1;text-decoration:none;white-space:nowrap}
+.float-nav a{color:var(--txt);background:var(--chip);border:1.5px solid var(--line);padding:9px 13px}
+.float-nav a:hover{border-color:var(--accent);color:var(--accent-strong)}
+@media (prefers-color-scheme: dark){.float-nav a:hover{color:var(--accent)}}
+.float-nav button{padding:9px 15px}
+.float-nav button:focus-visible,.float-nav a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:560px){.float-nav{left:12px;right:12px;justify-content:center}.float-nav a,.float-nav button{flex:1;text-align:center}}
+</style>
+</head>
+<body>
+<header>
+<h1>プロンプトビルダー <span class="ver">Ver3.1</span></h1>
+<p>選ぶのは<strong>各部屋</strong>で。ここは、選んだタグを<strong>貼って・まとめて・コピーする</strong>場所です。</p>
+<div class="steps" aria-label="使い方">
+<div class="step">
+<span class="s-num">STEP 1</span>
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8h15l17 17-15 15L8 23z"/><circle cx="17" cy="17" r="3.5" fill="currentColor" stroke="none"/></svg>
+<span class="s-label">部屋で選んで<br>タグをコピー</span>
+</div>
+<span class="step-arrow" aria-hidden="true">→</span>
+<div class="step">
+<span class="s-num">STEP 2</span>
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="11" y="9" width="26" height="33" rx="3"/><path d="M18 9a6 4 0 0 1 12 0"/><path d="M24 20v10"/><path d="M18 25l6 6 6-6"/></svg>
+<span class="s-label">下の「貼る」に<br>ペースト</span>
+</div>
+<span class="step-arrow" aria-hidden="true">→</span>
+<div class="step">
+<span class="s-num">STEP 3</span>
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="24" height="26" rx="3"/><path d="M32 16V9a3 3 0 0 0-3-3H11a3 3 0 0 0-3 3v20a3 3 0 0 0 3 3h5"/></svg>
+<span class="s-label">できあがりを<br>コピーして使う</span>
+</div>
+</div>
+<div class="row" style="justify-content:center;margin-top:14px">
+<button id="resetBtn" type="button">最小構成にリセット</button>
+</div>
+</header>
+<main>
+
+<div class="step-head"><span class="step-num">1</span><span class="step-title">部屋で選ぶ</span><span class="step-sub">タップで部屋へ移動します</span></div>
+<section id="roomMapSec" aria-label="部屋へのリンク">
+<div class="room-grid">
+<a class="room-card" href="../miyuu-kosupurekatarogu/">
+<img src="assets/nav-cosplay.jpg" alt="メイド服のコスプレをしたミュウ" width="480" height="702" loading="lazy">
+<span class="room-body">
+<span class="room-name">コスプレ</span>
+<span class="room-sub">コスプレカタログ</span>
+<span class="room-go">開く →</span>
+</span>
+</a>
+<a class="room-card" href="../miyuuzhao-seti-ebiruda/">
+<img src="assets/nav-outfit.jpg" alt="私服を着たミュウ" width="480" height="701" loading="lazy">
+<span class="room-body">
+<span class="room-name">私服</span>
+<span class="room-sub">着せ替えビルダー</span>
+<span class="room-go">開く →</span>
+</span>
+</a>
+<a class="room-card" href="../kameraanguruzao-jian-biao/">
+<img src="assets/nav-face.jpg" alt="笑顔のミュウの顔のアップ" width="480" height="702" loading="lazy">
+<span class="room-body">
+<span class="room-name">表情・ポーズ</span>
+<span class="room-sub">カメラアングル早見表</span>
+<span class="room-go">開く →</span>
+</span>
+</a>
+</div>
+<div class="noroom">
+<span class="nr-icon" aria-hidden="true">💡</span>
+<span><strong>背景・光・時間帯・シチュエーション</strong>の部屋はまだありません。作ったタグは、この下の<strong>「貼る」</strong>に直接貼ればOKです。</span>
+</div>
+</section>
+
+<div class="step-head"><span class="step-num">2</span><span class="step-title">貼る</span><span class="step-sub">部屋でコピーしたものをここへ</span></div>
+<section id="fragSec">
+<p class="frag-label"><span class="en">英語タグ</span>（ComfyUI用）</p>
+<textarea class="frag" id="fragEn" rows="3" placeholder="例：maid outfit, apron, headdress"></textarea>
+<p class="frag-label" style="margin-top:12px"><span class="en">日本語の文</span>（ChatGPT用）</p>
+<textarea class="frag" id="fragJp" rows="3" placeholder="例：メイド服を着て、カフェで微笑んでいる"></textarea>
+<p class="memo" style="margin:8px 0 0">重なったタグは、自動で1つにまとめます。</p>
+</section>
+
+<div class="step-head"><span class="step-num">＋</span><span class="step-title">細かい設定</span><span class="step-sub">ふだんはそのままでOK</span></div>
+
+<section>
+<h2>プロンプトの長さ</h2>
+<div class="modebar" id="modeOpts"></div>
+<p class="memo mode-desc" id="modeDesc"></p>
+</section>
+
+<section>
+<h2>固定ブロック<span class="note">自動で入ります</span></h2>
+<div class="fixed" id="fixedView"></div>
+<p class="memo" id="fixedMeta" style="margin:8px 0 0"></p>
+</section>
+
+<section>
+<h2>人数</h2>
+<div class="opts" id="peopleOpts"></div>
+<div style="height:8px"></div>
+<input type="text" id="partnerTags" placeholder="相手のタグ（英語）例：black hair, tall" disabled>
+<div style="height:8px"></div>
+<input type="text" id="partnerTagsJp" placeholder="相手の説明（日本語）例：黒髪で背の高い男性" disabled>
+<div class="row">
+<button id="oreBtn" disabled>「俺」セットを入れる</button>
+</div>
+<p class="memo">二人では、相手の特徴をはっきり書くと混ざりにくいです。</p>
+</section>
+
+<section>
+<h2>自分で足すタグ<span class="note">英語・カンマ区切り</span></h2>
+<input type="text" id="freeTags" placeholder="例：holding cup, steam, window seat">
+</section>
+
+<section>
+<h2>お気に入り登録<span class="note">ブラウザに保存されます</span></h2>
+<input type="text" id="presetName" placeholder="名前（例：お気に入り1）">
+<div style="height:8px"></div>
+<textarea id="presetText" rows="3" placeholder="登録したいタグを貼り付け"></textarea>
+<div class="row">
+<button id="presetSave">登録する</button>
+</div>
+<div class="opts" id="presetList" style="margin-top:10px"></div>
+</section>
+
+<section>
+<h2>ネガティブ設定<span class="note">失敗よけ</span></h2>
+<div class="opts" id="negOpts"></div>
+</section>
+
+<div class="step-head"><span class="step-num">3</span><span class="step-title">できあがり</span><span class="step-sub">コピーして使ってください</span></div>
+
+<section id="outSec">
+<h2>英語プロンプト（ComfyUI用） <span class="count" id="posCount"></span></h2>
+<textarea class="out" id="posOut" readonly></textarea>
+<div class="row">
+<button data-copy="posOut" data-msg="copiedPos">コピーする</button>
+<span class="copied" id="copiedPos"></span>
+</div>
+</section>
+
+<section>
+<h2>英語ネガティブ <span class="count" id="negCount"></span></h2>
+<textarea class="out" id="negOut" readonly></textarea>
+<div class="row">
+<button data-copy="negOut" data-msg="copiedNeg">コピーする</button>
+<span class="copied" id="copiedNeg"></span>
+</div>
+<p class="memo">推奨設定：832×1216 / steps 28 / CFG 5.5 / euler_ancestral / FaceDetailer ON（0.30）/ LoRA myu_original_v2（0.8）。絵が崩れたら「完全版」に切り替えてください。</p>
+</section>
+
+<section>
+<h2>日本語プロンプト（ChatGPT用） <span class="count" id="jpCount"></span></h2>
+<textarea class="out" id="jpOut" readonly></textarea>
+<div class="row">
+<button data-copy="jpOut" data-msg="copiedJp">コピーする</button>
+<span class="copied" id="copiedJp"></span>
+</div>
+<p class="memo">ChatGPT用は文章だけです（品質タグとネガティブは入りません）。</p>
+</section>
+
+</main>
+<footer>プロンプトビルダー Ver3.1 — 選ぶのは各部屋、ここは貼って・まとめて・コピーする場所です。</footer>
+
+<nav class="float-nav" id="floatNav" aria-label="ページ内ショートカット">
+<a href="#fragSec">貼る</a>
+<a href="#outSec">できあがり</a>
+<button type="button" id="toTopBtn" aria-label="ページの一番上へ戻る">↑ トップへ</button>
+</nav>
+
+<script>
+// ===== 固定ブロック（ミュウの同一性） =====
+const FIXED_PRE = [
+"masterpiece, best quality, amazing quality"
+];
+// 人数ブロック（ソロ／二人（男）／二人（女）で切替）
+const PEOPLE = {
+solo: "myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru",
+duo_m: "myu_original, 1girl, 1boy, adult woman, mature female, gyaru",
+duo_f: "myu_original, 2girls, adult woman, mature female, gyaru"
+};
+const PEOPLE_NEG = {
+solo: "2girls, 1boy, multiple girls, split screen, duplicate, clone",
+duo_m: "3girls, 2boys, multiple girls, split screen, duplicate, clone, twins",
+duo_f: "1boy, 3girls, multiple girls, split screen, duplicate, clone, twins"
+};
+let peopleMode = "solo";
+// 「俺」セット（相手タグ欄に入る男性キャラの土台。自分のイメージに合わせて編集可）
+const ORE_TAGS = "man, adult man";
+// ===== プロンプトモード：通常版（LoRAあり・短い）／完全版（LoRAなし・フル） =====
+// 通常版：顔・髪・体型は LoRA myu_original_v2 に焼き込み済みなので繰り返さない。
+// 残すのは LoRA だけでは守りきれない事故防止（肌の色割れ）と指輪だけ。
+let promptMode = "lite"; // "lite" | "full"
+const FIXED_POST_LITE = [
+"dark skin, golden brown skin, (even skin tone:1.3)",
+"wedding ring, silver ring on left ring finger"
+];
+const FIXED_POST_FULL = [
+"(messy spiky short hair:1.35), choppy layered bob hair, short layered bob hair, bangs covering forehead, hair between eyes, light blonde beige hair, brown eyes, thin eyebrows, small nose, small mouth, ear piercings, multiple piercings",
+"dark skin, dark-skinned female, (tanned skin:1.15), golden brown skin, healthy skin, (even skin tone:1.3), uniform skin color all over body",
+"(curvy:1.2), (large breasts:1.15), narrow waist, (long legs:1.25), long slender legs, soft body, natural body line",
+"wedding ring, silver ring on left ring finger"
+];
+const MODE_DESC = {
+lite: "<strong>通常版（おすすめ）</strong> — LoRAありの時はこちら。短くて安定します。",
+full: "<strong>完全版</strong> — LoRAなし・他モデル・img2img の時だけ。顔・髪・体型まで全部入ります。"
+};
+function fixedPost() { return promptMode === "lite" ? FIXED_POST_LITE : FIXED_POST_FULL; }
+
+const NEG_BASE_LITE = "worst quality, low quality, bad anatomy, watermark, text, child, loli, young, pale skin, tan lines, muscular, abs, censored, multiple views";
+const NEG_BASE_FULL = "bad quality, worst quality, low quality, lowres, blurry, bad anatomy, watermark, text, logo, signature, long hair, medium hair, very long hair, smooth straight hair, heavy makeup, thick eyebrows, child, teen, loli, young, young looking, muscular, abs, defined muscles, visible muscle lines, censored, mosaic censoring, bar censor, multiple views, character sheet";
+function negBase() { return promptMode === "lite" ? NEG_BASE_LITE : NEG_BASE_FULL; }
+const NEG_TOGGLES = {
+"手の破綻を防ぐ": "bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands",
+"日焼け跡・色割れを防ぐ": "(tan lines:1.5), tanlines, (uneven skin tone:1.4), two-tone skin, pale skin, fair skin, white skin"
+};
+
+// ===== ネガティブUI =====
+const negWrap = document.getElementById("negOpts");
+Object.keys(NEG_TOGGLES).forEach((label, nIdx) => {
+const d = document.createElement("span");
+d.className = "opt";
+const input = document.createElement("input");
+input.type = "checkbox"; input.checked = true; input.dataset.neg = label;
+input.id = "neg-" + nIdx;
+input.addEventListener("change", update);
+const lab = document.createElement("label");
+lab.textContent = label;
+lab.htmlFor = input.id;
+d.appendChild(input); d.appendChild(lab);
+negWrap.appendChild(d);
+});
+
+// ===== プロンプトモード切替 =====
+const modeWrap = document.getElementById("modeOpts");
+[["lite", "通常版（短い）"], ["full", "完全版（長い）"]].forEach(([val, labelText], i) => {
+const d = document.createElement("span");
+d.className = "opt";
+const input = document.createElement("input");
+input.type = "radio"; input.name = "promptMode"; input.value = val;
+input.id = "mode-" + val;
+if (i === 0) input.checked = true;
+input.addEventListener("change", () => { promptMode = val; update(); });
+const lab = document.createElement("label");
+lab.textContent = labelText;
+lab.htmlFor = input.id;
+d.appendChild(input); d.appendChild(lab);
+modeWrap.appendChild(d);
+});
+
+// ===== 人数切替 =====
+const peopleWrap = document.getElementById("peopleOpts");
+[["solo", "ソロ"], ["duo_m", "二人（男）"], ["duo_f", "二人（女）"]].forEach(([val, labelText], i) => {
+const d = document.createElement("span");
+d.className = "opt";
+const input = document.createElement("input");
+input.type = "radio"; input.name = "people"; input.value = val;
+input.id = "people-" + val;
+if (i === 0) input.checked = true;
+input.addEventListener("change", () => {
+peopleMode = val;
+document.getElementById("partnerTags").disabled = val === "solo";
+document.getElementById("partnerTagsJp").disabled = val === "solo";
+document.getElementById("oreBtn").disabled = val === "solo";
+update();
+});
+const lab = document.createElement("label");
+lab.textContent = labelText;
+lab.htmlFor = input.id;
+d.appendChild(input); d.appendChild(lab);
+peopleWrap.appendChild(d);
+});
+document.getElementById("partnerTags").addEventListener("input", update);
+document.getElementById("oreBtn").addEventListener("click", () => {
+document.getElementById("partnerTags").value = ORE_TAGS;
+update();
+});
+
+document.getElementById("freeTags").addEventListener("input", update);
+document.getElementById("partnerTagsJp").addEventListener("input", update);
+document.getElementById("fragEn").addEventListener("input", update);
+document.getElementById("fragJp").addEventListener("input", update);
+
+// ===== 最小構成にリセット =====
+document.getElementById("resetBtn").addEventListener("click", () => {
+promptMode = "lite";
+document.getElementById("mode-lite").checked = true;
+peopleMode = "solo";
+document.getElementById("people-solo").checked = true;
+const partner = document.getElementById("partnerTags");
+partner.value = ""; partner.disabled = true;
+const partnerJp = document.getElementById("partnerTagsJp");
+partnerJp.value = ""; partnerJp.disabled = true;
+document.getElementById("oreBtn").disabled = true;
+document.getElementById("freeTags").value = "";
+document.getElementById("fragEn").value = "";
+document.getElementById("fragJp").value = "";
+document.querySelectorAll("#negOpts input").forEach(inp => { inp.checked = true; });
+update();
+});
+
+// ===== カスタムプリセット（localStorage保存） =====
+const PRESET_KEY = "myuPromptPresets";
+function loadPresets() { try { return JSON.parse(localStorage.getItem(PRESET_KEY)) || []; } catch (e) { return []; } }
+function savePresets(list) { localStorage.setItem(PRESET_KEY, JSON.stringify(list)); }
+function renderPresets() {
+const wrap = document.getElementById("presetList");
+wrap.innerHTML = "";
+loadPresets().forEach((p, idx) => {
+const d = document.createElement("span");
+d.className = "opt";
+const b = document.createElement("label");
+b.textContent = p.name;
+b.addEventListener("click", () => {
+document.getElementById("freeTags").value = p.text;
+update();
+});
+const del = document.createElement("button");
+del.textContent = "×";
+del.style.padding = "2px 8px";
+del.style.marginLeft = "4px";
+del.addEventListener("click", () => {
+const l = loadPresets(); l.splice(idx, 1); savePresets(l); renderPresets();
+});
+d.appendChild(b); d.appendChild(del);
+wrap.appendChild(d);
+});
+}
+document.getElementById("presetSave").addEventListener("click", () => {
+const name = document.getElementById("presetName").value.trim();
+const text = document.getElementById("presetText").value.trim();
+if (!name || !text) return;
+const l = loadPresets(); l.push({ name, text }); savePresets(l); renderPresets();
+document.getElementById("presetName").value = "";
+document.getElementById("presetText").value = "";
+});
+renderPresets();
+
+function tagCount(str) { return str ? str.split(",").map(s => s.trim()).filter(Boolean).length : 0; }
+// ハブの仕上げ：タグ列をトークン単位で重複除去（大文字小文字は同一視、順序は維持）
+function dedupeJoin(strs) {
+const seen = new Set(); let removed = 0; const out = [];
+strs.forEach(str => {
+String(str).split(",").map(t => t.trim()).filter(Boolean).forEach(tok => {
+const key = tok.toLowerCase();
+if (seen.has(key)) { removed++; return; }
+seen.add(key); out.push(tok);
+});
+});
+return { str: out.join(", "), removed, count: out.length };
+}
+
+// ===== 日本語プロンプト（ChatGPT用）の組み立て =====
+// 品質タグは使わず、キャラ説明は v5 の文章版で固定。衣装・表情・背景などは断片（日本語欄）の文がそのまま入る
+const JP_CHARA = "27歳の成人女性「ミュウ」。黒ギャルで、明るいベージュブロンドの短いレイヤードボブ、茶色の瞳、小さめの鼻と口元、耳ピアス。肌はディープブロンズの均一な褐色で、体型は曲線的で柔らか。左手の薬指に銀の結婚指輪を着けている。";
+const PEOPLE_JP = {
+solo: "",
+duo_m: "男性のパートナーと二人で写っている。",
+duo_f: "もう一人の女性と二人で写っている。"
+};
+function buildJp() {
+const s = ["アニメ風のイラスト。", JP_CHARA];
+if (PEOPLE_JP[peopleMode]) s.push(PEOPLE_JP[peopleMode]);
+const partnerJp = document.getElementById("partnerTagsJp").value.trim();
+if (peopleMode !== "solo" && partnerJp) s.push("相手は" + partnerJp + "。");
+const frag = document.getElementById("fragJp").value.trim();
+if (frag) s.push(frag);
+return s.join("");
+}
+function update() {
+const post = fixedPost();
+document.getElementById("modeDesc").innerHTML = MODE_DESC[promptMode];
+const parts = [...FIXED_PRE, PEOPLE[peopleMode]];
+const partner = document.getElementById("partnerTags").value.trim();
+if (peopleMode !== "solo" && partner) parts.push(partner);
+parts.push(...post);
+const fixedStr = [...FIXED_PRE, PEOPLE[peopleMode], ...post].join(", ");
+document.getElementById("fixedView").textContent = fixedStr;
+document.getElementById("fixedMeta").textContent = promptMode === "lite"
+? "通常版：" + tagCount(fixedStr) + "タグ / " + fixedStr.length + "文字（完全版は " + tagCount([...FIXED_PRE, PEOPLE[peopleMode], ...FIXED_POST_FULL].join(", ")) + "タグ）"
+: "完全版：" + tagCount(fixedStr) + "タグ / " + fixedStr.length + "文字";
+const fragEn = document.getElementById("fragEn").value.trim();
+if (fragEn) parts.push(fragEn);
+const free = document.getElementById("freeTags").value.trim();
+if (free) parts.push(free);
+const posRes = dedupeJoin(parts);
+document.getElementById("posOut").value = posRes.str;
+document.getElementById("posCount").textContent = "— " + posRes.count + "タグ / " + posRes.str.length + "文字" + (posRes.removed ? "（重複 " + posRes.removed + " 件を除去）" : "");
+
+const neg = [negBase(), PEOPLE_NEG[peopleMode]];
+document.querySelectorAll("#negOpts input").forEach(inp => {
+if (inp.checked) neg.push(NEG_TOGGLES[inp.dataset.neg]);
+});
+const negRes = dedupeJoin(neg);
+document.getElementById("negOut").value = negRes.str;
+document.getElementById("negCount").textContent = "— " + negRes.count + "タグ / " + negRes.str.length + "文字" + (negRes.removed ? "（重複 " + negRes.removed + " 件を除去）" : "");
+
+const jpStr = buildJp();
+document.getElementById("jpOut").value = jpStr;
+document.getElementById("jpCount").textContent = "— " + jpStr.length + "文字";
+}
+
+document.querySelectorAll("button[data-copy]").forEach(btn => {
+btn.addEventListener("click", async () => {
+const ta = document.getElementById(btn.dataset.copy);
+const msg = document.getElementById(btn.dataset.msg);
+try { await navigator.clipboard.writeText(ta.value); }
+catch (e) { ta.select(); document.execCommand("copy"); }
+msg.textContent = "コピーしました ✓";
+setTimeout(() => msg.textContent = "", 2000);
+});
+});
+
+// ===== フローティングナビ：常時表示、下の方からでもワンタップで移動 =====
+(function () {
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+document.getElementById("toTopBtn").addEventListener("click", () => {
+window.scrollTo({ top: 0, behavior: reduceMotion.matches ? "auto" : "smooth" });
+});
+})();
+
+update();
+</script>
+</body>
+</html>
