@@ -69,6 +69,22 @@ border-radius:12px;padding:10px 12px;font-family:ui-monospace,Menlo,Consolas,mon
 .modebar{display:flex;gap:8px;flex-wrap:wrap}
 .mode-desc{margin:10px 0 0}
 .mode-desc strong{color:var(--txt)}
+/* ---------- キャラクター選択カード ---------- */
+.chara-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.chara-card{position:relative;display:block;border:2px solid var(--line);border-radius:14px;background:var(--bg);
+padding:10px;text-align:center;cursor:pointer;transition:border-color.15s, background.15s}
+.chara-card input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:1;background:transparent;border:0;appearance:none;-webkit-appearance:none;cursor:pointer}
+.chara-card:has(input:checked){border-color:var(--accent);background:var(--panel2)}
+.chara-card:has(input:checked)::after{content:"✓ 選択中";position:absolute;top:8px;right:8px;background:var(--accent);color:var(--accent-ink);
+font-size:11px;font-weight:800;border-radius:999px;padding:2px 9px}
+.chara-card:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.chara-card .chara-thumb{display:block;width:100%;height:92px;border-radius:10px;overflow:hidden;background:var(--chip)}
+.chara-card .chara-thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.chara-card .chara-thumb svg{width:44px;height:44px;color:var(--sub);margin-top:24px}
+.chara-card .chara-name{display:block;font-size:17px;font-weight:800;margin-top:8px;font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif;line-height:1.3}
+.chara-card:has(input:checked) .chara-name{color:var(--accent-strong)}
+@media (prefers-color-scheme: dark){.chara-card:has(input:checked) .chara-name{color:var(--accent)}}
+.chara-card .chara-sub{display:block;font-size:11.5px;color:var(--sub);margin-top:2px;line-height:1.5}
 /* ---------- ステップ見出し ---------- */
 .step-head{display:flex;align-items:center;gap:10px;margin:22px 2px 0}
 .step-head:first-child{margin-top:6px}
@@ -158,6 +174,22 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 
 <div class="step-head"><span class="step-num">1</span><span class="step-title">キャラクターを選ぶ</span><span class="step-sub">誰を作るか決めます</span></div>
 <section id="charaSec">
+<h2>キャラクター</h2>
+<div class="chara-grid" role="radiogroup" aria-label="作成するキャラクター">
+<label class="chara-card">
+<input type="radio" name="chara" value="myu" checked>
+<span class="chara-thumb"><img src="assets/nav-face.jpg" alt="ミュウ" width="480" height="702" loading="lazy"></span>
+<span class="chara-name">ミュウ</span>
+<span class="chara-sub">専用プロンプトが自動で入ります</span>
+</label>
+<label class="chara-card">
+<input type="radio" name="chara" value="none">
+<span class="chara-thumb"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="16" r="8"/><path d="M9 42c2.5-8.5 8-13 15-13s12.5 4.5 15 13"/><path d="M8 40L40 8" stroke-dasharray="1 0"/></svg></span>
+<span class="chara-name">なし</span>
+<span class="chara-sub">自分でタグを書くとき</span>
+</label>
+</div>
+<p class="memo" id="charaDesc" style="margin:8px 0 14px"></p>
 <h2>人数</h2>
 <div class="opts" id="peopleOpts"></div>
 <div style="height:8px"></div>
@@ -306,6 +338,17 @@ duo_m: "3girls, 2boys, multiple girls, split screen, duplicate, clone, twins",
 duo_f: "1boy, 3girls, multiple girls, split screen, duplicate, clone, twins"
 };
 let peopleMode = "solo";
+// ===== キャラクター選択（ステップ1） =====
+// "myu" を選ぶとミュウ専用の固定タグ（LoRA・肌・指輪）とChatGPT用の人物説明が乗る。
+// "none" のときは専用タグを一切入れず、汎用の人数タグだけになる。
+let charaMode = "myu";
+const PEOPLE_GENERIC = {
+solo: "(solo:1.3), 1girl, adult woman",
+duo_m: "1girl, 1boy, adult woman",
+duo_f: "2girls, adult woman"
+};
+const NEG_BASE_GENERIC = "worst quality, low quality, bad anatomy, watermark, text, censored, multiple views";
+function peopleTags() { return charaMode === "myu" ? PEOPLE[peopleMode] : PEOPLE_GENERIC[peopleMode]; }
 // 「俺」セット（相手タグ欄に入る男性キャラの土台。自分のイメージに合わせて編集可）
 const ORE_TAGS = "man, adult man";
 // ===== プロンプトモード：通常版（LoRAあり・短い）／完全版（LoRAなし・フル） =====
@@ -326,11 +369,11 @@ const MODE_DESC = {
 lite: "<strong>通常版（おすすめ）</strong> — LoRAありの時はこちら。短くて安定します。",
 full: "<strong>完全版</strong> — LoRAなし・他モデル・img2img の時だけ。顔・髪・体型まで全部入ります。"
 };
-function fixedPost() { return promptMode === "lite" ? FIXED_POST_LITE : FIXED_POST_FULL; }
+function fixedPost() { if (charaMode !== "myu") return []; return promptMode === "lite" ? FIXED_POST_LITE : FIXED_POST_FULL; }
 
 const NEG_BASE_LITE = "worst quality, low quality, bad anatomy, watermark, text, child, loli, young, pale skin, tan lines, muscular, abs, censored, multiple views";
 const NEG_BASE_FULL = "bad quality, worst quality, low quality, lowres, blurry, bad anatomy, watermark, text, logo, signature, long hair, medium hair, very long hair, smooth straight hair, heavy makeup, thick eyebrows, child, teen, loli, young, young looking, muscular, abs, defined muscles, visible muscle lines, censored, mosaic censoring, bar censor, multiple views, character sheet";
-function negBase() { return promptMode === "lite" ? NEG_BASE_LITE : NEG_BASE_FULL; }
+function negBase() { if (charaMode !== "myu") return NEG_BASE_GENERIC; return promptMode === "lite" ? NEG_BASE_LITE : NEG_BASE_FULL; }
 const NEG_TOGGLES = {
 "手の破綻を防ぐ": "bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands",
 "日焼け跡・色割れを防ぐ": "(tan lines:1.5), tanlines, (uneven skin tone:1.4), two-tone skin, pale skin, fair skin, white skin"
@@ -369,6 +412,11 @@ d.appendChild(input); d.appendChild(lab);
 modeWrap.appendChild(d);
 });
 
+// ===== キャラクター切替 =====
+document.querySelectorAll('input[name="chara"]').forEach(inp => {
+inp.addEventListener("change", () => { charaMode = inp.value; update(); });
+});
+
 // ===== 人数切替 =====
 const peopleWrap = document.getElementById("peopleOpts");
 [["solo", "ソロ"], ["duo_m", "二人（男）"], ["duo_f", "二人（女）"]].forEach(([val, labelText], i) => {
@@ -404,6 +452,8 @@ document.getElementById("fragJp").addEventListener("input", update);
 
 // ===== 最小構成にリセット =====
 document.getElementById("resetBtn").addEventListener("click", () => {
+charaMode = "myu";
+document.querySelector('input[name="chara"][value="myu"]').checked = true;
 promptMode = "lite";
 document.getElementById("mode-lite").checked = true;
 peopleMode = "solo";
@@ -480,7 +530,8 @@ duo_m: "男性のパートナーと二人で写っている。",
 duo_f: "もう一人の女性と二人で写っている。"
 };
 function buildJp() {
-const s = ["アニメ風のイラスト。", JP_CHARA];
+const s = ["アニメ風のイラスト。"];
+if (charaMode === "myu") s.push(JP_CHARA);
 if (PEOPLE_JP[peopleMode]) s.push(PEOPLE_JP[peopleMode]);
 const partnerJp = document.getElementById("partnerTagsJp").value.trim();
 if (peopleMode !== "solo" && partnerJp) s.push("相手は" + partnerJp + "。");
@@ -490,14 +541,21 @@ return s.join("");
 }
 function update() {
 const post = fixedPost();
-document.getElementById("modeDesc").innerHTML = MODE_DESC[promptMode];
-const parts = [...FIXED_PRE, PEOPLE[peopleMode]];
+document.getElementById("charaDesc").textContent = charaMode === "myu"
+? "ミュウを選択中：ComfyUI用の専用タグ（LoRA・肌・指輪）と、ChatGPT用の人物説明が自動で入ります。"
+: "キャラクターなし：ミュウ専用プロンプトは入りません。「貼る」や「自分で足すタグ」に書いたものだけが入ります。";
+document.getElementById("modeDesc").innerHTML = charaMode === "myu"
+? MODE_DESC[promptMode]
+: "キャラクター未選択のため、通常版／完全版（ミュウ用）は使われません。";
+const parts = [...FIXED_PRE, peopleTags()];
 const partner = document.getElementById("partnerTags").value.trim();
 if (peopleMode !== "solo" && partner) parts.push(partner);
 parts.push(...post);
-const fixedStr = [...FIXED_PRE, PEOPLE[peopleMode], ...post].join(", ");
+const fixedStr = [...FIXED_PRE, peopleTags(), ...post].join(", ");
 document.getElementById("fixedView").textContent = fixedStr;
-document.getElementById("fixedMeta").textContent = promptMode === "lite"
+document.getElementById("fixedMeta").textContent = charaMode !== "myu"
+? "キャラクター未選択：ミュウ専用のタグは入っていません。"
+: promptMode === "lite"
 ? "通常版：" + tagCount(fixedStr) + "タグ / " + fixedStr.length + "文字（完全版は " + tagCount([...FIXED_PRE, PEOPLE[peopleMode], ...FIXED_POST_FULL].join(", ")) + "タグ）"
 : "完全版：" + tagCount(fixedStr) + "タグ / " + fixedStr.length + "文字";
 const fragEn = document.getElementById("fragEn").value.trim();
@@ -510,7 +568,9 @@ document.getElementById("posCount").textContent = "— " + posRes.count + "タ�
 
 const neg = [negBase(), PEOPLE_NEG[peopleMode]];
 document.querySelectorAll("#negOpts input").forEach(inp => {
-if (inp.checked) neg.push(NEG_TOGGLES[inp.dataset.neg]);
+if (!inp.checked) return;
+if (charaMode !== "myu" && inp.dataset.neg.indexOf("日焼け") === 0) return; // 肌色まわりはミュウ専用
+neg.push(NEG_TOGGLES[inp.dataset.neg]);
 });
 const negRes = dedupeJoin(neg);
 document.getElementById("negOut").value = negRes.str;
