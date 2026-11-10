@@ -414,10 +414,11 @@
       <section id="view-list">
         <div class="lead">
           <h1><span class="accent">コスプレ</span>カタログ</h1>
-          <p>94着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。29着は見本イラストを新しい立ち絵に差し替えてあって、うち15着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。今回追加した7着と前回追加した26着は見本イラスト準備中のためプレースホルダー表示だよ。</p>
+          <p>107着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。29着は見本イラストを新しい立ち絵に差し替えてあって、うち15着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。今回追加した7着と前回追加した26着は見本イラスト準備中のためプレースホルダー表示だよ。</p>
           <div class="meta-line">
-            <span class="meta-chip">全94着</span>
-            <span class="meta-chip">新規7着追加（制服系2＋ファンタジー・イベント4＋際どい系1）</span>
+            <span class="meta-chip">全107着</span>
+            <span class="meta-chip">新規13着追加（オーナー提供・画像付き）</span>
+            <span class="meta-chip">新規7着追加（制服系3＋ファンタジー・イベント4）</span>
             <span class="meta-chip">新規26着追加（和・中華系16＋アニメ・ゲーム10）</span>
             <span class="meta-chip">見本29着を差し替え NEW（詩織モデル15着）</span>
             <span class="meta-chip">seed 939393 固定</span>
@@ -440,7 +441,7 @@
             </div>
             <div>
               <div class="b-title">コスプレ <span class="b-badge">このページ</span></div>
-              <p class="b-desc">全94着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
+              <p class="b-desc">全107着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
             </div>
           </div>
           <a class="branch-card" href="../miyuuzhao-seti-ebiruda/">
@@ -460,7 +461,7 @@
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
               <input id="search" type="search" placeholder="衣装名・タグで探す（例：ビキニ、bikini、下着）" autocomplete="off" />
             </label>
-            <span class="count-badge"><b id="hit-count">94</b> 着ヒット</span>
+            <span class="count-badge"><b id="hit-count">107</b> 着ヒット</span>
           </div>
           <div class="cat-tabs" id="cat-tabs" role="tablist" aria-label="カテゴリ"></div>
         </div>
@@ -582,7 +583,7 @@
         /* 定番 */
         { key: "negligee", name: "ネグリジェ", cat: "classic", jp: "透け感のある白いネグリジェ。レースの縁取り、細い肩紐、胸元の開いた上品なシルエット", tags: "negligee, sheer nightgown, lace trim" },
         { key: "bunny", name: "バニースーツ", cat: "classic", jp: "黒いバニースーツ。うさ耳カチューシャ、蝶ネクタイ、袖カフス、網タイツの王道バニー", tags: "bunny suit, black bunny suit, bunny ears, bowtie, cuffs, fishnet stockings" },
-        { key: "sailor", name: "セーラー服", cat: "classic", who: "詩織", jp: "白いセーラー服コス。赤いネッカチーフ、紺のプリーツスカート", tags: "sailor costume, serafuku cosplay, neckerchief, pleated skirt" },
+        { key: "sailor", name: "セーラー服・冬服", cat: "uniform", who: "詩織", jp: "長袖の白いセーラー服コス（冬服）。赤いネッカチーフ、紺のプリーツスカート", tags: "sailor costume, serafuku cosplay, long sleeves, neckerchief, pleated skirt" },
         { key: "maid", name: "メイド", cat: "classic", jp: "黒×白の王道メイド服。白エプロン、ヘッドドレス、フリルたっぷりのスカート", tags: "maid outfit, apron, headdress" },
         { key: "nurse", name: "ナース", cat: "classic", who: "詩織", jp: "白衣のナース服。ナースキャップ、タイトなミニ丈ワンピース型ユニフォーム", tags: "nurse outfit, nurse cap, white uniform" },
         { key: "miko", name: "巫女", cat: "classic", jp: "白い羽織に赤い袴の巫女装束。水引のような赤い紐飾り", tags: "miko outfit, shrine maiden, red hakama, white haori" },
@@ -683,8 +684,22 @@
         { key: "witch-apprentice", name: "魔女見習い", cat: "fantasy", noImg: true, jp: "witch apprentice outfit, purple dress, star-pattern cape, witch hat, broom, ribbon boots, magic pouch", tags: "witch, witch hat, broom, cape" },
         { key: "angel-dress", name: "天使ドレス", cat: "fantasy", noImg: true, jp: "angel outfit, white dress, feather wings, halo, gold trim, white gloves, sandals", tags: "angel, wings, halo, white dress" },
         { key: "pirate-captain", name: "海賊船長", cat: "fantasy", noImg: true, jp: "pirate captain outfit, long coat, tricorn hat, blouse, corset belt, boots, cutlass", tags: "pirate, hat, coat, sword" },
-        /* 際どい系（追加 No.94） */
-        { key: "lingerie-roomdress", name: "ランジェリー風ルームドレス", cat: "spicy", noImg: true, jp: "sheer robe over camisole dress, lace trim loungewear dress, ribbon, slippers", tags: "negligee style, sheer robe, lace trim, loungewear" }
+        /* オーナー提供・画像付き（追加 No.94-106） */
+        { key: "cos-teacher", name: "教師", cat: "uniform", who: "詩織", jp: "teacher outfit, brown skirt suit, tailored jacket, white blouse, pencil skirt, black pantyhose, high heels, glasses, book in hand", tags: "teacher, suit, glasses, pantyhose, skirt suit" },
+        { key: "cos-racequeen", name: "レースクイーン", cat: "fantasy", jp: "race queen outfit, high-leg racing leotard costume, black white and orange, cropped racing jacket, checker pattern choker, wrist cuffs, white high heels", tags: "race queen, leotard, racing jacket, choker" },
+        { key: "cos-cheer", name: "チアリーダー", cat: "classic", who: "詩織", jp: "cheerleader outfit, burgundy and white, sleeveless crop top, pleated mini skirt, pom-poms, crew socks, white sneakers", tags: "cheerleader, pom pom, pleated skirt" },
+        { key: "cos-doctor", name: "女医", cat: "uniform", jp: "doctor outfit, white lab coat, dark gray scrubs, stethoscope, id badge, clipboard, sneakers", tags: "doctor, lab coat, stethoscope, scrubs" },
+        { key: "cos-secretary", name: "秘書", cat: "uniform", who: "詩織", jp: "secretary outfit, beige skirt suit, burgundy turtleneck sweater, pencil skirt, pantyhose, short boots, glasses, clipboard", tags: "secretary, suit, glasses, office lady, pantyhose" },
+        { key: "cos-succubus", name: "サキュバス", cat: "spicy", jp: "succubus costume, black heart-cutout leotard, bat wings, horns, heart-tipped tail, bow tie, white cuffs, garter fishnet stockings, high heels", tags: "succubus, bat wings, horns, tail, fishnet stockings" },
+        { key: "cos-bikini-red", name: "ストリングビキニ（赤）", cat: "spicy", who: "詩織", jp: "red string bikini, triangle bikini top, side-tie bikini bottom, small necklace", tags: "bikini, swimsuit, red bikini, side-tie" },
+        { key: "cos-bikini-frill", name: "フリルビキニ", cat: "spicy", jp: "white and pink frilled bikini, ribbon bows, side-tie bikini bottom, wedge sandals", tags: "bikini, frills, ribbon, pink bikini" },
+        { key: "cos-bikini-leopard", name: "ヒョウ柄ビキニ", cat: "spicy", who: "詩織", jp: "leopard print bikini, triangle bikini top, side-tie bikini bottom, gold high-heel sandals", tags: "bikini, leopard print, animal print" },
+        { key: "cos-cafe", name: "カフェ店員", cat: "uniform", jp: "cafe staff uniform, white shirt, brown vest, bow tie, waist apron, mini skirt, pumps, serving tray with coffee", tags: "cafe uniform, apron, bow tie, waitress" },
+        { key: "cos-bikini-floral", name: "パレオ付き花柄ビキニ", cat: "spicy", jp: "floral hibiscus print bikini, matching sheer pareo wrap skirt, wedge sandals, anklet", tags: "bikini, floral pattern, pareo, hibiscus" },
+        { key: "cos-camisole-set", name: "キャミソールセット", cat: "spicy", who: "詩織", jp: "champagne beige satin camisole nightdress, lace trim, ribbon bow, necklace", tags: "camisole, satin, lace trim, nightwear" },
+        { key: "cos-corset", name: "コルセットランジェリー", cat: "spicy", jp: "brown lace corset dress, lace-up corset, frilled mini skirt, garter straps, lace-top fishnet stockings, lace choker, high-heel sandals", tags: "corset, lace, garter, fishnet stockings, choker" },
+        /* 制服系（追加 No.107） */
+        { key: "blazer-summer", name: "ブレザー制服・夏服", cat: "uniform", noImg: true, jp: "summer school uniform, short-sleeved white shirt, navy vest, red ribbon tie, plaid skirt, loafers, school bag", tags: "school uniform, vest, plaid skirt, neck ribbon, short sleeves" }
       ];
       ITEMS.forEach(function (it, i) { it.no = i + 1; });
       var BY_KEY = {};
