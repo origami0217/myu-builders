@@ -1,0 +1,6 @@
+exclude:
+  - "**/audits"
+  - "**/.harness"
+  - "**/.space-build"
+  - "**/.space-build-cvm"
+  - "**/.space-build-cloudflare"
