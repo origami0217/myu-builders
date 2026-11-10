@@ -399,10 +399,10 @@
       <section id="view-list">
         <div class="lead">
           <h1><span class="accent">コスプレ</span>カタログ</h1>
-          <p>60着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。アイドル／魔法少女／魔女／ウェディングドレス／ゴスロリ／シスターの6着は見本イラストを差し替えて、魔法少女・ウェディングドレス・シスターはお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。</p>
+          <p>60着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。28着は見本イラストを新しい立ち絵に差し替えてあって、うち14着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。</p>
           <div class="meta-line">
             <span class="meta-chip">全60着</span>
-            <span class="meta-chip">見本6着を差し替え NEW（詩織も登場）</span>
+            <span class="meta-chip">見本28着を差し替え NEW（詩織モデル14着）</span>
             <span class="meta-chip">seed 939393 固定</span>
             <span class="meta-chip">LoRA myu_original_v2（0.8）</span>
             <span class="meta-chip">立ちポーズ・全身・やさしい笑顔</span>
@@ -2087,12 +2087,13 @@ var ITEMS = [{
   key: "bunny",
   name: "バニースーツ",
   cat: "classic",
-  jp: "白いバニースーツ。うさ耳カチューシャ、蝶ネクタイ、袖カフス、網タイツの王道バニー",
-  tags: "bunny suit, bunny ears, bowtie, cuffs, fishnet stockings"
+  jp: "黒いバニースーツ。うさ耳カチューシャ、蝶ネクタイ、袖カフス、網タイツの王道バニー",
+  tags: "bunny suit, black bunny suit, bunny ears, bowtie, cuffs, fishnet stockings"
 }, {
   key: "sailor",
   name: "セーラー服",
   cat: "classic",
+  who: "詩織",
   jp: "白いセーラー服コス。赤いネッカチーフ、紺のプリーツスカート",
   tags: "sailor costume, serafuku cosplay, neckerchief, pleated skirt"
 }, {
@@ -2105,6 +2106,7 @@ var ITEMS = [{
   key: "nurse",
   name: "ナース",
   cat: "classic",
+  who: "詩織",
   jp: "白衣のナース服。ナースキャップ、タイトなミニ丈ワンピース型ユニフォーム",
   tags: "nurse outfit, nurse cap, white uniform"
 }, {
@@ -2117,8 +2119,9 @@ var ITEMS = [{
   key: "devil",
   name: "悪魔コス",
   cat: "classic",
-  jp: "黒ドレスの小悪魔コス。小さな角、コウモリ羽、ハート型の尻尾、編み上げブーツ風ヒール",
-  tags: "devil costume, demon horns, demon wings, demon tail, black dress"
+  who: "詩織",
+  jp: "黒×深紅のゴシックドレスの悪魔コス。角、コウモリ羽、尻尾、厚底ブーツ",
+  tags: "devil costume, demon horns, demon wings, demon tail, black dress, gothic dress"
 }, {
   key: "santa",
   name: "サンタコス",
@@ -2129,18 +2132,20 @@ var ITEMS = [{
   key: "police",
   name: "警察官",
   cat: "uniform",
+  who: "詩織",
   jp: "紺の警察制服。制帽、バッジ、ネクタイ、タイトスカートの婦警スタイル",
   tags: "police uniform, policewoman, peaked cap, navy uniform, badge, necktie"
 }, {
   key: "military",
   name: "軍服",
   cat: "uniform",
-  jp: "白い軍服ジャケット。制帽、肩章、金ボタンが映える凛々しい軍装",
-  tags: "military uniform, military jacket, peaked cap, epaulettes"
+  jp: "オリーブ色の軍服。制帽、肩章、金ボタン、カーゴパンツに編み上げブーツの凛々しい軍装",
+  tags: "military uniform, military jacket, peaked cap, epaulettes, cargo pants, lace-up boots"
 }, {
   key: "ca",
   name: "CA",
   cat: "uniform",
+  who: "詩織",
   jp: "紺スーツの客室乗務員制服。スカーフ、小さなピルボックス帽、ヒール",
   tags: "flight attendant uniform, cabin attendant, scarf, navy suit, pillbox hat"
 }, {
@@ -2264,8 +2269,9 @@ var ITEMS = [{
   key: "china",
   name: "チャイナドレス",
   cat: "wa",
-  jp: "サイドスリットのチャイナドレス。マンダリンカラー、お団子ヘア",
-  tags: "china dress, cheongsam, side slit, mandarin collar, hair bun"
+  who: "詩織",
+  jp: "深紅のロングチャイナドレス。金の花柄刺繍、サイドスリット、マンダリンカラー、お団子ヘア",
+  tags: "china dress, cheongsam, red china dress, floral embroidery, side slit, mandarin collar, hair bun"
 }, {
   key: "wamaid",
   name: "和風メイド",
@@ -2300,7 +2306,8 @@ var ITEMS = [{
   key: "succubus",
   name: "サキュバス",
   cat: "spicy",
-  jp: "黒レオタードのサキュバス。小さな角、二対のコウモリ羽、ハートのカットアウトとハート型の尻尾、蝶ネクタイ",
+  who: "詩織",
+  jp: "黒レオタードのサキュバス。小さな角、コウモリ羽、ハートのカットアウトとハート型の尻尾、蝶ネクタイ",
   tags: "succubus costume, demon horns, demon wings, demon tail, heart cutout, heart motif, black leotard, bowtie, cuffs"
 }, {
   key: "sheermaid",
@@ -2324,14 +2331,16 @@ var ITEMS = [{
   key: "heartcut",
   name: "ハートカットアウト",
   cat: "spicy",
+  who: "詩織",
   jp: "胸元がハート型に開いた白いリブニットワンピース。タートルネック、ミニ丈、白ヒール",
   tags: "heart cutout, heart-shaped cutout, white ribbed knit dress, turtleneck sweater dress, mini dress, white high heels"
 }, {
   key: "deepchina",
   name: "深スリットチャイナ",
   cat: "spicy",
-  jp: "深いサイドスリットのチャイナドレス。脚が大胆に見える中華コス",
-  tags: "china dress, cheongsam, deep side slit, mandarin collar, hair bun"
+  who: "詩織",
+  jp: "深紅のロングチャイナドレスに深いサイドスリット。金の花柄刺繍、脚が大胆に見える中華コス",
+  tags: "china dress, cheongsam, red china dress, floral embroidery, deep side slit, mandarin collar, hair bun"
 }, {
   key: "leopard",
   name: "女豹レオタード",
@@ -2342,12 +2351,14 @@ var ITEMS = [{
   key: "minipolice",
   name: "ミニスカポリス",
   cat: "spicy",
+  who: "詩織",
   jp: "ミニスカートの婦警コス。制帽と手錠で逮捕しちゃう系",
   tags: "police uniform, miniskirt, policewoman, peaked cap, handcuffs"
 }, {
   key: "sexynurse",
   name: "セクシーナース",
   cat: "spicy",
+  who: "詩織",
   jp: "ミニ丈ナース服。ナースキャップと聴診器の際どい白衣",
   tags: "nurse outfit, miniskirt, nurse cap, stethoscope, white uniform"
 }, {

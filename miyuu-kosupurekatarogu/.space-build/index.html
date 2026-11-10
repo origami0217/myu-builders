@@ -398,10 +398,10 @@
       <section id="view-list">
         <div class="lead">
           <h1><span class="accent">コスプレ</span>カタログ</h1>
-          <p>60着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。アイドル／魔法少女／魔女／ウェディングドレス／ゴスロリ／シスターの6着は見本イラストを差し替えて、魔法少女・ウェディングドレス・シスターはお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。</p>
+          <p>60着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。28着は見本イラストを新しい立ち絵に差し替えてあって、うち14着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。</p>
           <div class="meta-line">
             <span class="meta-chip">全60着</span>
-            <span class="meta-chip">見本6着を差し替え NEW（詩織も登場）</span>
+            <span class="meta-chip">見本28着を差し替え NEW（詩織モデル14着）</span>
             <span class="meta-chip">seed 939393 固定</span>
             <span class="meta-chip">LoRA myu_original_v2（0.8）</span>
             <span class="meta-chip">立ちポーズ・全身・やさしい笑顔</span>
@@ -562,17 +562,17 @@
       var ITEMS = [
         /* 定番 */
         { key: "negligee", name: "ネグリジェ", cat: "classic", jp: "透け感のある白いネグリジェ。レースの縁取り、細い肩紐、胸元の開いた上品なシルエット", tags: "negligee, sheer nightgown, lace trim" },
-        { key: "bunny", name: "バニースーツ", cat: "classic", jp: "白いバニースーツ。うさ耳カチューシャ、蝶ネクタイ、袖カフス、網タイツの王道バニー", tags: "bunny suit, bunny ears, bowtie, cuffs, fishnet stockings" },
-        { key: "sailor", name: "セーラー服", cat: "classic", jp: "白いセーラー服コス。赤いネッカチーフ、紺のプリーツスカート", tags: "sailor costume, serafuku cosplay, neckerchief, pleated skirt" },
+        { key: "bunny", name: "バニースーツ", cat: "classic", jp: "黒いバニースーツ。うさ耳カチューシャ、蝶ネクタイ、袖カフス、網タイツの王道バニー", tags: "bunny suit, black bunny suit, bunny ears, bowtie, cuffs, fishnet stockings" },
+        { key: "sailor", name: "セーラー服", cat: "classic", who: "詩織", jp: "白いセーラー服コス。赤いネッカチーフ、紺のプリーツスカート", tags: "sailor costume, serafuku cosplay, neckerchief, pleated skirt" },
         { key: "maid", name: "メイド", cat: "classic", jp: "黒×白の王道メイド服。白エプロン、ヘッドドレス、フリルたっぷりのスカート", tags: "maid outfit, apron, headdress" },
-        { key: "nurse", name: "ナース", cat: "classic", jp: "白衣のナース服。ナースキャップ、タイトなミニ丈ワンピース型ユニフォーム", tags: "nurse outfit, nurse cap, white uniform" },
+        { key: "nurse", name: "ナース", cat: "classic", who: "詩織", jp: "白衣のナース服。ナースキャップ、タイトなミニ丈ワンピース型ユニフォーム", tags: "nurse outfit, nurse cap, white uniform" },
         { key: "miko", name: "巫女", cat: "classic", jp: "白い羽織に赤い袴の巫女装束。水引のような赤い紐飾り", tags: "miko outfit, shrine maiden, red hakama, white haori" },
-        { key: "devil", name: "悪魔コス", cat: "classic", jp: "黒ドレスの小悪魔コス。小さな角、コウモリ羽、ハート型の尻尾、編み上げブーツ風ヒール", tags: "devil costume, demon horns, demon wings, demon tail, black dress" },
+        { key: "devil", name: "悪魔コス", cat: "classic", who: "詩織", jp: "黒×深紅のゴシックドレスの悪魔コス。角、コウモリ羽、尻尾、厚底ブーツ", tags: "devil costume, demon horns, demon wings, demon tail, black dress, gothic dress" },
         { key: "santa", name: "サンタコス", cat: "classic", jp: "赤いサンタドレス。白ファーの縁取り、サンタ帽、黒ベルトとブーツで締めたクリスマスコス", tags: "santa costume, red dress, fur trim, santa hat" },
         /* 制服系 */
-        { key: "police", name: "警察官", cat: "uniform", jp: "紺の警察制服。制帽、バッジ、ネクタイ、タイトスカートの婦警スタイル", tags: "police uniform, policewoman, peaked cap, navy uniform, badge, necktie" },
-        { key: "military", name: "軍服", cat: "uniform", jp: "白い軍服ジャケット。制帽、肩章、金ボタンが映える凛々しい軍装", tags: "military uniform, military jacket, peaked cap, epaulettes" },
-        { key: "ca", name: "CA", cat: "uniform", jp: "紺スーツの客室乗務員制服。スカーフ、小さなピルボックス帽、ヒール", tags: "flight attendant uniform, cabin attendant, scarf, navy suit, pillbox hat" },
+        { key: "police", name: "警察官", cat: "uniform", who: "詩織", jp: "紺の警察制服。制帽、バッジ、ネクタイ、タイトスカートの婦警スタイル", tags: "police uniform, policewoman, peaked cap, navy uniform, badge, necktie" },
+        { key: "military", name: "軍服", cat: "uniform", jp: "オリーブ色の軍服。制帽、肩章、金ボタン、カーゴパンツに編み上げブーツの凛々しい軍装", tags: "military uniform, military jacket, peaked cap, epaulettes, cargo pants, lace-up boots" },
+        { key: "ca", name: "CA", cat: "uniform", who: "詩織", jp: "紺スーツの客室乗務員制服。スカーフ、小さなピルボックス帽、ヒール", tags: "flight attendant uniform, cabin attendant, scarf, navy suit, pillbox hat" },
         { key: "teacher", name: "教師", cat: "uniform", jp: "白いブレザーとタイトスカートの教師コーデ。眼鏡をかけた知的な雰囲気", tags: "teacher outfit, blazer, pencil skirt, glasses" },
         { key: "racequeen", name: "レースクイーン", cat: "uniform", jp: "白×黒のハイレグレオタードに短いジャケットを羽織ったレースクイーン。白カフス、白いハイヒール", tags: "race queen outfit, highleg leotard, cropped jacket, cuffs, white high heels" },
         { key: "cheer", name: "チアリーダー", cat: "uniform", jp: "ノースリーブトップとプリーツスカートのチアコス。両手にポンポン", tags: "cheerleader, pom poms, pleated skirt, sleeveless top" },
@@ -594,22 +594,22 @@
         { key: "idol", name: "アイドル", cat: "fantasy", jp: "ピンク×白のフリルたっぷりアイドルドレス。大きな胸リボン、パフスリーブ、白い編み上げショートブーツ、手にはマイク", tags: "idol costume, pink frilled dress, large bow, puff sleeves, microphone, white lace-up boots, heart choker" },
         { key: "ballerina", name: "バレリーナ", cat: "fantasy", jp: "白いバレエ衣装。レース付きレオタード、チュールチュチュ、白タイツ、ピンクのトウシューズ", tags: "ballerina, ballet costume, white leotard, lace trim, tutu, tulle skirt, white tights, pointe shoes, pink ribbon" },
         /* 和・中華系 */
-        { key: "china", name: "チャイナドレス", cat: "wa", jp: "サイドスリットのチャイナドレス。マンダリンカラー、お団子ヘア", tags: "china dress, cheongsam, side slit, mandarin collar, hair bun" },
+        { key: "china", name: "チャイナドレス", cat: "wa", who: "詩織", jp: "深紅のロングチャイナドレス。金の花柄刺繍、サイドスリット、マンダリンカラー、お団子ヘア", tags: "china dress, cheongsam, red china dress, floral embroidery, side slit, mandarin collar, hair bun" },
         { key: "wamaid", name: "和風メイド", cat: "wa", jp: "着物風メイド服。白エプロンと合わせて和モダンに", tags: "wa maid, kimono maid outfit, apron" },
         { key: "furisode", name: "振袖着物", cat: "wa", jp: "白地に青い花柄の着物ドレス。黒い帯、深めのスリット、髪には青い花飾り。足元は厚底ヒールで今風に", tags: "kimono dress, white kimono, floral pattern, obi, deep slit, kanzashi, platform heels, japanese clothes" },
         { key: "hakama", name: "卒業袴", cat: "wa", jp: "花柄の着物に濃い紫の袴を合わせた卒業式スタイル。大きなリボンの髪飾り、足元は茶色の編み上げブーツ", tags: "hakama, graduation hakama, floral kimono, purple hakama, large ribbon hair accessory, brown lace-up boots, japanese clothes" },
         /* 際どい系 */
         { key: "catmaid", name: "猫耳メイド", cat: "spicy", jp: "猫耳メイド。猫の尻尾、肉球手袋、鈴付きチョーカー", tags: "cat maid, maid outfit, cat ears, cat tail, paw gloves, bell choker" },
         { key: "revbunny", name: "逆バニー", cat: "spicy", jp: "逆バニーコス。うさ耳、蝶ネクタイ、カフスの攻めたバニー", tags: "reverse bunny suit, bunny ears, bowtie, cuffs" },
-        { key: "succubus", name: "サキュバス", cat: "spicy", jp: "黒レオタードのサキュバス。小さな角、二対のコウモリ羽、ハートのカットアウトとハート型の尻尾、蝶ネクタイ", tags: "succubus costume, demon horns, demon wings, demon tail, heart cutout, heart motif, black leotard, bowtie, cuffs" },
+        { key: "succubus", name: "サキュバス", cat: "spicy", who: "詩織", jp: "黒レオタードのサキュバス。小さな角、コウモリ羽、ハートのカットアウトとハート型の尻尾、蝶ネクタイ", tags: "succubus costume, demon horns, demon wings, demon tail, heart cutout, heart motif, black leotard, bowtie, cuffs" },
         { key: "sheermaid", name: "シースルーメイド", cat: "spicy", jp: "透け感エプロンのメイドコス。ヘッドドレス付きの際どいメイド", tags: "sheer maid outfit, see-through apron, maid outfit, headdress" },
         { key: "babydoll", name: "ベビードール", cat: "spicy", jp: "透け感ベビードール。レースとリボンの甘いナイトウェア風", tags: "babydoll, sheer nightgown, lace trim, ribbon" },
         { key: "highleg", name: "ハイレグ競泳", cat: "spicy", jp: "ハイレグの競泳水着。レーシングタイプのスポーティーな水着コス", tags: "competition swimsuit, highleg swimsuit, racing swimsuit" },
-        { key: "heartcut", name: "ハートカットアウト", cat: "spicy", jp: "胸元がハート型に開いた白いリブニットワンピース。タートルネック、ミニ丈、白ヒール", tags: "heart cutout, heart-shaped cutout, white ribbed knit dress, turtleneck sweater dress, mini dress, white high heels" },
-        { key: "deepchina", name: "深スリットチャイナ", cat: "spicy", jp: "深いサイドスリットのチャイナドレス。脚が大胆に見える中華コス", tags: "china dress, cheongsam, deep side slit, mandarin collar, hair bun" },
+        { key: "heartcut", name: "ハートカットアウト", cat: "spicy", who: "詩織", jp: "胸元がハート型に開いた白いリブニットワンピース。タートルネック、ミニ丈、白ヒール", tags: "heart cutout, heart-shaped cutout, white ribbed knit dress, turtleneck sweater dress, mini dress, white high heels" },
+        { key: "deepchina", name: "深スリットチャイナ", cat: "spicy", who: "詩織", jp: "深紅のロングチャイナドレスに深いサイドスリット。金の花柄刺繍、脚が大胆に見える中華コス", tags: "china dress, cheongsam, red china dress, floral embroidery, deep side slit, mandarin collar, hair bun" },
         { key: "leopard", name: "女豹レオタード", cat: "spicy", jp: "ヒョウ柄レオタード。アニマル柄とハイヒールの女豹コス", tags: "leopard print leotard, animal print, high heels" },
-        { key: "minipolice", name: "ミニスカポリス", cat: "spicy", jp: "ミニスカートの婦警コス。制帽と手錠で逮捕しちゃう系", tags: "police uniform, miniskirt, policewoman, peaked cap, handcuffs" },
-        { key: "sexynurse", name: "セクシーナース", cat: "spicy", jp: "ミニ丈ナース服。ナースキャップと聴診器の際どい白衣", tags: "nurse outfit, miniskirt, nurse cap, stethoscope, white uniform" },
+        { key: "minipolice", name: "ミニスカポリス", cat: "spicy", who: "詩織", jp: "ミニスカートの婦警コス。制帽と手錠で逮捕しちゃう系", tags: "police uniform, miniskirt, policewoman, peaked cap, handcuffs" },
+        { key: "sexynurse", name: "セクシーナース", cat: "spicy", who: "詩織", jp: "ミニ丈ナース服。ナースキャップと聴診器の際どい白衣", tags: "nurse outfit, miniskirt, nurse cap, stethoscope, white uniform" },
         { key: "fishbunny", name: "網タイツバニー", cat: "spicy", jp: "網タイツ合わせのバニースーツ。うさ耳、蝶ネクタイ、カフス", tags: "bunny suit, fishnet stockings, bunny ears, bowtie, cuffs" },
         /* 水着系 */
         { key: "microbikini", name: "マイクロビキニ", cat: "swim", jp: "黒のマイクロビキニ。ゴールドチェーンがアクセントの最小面積ビキニ", tags: "micro bikini, tiny bikini, string bikini, chain bikini, black bikini, gold chain" },
