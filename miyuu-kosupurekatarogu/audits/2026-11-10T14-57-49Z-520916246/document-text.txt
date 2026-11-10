@@ -1,0 +1,113 @@
+ハブに戻る (→ /spaces/v2/comfyuipuronputobiruda/)
+私服カタログへ
+(→ /spaces/v2/miyuuzhao-seti-ebiruda/)
+ComfyUIプロンプトビルダー（最終調整・出力）へ
+# コスプレカタログ
+99着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。29着は見本イラストを新しい立ち絵に差し替えてあって、うち15着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。今回追加した12着と前回追加した26着は見本イラスト準備中のためプレースホルダー表示だよ。
+全99着
+新規12着追加（定番3＋制服系4＋ファンタジー・イベント4＋際どい系1）
+新規26着追加（和・中華系16＋アニメ・ゲーム10）
+見本29着を差し替え NEW（詩織モデル15着）
+seed 939393 固定
+LoRA myu_original_v2（0.8）
+立ちポーズ・全身・やさしい笑顔
+ハブ：ComfyUIプロンプトビルダー (→ /spaces/v2/comfyuipuronputobiruda/)
+衣装：コスプレカタログ
+衣装：着せ替えビルダー（私服） (→ /spaces/v2/miyuuzhao-seti-ebiruda/) カメラ：アングル早見表 (→ /spaces/v2/kameraanguruzao-jian-biao/)
+コスプレ
+このページ
+全99着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。
+私服
+着せ替えビルダーへ →
+プリセット40種と、トップス／ボトムスなどのパーツ＋色テーマで組む私服はこちら。選んだ断片はハブに貼って合流。
+(→ /spaces/v2/miyuuzhao-seti-ebiruda/)
+[input search: 衣装名・タグで探す（例：ビキニ、bikini、下着）]
+99 着ヒット
+[button: すべて99] [button: 定番11] [button: 制服系14] [button: ファンタジー・イベント17] [button: 和・中華系20] [button: アニメ・ゲーム10] [button: 際どい系13] [button: 水着系8] [button: 下着・ランジェリー系6]
+[button:
+[image: ミュウのコスプレ：ネグリジェ]
+No.01
+ネグリジェ
+定番
+] [button:
+[image: ミュウのコスプレ：バニースーツ]
+No.02
+バニースーツ
+定番
+] [button:
+[image: 詩織のコスプレ：セーラー服]
+No.03
+セーラー服
+定番
+] [button:
+[image: ミュウのコスプレ：メイド]
+No.04
+メイド
+定番
+] [button:
+[image: 詩織のコスプレ：ナース]
+No.05
+ナース
+定番
+] [button:
+[image: ミュウのコスプレ：巫女]
+No.06
+巫女
+定番
+] [button:
+[image: 詩織のコスプレ：悪魔コス]
+No.07
+悪魔コス
+定番
+] [button:
+[image: ミュウのコスプレ：サンタコス]
+No.08
+サンタコス
+定番
+] [button:
+[image: 詩織のコスプレ：警察官]
+No.09
+警察官
+制服系
+] [button:
+[image: ミュウのコスプレ：軍服]
+No.10
+軍服
+制服系
+] [button:
+[image: 詩織のコスプレ：CA]
+No.11
+CA
+制服系
+] [button:
+[image: ミュウのコスプレ：教師]
+No.12
+教師
+制服系
+]
+[hidden] 見つからなかった…検索ワードを変えてみて
+[button: ← 前へ] [button: 1] [button: 2] [button: 3] [button: 4] [button: 5] [button: 6] [button: 7] [button: 8] [button: 9] [button: 次へ →]
+ハブに戻る（ComfyUIプロンプトビルダー） (→ /spaces/v2/comfyuipuronputobiruda/)
+[hidden] [button:
+[hidden] カタログ一覧へ戻る ]
+[hidden] ハブ（プロンプトビルダー）に戻る (→ /spaces/v2/comfyuipuronputobiruda/)
+[hidden] [image: no alt text]
+[hidden] NO IMAGE
+[hidden] 見本イラスト準備中 プロンプトとタグはそのまま使えるよ
+[hidden] ### 全体プロンプト
+[hidden] [button:
+[hidden] 全体プロンプトをコピー ]
+[hidden] ### Danbooruタグ形式
+[hidden] [button:
+[hidden] タグをコピー ] [button:
+[hidden] おまかせコスプレ ] [button:
+[hidden] 一覧に戻る ]
+[hidden] ### ネガティブ（カタログ共通）
+[hidden] [button: コピー]
+[hidden] 生成条件（カタログ共通）：Prefect Illustrious XL v8 ／ LoRA myu_original_v2（0.8） ／ seed 939393 ／ 832×1216 ／ steps 28 ／ CFG 5.5 ／ euler_ancestral
+[hidden] コピーしたらハブで最終調整 → (→ /spaces/v2/comfyuipuronputobiruda/) 私服は着せ替えビルダーで選ぶ → (→ /spaces/v2/miyuuzhao-seti-ebiruda/)
+[hidden] [button:
+[hidden] ← 前の衣装
+[hidden] ] [button:
+[hidden] 次の衣装 →
+[hidden] ]

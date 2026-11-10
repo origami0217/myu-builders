@@ -1,7 +1,7 @@
 {
   "asset_count": 50,
-  "built_at": "2026-11-10T05:37:06.576599158+00:00",
-  "content_sha256": "0bad8975b6d577375915d772bcb5152487152e0400132fb09a801e449291930a",
+  "built_at": "2026-11-10T14:55:37.357423844+00:00",
+  "content_sha256": "143da25438949ab790e0e7167c07c9ef5c62fa11e32e93cdf77481bfb2cb1eb8",
   "entrypoint": "index.html",
   "format": "static-html-v1"
 }

@@ -2,8 +2,8 @@
   "schema_version": "hatch.probe_ui_session.v1",
   "socket": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/.harness/probe-ui/sock",
   "slug": "miyuu-kosupurekatarogu",
-  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-c16b29fa-4f5f-49be-9512-837d70ad2487/",
-  "audit_session_id": "076bbb00-776d-473b-a1ec-f4f9177583a7",
-  "pid": 12286,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-ecfd8acd-f2dc-4249-90f1-4774eda549c0/",
+  "audit_session_id": "96359ce8-2288-49c5-b350-62b838d9cea4",
+  "pid": 4748,
   "phone_first": true
 }

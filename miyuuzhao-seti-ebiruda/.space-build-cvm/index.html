@@ -478,6 +478,26 @@ aspect-ratio: 832 / 1216;
 object-fit: cover;
 background: var(--bg-soft);
 }
+.preset-card .preset-placeholder {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 10px;
+width: 100%;
+aspect-ratio: 832 / 1216;
+background: var(--bg-soft);
+color: var(--ink-soft);
+padding: 16px;
+text-align: center;
+}
+.preset-card .preset-placeholder svg { width: 44px; height: 44px; opacity: 0.55;}
+.preset-card .preset-placeholder .ph-label {
+font-size: 12.5px; font-weight: 800; letter-spacing: 0.04em;
+}
+.preset-card .preset-placeholder .ph-sub {
+font-size: 11px; font-weight: 500; line-height: 1.5;
+}
 .preset-card .card-body { display: block; padding: 10px 12px 12px;}
 .preset-card .no {
 display: block;
@@ -582,9 +602,9 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 </div>
 <div class="lead">
 <h1><span class="accent">私服</span>着せ替えビルダー</h1>
-<p>まず下の<strong>私服プリセット（43種）</strong>からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
+<p>まず下の<strong>私服プリセット（83種）</strong>からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
 <div class="meta-line">
-<span class="meta-chip">プリセット全43コーデ</span>
+<span class="meta-chip">プリセット全83コーデ</span>
 <span class="meta-chip">パーツ8カテゴリ</span>
 <span class="meta-chip">全体カラーテーマ8種</span>
 <span class="meta-chip">色はパーツごとに変更OK</span>
@@ -605,7 +625,7 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 </div>
 <div>
 <div class="b-title">私服 <span class="b-badge">このページ</span></div>
-<p class="b-desc">プリセット43種を画像で選んで、トップス／ボトムスなどのパーツと色テーマを個別に調整できるビルダー。全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
+<p class="b-desc">プリセット83種を画像で選んで、トップス／ボトムスなどのパーツと色テーマを個別に調整できるビルダー。全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
 </div>
 </div>
 <a class="branch-card" href="../miyuu-kosupurekatarogu/">
@@ -629,7 +649,7 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
 <input id="presetSearch" type="search" placeholder="コーデ名で探す（例：ギャル、カフェ、お嬢様）" autocomplete="off" />
 </label>
-<span class="count-badge"><b id="presetHitCount">43</b> コーデヒット</span>
+<span class="count-badge"><b id="presetHitCount">83</b> コーデヒット</span>
 </div>
 <div class="filter-tabs" id="presetFilters" role="group" aria-label="プリセットの仕分け">
 <button type="button" class="chip" data-f="all" aria-pressed="true">すべて</button>
@@ -3785,6 +3805,246 @@ ${v}`;
     col: {
       tops: "pink"
     }
+  }, {
+    name: "ミルクティーベージュのニットワンピース",
+    img: null,
+    sel: {},
+    en: "knit dress, beige knit dress, turtleneck, long sleeves, midi length, belted waist, loafers, pearl earrings, small handbag",
+    jp: "ミルクティーベージュのタートルネックニットワンピースを着た、ベルトでウエストマークした上品なきれいめコーデ。ローファーと小さめバッグでまとめる。"
+  }, {
+    name: "白ブラウス×黒マーメイドスカート",
+    img: null,
+    sel: {},
+    en: "white blouse, ribbon tie blouse, long sleeves, black mermaid skirt, midi skirt, pumps, tote bag",
+    jp: "白のリボンタイブラウスに黒のマーメイドスカートを合わせた、清楚で女性らしいきれいめコーデ。"
+  }, {
+    name: "パステルツイードのセットアップ",
+    img: null,
+    sel: {},
+    en: "pastel pink tweed jacket, cropped jacket, tweed mini skirt, skirt suit, pearl buttons, pumps, chain bag",
+    jp: "パステルピンクのツイードジャケットとミニスカートのセットアップ。パールボタンとチェーンバッグでお嬢様感を出す。"
+  }, {
+    name: "ネイビーのフレアワンピース",
+    img: null,
+    sel: {},
+    en: "navy flare dress, short sleeves, knee length, ribbon belt, pumps, pearl necklace",
+    jp: "ネイビーのフレアワンピースにリボンベルトを効かせた、オフィスにも使えるきちんと感のあるコーデ。"
+  }, {
+    name: "とろみシャツ×センタープレスパンツ",
+    img: null,
+    sel: {},
+    en: "satin blouse, long sleeves, beige wide pants, center crease pants, pumps, shoulder bag, wristwatch",
+    jp: "とろみ感のあるサテンシャツと、センタープレス入りのベージュワイドパンツを合わせた大人のきれいめコーデ。"
+  }, {
+    name: "カーデアンサンブル×プリーツスカート",
+    img: null,
+    sel: {},
+    en: "cardigan twinset, camisole, pleated skirt, midi skirt, ballet flats, shoulder bag",
+    jp: "カーディガンのアンサンブルにプリーツスカートを合わせた、やわらかく上品なコーデ。"
+  }, {
+    name: "ベルト付きシャツワンピース",
+    img: null,
+    sel: {},
+    en: "shirt dress, long sleeves, belted waist, midi length, loafers, tote bag",
+    jp: "ベルト付きのシャツワンピースをさらっと着た、清潔感のあるきれいめコーデ。ローファー合わせ。"
+  }, {
+    name: "淡ピンクのAラインワンピース",
+    img: null,
+    sel: {},
+    en: "light pink a-line dress, short sleeves, knee length, waist ribbon, mary janes, handbag",
+    jp: "淡いピンクのAラインワンピースにウエストリボンを付けた、甘さ控えめのフェミニンコーデ。"
+  }, {
+    name: "千鳥柄ジャケットコーデ",
+    img: null,
+    sel: {},
+    en: "houndstooth jacket, tailored jacket, black mini dress, pumps, chain bag",
+    jp: "千鳥柄のテーラードジャケットを黒のミニワンピに羽織った、都会的なきれいめコーデ。"
+  }, {
+    name: "サテンキャミ×ドレープロングスカート",
+    img: null,
+    sel: {},
+    en: "satin camisole, draped long skirt, cardigan draped over shoulders, sandals, clutch bag",
+    jp: "サテンのキャミソールとドレープ感のあるロングスカートに、カーディガンを肩掛けした大人っぽいコーデ。"
+  }, {
+    name: "白テーラード×デニム",
+    img: null,
+    sel: {},
+    en: "white tailored jacket, white t-shirt, straight jeans, loafers, tote bag",
+    jp: "白のテーラードジャケットにデニムを合わせた、きれいめとカジュアルの橋渡しコーデ。"
+  }, {
+    name: "グレージュのロングジレコーデ",
+    img: null,
+    sel: {},
+    en: "long sleeveless vest, greige, turtleneck knit, wide pants, loafers, shoulder bag",
+    jp: "グレージュのロングジレにタートルニットとワイドパンツを重ねた、縦ラインがきれいなコーデ。"
+  }, {
+    name: "花柄シフォンのティアードワンピース",
+    img: null,
+    sel: {},
+    en: "floral chiffon dress, tiered dress, long dress, puff sleeves, flat sandals, straw bag",
+    jp: "小花柄のシフォンティアードワンピース。ふんわりした袖と麦わらバッグで夏のきれいめコーデ。"
+  }, {
+    name: "黒タートル×チェックタイトスカート",
+    img: null,
+    sel: {},
+    en: "black turtleneck, long sleeves, plaid tight skirt, mini skirt, long boots",
+    jp: "黒のタートルニットにチェックのタイトミニスカートとロングブーツを合わせた、大人きれいめコーデ。"
+  }, {
+    name: "クロップドデニムジャケット×カーゴスカート",
+    img: null,
+    sel: {},
+    en: "cropped denim jacket, tank top, cargo mini skirt, chunky sneakers, crossbody bag",
+    jp: "クロップド丈のデニムジャケットとカーゴミニスカートの、今っぽいストリート寄りトレンドコーデ。"
+  }, {
+    name: "バレルレッグジーンズ×コンパクトニット",
+    img: null,
+    sel: {},
+    en: "barrel leg jeans, compact knit sweater, long sleeves, sneakers, shoulder bag",
+    jp: "バレルレッグジーンズにコンパクトな丈のニットを合わせた、シルエット勝負のトレンドコーデ。"
+  }, {
+    name: "オフショルリブニット×デニムミニ",
+    img: null,
+    sel: {},
+    en: "off-shoulder ribbed knit sweater, denim mini skirt, long boots, handbag",
+    jp: "オフショルダーのリブニットにデニムミニとロングブーツを合わせた、あざとかわいいトレンドコーデ。"
+  }, {
+    name: "チュールレイヤードスカート×スウェット",
+    img: null,
+    sel: {},
+    en: "oversized sweatshirt, layered tulle long skirt, sneakers, baseball cap",
+    jp: "オーバーサイズのスウェットにチュールのレイヤードロングスカートを合わせた、甘辛ミックスコーデ。"
+  }, {
+    name: "シアーロンT×キャミワンピ重ね",
+    img: null,
+    sel: {},
+    en: "sheer long sleeve top, layered camisole dress, long dress, sneakers, mini shoulder bag",
+    jp: "透け感のあるロンTの上にキャミワンピを重ねた、レイヤードが主役のトレンドコーデ。"
+  }, {
+    name: "ワイドチノ×クロップドシャツ",
+    img: null,
+    sel: {},
+    en: "wide chino pants, cropped shirt, short sleeves, belt, sneakers, tote bag",
+    jp: "ワイドなチノパンにクロップド丈のシャツを合わせた、抜け感のあるトレンドコーデ。"
+  }, {
+    name: "ナイロンベスト×プリーツミニ",
+    img: null,
+    sel: {},
+    en: "nylon vest, white t-shirt, pleated mini skirt, chunky sneakers, mini backpack",
+    jp: "ナイロンベストを重ねたスポーティミックス。プリーツミニと厚底スニーカーでまとめる。"
+  }, {
+    name: "シルバー小物のY2Kコーデ",
+    img: null,
+    sel: {},
+    en: "baby tee, cropped t-shirt, cargo pants, silver chain belt, platform sneakers, mini bag",
+    jp: "ベビーTとカーゴパンツにシルバー小物を効かせたY2K風コーデ。"
+  }, {
+    name: "チェックシャツ腰巻きレイヤード",
+    img: null,
+    sel: {},
+    en: "plaid shirt tied around waist, white t-shirt, skinny jeans, sneakers, baseball cap",
+    jp: "チェックシャツを腰に巻いたレイヤードスタイル。白Tとスキニーデニムの定番を格上げする。"
+  }, {
+    name: "ボリューム袖ブラウス×ハイウエストデニム",
+    img: null,
+    sel: {},
+    en: "puff sleeve blouse, high-waist straight jeans, pumps, handbag",
+    jp: "ボリューム袖のブラウスにハイウエストデニムを合わせた、韓国風のきれいめトレンドコーデ。"
+  }, {
+    name: "スウェットセットアップ",
+    img: null,
+    sel: {},
+    en: "sweatshirt and sweatpants set, matching set, sneakers, baseball cap, crossbody pouch",
+    jp: "スウェットのセットアップを外着として着こなす、ワンマイルトレンドコーデ。"
+  }, {
+    name: "ロングブーツ×ミニワンピの韓国風",
+    img: null,
+    sel: {},
+    en: "knit mini dress, cropped cardigan, long boots, mini bag, beret",
+    jp: "ニットミニワンピにクロップドカーデとロングブーツを合わせた韓国風コーデ。ベレー帽がポイント。"
+  }, {
+    name: "森ガールレイヤード",
+    img: null,
+    sel: {},
+    en: "mori girl style, layered cream dress, floral skirt, knit cardigan, lace socks, brown boots, woven bag",
+    jp: "生成りのレイヤードワンピと花柄スカートにニットカーデを重ねた森ガール風コーデ。編みバッグと茶色のブーツでまとめる。"
+  }, {
+    name: "ハロウィン魔女風カジュアル",
+    img: null,
+    sel: {},
+    en: "black dress, purple ribbon accents, witch hat, casual halloween outfit, lace-up boots",
+    jp: "黒ワンピに紫のリボンと魔女帽子を合わせた、ハロウィンのカジュアルコーデ。"
+  }, {
+    name: "推し活参戦コーデ",
+    img: null,
+    sel: {},
+    en: "live concert outfit, plaid skirt, pink ribbon, clear tote bag, long boots, glow stick in hand",
+    jp: "チェックのスカートにピンクのリボン、クリアトートを持った推し活参戦コーデ。ペンライトがポイント。"
+  }, {
+    name: "旅行トラベルコーデ",
+    img: null,
+    sel: {},
+    en: "travel outfit, lightweight jacket, comfortable pants, sneakers, baseball cap, crossbody pouch, backpack",
+    jp: "軽いジャケットと動きやすいパンツ、スニーカーとキャップの旅行コーデ。斜め掛けポーチ付き。"
+  }, {
+    name: "雨の日レインコーデ",
+    img: null,
+    sel: {},
+    en: "knit sweater, mini skirt, rain boots, clear umbrella, waterproof tote bag",
+    jp: "ニットとミニスカートにレインブーツ、透明傘を合わせた雨の日コーデ。"
+  }, {
+    name: "クリスマスマーケットコーデ",
+    img: null,
+    sel: {},
+    en: "white knit sweater, long coat, red plaid scarf, earmuffs, boots",
+    jp: "白ニットにロングコート、赤チェックのマフラーとイヤーマフを合わせたクリスマスマーケットコーデ。"
+  }, {
+    name: "初詣カジュアル",
+    img: null,
+    sel: {},
+    en: "long down coat, knit sweater, long skirt, muffler, boots, shoulder bag",
+    jp: "ロングダウンコートにニットとロングスカートを合わせた、暖かさ重視の初詣カジュアル。"
+  }, {
+    name: "ピクニックコーデ",
+    img: null,
+    sel: {},
+    en: "gingham check dress, straw hat, cardigan, flat sandals, woven basket bag",
+    jp: "ギンガムチェックのワンピに麦わら帽子とカゴバッグを合わせたピクニックコーデ。"
+  }, {
+    name: "ライブハウスコーデ",
+    img: null,
+    sel: {},
+    en: "band t-shirt, leather jacket, black skinny jeans, chain belt, choker, boots",
+    jp: "バンドTにレザージャケットと黒スキニー、チェーンベルトを効かせたライブハウスコーデ。"
+  }, {
+    name: "パジャマパーティー一式",
+    img: null,
+    sel: {},
+    en: "fluffy pajama set, pastel pink room wear, slippers, hair band, plush toy",
+    jp: "もこもこのパジャマセットにスリッパとヘアバンド、ぬいぐるみを抱えたパジャマパーティーコーデ。"
+  }, {
+    name: "ボーダーTのマリン風",
+    img: null,
+    sel: {},
+    en: "striped border shirt, long sleeves, white pants, sneakers, canvas tote bag",
+    jp: "ボーダーのロンTに白パンツとスニーカーを合わせた、爽やかなマリン風カジュアル。"
+  }, {
+    name: "オーバーオール×ロンT",
+    img: null,
+    sel: {},
+    en: "denim overalls, long sleeve t-shirt, sneakers, baseball cap",
+    jp: "デニムのオーバーオールにロンTとキャップを合わせた、元気なカジュアルコーデ。"
+  }, {
+    name: "ヒョウ柄小物×黒ミニ",
+    img: null,
+    sel: {},
+    en: "black knit mini dress, leopard print belt, gold hoop earrings, long boots",
+    jp: "黒のニットミニワンピにヒョウ柄ベルトとゴールドのピアスを効かせた、強めギャルコーデ。"
+  }, {
+    name: "デコデニム×厚底の姫ギャル寄り",
+    img: null,
+    sel: {},
+    en: "decorated denim jacket, lace camisole top, mini skirt, platform shoes, pink ribbon hair accessories",
+    jp: "デコったデニムジャケットにレースキャミとミニスカート、厚底シューズとピンクリボンの姫ギャル寄りコーデ。"
   }];
   var PRESET_CAT = {
     "清楚系お嬢様": "kireime",
@@ -3829,7 +4089,47 @@ ${v}`;
     "レトロガール": "other",
     "お嬢様コーデ": "kireime",
     "マイクロホットパンツ×見せブラ（サテン生地）": "gal",
-    "マイクロホットパンツ×マイクロチューブブラ（サテン生地）": "gal"
+    "マイクロホットパンツ×マイクロチューブブラ（サテン生地）": "gal",
+    "ミルクティーベージュのニットワンピース": "kireime",
+    "白ブラウス×黒マーメイドスカート": "kireime",
+    "パステルツイードのセットアップ": "kireime",
+    "ネイビーのフレアワンピース": "kireime",
+    "とろみシャツ×センタープレスパンツ": "kireime",
+    "カーデアンサンブル×プリーツスカート": "kireime",
+    "ベルト付きシャツワンピース": "kireime",
+    "淡ピンクのAラインワンピース": "kireime",
+    "千鳥柄ジャケットコーデ": "kireime",
+    "サテンキャミ×ドレープロングスカート": "kireime",
+    "白テーラード×デニム": "kireime",
+    "グレージュのロングジレコーデ": "kireime",
+    "花柄シフォンのティアードワンピース": "kireime",
+    "黒タートル×チェックタイトスカート": "kireime",
+    "クロップドデニムジャケット×カーゴスカート": "trend",
+    "バレルレッグジーンズ×コンパクトニット": "trend",
+    "オフショルリブニット×デニムミニ": "trend",
+    "チュールレイヤードスカート×スウェット": "trend",
+    "シアーロンT×キャミワンピ重ね": "trend",
+    "ワイドチノ×クロップドシャツ": "trend",
+    "ナイロンベスト×プリーツミニ": "trend",
+    "シルバー小物のY2Kコーデ": "trend",
+    "チェックシャツ腰巻きレイヤード": "trend",
+    "ボリューム袖ブラウス×ハイウエストデニム": "trend",
+    "スウェットセットアップ": "trend",
+    "ロングブーツ×ミニワンピの韓国風": "trend",
+    "森ガールレイヤード": "other",
+    "ハロウィン魔女風カジュアル": "other",
+    "推し活参戦コーデ": "other",
+    "旅行トラベルコーデ": "other",
+    "雨の日レインコーデ": "other",
+    "クリスマスマーケットコーデ": "other",
+    "初詣カジュアル": "other",
+    "ピクニックコーデ": "other",
+    "ライブハウスコーデ": "other",
+    "パジャマパーティー一式": "other",
+    "ボーダーTのマリン風": "casual",
+    "オーバーオール×ロンT": "casual",
+    "ヒョウ柄小物×黒ミニ": "gal",
+    "デコデニム×厚底の姫ギャル寄り": "gal"
   };
   PRESETS.forEach(function (p) {
     p.cat = PRESET_CAT[p.name] || "other";
@@ -4060,10 +4360,18 @@ ${v}`;
     b.className = "preset-card";
     __tunnel.setAttr(b, "aria-pressed", "false");
     __tunnel.setAttr(b, "aria-label", p.name + "のコーデを選ぶ");
-    var im = document.createElement("img");
-    __tunnel.setUrlProp(im, "src", "assets/" + p.img);
-    im.alt = "「" + p.name + "」の立ち絵見本（ミュウ）";
-    im.loading = "lazy";
+    var im;
+    if (p.img) {
+      im = document.createElement("img");
+      __tunnel.setUrlProp(im, "src", "assets/" + p.img);
+      im.alt = "「" + p.name + "」の立ち絵見本（ミュウ）";
+      im.loading = "lazy";
+    } else {
+      im = document.createElement("span");
+      im.className = "preset-placeholder";
+      __tunnel.setAttr(im, "aria-hidden", "true");
+      __tunnel.setInnerHTML(im, '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><span class="ph-label">見本は後日</span><span class="ph-sub">プロンプトは使えます</span>', "innerHTML");
+    }
     var body = document.createElement("span");
     body.className = "card-body";
     var no = document.createElement("span");
@@ -4156,6 +4464,20 @@ ${v}`;
   }
   function buildOutputs() {
     var name = document.getElementById("coordName").value.trim();
+    if (activePreset) {
+      for (var pi = 0; pi < PRESETS.length; pi++) {
+        var pp = PRESETS[pi];
+        if (pp.name === activePreset && pp.jp && pp.en) {
+          var pText = (name ? name + "\n\n" : "") + pp.jp;
+          var pHtml = (name ? '<span class="cname">' + esc(name) + "</span>\n\n" : "") + esc(pp.jp);
+          return {
+            text: pText,
+            html: pHtml,
+            tags: pp.en
+          };
+        }
+      }
+    }
     var lines = [];
     var htmlParts = [];
     var tagList = [];
@@ -4283,7 +4605,7 @@ ${v}`;
     });
     var sfig = document.getElementById("stageFig");
     var dlayout = document.getElementById("detailLayout");
-    if (stagePreset) {
+    if (stagePreset && stagePreset.img) {
       var simg = document.getElementById("stageImg");
       __tunnel.setUrlProp(simg, "src", "assets/" + stagePreset.img);
       simg.alt = "「" + stagePreset.name + "」の立ち絵見本（ミュウ）";

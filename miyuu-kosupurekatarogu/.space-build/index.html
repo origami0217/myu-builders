@@ -228,6 +228,22 @@
       .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
       .card .thumb { aspect-ratio: 832 / 1216; background: var(--bg-soft); overflow: hidden; }
       .card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+      .thumb-noimg, .detail-noimg {
+        width: 100%; height: 100%; min-height: 100%;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 10px; text-align: center; padding: 20px 14px;
+        background: var(--bg-soft); color: var(--ink-soft);
+      }
+      .thumb-noimg .ph-label, .detail-noimg .ph-label {
+        font-size: 11px; font-weight: 900; letter-spacing: 0.14em; color: var(--gold);
+      }
+      .thumb-noimg .ph-name, .detail-noimg .ph-name {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; color: var(--ink);
+        font-size: 15px; line-height: 1.4;
+      }
+      .detail-noimg .ph-name { font-size: 20px; }
+      .thumb-noimg .ph-sub, .detail-noimg .ph-sub { font-size: 11.5px; line-height: 1.5; }
+      .detail-noimg { aspect-ratio: 832 / 1216; }
       .card .card-body { padding: 10px 12px 12px; }
       .card .no {
         font-size: 10.5px; font-weight: 900; letter-spacing: 0.14em; color: var(--gold);
@@ -398,9 +414,11 @@
       <section id="view-list">
         <div class="lead">
           <h1><span class="accent">コスプレ</span>カタログ</h1>
-          <p>61着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。29着は見本イラストを新しい立ち絵に差し替えてあって、うち15着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。</p>
+          <p>99着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。29着は見本イラストを新しい立ち絵に差し替えてあって、うち15着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。今回追加した12着と前回追加した26着は見本イラスト準備中のためプレースホルダー表示だよ。</p>
           <div class="meta-line">
-            <span class="meta-chip">全61着</span>
+            <span class="meta-chip">全99着</span>
+            <span class="meta-chip">新規12着追加（定番3＋制服系4＋ファンタジー・イベント4＋際どい系1）</span>
+            <span class="meta-chip">新規26着追加（和・中華系16＋アニメ・ゲーム10）</span>
             <span class="meta-chip">見本29着を差し替え NEW（詩織モデル15着）</span>
             <span class="meta-chip">seed 939393 固定</span>
             <span class="meta-chip">LoRA myu_original_v2（0.8）</span>
@@ -422,7 +440,7 @@
             </div>
             <div>
               <div class="b-title">コスプレ <span class="b-badge">このページ</span></div>
-              <p class="b-desc">全61着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
+              <p class="b-desc">全99着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
             </div>
           </div>
           <a class="branch-card" href="../miyuuzhao-seti-ebiruda/">
@@ -442,7 +460,7 @@
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
               <input id="search" type="search" placeholder="衣装名・タグで探す（例：ビキニ、bikini、下着）" autocomplete="off" />
             </label>
-            <span class="count-badge"><b id="hit-count">61</b> 着ヒット</span>
+            <span class="count-badge"><b id="hit-count">99</b> 着ヒット</span>
           </div>
           <div class="cat-tabs" id="cat-tabs" role="tablist" aria-label="カテゴリ"></div>
         </div>
@@ -472,7 +490,7 @@
             </a>
           </div>
           <div class="detail-layout">
-            <div class="detail-photo"><img id="d-img" alt="" /></div>
+            <div class="detail-photo"><img id="d-img" alt="" /><div id="d-noimg" class="detail-noimg" hidden><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><div class="ph-label">NO IMAGE</div><div class="ph-name" id="d-noimg-name"></div><div class="ph-sub">見本イラスト準備中<br />プロンプトとタグはそのまま使えるよ</div></div></div>
             <div class="detail-info">
               <div class="no" id="d-no"></div>
               <h2 id="d-name"></h2>
@@ -552,6 +570,7 @@
         { id: "uniform", name: "制服系" },
         { id: "fantasy", name: "ファンタジー・イベント" },
         { id: "wa",      name: "和・中華系" },
+        { id: "animegame", name: "アニメ・ゲーム" },
         { id: "spicy",   name: "際どい系" },
         { id: "swim",    name: "水着系" },
         { id: "lingerie", name: "下着・ランジェリー系" }
@@ -627,7 +646,51 @@
         { key: "robeset", name: "ローブ付きサテンセット", cat: "lingerie", jp: "シャンパン色のサテンセット。キャミ＋ショーツに透け感ローブを羽織って", tags: "satin camisole set, sheer robe, satin shorts, champagne lingerie, lace trim robe" },
         { key: "blacksatinset", name: "黒サテン＆ローブセット", cat: "lingerie", jp: "黒サテンのキャミセット。ローブとショーツの3点セット", tags: "black satin camisole set, satin robe, satin shorts, black lingerie, lace trim" },
         { key: "corsetlingerie", name: "コルセットランジェリー", cat: "lingerie", jp: "黒コルセットのランジェリー。編み上げビスチェ、フリルスカート、ガーター付き網タイツ、黒ヒール", tags: "corset lingerie, black corset, bustier, lace-up corset, garter stockings, fishnet stockings, frilled skirt" },
-        { key: "harness", name: "ハーネス", cat: "fantasy", who: "詩織", jp: "白いハイレグボディスーツに黒いレザーハーネスを重ねた近未来風コスチューム。ハイネックで前面はファスナー開き、胸元に縦長のキーホールカットアウト。袖は大きく広がる白いベルスリーブで、袖口と上腕に黒いベルト。腰から両脇に黒いチェーンが垂れ、腿にはベルト付きの白いレッグカバーが付属する", tags: "white bodysuit, highleg leotard, black harness, chest harness, high collar, front zipper, keyhole cutout, bell sleeves, wide sleeves, belt, chain, thigh belt, white legwear, futuristic, cyber" }
+        { key: "harness", name: "ハーネス", cat: "fantasy", who: "詩織", jp: "白いハイレグボディスーツに黒いレザーハーネスを重ねた近未来風コスチューム。ハイネックで前面はファスナー開き、胸元に縦長のキーホールカットアウト。袖は大きく広がる白いベルスリーブで、袖口と上腕に黒いベルト。腰から両脇に黒いチェーンが垂れ、腿にはベルト付きの白いレッグカバーが付属する", tags: "white bodysuit, highleg leotard, black harness, chest harness, high collar, front zipper, keyhole cutout, bell sleeves, wide sleeves, belt, chain, thigh belt, white legwear, futuristic, cyber" },
+        /* 和・中華系（追加 No.62-77） */
+        { key: "new-furisode", name: "振袖", cat: "wa", noImg: true, jp: "furisode, long-sleeved kimono, floral pattern kimono, ornate obi, kanzashi hair ornament, zori sandals, kinchaku bag", tags: "furisode, kimono, japanese clothes, obi, kanzashi" },
+        { key: "new-hakama", name: "袴", cat: "wa", noImg: true, jp: "hakama, kimono top, hakama skirt, large ribbon hair ornament, hakama boots", tags: "hakama, kimono, japanese clothes" },
+        { key: "kitsune-miko", name: "狐巫女", cat: "wa", noImg: true, jp: "miko outfit, white kimono top, gold trim, detached sleeves, red hakama, fox ears, fox tail, ribbon", tags: "miko, fox ears, animal ears, fox tail, hakama" },
+        { key: "taisho-kimono", name: "大正ロマン着物", cat: "wa", noImg: true, jp: "taisho roman style kimono, yagasuri pattern, hakama, lace gloves, leather boots, ribbon hair ornament", tags: "kimono, hakama, japanese clothes, gloves" },
+        { key: "china-red", name: "チャイナドレス・赤", cat: "wa", noImg: true, jp: "red china dress, cheongsam, mandarin collar, floral embroidery, side slit, long dress, high heels, bun hair ornament", tags: "china dress, cheongsam, chinese clothes, mandarin collar" },
+        { key: "china-blueporcelain", name: "チャイナドレス・青花瓷", cat: "wa", noImg: true, jp: "white china dress, blue floral porcelain pattern, cheongsam, mandarin collar, side slit, high heels", tags: "china dress, chinese clothes, floral pattern" },
+        { key: "chinese-maid", name: "中華メイド", cat: "wa", noImg: true, jp: "chinese maid outfit, cheongsam-style dress, apron, maid headdress, double bun covers, puff sleeves", tags: "maid, apron, maid headdress, china dress" },
+        { key: "hanfu", name: "漢服", cat: "wa", noImg: true, jp: "hanfu, flowing layered robe, wide sleeves, embroidered waist sash, sheer outer robe, hairpin ornament", tags: "hanfu, chinese clothes, hairpin" },
+        { key: "hanfu-dress", name: "改良漢服ドレス", cat: "wa", noImg: true, jp: "modern hanfu dress, short hanfu dress, wide sleeves, embroidered collar, ribbon sash, mary janes", tags: "hanfu, dress, chinese clothes" },
+        { key: "yukata-asagao", name: "浴衣・朝顔柄", cat: "wa", noImg: true, jp: "blue yukata, morning glory pattern, obi sash, geta sandals, hair ornament, paper fan", tags: "yukata, japanese clothes, geta, obi" },
+        { key: "yukata-kingyo", name: "浴衣・金魚柄", cat: "wa", noImg: true, jp: "black yukata, goldfish pattern, red obi sash, geta sandals, hairpin ornament", tags: "yukata, japanese clothes, geta" },
+        { key: "geisha-dress", name: "芸者風ドレス", cat: "wa", noImg: true, jp: "geisha-inspired kimono dress, wide obi belt, floral pattern, long sleeves, kanzashi, platform sandals", tags: "kimono, obi, kanzashi, japanese clothes" },
+        { key: "kunoichi", name: "くノ一", cat: "wa", noImg: true, jp: "kunoichi ninja outfit, short kimono top, scarf, arm guards, leg wraps, shorts, kunai", tags: "ninja, kunoichi, kunai, scarf" },
+        { key: "onna-kenshi", name: "女剣士", cat: "wa", noImg: true, jp: "female swordsman outfit, kimono top, hakama, katana, sash belt, fingerless gloves, boots", tags: "hakama, katana, japanese clothes, gloves" },
+        { key: "oiran-dress", name: "花魁風ドレス", cat: "wa", noImg: true, jp: "oiran-inspired kimono dress, luxurious floral kimono, wide ornate obi, gold kanzashi, long hair ornaments, platform sandals", tags: "oiran style, kimono, kanzashi, obi" },
+        { key: "tennyo-dress", name: "天女の羽衣ドレス", cat: "wa", noImg: true, jp: "celestial maiden outfit, hagoromo shawl, flowing sheer scarf, white and pastel dress, gold ornaments, long sleeves", tags: "hagoromo, dress, shawl, japanese clothes" },
+        /* アニメ・ゲーム（追加 No.78-87） */
+        { key: "magical-pink", name: "魔法少女（ピンク）", cat: "animegame", noImg: true, jp: "magical girl outfit, pink frilled dress, large ribbon bow, puff sleeves, heart brooch, magic wand, white gloves, ribbon boots", tags: "magical girl, wand, ribbon, frills" },
+        { key: "magical-dark", name: "魔法少女・ダーク", cat: "animegame", noImg: true, jp: "dark magical girl outfit, black and purple frilled dress, bat wing ribbon, magic staff, lace gloves, choker", tags: "magical girl, staff, black dress, choker" },
+        { key: "sailor-warrior", name: "セーラー戦士風", cat: "animegame", noImg: true, jp: "sailor warrior outfit, sailor collar uniform, pleated mini skirt, large chest bow, tiara, long gloves, knee boots", tags: "sailor collar, pleated skirt, tiara, gloves" },
+        { key: "mecha-pilot", name: "メカパイロットスーツ", cat: "animegame", noImg: true, jp: "futuristic pilot suit, white and blue techwear, fitted jacket, headset, gloves, belt, boots", tags: "pilot suit, headset, techwear, gloves" },
+        { key: "rpg-hero", name: "RPG勇者", cat: "animegame", noImg: true, jp: "hero outfit, cape, light armor breastplate, tunic, sword and shield, belt pouch, fingerless gloves, boots", tags: "cape, armor, sword, shield" },
+        { key: "rpg-wizard", name: "RPG魔法使い", cat: "animegame", noImg: true, jp: "wizard robe, long robe, wide-brim pointed hat, crystal magic staff, spell book, capelet, boots", tags: "wizard, robe, staff, hat" },
+        { key: "idol-stage", name: "アイドルステージ衣装", cat: "animegame", noImg: true, jp: "idol stage outfit, sparkling frilled dress, plaid ribbon accents, headset microphone, wrist ribbons, white boots", tags: "idol, microphone, frills, ribbon" },
+        { key: "cyber-streamer", name: "サイバーストリーマー", cat: "animegame", noImg: true, jp: "cyber streamer outfit, neon trim techwear jacket, gaming headset, fingerless gloves, belt straps, platform sneakers", tags: "headset, techwear, neon, gloves" },
+        { key: "neko-gamer", name: "猫耳ゲーマー", cat: "animegame", noImg: true, jp: "gamer outfit, oversized hoodie, cat ear headphones, shorts, striped thigh-high socks, game controller", tags: "cat ear headphones, hoodie, game controller" },
+        { key: "vampire-lady", name: "ヴァンパイア令嬢", cat: "animegame", noImg: true, jp: "vampire lady outfit, gothic black and red dress, lace choker with gemstone, bat hair ornament, long gloves, heeled boots", tags: "vampire, gothic dress, choker, gloves" },
+        /* 定番（追加 No.88-90） */
+        { key: "santa-new", name: "サンタ", cat: "classic", noImg: true, jp: "santa costume, red dress, white fur trim, santa hat, belt, white gloves, boots, gift sack", tags: "santa costume, santa hat, fur trim" },
+        { key: "bunny-new", name: "バニー", cat: "classic", noImg: true, jp: "bunny girl costume, black bunny suit, rabbit ears headband, bow tie, white cuffs, fishnet tights, high heels", tags: "bunny ears, playboy bunny, bowtie, fishnet tights" },
+        { key: "minipolice-new", name: "ミニスカポリス", cat: "classic", noImg: true, jp: "policewoman costume, navy uniform dress, police cap, necktie, badge, belt, boots", tags: "police, uniform, hat, necktie" },
+        /* 制服系（追加 No.91-94） */
+        { key: "blazer-winter", name: "ブレザー制服・冬服", cat: "uniform", noImg: true, jp: "school uniform, navy blazer, white shirt, red ribbon tie, plaid skirt, loafers, school bag", tags: "school uniform, blazer, plaid skirt, neck ribbon" },
+        { key: "sailor-summer", name: "セーラー服・夏服", cat: "uniform", noImg: true, jp: "sailor school uniform, white blouse, blue sailor collar, red neckerchief, pleated skirt, loafers", tags: "serafuku, sailor collar, neckerchief, pleated skirt" },
+        { key: "nurse-new", name: "ナース", cat: "uniform", noImg: true, jp: "nurse outfit, white nurse dress, nurse cap, apron, white tights, nurse shoes, stethoscope", tags: "nurse, nurse cap, stethoscope, apron" },
+        { key: "ca-uniform", name: "CA風制服", cat: "uniform", noImg: true, jp: "flight attendant uniform, navy suit dress, neck scarf, stewardess cap, high heels, trolley bag", tags: "flight attendant, uniform, scarf, hat" },
+        /* ファンタジー・イベント（追加 No.95-98） */
+        { key: "elf-forest", name: "エルフの森ドレス", cat: "fantasy", noImg: true, jp: "elf outfit, green forest dress, leaf ornaments, circlet, long gloves, cape, lace-up boots, bow", tags: "elf, dress, circlet, cape" },
+        { key: "witch-apprentice", name: "魔女見習い", cat: "fantasy", noImg: true, jp: "witch apprentice outfit, purple dress, star-pattern cape, witch hat, broom, ribbon boots, magic pouch", tags: "witch, witch hat, broom, cape" },
+        { key: "angel-dress", name: "天使ドレス", cat: "fantasy", noImg: true, jp: "angel outfit, white dress, feather wings, halo, gold trim, white gloves, sandals", tags: "angel, wings, halo, white dress" },
+        { key: "pirate-captain", name: "海賊船長", cat: "fantasy", noImg: true, jp: "pirate captain outfit, long coat, tricorn hat, blouse, corset belt, boots, cutlass", tags: "pirate, hat, coat, sword" },
+        /* 際どい系（追加 No.99） */
+        { key: "lingerie-roomdress", name: "ランジェリー風ルームドレス", cat: "spicy", noImg: true, jp: "sheer robe over camisole dress, lace trim loungewear dress, ribbon, slippers", tags: "negligee style, sheer robe, lace trim, loungewear" }
       ];
       ITEMS.forEach(function (it, i) { it.no = i + 1; });
       var BY_KEY = {};
@@ -747,11 +810,35 @@
           card.setAttribute("aria-label", it.name + "の詳細を開く");
           var thumb = document.createElement("div");
           thumb.className = "thumb";
-          var img = document.createElement("img");
-          img.src = "assets/" + it.key + ".jpg";
-          img.alt = (it.who || "ミュウ") + "のコスプレ：" + it.name;
-          img.loading = "lazy";
-          thumb.appendChild(img);
+          if (it.noImg) {
+            var ph = document.createElement("div");
+            ph.className = "thumb-noimg";
+            ph.innerHTML = '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>';
+            var phLabel = document.createElement("div");
+            phLabel.className = "ph-label"; phLabel.textContent = "NO IMAGE";
+            var phName = document.createElement("div");
+            phName.className = "ph-name"; phName.textContent = it.name;
+            var phSub = document.createElement("div");
+            phSub.className = "ph-sub"; phSub.textContent = "見本イラスト準備中";
+            ph.appendChild(phLabel); ph.appendChild(phName); ph.appendChild(phSub);
+            thumb.appendChild(ph);
+          } else {
+            var img = document.createElement("img");
+            img.src = "assets/" + it.key + ".jpg";
+            img.alt = (it.who || "ミュウ") + "のコスプレ：" + it.name;
+            img.loading = "lazy";
+            img.onerror = function () {
+              thumb.innerHTML = "";
+              var ph2 = document.createElement("div");
+              ph2.className = "thumb-noimg";
+              var l2 = document.createElement("div"); l2.className = "ph-label"; l2.textContent = "NO IMAGE";
+              var n2 = document.createElement("div"); n2.className = "ph-name"; n2.textContent = it.name;
+              var s2 = document.createElement("div"); s2.className = "ph-sub"; s2.textContent = "見本イラスト準備中";
+              ph2.appendChild(l2); ph2.appendChild(n2); ph2.appendChild(s2);
+              thumb.appendChild(ph2);
+            };
+            thumb.appendChild(img);
+          }
           var body = document.createElement("div");
           body.className = "card-body";
           var no = document.createElement("div");
@@ -799,8 +886,22 @@
         if (!it) return;
         state.detailKey = key;
         state.returnPage = state.page;
-        el("d-img").src = "assets/" + it.key + ".jpg";
-        el("d-img").alt = (it.who || "ミュウ") + "のコスプレ：" + it.name + "（全身）";
+        if (it.noImg) {
+          el("d-img").hidden = true;
+          el("d-img").removeAttribute("src");
+          el("d-noimg").hidden = false;
+          el("d-noimg-name").textContent = it.name;
+        } else {
+          el("d-noimg").hidden = true;
+          el("d-img").hidden = false;
+          el("d-img").src = "assets/" + it.key + ".jpg";
+          el("d-img").alt = (it.who || "ミュウ") + "のコスプレ：" + it.name + "（全身）";
+          el("d-img").onerror = function () {
+            el("d-img").hidden = true;
+            el("d-noimg").hidden = false;
+            el("d-noimg-name").textContent = it.name;
+          };
+        }
         el("d-no").textContent = "No." + String(it.no).padStart(2, "0") + " / 全" + ITEMS.length + "着";
         el("d-name").textContent = it.name;
         el("d-cat").textContent = "カテゴリ：" + CAT_NAME[it.cat] + (it.who ? " ／ 見本モデル：" + it.who : "");
