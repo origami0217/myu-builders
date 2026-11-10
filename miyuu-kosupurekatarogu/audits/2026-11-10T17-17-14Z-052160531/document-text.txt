@@ -1,0 +1,135 @@
+ハブに戻る (→ /spaces/v2/comfyuipuronputobiruda/)
+私服カタログへ
+(→ /spaces/v2/miyuuzhao-seti-ebiruda/)
+ComfyUIプロンプトビルダー（最終調整・出力）へ
+# コスプレカタログ
+96着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。29着は見本イラストを新しい立ち絵に差し替えてあって、うち15着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。詳細ではカラーテーマ（18色）も選べて、レースクイーンのチームカラーみたいに衣装の色味を変えられるよ。今回追加した7着と前回追加した26着は見本イラスト準備中のためプレースホルダー表示だよ。
+全96着
+カラーテーマ18色対応（詳細から選択）
+新規13着追加（オーナー提供・画像付き）
+新規7着追加（制服系3＋ファンタジー・イベント4）
+新規26着追加（和・中華系16＋アニメ・ゲーム10）
+見本29着を差し替え NEW（詩織モデル15着）
+seed 939393 固定
+LoRA myu_original_v2（0.8）
+立ちポーズ・全身・やさしい笑顔
+ハブ：ComfyUIプロンプトビルダー (→ /spaces/v2/comfyuipuronputobiruda/)
+衣装：コスプレカタログ
+衣装：着せ替えビルダー（私服） (→ /spaces/v2/miyuuzhao-seti-ebiruda/) カメラ：アングル早見表 (→ /spaces/v2/kameraanguruzao-jian-biao/)
+コスプレ
+このページ
+全96着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。
+私服
+着せ替えビルダーへ →
+プリセット40種と、トップス／ボトムスなどのパーツ＋色テーマで組む私服はこちら。選んだ断片はハブに貼って合流。
+(→ /spaces/v2/miyuuzhao-seti-ebiruda/)
+[input search: 衣装名・タグで探す（例：ビキニ、bikini、下着）]
+96 着ヒット
+[button: すべて96] [button: 定番8] [button: 制服系12] [button: ファンタジー・イベント18] [button: 和・中華系20] [button: アニメ・ゲーム10] [button: 際どい系18] [button: 水着系5] [button: 下着・ランジェリー系5]
+[button:
+[image: ミュウのコスプレ：ネグリジェ]
+拡大
+No.01
+ネグリジェ
+定番
+] [button:
+[image: ミュウのコスプレ：バニースーツ]
+拡大
+No.02
+バニースーツ
+定番
+] [button:
+[image: 詩織のコスプレ：セーラー服・冬服]
+拡大
+No.03
+セーラー服・冬服
+制服系
+] [button:
+[image: ミュウのコスプレ：メイド]
+拡大
+No.04
+メイド
+定番
+] [button:
+[image: 詩織のコスプレ：ナース]
+拡大
+No.05
+ナース
+定番
+] [button:
+[image: ミュウのコスプレ：巫女]
+拡大
+No.06
+巫女
+定番
+] [button:
+[image: 詩織のコスプレ：悪魔コス]
+拡大
+No.07
+悪魔コス
+定番
+] [button:
+[image: ミュウのコスプレ：サンタコス]
+拡大
+No.08
+サンタコス
+定番
+] [button:
+[image: 詩織のコスプレ：警察官]
+拡大
+No.09
+警察官
+制服系
+] [button:
+[image: ミュウのコスプレ：軍服]
+拡大
+No.10
+軍服
+制服系
+] [button:
+[image: 詩織のコスプレ：CA]
+拡大
+No.11
+CA
+制服系
+] [button:
+[image: ミュウのコスプレ：エージェント]
+拡大
+No.12
+エージェント
+制服系
+]
+[hidden] 見つからなかった…検索ワードを変えてみて
+[button: ← 前へ] [button: 1] [button: 2] [button: 3] [button: 4] [button: 5] [button: 6] [button: 7] [button: 8] [button: 次へ →]
+ハブに戻る（ComfyUIプロンプトビルダー） (→ /spaces/v2/comfyuipuronputobiruda/)
+[hidden] [button:
+[hidden] カタログ一覧へ戻る ]
+[hidden] ハブ（プロンプトビルダー）に戻る (→ /spaces/v2/comfyuipuronputobiruda/)
+[hidden] [image: no alt text]
+[hidden] タップで拡大
+[hidden] NO IMAGE
+[hidden] 見本イラスト準備中 プロンプトとタグはそのまま使えるよ
+[hidden] ### カラーテーマ
+[hidden] 指定なし
+[hidden] レースクイーンのチームカラーなど、衣装全体の色味を変えたいときに選んでね。選んだ色は衣装プロンプトの頭に足されるだけだから、全体プロンプトもDanbooruタグもそのまま残るよ。
+[hidden] ### 全体プロンプト
+[hidden] [button:
+[hidden] 全体プロンプトをコピー ]
+[hidden] ### Danbooruタグ形式
+[hidden] [button:
+[hidden] タグをコピー ] [button:
+[hidden] おまかせコスプレ ] [button:
+[hidden] 一覧に戻る ]
+[hidden] ### ネガティブ（カタログ共通）
+[hidden] [button: コピー]
+[hidden] 生成条件（カタログ共通）：Prefect Illustrious XL v8 ／ LoRA myu_original_v2（0.8） ／ seed 939393 ／ 832×1216 ／ steps 28 ／ CFG 5.5 ／ euler_ancestral
+[hidden] コピーしたらハブで最終調整 → (→ /spaces/v2/comfyuipuronputobiruda/) 私服は着せ替えビルダーで選ぶ → (→ /spaces/v2/miyuuzhao-seti-ebiruda/)
+[hidden] [button:
+[hidden] ← 前の衣装
+[hidden] ] [button:
+[hidden] 次の衣装 →
+[hidden] ]
+[hidden] [button:
+[hidden] ]
+[hidden] [image: no alt text]
+[hidden] 背景タップ・Escキーでも閉じられるよ

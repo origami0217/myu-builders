@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<title>プロンプトビルダー Ver3.2</title>
+<title>プロンプトビルダー Ver3.3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
@@ -119,6 +119,24 @@ border-radius:14px;padding:10px 14px;font-size:12.5px;line-height:1.7;color:var(
 .noroom .nr-icon{font-size:20px;line-height:1.3;flex:none}
 .noroom strong{color:var(--gold)}
 textarea.frag{min-height:56px;resize:vertical}
+.smart-status{font-size:12.5px;font-weight:700;color:var(--accent-strong);min-height:1.4em;margin:6px 0 0;line-height:1.6}
+@media (prefers-color-scheme: dark){.smart-status{color:var(--accent)}}
+/* ---------- 現在の選択サマリー ---------- */
+.sel-row{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line)}
+.sel-row:last-of-type{border-bottom:none}
+.sel-cat{flex:none;width:104px;font-size:12.5px;font-weight:800;color:var(--accent-strong);padding-top:4px;line-height:1.4}
+@media (prefers-color-scheme: dark){.sel-cat{color:var(--accent)}}
+.sel-chips{display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0;padding-top:1px}
+.sel-chip{display:inline-block;background:var(--chip);border:1.5px solid var(--line);border-radius:999px;
+padding:3px 11px;font-size:12.5px;font-weight:700;line-height:1.5;word-break:break-all}
+.sel-chip.neg{border-style:dashed}
+.sel-empty{font-size:12.5px;color:var(--sub);padding-top:4px}
+@media (max-width:560px){.sel-cat{width:84px}}
+button.ghost-btn{background:var(--chip);color:var(--txt);border:1.5px solid var(--line)}
+button.ghost-btn:hover{background:var(--panel2);color:var(--txt)}
+.jump-link{font-size:12.5px;font-weight:800;color:var(--accent-strong);text-decoration:none}
+@media (prefers-color-scheme: dark){.jump-link{color:var(--accent)}}
+.jump-link:hover{text-decoration:underline}
 section[id]{scroll-margin-top:12px}
 .frag-label{font-size:13.5px;font-weight:800;margin:0 0 6px}
 .frag-label .en{color:var(--accent-strong)}
@@ -140,7 +158,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 </head>
 <body>
 <header>
-<h1>プロンプトビルダー <span class="ver">Ver3.2</span></h1>
+<h1>プロンプトビルダー <span class="ver">Ver3.3</span></h1>
 <p>まず<strong>キャラクター</strong>を決めて、服や表情は<strong>各部屋</strong>で。ここは、選んだタグを<strong>貼って・まとめて・コピーする</strong>場所です。</p>
 <div class="steps" aria-label="使い方">
 <div class="step">
@@ -255,13 +273,29 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 </div>
 </section>
 
-<div class="step-head"><span class="step-num">3</span><span class="step-title">貼る</span><span class="step-sub">部屋でコピーしたものをここへ</span></div>
+<section id="selSummarySec" aria-label="現在の選択">
+<h2>現在の選択<span class="note">ステップ①と、取り込んだ断片から自動で表示します</span></h2>
+<div id="selSummary"></div>
+<p class="memo" style="margin:8px 0 0">部屋でコピーして下の「貼る」に取り込むと、ここにカテゴリ別で並びます。貼った文から判別できた範囲で振り分けるので、迷ったものは「その他」に入ります。</p>
+</section>
+
+<div class="step-head"><span class="step-num">3</span><span class="step-title">貼る</span><span class="step-sub">貼るだけで自動判別して「できあがり」へ反映します</span></div>
 <section id="fragSec">
-<p class="frag-label"><span class="en">英語タグ</span>（ComfyUI用）</p>
+<p class="frag-label"><span class="en">まとめて貼る</span>（自動判別）</p>
+<textarea class="frag" id="smartPaste" rows="4" placeholder="部屋でコピーしたものを、まるごとここに貼ってください。英語タグ・日本語の文・ネガティブが混ざっていても、自動で振り分けて下の欄と「できあがり」に反映します。"></textarea>
+<p class="smart-status" id="smartStatus" aria-live="polite"></p>
+<div class="row">
+<button type="button" id="smartGoBtn">振り分ける</button>
+<button type="button" id="fragClearBtn" class="ghost-btn">貼る欄をクリア</button>
+<a class="jump-link" href="#outSec">できあがりを見る ↓</a>
+</div>
+<p class="frag-label" style="margin-top:14px"><span class="en">英語タグ</span>（ComfyUI用）</p>
 <textarea class="frag" id="fragEn" rows="3" placeholder="例：maid outfit, apron, headdress"></textarea>
 <p class="frag-label" style="margin-top:12px"><span class="en">日本語の文</span>（ChatGPT用）</p>
 <textarea class="frag" id="fragJp" rows="3" placeholder="例：メイド服を着て、カフェで微笑んでいる"></textarea>
-<p class="memo" style="margin:8px 0 0">重なったタグは、自動で1つにまとめます。</p>
+<p class="frag-label" style="margin-top:12px"><span class="en">ネガティブ</span>（貼った分だけ追加）</p>
+<div class="fixed" id="pastedNegView">（なし）</div>
+<p class="memo" style="margin:8px 0 0">重なったタグは、自動で1つにまとめます。英語タグ欄・日本語欄に直接貼っても、混ざった内容は自動で振り分けます。</p>
 </section>
 
 <div class="step-head"><span class="step-num">＋</span><span class="step-title">細かい設定</span><span class="step-sub">ふだんはそのままでOK</span></div>
@@ -319,7 +353,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 </section>
 
 </main>
-<footer>プロンプトビルダー Ver3.2 — 選ぶのは各部屋、ここは貼って・まとめて・コピーする場所です。</footer>
+<footer>プロンプトビルダー Ver3.3 — 選ぶのは各部屋、ここは貼って・まとめて・コピーする場所です。</footer>
 
 <nav class="float-nav" id="floatNav" aria-label="ページ内ショートカット">
 <a href="#charaSec">キャラ</a>
@@ -483,6 +517,96 @@ document.getElementById("partnerTagsJp").addEventListener("input", update);
 document.getElementById("fragEn").addEventListener("input", update);
 document.getElementById("fragJp").addEventListener("input", update);
 
+// ===== 貼り付け自動判別（ステップ③→④の自動入力） =====
+// 部屋でコピーしたテキストはページごとに形が違う（全体プロンプト／Danbooruタグ／日本語プロンプト、
+// ラベル付きのことも混ざっていることもある）ので、貼られたテキストを行ごとに判別して
+// 英語タグ欄・日本語欄・ネガティブへ振り分け、「できあがり」へ即反映する。
+let pastedNeg = "";
+const smartStatusEl = document.getElementById("smartStatus");
+function hasJpChars(s) { return /[぀-ヿ一-鿿]/.test(s); }
+// 1行ぶんの内容から振り分け先を推定する
+function guessBucket(line) {
+const jpChars = (line.match(/[぀-ヿ一-鿿]/g) || []).length;
+if (!jpChars) return "en";
+const latinWords = (line.match(/[a-zA-Z][a-zA-Z-]+/g) || []).length;
+const asciiCommas = (line.match(/,/g) || []).length;
+// 英語タグが複数並んでいる行は、日本語が混ざっていても英語タグ扱い
+if (latinWords >= 2 && asciiCommas >= 1) return "en";
+return "jp";
+}
+function parseSmartText(text) {
+const res = { en: [], jp: [], neg: [] };
+let bucket = "auto";
+String(text).replace(/```/g, "").split(/\r?\n/).forEach(rawLine => {
+let line = rawLine.trim().replace(/^[#*\->・\s]+/, "");
+if (!line) return;
+// 「英語タグ：maid outfit, ...」のようなラベル付き行
+const m = line.match(/^(?:[【\[]\s*)?(ネガティブ(?:プロンプト)?|negative(?:\s*prompt)?|日本語(?:プロンプト|の文|文)?|chatgpt(?:用プロンプト)?|英語(?:タグ|プロンプト)?|english(?:\s*tags?)?|danbooru(?:タグ)?|全体(?:の)?プロンプト|プロンプト|タグ)\s*(?:[】\]]\s*)?[：:]?\s*(.*)$/i);
+if (m) {
+const lab = m[1];
+if (/ネガティブ|negative/i.test(lab)) bucket = "neg";
+else if (/日本語|chatgpt/i.test(lab)) bucket = "jp";
+else if (/英語|english|danbooru/i.test(lab)) bucket = "en";
+else bucket = "auto"; // 「全体のプロンプト」「プロンプト」「タグ」は中身で判定
+line = (m[2] || "").trim();
+if (!line) return;
+res[bucket === "auto" ? guessBucket(line) : bucket].push(line);
+return;
+}
+const b = bucket === "auto" ? guessBucket(line) : bucket;
+res[b].push(line);
+});
+return res;
+}
+function appendFrag(ta, add, sep) {
+const cur = ta.value.trim();
+ta.value = cur ? cur.replace(/[,\s]+$/, "") + sep + add : add;
+}
+function applySmartText(text) {
+if (!text || !text.trim()) { smartStatusEl.textContent = "貼り付け欄が空です。部屋でコピーしたテキストを貼ってください。"; return; }
+const res = parseSmartText(text);
+const enStr = res.en.join(", ").replace(/,\s*,/g, ",").trim();
+const jpStr = res.jp.join("");
+const negStr = res.neg.join(", ").replace(/,\s*,/g, ",").trim();
+if (!enStr && !jpStr && !negStr) { smartStatusEl.textContent = "判別できる内容が見つかりませんでした。"; return; }
+if (enStr) appendFrag(document.getElementById("fragEn"), enStr, ", ");
+if (jpStr) appendFrag(document.getElementById("fragJp"), jpStr, "");
+if (negStr) pastedNeg = pastedNeg ? pastedNeg.replace(/[,\s]+$/, "") + ", " + negStr : negStr;
+document.getElementById("smartPaste").value = "";
+update();
+const bits = [];
+if (enStr) bits.push("英語タグ " + tagCount(enStr) + "件");
+if (jpStr) bits.push("日本語の文 " + jpStr.length + "文字");
+if (negStr) bits.push("ネガティブ " + tagCount(negStr) + "件");
+smartStatusEl.textContent = "取り込みました：" + bits.join("／") + " → 下の欄に表示し、「できあがり」に反映済みです ✓";
+}
+document.getElementById("smartGoBtn").addEventListener("click", () => {
+applySmartText(document.getElementById("smartPaste").value);
+});
+document.getElementById("smartPaste").addEventListener("paste", () => {
+setTimeout(() => applySmartText(document.getElementById("smartPaste").value), 0);
+});
+// 英語欄・日本語欄へ直接貼った場合も、混ざった内容（ラベル付き・複数行・逆の言語）は自動で振り分ける
+["fragEn", "fragJp"].forEach(id => {
+document.getElementById(id).addEventListener("paste", e => {
+const t = (e.clipboardData || window.clipboardData).getData("text");
+if (!t) return;
+const mixed = /\n/.test(t.trim()) ||
+/(ネガティブ|negative|日本語|chatgpt|英語タグ|english|danbooru|全体(?:の)?プロンプト)/i.test(t) ||
+(id === "fragEn" && guessBucket(t.trim()) === "jp") ||
+(id === "fragJp" && guessBucket(t.trim()) === "en" && /,/.test(t));
+if (mixed) { e.preventDefault(); applySmartText(t); }
+});
+});
+document.getElementById("fragClearBtn").addEventListener("click", () => {
+document.getElementById("fragEn").value = "";
+document.getElementById("fragJp").value = "";
+document.getElementById("smartPaste").value = "";
+pastedNeg = "";
+smartStatusEl.textContent = "";
+update();
+});
+
 // ===== 最小構成にリセット =====
 document.getElementById("resetBtn").addEventListener("click", () => {
 charaMode = "myu";
@@ -499,6 +623,9 @@ document.getElementById("oreBtn").disabled = true;
 document.getElementById("freeTags").value = "";
 document.getElementById("fragEn").value = "";
 document.getElementById("fragJp").value = "";
+document.getElementById("smartPaste").value = "";
+pastedNeg = "";
+smartStatusEl.textContent = "";
 document.querySelectorAll("#negOpts input").forEach(inp => { inp.checked = true; });
 update();
 });
@@ -574,6 +701,140 @@ const frag = document.getElementById("fragJp").value.trim();
 if (frag) s.push(frag);
 return s.join("");
 }
+// ===== 現在の選択サマリー（ステップ②の下） =====
+// ステップ①の選択と、「貼る」で取り込んだ断片（英語タグ／日本語の文／自由タグ／ネガティブ）を
+// キーワードでカテゴリに振り分け、チップで表示する。判別できないものは「その他」。
+const SEL_CATS = [
+["chara", "キャラクター"], ["people", "人数・相手"], ["outfit", "衣装"],
+["expr", "表情"], ["pose", "ポーズ・カメラ"], ["bg", "背景・場所"],
+["time", "時間帯"], ["light", "光"], ["other", "その他"], ["neg", "ネガティブ（追加分）"]
+];
+// 英語タグ → 日本語ラベル（代表的なものだけ。無いものはタグそのまま表示）
+const TAG_JP = {
+"maid outfit": "メイド服", "maid": "メイド", "apron": "エプロン", "headdress": "ヘッドドレス",
+"bunny girl": "バニーガール", "bunny ears": "うさ耳", "cat ears": "猫耳", "cat tail": "猫しっぽ",
+"nurse outfit": "ナース服", "school uniform": "学生制服", "sailor uniform": "セーラー服",
+"swimsuit": "水着", "bikini": "ビキニ", "one-piece swimsuit": "ワンピース水着",
+"kimono": "着物", "yukata": "浴衣", "wedding dress": "ウェディングドレス",
+"dress": "ドレス", "skirt": "スカート", "miniskirt": "ミニスカート", "pleated skirt": "プリーツスカート",
+"blouse": "ブラウス", "shirt": "シャツ", "t-shirt": "Tシャツ", "hoodie": "パーカー",
+"sweater": "セーター", "cardigan": "カーディガン", "jacket": "ジャケット", "coat": "コート",
+"shorts": "ショートパンツ", "hot pants": "ホットパンツ", "jeans": "ジーンズ",
+"high heels": "ハイヒール", "boots": "ブーツ", "shoes": "靴", "thigh highs": "ニーハイ",
+"stockings": "ストッキング", "socks": "靴下", "gloves": "手袋", "hat": "帽子",
+"ribbon": "リボン", "hair ribbon": "髪リボン", "choker": "チョーカー", "necklace": "ネックレス",
+"earrings": "イヤリング", "lingerie": "ランジェリー", "pajamas": "パジャマ",
+"smile": "微笑み", "smiling": "微笑み", "grin": "にっこり笑顔", "laughing": "笑っている",
+"blush": "頬染め・照れ", "embarrassed": "恥ずかしそう", "wink": "ウインク",
+"closed eyes": "目を閉じている", "open mouth": "口を開けている", "tongue out": "舌出し",
+"crying": "泣いている", "tears": "涙", "angry": "怒り顔", "pout": "むくれ顔",
+"surprised": "驚き顔", "sleepy": "眠そう", "serious": "真剣な表情", "happy": "うれしそう",
+"looking at viewer": "カメラ目線", "looking away": "よそ見", "looking back": "振り返り",
+"cowboy shot": "カウボーイショット", "full body": "全身", "upper body": "上半身",
+"close-up": "顔アップ", "from above": "俯瞰", "from below": "あおり", "from behind": "後ろ姿",
+"eye level": "アイレベル", "pov": "主観視点", "portrait": "ポートレート", "selfie": "自撮り",
+"standing": "立っている", "sitting": "座っている", "lying": "寝転んでいる",
+"kneeling": "膝立ち", "walking": "歩いている", "running": "走っている",
+"peace sign": "ピース", "waving": "手を振っている", "holding": "手に持っている",
+"bedroom": "寝室", "bed room": "寝室", "room": "部屋", "indoors": "室内", "cafe": "カフェ",
+"beach": "ビーチ", "ocean": "海", "sea": "海", "park": "公園", "street": "街並み",
+"city": "街", "forest": "森", "garden": "庭", "classroom": "教室", "school": "学校",
+"kitchen": "キッチン", "bathroom": "浴室", "office": "オフィス", "library": "図書館",
+"restaurant": "レストラン", "hotel": "ホテル", "shrine": "神社", "pool": "プール",
+"onsen": "温泉", "rooftop": "屋上", "train": "電車", "station": "駅", "outdoors": "屋外",
+"night": "夜", "midnight": "深夜", "evening": "夕方", "sunset": "夕焼け",
+"sunrise": "日の出", "morning": "朝", "afternoon": "午後", "noon": "昼", "twilight": "黄昏",
+"dusk": "夕暮れ", "daytime": "日中", "golden hour": "夕方の光",
+"sunlight": "日差し", "moonlight": "月明かり", "lamp light": "ランプの光",
+"candlelight": "キャンドルの光", "candle light": "キャンドルの光", "neon light": "ネオンの光",
+"backlighting": "逆光", "backlit": "逆光", "soft light": "柔らかい光", "lantern": "ランタンの明かり"
+};
+const SEL_KEYS = {
+timeEn: ["midnight", "night", "evening", "sunset", "sunrise", "morning", "afternoon", "noon", "twilight", "dusk", "dawn", "daytime", "golden hour", "blue hour"],
+timeJp: ["深夜", "真夜中", "夜中", "夜", "夕方", "夕暮れ", "黄昏", "早朝", "朝", "昼間", "日中", "夜明け"],
+lightEn: ["moonlight", "sunlight", "lamp", "candle", "neon", "lantern", "backlight", "backlit", "lighting", "light", "glow"],
+lightJp: ["ランプ", "月明かり", "月明り", "日差し", "陽光", "ネオン", "キャンドル", "ランタン", "照明", "明かり", "明り", "逆光", "夕日", "光"],
+bgEn: ["bedroom", "bed room", "cafe", "coffee shop", "beach", "ocean", "sea", "park", "street", "cityscape", "city", "forest", "garden", "classroom", "school", "kitchen", "bathroom", "office", "library", "restaurant", "hotel", "shrine", "temple", "mountain", "river", "lake", "indoors", "outdoors", "background", "scenery", "window seat", "train", "station", "pool", "onsen", "rooftop", "balcony", "hallway", "shop", "store", "field", "meadow", "island", "room"],
+bgJp: ["寝室", "ベッドルーム", "部屋", "カフェ", "喫茶店", "ビーチ", "浜辺", "海辺", "海", "公園", "街並み", "街", "森", "庭園", "庭", "教室", "学校", "キッチン", "台所", "浴室", "オフィス", "図書館", "レストラン", "ホテル", "神社", "お寺", "山", "川", "湖", "室内", "屋外", "窓際", "駅", "電車", "プール", "温泉", "屋上", "廊下", "ベランダ", "店内", "背景"],
+outfitEn: ["maid", "apron", "headdress", "outfit", "costume", "uniform", "dress", "skirt", "blouse", "shirt", "swimsuit", "bikini", "kimono", "yukata", "lingerie", "pajama", "hoodie", "sweater", "cardigan", "jacket", "coat", "jeans", "pants", "shorts", "heels", "boots", "sneakers", "socks", "stocking", "thigh high", "gloves", "hat", "cap", "ribbon", "bow", "choker", "necklace", "earring", "nurse", "bunny", "cat ear", "cat tail", "fox ear", "witch", "sailor", "blazer", "tie", "scarf", "leotard", "bodysuit", "gown", "cheerleader", "miko", "waitress", "camisole", "crop top", "tank top", "sundress", "qipao", "china dress"],
+outfitJp: ["メイド服", "メイド", "衣装", "制服", "水着", "ビキニ", "ドレス", "スカート", "ブラウス", "シャツ", "着物", "浴衣", "ランジェリー", "パジャマ", "パーカー", "セーター", "カーディガン", "ジャケット", "コート", "ジーンズ", "パンツ", "ヒール", "ブーツ", "靴下", "ストッキング", "ニーハイ", "手袋", "帽子", "リボン", "チョーカー", "ネックレス", "イヤリング", "ピアス", "ナース", "バニー", "猫耳", "コスプレ", "エプロン", "ヘッドドレス", "ワンピース", "私服", "セーラー服", "ブレザー", "ネクタイ", "マフラー", "靴を履", "靴", "服を着", "服"],
+exprEn: ["smile", "smiling", "grin", "laugh", "blush", "cry", "tears", "angry", "surprised", "surprise", "wink", "closed eyes", "open mouth", "tongue out", "embarrassed", "shy", "pout", "sleepy", "happy", "sad", "serious", "expression", "smirk", "frown"],
+exprJp: ["微笑", "笑顔", "笑って", "笑い", "にっこり", "照れ", "頬を染", "泣い", "涙", "怒っ", "怒り", "驚い", "ウインク", "ウィンク", "眠そ", "恥ずかし", "真剣", "表情", "目を閉じ", "むくれ"],
+poseEn: ["standing", "sitting", "lying", "kneeling", "walking", "running", "jumping", "dancing", "pose", "looking at viewer", "looking away", "looking back", "cowboy shot", "full body", "upper body", "close-up", "closeup", "from above", "from below", "from behind", "from side", "eye level", "eye-level", "pov", "camera", "shot", "angle", "portrait", "selfie", "leaning", "waving", "peace sign", "holding", "stretching", "pointing"],
+poseJp: ["立っ", "立って", "座っ", "座って", "寝転", "横たわ", "膝立", "歩い", "歩いて", "走っ", "ポーズ", "カメラ目線", "目線", "振り返", "見返", "アイレベル", "カウボーイショット", "全身", "上半身", "顔アップ", "アップ", "俯瞰", "あおり", "アングル", "構図", "自撮り", "ピース", "手を振", "腰に手"]
+};
+function selHit(s, list) { for (let i = 0; i < list.length; i++) { if (s.indexOf(list[i]) !== -1) return true; } return false; }
+function cleanTag(t) { return t.replace(/[()]/g, " ").replace(/:\s*\d+(\.\d+)?/g, "").replace(/\s+/g, " ").trim(); }
+function tagLabel(t) { const c = cleanTag(t); return TAG_JP[c.toLowerCase()] || c; }
+function classifyEn(token) {
+const s = cleanTag(token).toLowerCase();
+if (!s) return "other";
+if (selHit(s, SEL_KEYS.timeEn)) return "time";
+if (selHit(s, SEL_KEYS.lightEn)) return "light";
+if (selHit(s, SEL_KEYS.bgEn)) return "bg";
+if (selHit(s, SEL_KEYS.outfitEn)) return "outfit";
+if (selHit(s, SEL_KEYS.exprEn)) return "expr";
+if (selHit(s, SEL_KEYS.poseEn)) return "pose";
+return "other";
+}
+function classifyJpMulti(piece) {
+const cats = [];
+if (selHit(piece, SEL_KEYS.timeJp)) cats.push("time");
+if (selHit(piece, SEL_KEYS.lightJp)) cats.push("light");
+if (selHit(piece, SEL_KEYS.bgJp)) cats.push("bg");
+if (selHit(piece, SEL_KEYS.outfitJp)) cats.push("outfit");
+if (selHit(piece, SEL_KEYS.exprJp)) cats.push("expr");
+if (selHit(piece, SEL_KEYS.poseJp)) cats.push("pose");
+return cats.length ? cats : ["other"];
+}
+function renderSummary() {
+const wrap = document.getElementById("selSummary");
+if (!wrap) return;
+const data = {}; SEL_CATS.forEach(([k]) => { data[k] = []; });
+const seen = {}; SEL_CATS.forEach(([k]) => { seen[k] = new Set(); });
+function push(cat, label, raw) {
+const key = (raw || label).toLowerCase();
+if (seen[cat].has(key)) return;
+seen[cat].add(key); data[cat].push(label);
+}
+push("chara", charaMode === "myu" ? "ミュウ" : charaMode === "shiori" ? "詩織" : "なし（キャラクター未選択）");
+push("people", peopleMode === "solo" ? "ソロ" : peopleMode === "duo_m" ? "二人（男）" : "二人（女）");
+const partner = document.getElementById("partnerTags").value.trim();
+if (peopleMode !== "solo" && partner) partner.split(",").map(t => t.trim()).filter(Boolean).forEach(t => push("people", tagLabel(t), t));
+const partnerJp = document.getElementById("partnerTagsJp").value.trim();
+if (peopleMode !== "solo" && partnerJp) push("people", "相手：" + partnerJp, partnerJp);
+// 貼った英語タグ＋自由タグ
+[document.getElementById("fragEn").value, document.getElementById("freeTags").value].forEach(src => {
+src.split(",").map(t => t.trim()).filter(Boolean).forEach(t => push(classifyEn(t), tagLabel(t), t));
+});
+// 貼った日本語の文（句読点で区切り、合うカテゴリ全部に表示）
+document.getElementById("fragJp").value.split(/[。\n]+/).forEach(sent => {
+sent.split("、").map(p => p.trim()).filter(p => p.length >= 2).forEach(piece => {
+classifyJpMulti(piece).forEach(cat => push(cat, piece, piece));
+});
+});
+if (pastedNeg) pastedNeg.split(",").map(t => t.trim()).filter(Boolean).forEach(t => push("neg", tagLabel(t), t));
+wrap.innerHTML = "";
+SEL_CATS.forEach(([key, label]) => {
+const row = document.createElement("div"); row.className = "sel-row";
+const cat = document.createElement("span"); cat.className = "sel-cat"; cat.textContent = label;
+const chips = document.createElement("div"); chips.className = "sel-chips";
+if (data[key].length) {
+data[key].forEach(txt => {
+const c = document.createElement("span");
+c.className = "sel-chip" + (key === "neg" ? " neg" : "");
+c.textContent = txt;
+chips.appendChild(c);
+});
+} else {
+const e = document.createElement("span"); e.className = "sel-empty"; e.textContent = "未選択";
+chips.appendChild(e);
+}
+row.appendChild(cat); row.appendChild(chips);
+wrap.appendChild(row);
+});
+}
+
 function update() {
 const post = fixedPost();
 document.getElementById("charaDesc").textContent = charaMode === "myu"
@@ -611,6 +872,8 @@ document.getElementById("posOut").value = posRes.str;
 document.getElementById("posCount").textContent = "— " + posRes.count + "タグ / " + posRes.str.length + "文字" + (posRes.removed ? "（重複 " + posRes.removed + " 件を除去）" : "");
 
 const neg = [negBase(), PEOPLE_NEG[peopleMode]];
+if (pastedNeg) neg.push(pastedNeg);
+document.getElementById("pastedNegView").textContent = pastedNeg || "（なし）";
 document.querySelectorAll("#negOpts input").forEach(inp => {
 if (!inp.checked) return;
 if (charaMode !== "myu" && inp.dataset.neg.indexOf("日焼け") === 0) return; // 肌色まわりはミュウ専用
@@ -623,6 +886,7 @@ document.getElementById("negCount").textContent = "— " + negRes.count + "タ�
 const jpStr = buildJp();
 document.getElementById("jpOut").value = jpStr;
 document.getElementById("jpCount").textContent = "— " + jpStr.length + "文字";
+renderSummary();
 }
 
 document.querySelectorAll("button[data-copy]").forEach(btn => {

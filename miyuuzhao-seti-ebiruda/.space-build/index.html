@@ -578,6 +578,78 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 }
 .back-btn svg { width: 16px; height: 16px; flex: none;}
 .manual-btn { margin-top: 16px;}
+/* トップ画面のタブ（プリセット／お気に入り） */
+.home-tabs { display: flex; gap: 8px; margin-bottom: 16px;}
+.home-tab {
+flex: 1; border: 1.5px solid var(--line); background: var(--card); color: var(--ink-soft);
+border-radius: 999px; padding: 11px 10px;
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 14.5px;
+}
+.home-tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink);}
+.home-tab .fav-count { font-size: 12px; opacity: 0.85;}
+/* お気に入りカード */
+.fav-card { position: relative;}
+.fav-del {
+position: absolute; top: 8px; right: 8px; z-index: 2;
+border: 1px solid var(--line); background: var(--card); color: var(--ink-soft);
+border-radius: 999px; font-size: 11px; font-weight: 800; padding: 5px 10px; cursor: pointer;
+}
+.fav-del:hover { border-color: var(--accent); color: var(--accent-strong);}
+@media (prefers-color-scheme: dark) { .fav-del:hover { color: var(--accent);}}
+.fav-date { display: block; font-size: 11px; color: var(--ink-soft);}
+/* お気に入り登録ボタン＋サムネイルパネル */
+.fav-save-btn {
+display: flex; align-items: center; justify-content: center; gap: 8px;
+width: 100%; margin-top: 10px;
+background: var(--card); color: var(--accent-strong);
+border: 1.5px solid var(--accent); border-radius: 999px; padding: 12px 16px;
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 14.5px;
+cursor: pointer;
+}
+.fav-save-btn:hover { background: var(--accent-soft);}
+@media (prefers-color-scheme: dark) { .fav-save-btn { color: var(--accent);}}
+.fav-panel {
+display: flex; gap: 12px; margin-top: 12px;
+background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px;
+padding: 10px 12px; align-items: flex-start;
+}
+.fav-thumb { width: 64px; height: 92px; object-fit: cover; border-radius: 8px; flex: none;}
+.fav-thumb-ph {
+width: 64px; height: 92px; border-radius: 8px; flex: none;
+background: var(--chip); color: var(--ink-soft);
+font-size: 10.5px; font-weight: 700; line-height: 1.5;
+display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px;
+}
+.fav-panel-main { flex: 1; min-width: 0;}
+.fav-status { margin: 0 0 8px; font-size: 12.5px; color: var(--ink-soft); font-weight: 700;}
+.fav-panel-actions { display: flex; flex-wrap: wrap; gap: 8px;}
+.fav-panel-actions .pill-btn { font-size: 12.5px; padding: 8px 14px;}
+/* サムネイル拡大表示（ライトボックス） */
+img.zoomable { cursor: zoom-in;}
+.lightbox {
+position: fixed; inset: 0; z-index: 100;
+background: rgba(24, 9, 17, 0.9);
+display: flex; flex-direction: column; align-items: center; justify-content: center;
+gap: 12px; padding: 22px 16px calc(22px + env(safe-area-inset-bottom));
+cursor: zoom-out;
+}
+.lightbox img {
+max-width: 100%; max-height: calc(100dvh - 150px);
+object-fit: contain; border-radius: 12px;
+background: var(--bg-soft);
+box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+.lightbox .lb-caption {
+margin: 0; color: #f9eef3; font-size: 13.5px; font-weight: 700;
+text-align: center; max-width: 640px;
+}
+.lightbox .lb-close {
+border: 1.5px solid rgba(249, 238, 243, 0.55); background: transparent; color: #f9eef3;
+border-radius: 999px; padding: 9px 22px;
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 14px;
+cursor: pointer;
+}
+.lightbox .lb-close:hover { background: rgba(249, 238, 243, 0.16);}
 [hidden] { display: none !important;}
 @media (max-width: 1023px) {
 .layout { grid-template-columns: minmax(0, 1fr);}
@@ -601,12 +673,13 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 </div>
 <div class="lead">
 <h1><span class="accent">私服</span>着せ替えビルダー</h1>
-<p>まず下の<strong>私服プリセット（89種）</strong>からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
+<p>まず下のタブで<strong>プリセットコーデ／お気に入りコーデ</strong>を切り替えられます。プリセット（89種）からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。お気に入りは、自分でトップスやボトムスを選んで組み立てたコーデを保存しておく場所です。色は最初から決めず、カラーテーマで自分の好きな色を付けられます。カテゴリ（トップス／ワンピース・ドレス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
 <div class="meta-line">
 <span class="meta-chip">プリセット全89コーデ</span>
-<span class="meta-chip">パーツ8カテゴリ</span>
+<span class="meta-chip">単品パーツ229点</span>
 <span class="meta-chip">全体カラーテーマ8種</span>
 <span class="meta-chip">色はパーツごとに変更OK</span>
+<span class="meta-chip">お気に入り登録OK</span>
 </div>
 </div>
 
@@ -639,9 +712,13 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 </div>
 
 <div class="layout" id="layoutRoot">
+<div class="home-tabs" role="tablist" aria-label="コーデの種類を選ぶ">
+<button type="button" class="home-tab" id="tabPreset" role="tab" aria-selected="true">プリセットコーデ</button>
+<button type="button" class="home-tab" id="tabFav" role="tab" aria-selected="false">お気に入りコーデ <span class="fav-count" id="favCount"></span></button>
+</div>
 <section class="preset-area" id="presetSection" aria-label="私服プリセットコーデ">
 <h2>私服プリセットコーデ</h2>
-<p class="hint">立ち絵見本カードをタップすると、大きな立ち絵とプロンプトの画面に移ります。セット後は「ロングスカート→ミニスカート」のように各カテゴリで個別に変更できます。コーデ名は全体プロンプトの先頭に入ります。</p>
+<p class="hint">立ち絵見本カードをタップすると、大きな立ち絵とプロンプトの画面に移ります。カードの画像部分をタップすると、その場で大きく表示されます（閉じると元の画面に戻ります）。セット後は「ロングスカート→ミニスカート」のように各カテゴリで個別に変更できます。コーデ名は全体プロンプトの先頭に入ります。</p>
 <div class="preset-controls">
 <div class="search-row">
 <label class="search-box">
@@ -662,6 +739,13 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 <div class="preset-grid" id="presetChips"></div>
 <p class="empty" id="presetEmpty" hidden>見つからなかった…検索ワードを変えてみて</p>
 <button type="button" class="btn btn-ghost manual-btn" id="manualBtn">プリセットなしで自分で組み立てる</button>
+</section>
+<section class="preset-area" id="favSection" aria-label="お気に入りコーデ" hidden>
+<h2>お気に入りコーデ</h2>
+<p class="hint">自分でトップスやボトムスを選んで組み立てたコーデを、名前・パーツ・プロンプトごと保存しておく場所です。カードをタップすると組み立て画面で呼び出せます。カードの画像部分をタップすると大きく表示されます。詳細画面では、コーデの画像をアップしてサムネイル登録もできます。</p>
+<div class="preset-grid" id="favGrid"></div>
+<p class="empty" id="favEmpty">まだお気に入りがありません。下の「自分で組み立てる」から作って、詳細画面の「お気に入りに登録」で保存できます。</p>
+<button type="button" class="btn btn-ghost manual-btn" id="favManualBtn">自分で組み立てる（新規コーデ）</button>
 </section>
 </div>
 
@@ -693,6 +777,25 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
 全体プロンプトをコピー
 </button>
+<button class="fav-save-btn" id="favSaveBtn" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+お気に入りに登録
+</button>
+<div class="fav-panel" id="favPanel">
+<img id="favThumbImg" class="fav-thumb" alt="お気に入りコーデのサムネイル" hidden />
+<div class="fav-thumb-ph" id="favThumbPh">サムネイル<br />未登録</div>
+<div class="fav-panel-main">
+<p class="fav-status" id="favStatus">このコーデはまだお気に入りに登録されていません</p>
+<div class="fav-panel-actions">
+<label class="pill-btn" for="favImgInput">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
+画像をアップしてサムネイル登録
+</label>
+<input type="file" id="favImgInput" accept="image/*" hidden />
+<button class="pill-btn" id="favDeleteBtn" type="button" hidden>お気に入りから削除</button>
+</div>
+</div>
+</div>
 </div>
 
 <h3 class="tag-format-title">Danbooruタグ形式</h3>
@@ -718,7 +821,7 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 
 <div class="theme-block">
 <div class="color-row show">
-<div class="c-label">カラーテーマ（トップス〜ソックスの色味をまとめて変更）</div>
+<div class="c-label">カラーテーマ（トップス／ワンピース〜ソックスの色味をまとめて変更）</div>
 <div class="cchips" id="themeChips"></div>
 </div>
 </div>
@@ -759,6 +862,12 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 </div>
 </main>
 
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="画像の拡大表示">
+<img id="lightboxImg" alt="" />
+<p class="lb-caption" id="lightboxCaption"></p>
+<button type="button" class="lb-close" id="lightboxClose">✕ 閉じる</button>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -768,136 +877,282 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 /* ---------- カタログ ---------- */
 var ITEMS = {
 tops: [
-{ id: "cropped-cami", name: "クロップドキャミソール", desc: "クロップド丈キャミソール。へそが見える短い丈、細い肩紐、胸元の小さなリボン", tags: "cropped camisole, midriff, spaghetti straps, small ribbon", note: "キャミソールは本当のクロップド丈で、へそがしっかり見える短さにする"},
-{ id: "backless-sweater", name: "バックレスニットセーター", desc: "背中が大きく開いたニットセーター。前面は普通のニット、背面は大きく開いたデザイン", tags: "backless sweater, open back, knit sweater", note: "背中の開きは尾てい骨まで深く、脇腹まで広く開ける。脇の下の服も開きの一部として描く"},
-{ id: "butterfly-knit", name: "バタフライニット", desc: "蝶のモチーフを編み込んだニットトップス。ふんわりした袖", tags: "butterfly motif knit top, puff sleeves"},
-{ id: "corset-bustier", name: "コルセットビスチェ（薔薇姫）", desc: "ベルベット製コルセットビスチェ。緩やかなハート型ネックライン、スカラップレースの縁取り、胸元中央に楕円形の宝石ブローチ、縦のボーンライン、背面はリボン編み上げ", tags: "velvet corset, sweetheart neckline, scallop lace trim, gemstone brooch, boned corset, lace-up back", note: "背面中央の編み上げリボンと縦のボーンラインを必ず描く"},
-{ id: "offshoulder", name: "オフショルフリルトップス", desc: "オフショルダートップス。胸元にたっぷりのフリル", tags: "off-shoulder top, frills"},
+{ id: "plain-tee", name: "Tシャツ", desc: "シンプルな無地のTシャツ", tags: "t-shirt, plain tee"},
 { id: "baby-tee", name: "Y2KベビーTシャツ", desc: "ぴったりフィットのベビーTシャツ。ハートのロゴプリント、短めの丈", tags: "baby tee, fitted t-shirt, heart logo print, cropped"},
-{ id: "halter-dress", name: "バックレスニットドレス", desc: "バックレス・ホルターネックニットミニドレス。深いU字の背開き、背面中央にリボン、カウル状のドレープ", tags: "backless knit dress, halterneck, deep open back, ribbon, cowl drape", note: "背中のU字開きは深く、リボンのテールは長めに。ドレープは強めに描く（ワンピースなのでボトムスは「ボトムスなし」がおすすめ）"},
-{ id: "big-hoodie", name: "ビッグパーカー", desc: "オーバーサイズのパーカー。フード付き、袖は手の半分が隠れる長さ", tags: "oversized hoodie, long sleeves"},
-{ id: "boyfriend-shirt", name: "彼シャツ", desc: "大きめのワイシャツ。上のボタンを2つ開けてラフに着る", tags: "dress shirt, oversized shirt, unbuttoned"},
-{ id: "tube-top", name: "チューブトップ", desc: "チューブトップ。シンプルでタイトなシルエット", tags: "tube top, strapless, tight"},
-{ id: "satin-bra", name: "見せブラ（サテン生地）", desc: "サテン生地の見せブラ。光沢のある滑らかな生地、細い肩紐、見せる前提のブラトップ型", tags: "satin bra top, show bra, glossy satin, spaghetti straps, bra top", note: "インナーとして隠さず、見せるトップスとして描く"},
-{ id: "micro-tube-top", name: "マイクロチューブトップ", desc: "マイクロ丈のチューブトップ。バスト下で終わる極端に短い丈、肩紐なしのバンドゥ型、タイトなシルエット", tags: "micro tube top, bandeau top, strapless, cropped, tight", note: "丈はバスト下で終わる本当のマイクロ丈にする。肩紐は付けない"},
-{ id: "strapless-lace", name: "ストラップレスレーストップス", desc: "ストラップレスのレーストップス。肩紐なしのバンドゥ型、繊細な花柄レース、裾はスカラップ状のレース縁取り、肩と鎖骨はすっきり見える", tags: "strapless lace top, bandeau top, floral lace, scalloped hem, bare shoulders", note: "肩紐は付けない（ストラップレス）。レースの花柄とスカラップ状の裾縁を繊細に描く"},
-{ id: "princess-blouse", name: "姫袖ブラウス", desc: "姫袖のブラウス。レースの縁取りとパールボタン", tags: "princess sleeves, blouse, lace trim, pearl buttons"},
-{ id: "plain-blouse", name: "シンプルブラウス", desc: "シンプルなブラウス。丸襟と七分袖の清楚なデザイン", tags: "simple blouse, round collar, three-quarter sleeves"},
-{ id: "knit-sweater", name: "ベーシックニット", desc: "ベーシックなニットセーター。程よくフィットするシルエット", tags: "knit sweater, basic sweater"},
-{ id: "turtleneck", name: "タートルネックニット", desc: "タートルネックのニットセーター。首元まで暖かい", tags: "turtleneck sweater, knit"},
+{ id: "oversized-sweat", name: "オーバーサイズスウェット", desc: "オーバーサイズのスウェット。ゆるっと着る大きめシルエット", tags: "oversized sweatshirt"},
 { id: "oxford-shirt", name: "オックスフォードシャツ", desc: "オックスフォードシャツ。きちんと感のある襟付きシャツ", tags: "oxford shirt, collared shirt"},
-{ id: "rib-cami", name: "リブニットキャミソール", desc: "リブ編みのニットキャミソール。体のラインに沿うフィット感、細い肩紐", tags: "ribbed knit camisole, fitted, spaghetti straps"},
-{ id: "sheer-blouse", name: "シアーブラウス", desc: "透け感のあるシアーブラウス。ふんわりした長袖、小さなドット柄", tags: "sheer blouse, see-through sleeves, dot pattern"},
-{ id: "denim-vest-top", name: "デニムベストトップス", desc: "デニムのベスト風トップス。フロントボタン、短めの丈", tags: "denim vest top, front buttons, cropped"},
+{ id: "offshoulder", name: "オフショルフリルトップス", desc: "オフショルダートップス。胸元にたっぷりのフリル", tags: "off-shoulder top, frills"},
+{ id: "offshoulder-rib-knit", name: "オフショルリブニット", desc: "オフショルダーのリブニット。肩を出してあざとかわいく、リブ編みで体にフィット", tags: "off-shoulder ribbed knit sweater"},
+{ id: "cardigan-ensemble", name: "カーディガンアンサンブル", desc: "カーディガンとキャミのニットアンサンブル", tags: "cardigan and camisole set, knit ensemble"},
+{ id: "cutsew", name: "カットソー", desc: "シンプルなカットソー。シワになりにくく動きやすい", tags: "cutsew top"},
+{ id: "boyfriend-shirt", name: "彼シャツ", desc: "大きめのワイシャツ。上のボタンを2つ開けてラフに着る", tags: "dress shirt, oversized shirt, unbuttoned"},
+{ id: "black-turtleneck-knit", name: "きれいめタートルネックニット", desc: "タートルネックニット。きれいめの基本アイテム", tags: "turtleneck knit sweater"},
+{ id: "graphic-longtee", name: "グラフィックロンT", desc: "プリント入りのロンT", tags: "graphic long sleeve t-shirt"},
+{ id: "cropped-cami", name: "クロップドキャミソール", desc: "クロップド丈キャミソール。へそが見える短い丈、細い肩紐、胸元の小さなリボン", tags: "cropped camisole, midriff, spaghetti straps, small ribbon", note: "キャミソールは本当のクロップド丈で、へそがしっかり見える短さにする"},
+{ id: "cropped-shirt", name: "クロップドシャツ", desc: "クロップド丈のシャツ。半袖で、短め丈が抜け感を出す", tags: "cropped shirt, short sleeves"},
 { id: "cropped-sweat", name: "クロップドスウェット", desc: "クロップド丈のスウェットトレーナー。ゆるいシルエット、リブ裾", tags: "cropped sweatshirt, loose fit, ribbed hem"},
-{ id: "laceup-top", name: "レースアップトップス", desc: "胸元がレースアップになったトップス。編み上げリボンと短めの丈", tags: "lace-up top, ribbon lacing, cropped"}
+{ id: "corset-bustier", name: "コルセットビスチェ（薔薇姫）", desc: "ベルベット製コルセットビスチェ。緩やかなハート型ネックライン、スカラップレースの縁取り、胸元中央に楕円形の宝石ブローチ、縦のボーンライン、背面はリボン編み上げ", tags: "velvet corset, sweetheart neckline, scallop lace trim, gemstone brooch, boned corset, lace-up back", note: "背面中央の編み上げリボンと縦のボーンラインを必ず描く"},
+{ id: "compact-knit", name: "コンパクトニット", desc: "短丈のコンパクトニット", tags: "compact knit top, short knit"},
+{ id: "satin-camisole", name: "サテンキャミソール", desc: "サテンのキャミソール", tags: "satin camisole"},
+{ id: "sheer-shirt", name: "シアーシャツ", desc: "透け感のあるシアーシャツ", tags: "sheer shirt, see-through shirt"},
+{ id: "sheer-blouse", name: "シアーブラウス", desc: "透け感のあるシアーブラウス。ふんわりした長袖、小さなドット柄", tags: "sheer blouse, see-through sleeves, dot pattern"},
+{ id: "sheer-longtee", name: "シアーロンT", desc: "透け感のあるシアーロンT。レイヤード用の長袖インナー", tags: "sheer long sleeve top"},
+{ id: "white-shirt", name: "シャツ", desc: "清潔感のあるシャツ", tags: "shirt, button-up shirt"},
+{ id: "plain-blouse", name: "シンプルブラウス", desc: "シンプルなブラウス。丸襟と七分袖の清楚なデザイン", tags: "simple blouse, round collar, three-quarter sleeves"},
+{ id: "sweat-setup-top", name: "スウェットトップス", desc: "スウェットのトップス。スウェットパンツと同素材で揃えるセットアップの上", tags: "sweatshirt, matching set top"},
+{ id: "sweat-pullover", name: "スウェットプルオーバー", desc: "部屋着スウェット", tags: "sweatshirt, pullover"},
+{ id: "strapless-lace", name: "ストラップレスレーストップス", desc: "ストラップレスのレーストップス。肩紐なしのバンドゥ型、繊細な花柄レース、裾はスカラップ状のレース縁取り、肩と鎖骨はすっきり見える", tags: "strapless lace top, bandeau top, floral lace, scalloped hem, bare shoulders", note: "肩紐は付けない（ストラップレス）。レースの花柄とスカラップ状の裾縁を繊細に描く"},
+{ id: "turtleneck", name: "タートルネックニット", desc: "タートルネックのニットセーター。首元まで暖かい", tags: "turtleneck sweater, knit"},
+{ id: "tank-top", name: "タンクトップ", desc: "シンプルなタンクトップ。インナーにも一枚着にも使える", tags: "tank top"},
+{ id: "tube-top", name: "チューブトップ", desc: "チューブトップ。シンプルでタイトなシルエット", tags: "tube top, strapless, tight"},
+{ id: "denim-shirt", name: "デニムシャツ", desc: "デニムのシャツ", tags: "denim shirt"},
+{ id: "denim-vest-top", name: "デニムベストトップス", desc: "デニムのベスト風トップス。フロントボタン、短めの丈", tags: "denim vest top, front buttons, cropped"},
+{ id: "track-jacket", name: "トラックジャケット", desc: "ライン入りのトラックジャケット", tags: "track jacket, sporty jacket"},
+{ id: "satin-blouse", name: "とろみサテンシャツ", desc: "とろみ感のあるサテンシャツ。長袖で、落ち感のある生地が大人の雰囲気", tags: "satin blouse, satin shirt, long sleeves, drape"},
+{ id: "knit-vest-top", name: "ニットベスト", desc: "シャツに重ねるニットベスト", tags: "knit vest"},
+{ id: "pajama-shirt", name: "パジャマシャツ", desc: "パジャマのシャツ", tags: "pajama shirt, sleepwear top"},
+{ id: "butterfly-knit", name: "バタフライニット", desc: "蝶のモチーフを編み込んだニットトップス。ふんわりした袖", tags: "butterfly motif knit top, puff sleeves"},
+{ id: "backless-sweater", name: "バックレスニットセーター", desc: "背中が大きく開いたニットセーター。前面は普通のニット、背面は大きく開いたデザイン", tags: "backless sweater, open back, knit sweater", note: "背中の開きは尾てい骨まで深く、脇腹まで広く開ける。脇の下の服も開きの一部として描く"},
+{ id: "band-tee", name: "バンドTシャツ", desc: "バンドロゴプリントのTシャツ。ライブコーデの主役", tags: "band t-shirt, logo print"},
+{ id: "bustier", name: "ビスチェ", desc: "シャツに重ねるビスチェ", tags: "bustier top"},
+{ id: "big-hoodie", name: "ビッグパーカー", desc: "オーバーサイズのパーカー。フード付き、袖は手の半分が隠れる長さ", tags: "oversized hoodie, long sleeves"},
+{ id: "princess-blouse", name: "姫袖ブラウス", desc: "姫袖のブラウス。レースの縁取りとパールボタン", tags: "princess sleeves, blouse, lace trim, pearl buttons"},
+{ id: "leopard-camisole", name: "ヒョウ柄キャミソール", desc: "ヒョウ柄のキャミソール", tags: "leopard print camisole"},
+{ id: "frill-blouse", name: "フリルブラウス", desc: "フリルたっぷりのブラウス", tags: "frilled blouse, ruffle blouse"},
+{ id: "knit-sweater", name: "ベーシックニット", desc: "ベーシックなニットセーター。程よくフィットするシルエット", tags: "knit sweater, basic sweater"},
+{ id: "white-blouse", name: "ベーシックブラウス", desc: "シンプルなブラウス", tags: "blouse"},
+{ id: "fitted-baby-tee", name: "ベビーTシャツ", desc: "ぴたっとしたベビーT", tags: "baby tee, fitted t-shirt"},
+{ id: "bowtie-satin-blouse", name: "ボウタイサテンブラウス", desc: "とろみサテンのブラウス。首元はボウタイ", tags: "satin blouse, bow tie neck"},
+{ id: "border-cutsew", name: "ボーダーカットソー", desc: "定番のボーダーカットソー", tags: "striped shirt, border cutsew"},
+{ id: "puff-sleeve-blouse", name: "ボリューム袖ブラウス", desc: "ボリューム袖のブラウス。ふんわりした袖が韓国風のポイント", tags: "puff sleeve blouse, volume sleeves"},
+{ id: "micro-tube-top", name: "マイクロチューブトップ", desc: "マイクロ丈のチューブトップ。バスト下で終わる極端に短い丈、肩紐なしのバンドゥ型、タイトなシルエット", tags: "micro tube top, bandeau top, strapless, cropped, tight", note: "丈はバスト下で終わる本当のマイクロ丈にする。肩紐は付けない"},
+{ id: "satin-bra", name: "見せブラ（サテン生地）", desc: "サテン生地の見せブラ。光沢のある滑らかな生地、細い肩紐、見せる前提のブラトップ型", tags: "satin bra top, show bra, glossy satin, spaghetti straps, bra top", note: "インナーとして隠さず、見せるトップスとして描く"},
+{ id: "mesh-top", name: "メッシュトップス", desc: "透け感メッシュのレイヤードトップス", tags: "mesh top, sheer layered top"},
+{ id: "fluffy-hoodie", name: "もこもこパーカー", desc: "もこもこ素材のパーカー", tags: "fluffy hoodie, fuzzy loungewear top"},
+{ id: "fluffy-pajama-top", name: "もこもこパジャマトップス", desc: "もこもこのパジャマトップス。ふわふわルームウェアの上", tags: "fluffy pajama top, room wear"},
+{ id: "rib-cami", name: "リブニットキャミソール", desc: "リブ編みのニットキャミソール。体のラインに沿うフィット感、細い肩紐", tags: "ribbed knit camisole, fitted, spaghetti straps"},
+{ id: "ribbon-tie-blouse", name: "リボンタイブラウス", desc: "リボンタイブラウス。長袖で、胸元のリボンが清楚なポイント", tags: "ribbon tie blouse, long sleeves"},
+{ id: "ribbon-blouse", name: "リボンブラウス", desc: "大きなリボンがポイントのブラウス", tags: "ribbon blouse, bow blouse"},
+{ id: "room-camisole", name: "ルームキャミソール", desc: "部屋着のキャミソール", tags: "room camisole, loungewear top"},
+{ id: "laceup-top", name: "レースアップトップス", desc: "胸元がレースアップになったトップス。編み上げリボンと短めの丈", tags: "lace-up top, ribbon lacing, cropped"},
+{ id: "lace-cropped-cami", name: "レースクロップドキャミソール", desc: "レース縁取りの短丈キャミ", tags: "lace cropped camisole"},
+{ id: "lace-bandeau", name: "レースバンドゥトップ", desc: "レースのストラップレストップ", tags: "lace bandeau top, strapless top"},
+{ id: "long-tee", name: "ロンT", desc: "長袖のTシャツ。定番のインナーにもなる一枚", tags: "long sleeve t-shirt"}
+],
+dress: [
+{ id: "aline-dress", name: "Aラインワンピース", desc: "Aラインのワンピース。半袖で膝丈、ウエストリボンで甘さ控えめにまとめたフェミニンなデザイン", tags: "a-line dress, short sleeves, knee length, waist ribbon", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "tshirt-dress", name: "Tシャツワンピース", desc: "Tシャツ素材のワンピース", tags: "t-shirt dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "apron-dress", name: "エプロンドレス", desc: "エプロン風のワンピース", tags: "apron dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "camisole-dress", name: "キャミソールワンピース", desc: "キャミタイプのワンピース", tags: "camisole dress, slip dress style", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "gingham-dress", name: "ギンガムチェックワンピース", desc: "ギンガムチェックのワンピース。爽やかな柄がピクニックらしい一枚", tags: "gingham check dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "satin-slip-dress", name: "サテンスリップドレス", desc: "レース縁取りのサテンスリップ", tags: "satin slip dress, lace trim", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "satin-long-dress", name: "サテンロングワンピース", desc: "サテンのロングワンピース", tags: "satin long dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "white-dress", name: "サマーワンピース", desc: "爽やかなワンピース", tags: "dress, summer dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "shirt-dress", name: "シャツワンピース", desc: "シャツワンピース。長袖で膝下のミディ丈、ウエストベルトでメリハリを付けた清潔感のあるデザイン", tags: "shirt dress, belted waist, midi length", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "all-lace-dress", name: "総レースワンピース", desc: "総レースの上品なワンピース", tags: "lace dress, all-over lace", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "turtleneck-knit-dress", name: "タートルネックニットワンピース", desc: "タートルネックのニットワンピース。ベルトでウエストマーク", tags: "turtleneck knit dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "tiered-dress", name: "ティアードワンピース", desc: "段になって揺れるティアードワンピース。ふんわりしたパフスリーブとロング丈", tags: "tiered dress, chiffon dress, puff sleeves, long dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "knit-mini-dress", name: "ニットミニワンピース", desc: "ニット素材のミニワンピース。短め丈がロングブーツと好バランス", tags: "knit mini dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "halter-dress", name: "バックレスニットドレス", desc: "バックレス・ホルターネックニットミニドレス。深いU字の背開き、背面中央にリボン、カウル状のドレープ", tags: "backless knit dress, halterneck, deep open back, ribbon, cowl drape", note: "背中のU字開きは深く、リボンのテールは長めに。ドレープは強めに描く（ワンピースなのでボトムスは「ボトムスなし」がおすすめ）"},
+{ id: "pleated-dress", name: "プリーツワンピース", desc: "細プリーツのワンピース", tags: "pleated dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "flare-dress", name: "フレアワンピース", desc: "裾がふんわり広がるフレアワンピース。半袖で膝丈、ウエストのリボンベルト付き", tags: "flare dress, short sleeves, knee length, ribbon belt", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "mini-dress", name: "ミニワンピース", desc: "シンプルなミニワンピース。ジャケットを羽織る前提のベースになる一枚", tags: "mini dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "maid-room-dress", name: "メイド風ルームドレス", desc: "メイド風のルームワンピース", tags: "maid-style room dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "yukata-loungewear", name: "浴衣風ルームウェア", desc: "浴衣風のルームウェア", tags: "yukata-style loungewear", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "ribbon-accent-dress", name: "リボンワンピース", desc: "ワンピース。リボンをアクセントに付けたデザイン", tags: "dress, ribbon accents", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"},
+{ id: "layered-dress", name: "レイヤードワンピース", desc: "スカートを重ねたようなレイヤード感のあるワンピース。森ガールらしい重ね着風デザイン", tags: "layered dress", note: "ワンピースなのでボトムスは「ボトムスなし」がおすすめ"}
 ],
 bottoms: [
-{ id: "micro-shorts", name: "マイクロホットパンツ", desc: "デニムのマイクロホットパンツ。極端に短い丈、ローライズ", tags: "denim micro shorts, hot pants, low rise", note: "ホットパンツの丈は本当のマイクロ丈（極端に短く）にする"},
-{ id: "pleated-skirt", name: "プリーツミニスカート", desc: "チェック柄のプリーツミニスカート", tags: "plaid pleated skirt, miniskirt"},
-{ id: "denim-mini", name: "デニムミニスカート", desc: "ダメージ加工のデニムミニスカート、タイトなシルエット", tags: "denim miniskirt, distressed, tight skirt"},
+{ id: "aline-skirt", name: "Aラインスカート", desc: "ふんわりAラインのスカート", tags: "a-line skirt"},
+{ id: "overalls", name: "オーバーオール", desc: "デニムのオーバーオール。元気なカジュアルの主役", tags: "denim overalls"},
+{ id: "cargo-skirt", name: "カーゴスカート", desc: "カーゴ風のスカート", tags: "cargo skirt"},
+{ id: "cargo-pants-plain", name: "カーゴパンツ", desc: "ポケット多めのカーゴパンツ", tags: "cargo pants"},
+{ id: "glen-check-tight-skirt", name: "グレンチェックタイトスカート", desc: "グレンチェックのタイトスカート", tags: "glen check skirt, tight skirt"},
+{ id: "satin-shorts", name: "サテンショーツ", desc: "サテンのショーツ", tags: "satin shorts, loungewear shorts"},
+{ id: "jogger", name: "ジョガーパンツ", desc: "ジョガーパンツ。裾リブでスポーティなシルエット", tags: "jogger pants, ribbed cuffs, sporty"},
+{ id: "sweat-shorts", name: "スウェットショーツ", desc: "ゆるいスウェット素材のショートパンツ、部屋着風", tags: "sweat shorts, loungewear"},
+{ id: "sweatpants", name: "スウェットパンツ", desc: "部屋着スウェットパンツ", tags: "sweatpants"},
+{ id: "black-skinny-pants", name: "スキニーパンツ", desc: "細身のスキニー", tags: "skinny pants"},
+{ id: "straight-jeans", name: "ストレートジーンズ", desc: "ストレートジーンズ。すっきりした脚のライン", tags: "straight jeans, denim pants"},
+{ id: "slacks", name: "スラックス", desc: "きれいめスラックス", tags: "slacks, dress pants"},
+{ id: "slit-tight", name: "スリットタイトスカート", desc: "タイトスカート。サイドに深めのスリット入り", tags: "tight skirt, side slit"},
+{ id: "center-crease-wide-pants", name: "センタープレスワイドパンツ", desc: "ワイドパンツ。センタープレス入りで脚をまっすぐきれいに見せる", tags: "wide pants, center crease pants"},
 { id: "lolita-skirt", name: "多層フリルスカート（薔薇姫）", desc: "多層フィット＆フレアスカート。内側にサテンのミニスカート、上から左右に分かれたカーテン状のオーバースカート、レースとフリルの縁取り、背面は立体的なバッスルと大きなサテンリボン", tags: "layered skirt, fit and flare, overskirt, lace trim, bustle, large satin bow", note: "前中央では内側のミニスカートが見える構造にする。背面の大きなリボンとバッスルを必ず描く"},
+{ id: "check-tight-skirt", name: "チェックタイトスカート", desc: "チェック柄のタイトスカート。ミニ丈で大人っぽく", tags: "plaid tight skirt, mini skirt"},
+{ id: "check-mini-skirt", name: "チェックミニスカート", desc: "チェック柄のミニスカート", tags: "check mini skirt"},
+{ id: "chino-pants", name: "チノパンツ", desc: "ワイドなチノパン。ベルトでウエストをマークしてゆるく履く", tags: "chino pants, wide pants"},
+{ id: "tulle-skirt", name: "チュールスカート", desc: "ふわふわのチュールスカート、膝丈", tags: "tulle skirt, knee length"},
+{ id: "tulle-layered-skirt", name: "チュールレイヤードスカート", desc: "チュールのレイヤードロングスカート。重なった透け感が甘いアクセント", tags: "layered tulle long skirt"},
+{ id: "tweed-mini-skirt", name: "ツイードミニスカート", desc: "ツイード生地のミニスカート。ジャケットとセットアップで着る", tags: "tweed mini skirt, skirt suit"},
+{ id: "tiered-mini", name: "ティアードミニスカート", desc: "段々に重なったティアードフリルのミニスカート", tags: "tiered skirt, frills, miniskirt"},
+{ id: "tapered-pants", name: "テーパードパンツ", desc: "センタープレスのテーパードパンツ", tags: "tapered pants, slacks"},
+{ id: "denim-shorts", name: "デニムショートパンツ", desc: "デニムのショートパンツ。マイクロ丈より少し長めの通常丈、背面ポケット付き", tags: "denim shorts, jean shorts, back pockets", note: "丈はマイクロ丈にせず、通常のショート丈にする"},
+{ id: "denim-mini", name: "デニムミニスカート", desc: "ダメージ加工のデニムミニスカート、タイトなシルエット", tags: "denim miniskirt, distressed, tight skirt"},
+{ id: "drape-long-skirt", name: "ドレープロングスカート", desc: "ドレープ感のあるロングスカート。なめらかに落ちるシルエット", tags: "draped long skirt"},
+{ id: "knit-skirt", name: "ニットスカート", desc: "ニット素材のスカート（セットアップ可）", tags: "knit skirt"},
+{ id: "skinny", name: "ハイウエストスキニー", desc: "ハイウエストのスキニーパンツ", tags: "high waisted skinny pants"},
+{ id: "highwaist-straight-jeans", name: "ハイウエストストレートジーンズ", desc: "ハイウエストのストレートジーンズ。トップスをインして脚長に見せる", tags: "high-waist straight jeans"},
+{ id: "pajama-shorts", name: "パジャマハーフパンツ", desc: "パジャマのハーフパンツ", tags: "pajama shorts, sleepwear bottoms"},
+{ id: "pajama-pants", name: "パジャマパンツ", desc: "パジャマのロングパンツ。トップスとセットで着る", tags: "pajama pants, sleepwear bottoms"},
+{ id: "floral-flare-skirt", name: "花柄フレアスカート", desc: "小花柄のフレアスカート", tags: "floral skirt, flare skirt"},
+{ id: "maxi-skirt", name: "花柄マキシスカート", desc: "花柄のロングマキシスカート、ふんわりしたシルエット", tags: "floral maxi skirt, long skirt, flowing"},
+{ id: "bermuda", name: "バミューダパンツ", desc: "膝丈のバミューダパンツ。ゆったりしたワイドなシルエット", tags: "bermuda shorts, knee length, wide fit"},
+{ id: "barrel-jeans", name: "バレルレッグジーンズ", desc: "丸みのある樽型シルエットが主役のジーンズ", tags: "barrel leg jeans"},
+{ id: "pinstripe-bow-mini", name: "ピンストライプリボンミニスカート", desc: "ピンストライプ柄のプリーツミニスカート。裾にレースの縁取りとリボン付き", tags: "pinstripe skirt, pleated skirt, miniskirt, lace trim, bow, ribbon", note: "裾のレース縁取りとリボンを必ず描く"},
+{ id: "bootcut-jeans", name: "ブーツカットデニム", desc: "ローライズのブーツカットデニム。サイドのレースアップとポケットの刺繍がポイント", tags: "low-rise bootcut jeans, lace-up sides, embroidered pockets"},
+{ id: "pleated-jersey-mini", name: "プリーツジャージーミニスカート", desc: "ジャージー素材のプリーツミニスカート。細かいプリーツが裾でふんわり広がるフレアシルエット", tags: "jersey pleated skirt, pleated skirt, miniskirt, flare skirt"},
+{ id: "pleated-midi-skirt", name: "プリーツミディスカート", desc: "プリーツスカート。膝下までのミディ丈で、歩くと揺れるプリーツ", tags: "pleated skirt, midi skirt"},
+{ id: "pleated-skirt", name: "プリーツミニスカート", desc: "チェック柄のプリーツミニスカート", tags: "plaid pleated skirt, miniskirt"},
+{ id: "pleated-mini-skirt", name: "プリーツミニスカート", desc: "プリーツミニスカート。スポーティな中にも女の子らしさのある定番丈", tags: "pleated mini skirt"},
+{ id: "pleated-long", name: "プリーツロングスカート", desc: "プリーツのロングスカート。揺れる細かいプリーツ、足首丈", tags: "pleated long skirt, ankle length"},
+{ id: "flare-skirt", name: "フレアスカート", desc: "フレアスカート。裾がふんわり広がるAライン", tags: "flare skirt, a-line skirt"},
+{ id: "mermaid-skirt", name: "マーメイドスカート", desc: "裾が広がるマーメイドスカート", tags: "mermaid skirt"},
+{ id: "micro-shorts", name: "マイクロホットパンツ", desc: "デニムのマイクロホットパンツ。極端に短い丈、ローライズ", tags: "denim micro shorts, hot pants, low rise", note: "ホットパンツの丈は本当のマイクロ丈（極端に短く）にする"},
+{ id: "plain-mini-skirt", name: "ミニスカート", desc: "シンプルなミニスカート。短め丈の定番ボトムス", tags: "mini skirt"},
+{ id: "fluffy-shorts", name: "もこもこショートパンツ", desc: "もこもこ素材のショートパンツ", tags: "fluffy shorts, fuzzy loungewear shorts"},
+{ id: "lounge-shorts", name: "ラウンジショーツ", desc: "ボーダー柄ニットのショートパンツ。幅広のウエストバンド、体に沿うフィット感の部屋着風ラウンジショーツ", tags: "striped shorts, knit shorts, lounge shorts, loungewear, fitted shorts"},
+{ id: "room-shorts", name: "ルームショートパンツ", desc: "部屋着のショートパンツ", tags: "room shorts, loungewear shorts"},
+{ id: "leggings", name: "レギンス", desc: "ジム用のレギンス", tags: "leggings, training leggings"},
 { id: "leather-mini", name: "レザーミニスカート", desc: "レザーのタイトミニスカート", tags: "leather miniskirt, tight"},
 { id: "cargo-pants", name: "ローライズカーゴパンツ", desc: "ローライズのカーゴパンツ。大きめのポケット、裾はブーツイン", tags: "low rise cargo pants, utility pockets, boots tucked in"},
-{ id: "sweat-shorts", name: "スウェットショーツ", desc: "ゆるいスウェット素材のショートパンツ、部屋着風", tags: "sweat shorts, loungewear"},
-{ id: "maxi-skirt", name: "花柄マキシスカート", desc: "花柄のロングマキシスカート、ふんわりしたシルエット", tags: "floral maxi skirt, long skirt, flowing"},
-{ id: "skinny", name: "ハイウエストスキニー", desc: "ハイウエストのスキニーパンツ", tags: "high waisted skinny pants"},
 { id: "lowrise-denim", name: "ローライズデニム", desc: "ローライズのデニムジーンズ。腰骨の位置で履く低いウエスト、へそが見える丈感、程よくフィットするストレートな脚のライン", tags: "low rise jeans, denim pants, low waisted, midriff", note: "ウエストは腰骨の位置まで低く（ローライズ）、へそが見えるようにする。ハイウエストにしない"},
-{ id: "tulle-skirt", name: "チュールスカート", desc: "ふわふわのチュールスカート、膝丈", tags: "tulle skirt, knee length"},
 { id: "long-skirt", name: "ロングスカート", desc: "ロングスカート。膝下まで届く上品な丈、歩くと揺れるフレア", tags: "long skirt, below the knee, flare skirt"},
-{ id: "flare-skirt", name: "フレアスカート", desc: "フレアスカート。裾がふんわり広がるAライン", tags: "flare skirt, a-line skirt"},
-{ id: "wide-pants", name: "ワイドパンツ", desc: "ワイドパンツ。ゆったりしたシルエット", tags: "wide pants, loose fit"},
-{ id: "straight-jeans", name: "ストレートジーンズ", desc: "ストレートジーンズ。すっきりした脚のライン", tags: "straight jeans, denim pants"},
-{ id: "bermuda", name: "バミューダパンツ", desc: "膝丈のバミューダパンツ。ゆったりしたワイドなシルエット", tags: "bermuda shorts, knee length, wide fit"},
-{ id: "pleated-long", name: "プリーツロングスカート", desc: "プリーツのロングスカート。揺れる細かいプリーツ、足首丈", tags: "pleated long skirt, ankle length"},
-{ id: "slit-tight", name: "スリットタイトスカート", desc: "タイトスカート。サイドに深めのスリット入り", tags: "tight skirt, side slit"},
-{ id: "jogger", name: "ジョガーパンツ", desc: "ジョガーパンツ。裾リブでスポーティなシルエット", tags: "jogger pants, ribbed cuffs, sporty"},
-{ id: "tiered-mini", name: "ティアードミニスカート", desc: "段々に重なったティアードフリルのミニスカート", tags: "tiered skirt, frills, miniskirt"},
-{ id: "pinstripe-bow-mini", name: "ピンストライプリボンミニスカート", desc: "ピンストライプ柄のプリーツミニスカート。裾にレースの縁取りとリボン付き", tags: "pinstripe skirt, pleated skirt, miniskirt, lace trim, bow, ribbon", note: "裾のレース縁取りとリボンを必ず描く"},
-{ id: "lounge-shorts", name: "ラウンジショーツ", desc: "ボーダー柄ニットのショートパンツ。幅広のウエストバンド、体に沿うフィット感の部屋着風ラウンジショーツ", tags: "striped shorts, knit shorts, lounge shorts, loungewear, fitted shorts"},
-{ id: "denim-shorts", name: "デニムショートパンツ", desc: "デニムのショートパンツ。マイクロ丈より少し長めの通常丈、背面ポケット付き", tags: "denim shorts, jean shorts, back pockets", note: "丈はマイクロ丈にせず、通常のショート丈にする"},
-{ id: "pleated-jersey-mini", name: "プリーツジャージーミニスカート", desc: "ジャージー素材のプリーツミニスカート。細かいプリーツが裾でふんわり広がるフレアシルエット", tags: "jersey pleated skirt, pleated skirt, miniskirt, flare skirt"}
+{ id: "wide-denim", name: "ワイドデニム", desc: "ワイドシルエットのデニム", tags: "wide denim jeans"},
+{ id: "wide-pants", name: "ワイドパンツ", desc: "ワイドパンツ。ゆったりしたシルエット", tags: "wide pants, loose fit"}
 ],
 outer: [
-{ id: "lace-bolero", name: "レースボレロ（薔薇姫）", desc: "シャンティイレースの薄手ボレロ。透け感のある薔薇と蔓草柄のレース長袖、手首で小さく広がるベルカフス、袖口に小さな薔薇のチャーム", tags: "chantilly lace bolero, see-through lace sleeves, bell cuffs, rose charm", note: "袖のレースは薔薇と蔓草の模様を繊細に描く"},
-{ id: "fur-jacket", name: "ファー付きショートジャケット", desc: "フードにファーの付いたショート丈ジャケット", tags: "fur trim short jacket, hood"},
-{ id: "riders", name: "ライダースジャケット", desc: "レザーのライダースジャケット。ラフに羽織る", tags: "leather riders jacket"},
-{ id: "long-cardigan", name: "ロングカーディガン", desc: "膝丈のロングカーディガン、ゆるく羽織る", tags: "long cardigan, knee length"},
-{ id: "denim-jacket", name: "デニムジャケット", desc: "ヴィンテージ風のデニムジャケット、袖を少し捲る", tags: "denim jacket, rolled sleeves, vintage"},
-{ id: "boa-blouson", name: "ボアブルゾン", desc: "もこもこのボアブルゾン", tags: "boa fleece blouson, fluffy"},
-{ id: "cape-coat", name: "ケープコート", desc: "ロリータ風のケープコート。ファーの縁取りと大きなリボン", tags: "cape coat, fur trim, large bow, lolita fashion"},
 { id: "ma1", name: "MA-1ブルゾン", desc: "MA-1フライトジャケット", tags: "ma-1 flight jacket"},
-{ id: "short-cardigan", name: "ショートカーディガン", desc: "ショート丈のカーディガン。前を開けて軽く羽織る", tags: "short cardigan"},
-{ id: "trench", name: "トレンチコート", desc: "トレンチコート。ウエストベルト付きのクラシックなデザイン", tags: "trench coat, belted coat"},
-{ id: "tailored", name: "テーラードジャケット", desc: "テーラードジャケット。きちんと感のある羽織り", tags: "tailored jacket, blazer"},
-{ id: "knit-vest", name: "ニットベスト", desc: "ニットベスト。シャツの上にレイヤードする", tags: "knit vest, layered"},
-{ id: "sheer-cardigan", name: "シアーカーディガン", desc: "透け感のある薄手カーディガン。軽く羽織る", tags: "sheer cardigan, light outerwear"},
-{ id: "cropped-blazer", name: "クロップドブレザー", desc: "短め丈のブレザー。きれいめなテーラードシルエット", tags: "cropped blazer, tailored"},
+{ id: "cardigan", name: "カーディガン", desc: "カーディガン。軽く羽織る、肩掛けにも使える定番アウター", tags: "cardigan"},
 { id: "quilted-jacket", name: "キルティングジャケット", desc: "キルティングの軽量ジャケット。ダイヤ柄のステッチ", tags: "quilted jacket, diamond stitching"},
-{ id: "fleece-vest", name: "フリースベスト", desc: "フリース素材のベスト。アウトドア風のレイヤード用", tags: "fleece vest, layered, outdoorsy"}
+{ id: "crochet-cardigan", name: "クロシェカーディガン", desc: "かぎ針編みのカーディガン", tags: "crochet cardigan"},
+{ id: "cropped-denim-jacket", name: "クロップドデニムジャケット", desc: "クロップド丈のデニムジャケット。短め丈で今っぽく羽織る", tags: "cropped denim jacket"},
+{ id: "cropped-blazer", name: "クロップドブレザー", desc: "短め丈のブレザー。きれいめなテーラードシルエット", tags: "cropped blazer, tailored"},
+{ id: "cape-coat", name: "ケープコート", desc: "ロリータ風のケープコート。ファーの縁取りと大きなリボン", tags: "cape coat, fur trim, large bow, lolita fashion"},
+{ id: "waist-tied-check-shirt", name: "腰巻きチェックシャツ", desc: "チェックシャツを腰に巻いたレイヤード。羽織らず巻くことでこなれ感を出す", tags: "plaid shirt tied around waist"},
+{ id: "sheer-cardigan", name: "シアーカーディガン", desc: "透け感のある薄手カーディガン。軽く羽織る", tags: "sheer cardigan, outerwear"},
+{ id: "short-cardigan", name: "ショートカーディガン", desc: "ショート丈のカーディガン。前を開けて軽く羽織る", tags: "short cardigan"},
+{ id: "short-jacket", name: "ショートジャケット", desc: "ショート丈のジャケット", tags: "short jacket, cropped jacket"},
+{ id: "down-coat", name: "ダウンコート", desc: "ロング丈のダウンコート。暖かさ重視の冬アウター", tags: "down coat, long coat"},
+{ id: "houndstooth-jacket", name: "千鳥柄ジャケット", desc: "千鳥柄のテーラードジャケット。都会的なきれいめアウター", tags: "houndstooth jacket, tailored jacket"},
+{ id: "tweed-jacket", name: "ツイードジャケット", desc: "ツイード素材のジャケット。クロップド丈で、パールボタンがお嬢様感を出す", tags: "tweed jacket, cropped jacket, pearl buttons"},
+{ id: "tailored", name: "テーラードジャケット", desc: "テーラードジャケット。きちんと感のある羽織り", tags: "tailored jacket, blazer"},
+{ id: "deco-denim-jacket", name: "デコデニムジャケット", desc: "デコレーションしたデニムジャケット。きらきらデコが目を引く主役アウター", tags: "decorated denim jacket"},
+{ id: "denim-jacket", name: "デニムジャケット", desc: "ヴィンテージ風のデニムジャケット、袖を少し捲る", tags: "denim jacket, rolled sleeves, vintage"},
+{ id: "trench", name: "トレンチコート", desc: "トレンチコート。ウエストベルト付きのクラシックなデザイン", tags: "trench coat, belted coat"},
+{ id: "nylon-vest", name: "ナイロンベスト", desc: "ナイロン素材のベスト。スポーティミックスの主役", tags: "nylon vest"},
+{ id: "knit-cardigan", name: "ニットカーディガン", desc: "ニットカーディガン。ゆるく羽織る", tags: "knit cardigan"},
+{ id: "knit-vest", name: "ニットベスト", desc: "ニットベスト。シャツの上にレイヤードする", tags: "knit vest, layered"},
+{ id: "bathrobe", name: "バスローブ", desc: "ふわふわのバスローブ", tags: "bathrobe"},
+{ id: "fur-jacket", name: "ファー付きショートジャケット", desc: "フードにファーの付いたショート丈ジャケット", tags: "fur trim short jacket, hood"},
+{ id: "fleece-vest", name: "フリースベスト", desc: "フリース素材のベスト。アウトドア風のレイヤード用", tags: "fleece vest, layered, outdoorsy"},
+{ id: "boa-jacket", name: "ボアジャケット", desc: "もこもこボアジャケット", tags: "boa jacket, fleece jacket"},
+{ id: "boa-blouson", name: "ボアブルゾン", desc: "もこもこのボアブルゾン", tags: "boa fleece blouson, fluffy"},
+{ id: "riders", name: "ライダースジャケット", desc: "レザーのライダースジャケット。ラフに羽織る", tags: "leather riders jacket"},
+{ id: "lace-bolero", name: "レースボレロ（薔薇姫）", desc: "シャンティイレースの薄手ボレロ。透け感のある薔薇と蔓草柄のレース長袖、手首で小さく広がるベルカフス、袖口に小さな薔薇のチャーム", tags: "chantilly lace bolero, see-through lace sleeves, bell cuffs, rose charm", note: "袖のレースは薔薇と蔓草の模様を繊細に描く"},
+{ id: "lace-long-robe", name: "レースロングローブ", desc: "レースのロングローブ", tags: "lace long robe, sheer robe"},
+{ id: "robe-cardigan", name: "ローブカーディガン", desc: "羽織るローブ風カーディガン", tags: "robe cardigan, long cardigan"},
+{ id: "long-cardigan", name: "ロングカーディガン", desc: "膝丈のロングカーディガン、ゆるく羽織る", tags: "long cardigan, knee length"},
+{ id: "long-coat", name: "ロングコート", desc: "丈長めのロングコート", tags: "long coat"},
+{ id: "long-gilet", name: "ロングジレ", desc: "袖なしのロング丈ジレ。重ねるだけで縦ラインがきれいに出る", tags: "long vest, sleeveless vest, gilet"}
 ],
 shoes: [
-{ id: "platform-boots", name: "厚底ロングブーツ", desc: "厚底ロングブーツ。編み上げとベルトストラップ、太いプラットフォームソール", tags: "platform boots, lace-up boots, belt straps, platform sole"},
-{ id: "rose-pumps", name: "厚底ストラップパンプス（薔薇姫）", desc: "厚底ストラップパンプス。丸みのあるアーモンドトゥ、太めのブロックヒール、足首ストラップにアンティークゴールドのバックル、つま先に小さなリボンと薔薇装飾", tags: "platform pumps, almond toe, ankle strap, block heel, antique gold buckle, rose ornament"},
+{ id: "platform-shoes", name: "厚底シューズ", desc: "厚底シューズ。盛れる足元", tags: "platform shoes"},
+{ id: "rose-pumps", name: "厚底ストラップパンプス（薔薇姫）", desc: "厚底ストラップパンプス。丸みのあるアーモンドトゥ、太めのブロックヒール、足首ストラップにバックル、つま先に小さなリボンと薔薇装飾", tags: "platform pumps, almond toe, ankle strap, block heel, buckle, rose ornament"},
 { id: "platform-sneakers", name: "厚底スニーカー", desc: "厚底スニーカー", tags: "platform sneakers"},
+{ id: "chunky-platform-boots", name: "厚底ブーツ", desc: "厚底ブーツ", tags: "platform boots"},
 { id: "loafers", name: "厚底ローファー", desc: "厚底ローファー、ビット金具付き", tags: "platform loafers, bit ornament"},
-{ id: "knee-boots", name: "ニーハイブーツ", desc: "ニーハイブーツ、細めのヒール", tags: "knee high boots, high heels"},
-{ id: "heel-sandals", name: "ヒールサンダル", desc: "ストラップヒールサンダル、華奢なデザイン", tags: "strappy high heel sandals"},
-{ id: "mouton", name: "ムートンブーツ", desc: "ムートンブーツ、もこもこ素材", tags: "mouton boots, fluffy"},
-{ id: "barefoot", name: "裸足", desc: "裸足", tags: "barefoot", note: "室内シーンでは靴を履かせない（裸足、またはスリッパ）"},
-{ id: "slippers", name: "ルームスリッパ", desc: "ふわふわのルームスリッパ", tags: "fluffy slippers", note: "室内シーンでは靴を履かせない（裸足、またはスリッパ）"},
-{ id: "strap-pumps", name: "ワンストラップパンプス", desc: "ワンストラップパンプス。甲のストラップと低めのヒール、上品な丸トゥ", tags: "strap pumps, low heels, round toe"},
-{ id: "ballet-flats", name: "バレエシューズ", desc: "バレエシューズ風のフラットパンプス。小さなリボン付き", tags: "ballet flats, ribbon"},
+{ id: "platform-boots", name: "厚底ロングブーツ", desc: "厚底ロングブーツ。編み上げとベルトストラップ、太いプラットフォームソール", tags: "platform boots, lace-up boots, belt straps, platform sole"},
+{ id: "laceup-boots", name: "編み上げブーツ", desc: "編み上げブーツ。存在感のある足元", tags: "lace-up boots"},
+{ id: "wedge-sandals", name: "ウェッジサンダル", desc: "ウェッジヒールのサンダル。安定感のある厚底", tags: "wedge sandals, platform"},
 { id: "canvas-sneakers", name: "キャンバススニーカー", desc: "キャンバス地のローカットスニーカー", tags: "canvas sneakers, low cut"},
 { id: "short-boots", name: "ショートブーツ", desc: "足首丈のショートブーツ。太めのヒール", tags: "ankle boots, block heel"},
+{ id: "strap-heel-sandals", name: "ストラップサンダル", desc: "ストラップのヒールサンダル", tags: "strappy high-heel sandals"},
+{ id: "sneakers", name: "スニーカー", desc: "定番のスニーカー。歩き疲れしないカジュアルな足元", tags: "sneakers"},
 { id: "sneaker-sandals", name: "スニーカーサンダル", desc: "スニーカー風ソールのスポーツサンダル", tags: "sport sandals, sneaker sole"},
-{ id: "wedge-sandals", name: "ウェッジサンダル", desc: "ウェッジヒールのサンダル。安定感のある厚底", tags: "wedge sandals, platform"},
-{ id: "laceup-sandals", name: "レースアップサンダル", desc: "足首まで編み上げるグラディエーター風サンダル", tags: "lace-up sandals, gladiator sandals"}
+{ id: "training-shoes", name: "トレーニングシューズ", desc: "ジム用シューズ", tags: "training shoes, gym sneakers"},
+{ id: "knee-boots", name: "ニーハイブーツ", desc: "ニーハイブーツ、細めのヒール", tags: "knee high boots, high heels"},
+{ id: "barefoot", name: "裸足", desc: "裸足", tags: "barefoot", note: "室内シーンでは靴を履かせない（裸足、またはスリッパ）"},
+{ id: "ballet-flats", name: "バレエシューズ", desc: "バレエシューズ風のフラットパンプス。小さなリボン付き", tags: "ballet flats, ribbon"},
+{ id: "pumps", name: "パンプス", desc: "きれいめパンプス", tags: "pumps, high heels"},
+{ id: "heel-sandals", name: "ヒールサンダル", desc: "ストラップヒールサンダル、華奢なデザイン", tags: "strappy high heel sandals"},
+{ id: "flat-sandals", name: "フラットサンダル", desc: "ぺたんこのフラットサンダル。歩きやすい軽やかな足元", tags: "flat sandals"},
+{ id: "mouton", name: "ムートンブーツ", desc: "ムートンブーツ、もこもこ素材", tags: "mouton boots, fluffy"},
+{ id: "mary-janes", name: "メリージェーン", desc: "丸みのあるストラップシューズ。甲のストラップで上品な足元", tags: "mary janes, strap shoes"},
+{ id: "slippers", name: "ルームスリッパ", desc: "ふわふわのルームスリッパ", tags: "fluffy slippers", note: "室内シーンでは靴を履かせない（裸足、またはスリッパ）"},
+{ id: "rain-boots", name: "レインブーツ", desc: "雨の日専用の防水ブーツ", tags: "rain boots"},
+{ id: "laceup-sandals", name: "レースアップサンダル", desc: "足首まで編み上げるグラディエーター風サンダル", tags: "lace-up sandals, gladiator sandals"},
+{ id: "plain-loafers", name: "ローファー", desc: "上品なローファー", tags: "loafers"},
+{ id: "black-long-boots", name: "ロングブーツ", desc: "膝下まで届くロングブーツ", tags: "long boots, knee boots"},
+{ id: "strap-pumps", name: "ワンストラップパンプス", desc: "ワンストラップパンプス。甲のストラップと低めのヒール、上品な丸トゥ", tags: "strap pumps, low heels, round toe"}
 ],
 socks: [
-{ id: "knee-socks", name: "ニーハイソックス", desc: "ニーハイソックス、上端に細いライン", tags: "thigh high socks"},
-{ id: "loose-socks", name: "ルーズソックス", desc: "ルーズソックス、たっぷりたるませて履く", tags: "loose socks"},
-{ id: "lace-stockings", name: "レースストッキング（薔薇姫）", desc: "花柄レースのシアーストッキング。薔薇の蔓草と小花を縦方向に配置、幅広のスカラップレースの上端、細いサテン製ガーターストラップ付き", tags: "floral lace stockings, rose vine pattern, scalloped lace top, garter straps, satin", note: "ガーターストラップは装飾用として左右対称に配置する"},
-{ id: "sheer-tights", name: "シアータイツ", desc: "薄手のシアータイツ", tags: "sheer tights"},
 { id: "fishnet", name: "網タイツ", desc: "網タイツ", tags: "fishnet tights"},
-{ id: "crew-socks", name: "クルーソックス", desc: "クルーソックス、ワンポイントロゴ入り", tags: "crew socks"},
-{ id: "leg-warmers", name: "レッグウォーマー", desc: "ニットのレッグウォーマー、くしゅくしゅにたるませる", tags: "leg warmers, knit, scrunched"},
-{ id: "ribbon-socks", name: "リボン付きソックス", desc: "レースとリボン付きのソックス（ロリータ風）", tags: "lace socks, ribbon, lolita fashion"},
-{ id: "high-socks", name: "ハイソックス", desc: "ハイソックス。膝下までの丈", tags: "high socks, knee high socks"},
 { id: "ankle-socks", name: "アンクルソックス", desc: "アンクルソックス。くるぶし丈", tags: "ankle socks"},
+{ id: "crew-socks", name: "クルーソックス", desc: "クルーソックス、ワンポイントロゴ入り", tags: "crew socks"},
+{ id: "sheer-tights", name: "シアータイツ", desc: "薄手のシアータイツ", tags: "sheer tights"},
+{ id: "sheer-socks", name: "シースルーソックス", desc: "薄手で透け感のあるシースルーソックス", tags: "sheer socks, see-through"},
+{ id: "knee-socks", name: "ニーハイソックス", desc: "ニーハイソックス、上端に細いライン", tags: "thigh high socks"},
+{ id: "high-socks", name: "ハイソックス", desc: "ハイソックス。膝下までの丈", tags: "high socks, knee high socks"},
 { id: "mesh-socks", name: "メッシュソックス", desc: "メッシュ素材のソックス。涼しげな透け感", tags: "mesh socks, see-through"},
 { id: "line-socks", name: "ラインソックス", desc: "上端に2本ラインの入ったスポーツ風ソックス", tags: "striped socks, sporty, two stripes"},
-{ id: "sheer-socks", name: "シースルーソックス", desc: "薄手で透け感のあるシースルーソックス", tags: "sheer socks, see-through"}
+{ id: "ribbon-socks", name: "リボン付きソックス", desc: "レースとリボン付きのソックス（ロリータ風）", tags: "lace socks, ribbon, lolita fashion"},
+{ id: "loose-socks", name: "ルーズソックス", desc: "ルーズソックス、たっぷりたるませて履く", tags: "loose socks"},
+{ id: "lace-stockings", name: "レースストッキング（薔薇姫）", desc: "花柄レースのシアーストッキング。薔薇の蔓草と小花を縦方向に配置、幅広のスカラップレースの上端、細いサテン製ガーターストラップ付き", tags: "floral lace stockings, rose vine pattern, scalloped lace top, garter straps, satin", note: "ガーターストラップは装飾用として左右対称に配置する"},
+{ id: "lace-socks", name: "レースソックス", desc: "裾から覗くレースがポイントのソックス", tags: "lace socks"},
+{ id: "leg-warmers", name: "レッグウォーマー", desc: "ニットのレッグウォーマー、くしゅくしゅにたるませる", tags: "leg warmers, knit, scrunched"}
 ],
 acc: [
-{ id: "lace-choker", name: "レースチョーカー", desc: "花柄レースのチョーカー。中央に小さな宝石、細いチェーンと小粒パールが短く垂れ下がる", tags: "lace choker, gemstone, pearl chain"},
-{ id: "tiara", name: "ティアラ（薔薇姫）", desc: "アンティークゴールドの花冠ティアラ。蔓草モチーフに小さな薔薇と宝石、髪型を隠さない低めの位置に付ける", tags: "antique gold tiara, rose vine motif, gemstones"},
-{ id: "rose-corsage", name: "薔薇コサージュ", desc: "薔薇と小薔薇を束ねたコサージュを、腰に非対称に配置", tags: "rose corsage, roses", note: "コサージュは左右非対称にする（片側は大輪の薔薇、反対側は小薔薇の束）"},
-{ id: "cat-ears", name: "猫耳ヘッドドレス", desc: "猫耳のヘッドドレス", tags: "cat ears headband"},
-{ id: "heart-sunglasses", name: "ハートサングラス", desc: "ハート型のサングラスを頭に乗せる", tags: "heart shaped sunglasses, sunglasses on head"},
-{ id: "ribbon-clip", name: "リボンヘアクリップ", desc: "大きなサテンリボンのヘアクリップ", tags: "large satin ribbon hair clip"},
-{ id: "hoop-earrings", name: "ゴールドフープピアス", desc: "大きめのゴールドフープピアス", tags: "gold hoop earrings, large"},
-{ id: "chain-belt", name: "チェーンベルト", desc: "ウエストに巻く細いチェーンベルト、ハートのチャーム付き", tags: "chain belt, heart charm"},
-{ id: "heart-bag", name: "ハート型ミニバッグ", desc: "ハート型のミニショルダーバッグ", tags: "heart shaped bag, shoulder bag"},
-{ id: "lace-gloves", name: "レース手袋", desc: "レースの手袋、フリル付きのカフス", tags: "lace gloves, frilled cuffs"},
-{ id: "bunny-band", name: "うさ耳カチューシャ", desc: "うさ耳カチューシャ、レース付き", tags: "bunny ears headband, lace"},
-{ id: "lolita-headdress", name: "ロリータヘッドドレス", desc: "レースたっぷりのヘッドドレス、大きなリボンとパールの装飾", tags: "lolita headdress, lace, large bow, pearls"},
-{ id: "tote-bag", name: "トートバッグ", desc: "大きめのトートバッグを肩にかける", tags: "tote bag, shoulder bag"},
-{ id: "backpack", name: "リュック", desc: "リュックサックを背負う", tags: "backpack"},
-{ id: "beret", name: "ベレー帽", desc: "ベレー帽を少し斜めにかぶる", tags: "beret, tilted hat"},
-{ id: "scarf", name: "マフラー", desc: "マフラーをふんわり巻く", tags: "scarf, wrapped scarf"},
-{ id: "straw-hat", name: "麦わら帽子", desc: "麦わら帽子。リボン付き", tags: "straw hat, ribbon"},
-{ id: "pearl-necklace", name: "パールネックレス", desc: "一連のパールネックレス。上品な首元のアクセント", tags: "pearl necklace"},
-{ id: "cap", name: "キャップ", desc: "ベースボールキャップ。カジュアルな差し色", tags: "baseball cap"},
-{ id: "velvet-choker", name: "ベルベットチョーカー", desc: "ベルベットのチョーカー。小さなハートチャーム付き", tags: "velvet choker, heart charm"},
 { id: "anklet", name: "アンクレット", desc: "足首に付ける細いチェーンのアンクレット", tags: "anklet, chain"},
-{ id: "sash-belt", name: "サッシュベルト", desc: "ウエストに巻く太めのサッシュベルト。リボン結び", tags: "sash belt, ribbon tie, wide belt"}
+{ id: "earmuffs", name: "イヤーマフ", desc: "耳当てのイヤーマフ。防寒とかわいさの両立", tags: "earmuffs"},
+{ id: "waist-belt", name: "ウエストベルト", desc: "ウエストに巻くベルト。シルエットを引き締める", tags: "waist belt, belt"},
+{ id: "bunny-band", name: "うさ耳カチューシャ", desc: "うさ耳カチューシャ、レース付き", tags: "bunny ears headband, lace"},
+{ id: "wristwatch", name: "腕時計", desc: "シンプルな腕時計。大人の小物", tags: "wristwatch"},
+{ id: "basket-bag", name: "かごバッグ", desc: "夏らしいかごバッグ", tags: "basket bag, straw bag"},
+{ id: "layered-necklace", name: "重ね付けネックレス", desc: "重ね付けのネックレス。首元に立体感を出す", tags: "layered necklace"},
+{ id: "cap", name: "キャップ", desc: "ベースボールキャップ。カジュアルな差し色", tags: "baseball cap"},
+{ id: "clutch-bag", name: "クラッチバッグ", desc: "手持ちのクラッチバッグ", tags: "clutch bag"},
+{ id: "clear-tote", name: "クリアトートバッグ", desc: "中身が見える透明素材のトートバッグ。推し活参戦の定番", tags: "clear tote bag, transparent bag"},
+{ id: "crossbody-bag", name: "クロスボディバッグ", desc: "斜め掛けの小さめバッグ", tags: "crossbody bag"},
+{ id: "sash-belt", name: "サッシュベルト", desc: "ウエストに巻く太めのサッシュベルト。リボン結び", tags: "sash belt, ribbon tie, wide belt"},
+{ id: "shoulder-bag", name: "ショルダーバッグ", desc: "肩掛けできるショルダーバッグ", tags: "shoulder bag"},
+{ id: "square-mini-bag", name: "スクエアミニバッグ", desc: "小さめのスクエアバッグ", tags: "square mini bag, handbag"},
+{ id: "chain-bag", name: "チェーンバッグ", desc: "チェーンストラップの小さめバッグ。肩掛けできる", tags: "chain bag, shoulder bag"},
+{ id: "chain-belt", name: "チェーンベルト", desc: "ウエストに巻く細いチェーンベルト、ハートのチャーム付き", tags: "chain belt, heart charm"},
+{ id: "check-scarf", name: "チェックマフラー", desc: "チェック柄のマフラー。冬コーデのアクセント", tags: "plaid scarf"},
+{ id: "tiara", name: "ティアラ（薔薇姫）", desc: "花冠ティアラ。蔓草モチーフに小さな薔薇と宝石、髪型を隠さない低めの位置に付ける", tags: "tiara, rose vine motif, gemstones"},
+{ id: "denim-hobo-bag", name: "デニムホーボーバッグ", desc: "デニム素材のホーボーバッグ", tags: "denim hobo bag"},
+{ id: "clear-umbrella", name: "透明傘", desc: "視界が広く、コーデも隠さない透明傘", tags: "clear umbrella, transparent umbrella"},
+{ id: "tote-bag", name: "トートバッグ", desc: "大きめのトートバッグを肩にかける", tags: "tote bag, shoulder bag"},
+{ id: "plush-toy", name: "ぬいぐるみ", desc: "抱えたぬいぐるみ。パジャマパーティーのお供", tags: "plush toy, stuffed animal, holding plush"},
+{ id: "cat-ears", name: "猫耳ヘッドドレス", desc: "猫耳のヘッドドレス", tags: "cat ears headband"},
+{ id: "necklace", name: "ネックレス", desc: "細いネックレス。首元のさりげないアクセント", tags: "necklace, thin necklace"},
+{ id: "heart-bag", name: "ハート型ミニバッグ", desc: "ハート型のミニショルダーバッグ", tags: "heart shaped bag, shoulder bag"},
+{ id: "heart-sunglasses", name: "ハートサングラス", desc: "ハート型のサングラスを頭に乗せる", tags: "heart shaped sunglasses, sunglasses on head"},
+{ id: "pearl-earrings", name: "パールイヤリング", desc: "小さめのパールイヤリング。上品な耳元", tags: "pearl earrings"},
+{ id: "pearl-necklace", name: "パールネックレス", desc: "一連のパールネックレス。上品な首元のアクセント", tags: "pearl necklace"},
+{ id: "rose-corsage", name: "薔薇コサージュ", desc: "薔薇と小薔薇を束ねたコサージュを、腰に非対称に配置", tags: "rose corsage, roses", note: "コサージュは左右非対称にする（片側は大輪の薔薇、反対側は小薔薇の束）"},
+{ id: "handbag", name: "ハンドバッグ", desc: "小さめのハンドバッグ", tags: "handbag, small bag"},
+{ id: "leopard-belt", name: "ヒョウ柄ベルト", desc: "ヒョウ柄のベルト。ウエストに巻いて効かせる主役小物", tags: "leopard print belt"},
+{ id: "hoop-earrings", name: "フープピアス", desc: "大きめのフープピアス", tags: "hoop earrings, large"},
+{ id: "hairband", name: "ヘアバンド", desc: "パジャマコーデのヘアバンド", tags: "hairband"},
+{ id: "velvet-choker", name: "ベルベットチョーカー", desc: "ベルベットのチョーカー。小さなハートチャーム付き", tags: "velvet choker, heart charm"},
+{ id: "beret", name: "ベレー帽", desc: "ベレー帽を少し斜めにかぶる", tags: "beret, tilted hat"},
+{ id: "penlight", name: "ペンライト", desc: "手に持つペンライト。推し活参戦の必須小物", tags: "penlight, glow stick, holding glow stick"},
+{ id: "witch-hat", name: "魔女帽子", desc: "とんがり帽子の魔女帽子", tags: "witch hat, pointed hat"},
+{ id: "scarf", name: "マフラー", desc: "マフラーをふんわり巻く", tags: "scarf, wrapped scarf"},
+{ id: "mini-backpack", name: "ミニリュック", desc: "小さめのバックパック", tags: "mini backpack"},
+{ id: "straw-hat", name: "麦わら帽子", desc: "麦わら帽子。リボン付き", tags: "straw hat, ribbon"},
+{ id: "ribbon-clip", name: "リボンヘアクリップ", desc: "大きなサテンリボンのヘアクリップ", tags: "large satin ribbon hair clip"},
+{ id: "backpack", name: "リュック", desc: "リュックサックを背負う", tags: "backpack"},
+{ id: "lace-choker", name: "レースチョーカー", desc: "花柄レースのチョーカー。中央に小さな宝石、細いチェーンと小粒パールが短く垂れ下がる", tags: "lace choker, gemstone, pearl chain"},
+{ id: "lace-gloves", name: "レース手袋", desc: "レースの手袋、フリル付きのカフス", tags: "lace gloves, frilled cuffs"},
+{ id: "lolita-headdress", name: "ロリータヘッドドレス", desc: "レースたっぷりのヘッドドレス、大きなリボンとパールの装飾", tags: "lolita headdress, lace, large bow, pearls"}
 ],
 other: [
 { id: "urban-expedition", name: "アーバン・エクスペディション", desc: "ディープペトロールティール×ウォームアイボリー×チャコールのテックウェア。金具はブラッシュドブロンズ、差し色はミュートコーラル。腰上で終わるクロップド・オーバーサイズの技術ジャケット（アイボリーの肩パネルと背ヨーク、ブロンズのパイピング、スタンドカラー、アシンメトリーのスナップ開閉をオープンに着る、胸にファスナーポケット）。幾何学カットアウトのクロップド・アスレチックトップ（バスト下で終わり腹部が見える）。ローライズのオーバーサイズ・パラシュートカーゴパンツ（すね丈クロップド、膝の補強パネルと斜めアイボリーパイピング、大型ユーティリティポケット、垂れたウェビングストラップ、裾ドローコード）。チャコールのユーティリティベルト（ブロンズのクイックリリースバックルとカラビナ）、着脱式アイボリー・ユーティリティポーチ。ティール×アイボリー×チャコールのチャンキーなミッドトップ・テクニカルスニーカー。ロゴ・ブランド表示なし", tags: "techwear, cropped technical jacket, stand collar, asymmetrical snap closure, cropped athletic top, cutout, midriff, low rise parachute cargo pants, cropped pants, utility pockets, webbing straps, utility belt, bronze buckle, utility pouch, chunky technical sneakers, teal, ivory, charcoal, no logo", note: "ロゴ・ブランド表示は入れない。配色（ティール×アイボリー×チャコール）とブラッシュドブロンズの金具を厳密に再現する"},
 { id: "ivory-blade", name: "アイヴォリー・ブレイド", desc: "アイボリー×チャコール×金縁刺繍のファンタジー剣士衣装。刀を携える", tags: "fantasy swordsman outfit, ivory, charcoal, gold trim embroidery, katana", note: "刀を携える。配色はアイボリー×チャコールに金縁刺繍で厳密に再現する"},
-{ id: "base-coord", name: "ミュウの基本コーデ", desc: "開けたライトベージュのオーバーサイズジップパーカー、黒のクロップドタンクトップ、リングとストラップ付きのダークなカーゴパンツ、白のチャンキースニーカー、黒のスタッズレザーバングル", tags: "oversized zip hoodie, light beige, open hoodie, black cropped tank top, dark cargo pants, straps, white chunky sneakers, studded leather bangle"},
-{ id: "navy-lace-denim", name: "ネイビーレース＆ローライズデニム", desc: "ネイビーブラックの花柄レースのトライアングルブラ（細ストラップ、花柄レースと裏地）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー", tags: "navy black floral lace triangle bra, thin straps, low rise denim micro shorts, washed blue denim, frayed hem, distressed, silver hardware", note: "ブラはトライアングル型（細ストラップ）。金具はシルバーで統一する"}
+{ id: "navy-lace-denim", name: "ネイビーレース＆ローライズデニム", desc: "ネイビーブラックの花柄レースのトライアングルブラ（細ストラップ、花柄レースと裏地）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー", tags: "navy black floral lace triangle bra, thin straps, low rise denim micro shorts, washed blue denim, frayed hem, distressed, silver hardware", note: "ブラはトライアングル型（細ストラップ）。金具はシルバーで統一する"},
+{ id: "base-coord", name: "ミュウの基本コーデ", desc: "開けたライトベージュのオーバーサイズジップパーカー、黒のクロップドタンクトップ、リングとストラップ付きのダークなカーゴパンツ、白のチャンキースニーカー、黒のスタッズレザーバングル", tags: "oversized zip hoodie, light beige, open hoodie, black cropped tank top, dark cargo pants, straps, white chunky sneakers, studded leather bangle"}
 ]
 };
 
@@ -940,6 +1195,7 @@ var THEMES = [
 /* noneMode: "line" = なし と出力 / "omit" = セクション自体を出さない */
 var CATS = [
 { id: "tops", label: "トップス", pool: "tops", noneMode: null},
+{ id: "dress", label: "ワンピース・ドレス", pool: "dress", noneMode: "omit", noneLabel: "なし（使わない）"},
 { id: "bottoms", label: "ボトムス", pool: "bottoms", noneMode: "omit", noneLabel: "ボトムスなし（ワンピース等）"},
 { id: "outer", label: "アウター", pool: "outer", noneMode: "line", noneLabel: "なし"},
 { id: "shoes", label: "シューズ", pool: "shoes", noneMode: null},
@@ -951,114 +1207,101 @@ var CATS = [
 
 /* 私服プリセット89種: sel=アイテム / col=色テーマ（カテゴリID -> 色ID） */
 var PRESETS = [
-{ name: "清楚系お嬢様", img: "preset-ojousama.jpg", sel: { tops: "plain-blouse", bottoms: "long-skirt", outer: "short-cardigan", shoes: "strap-pumps", socks: "high-socks", acc1: "ribbon-clip", acc2: null}, col: { tops: "white", bottoms: "blue", outer: "lightbrown", shoes: "brown", socks: "white"}},
-{ name: "ギャル定番コーデ", img: "preset-galcoord.jpg", sel: { tops: "baby-tee", bottoms: "pleated-skirt", outer: "fur-jacket", shoes: "loafers", socks: "loose-socks", acc1: "ribbon-clip", acc2: "heart-bag"}, col: { tops: "pink"}},
-{ name: "おうちリラックス", img: "preset-roomwear.jpg", sel: { tops: "boyfriend-shirt", bottoms: "sweat-shorts", outer: "none", shoes: "barefoot", socks: "none", acc1: "none", acc2: null}},
-{ name: "マイクロホットパンツ×クロップドキャミ", img: "preset-gal.jpg", sel: { tops: "cropped-cami", bottoms: "micro-shorts", outer: "denim-jacket", shoes: "platform-boots", socks: "none", acc1: "heart-sunglasses", acc2: "chain-belt"}},
-{ name: "背開きニットドレス Ver.2", img: "preset-knitdress.jpg", sel: { tops: "halter-dress", bottoms: null, outer: "none", shoes: "knee-boots", socks: "none", acc1: "hoop-earrings", acc2: null}, col: { tops: "gray"}},
-{ name: "デートカフェコーデ", img: "preset-datecafe.jpg", sel: { tops: "offshoulder", bottoms: "flare-skirt", outer: "none", shoes: "strap-pumps", socks: "ankle-socks", acc1: "heart-bag", acc2: null}, col: { tops: "pink", bottoms: "white", shoes: "pink"}},
-{ name: "ニットワンピース風", img: "preset-whitedown.jpg", sel: { tops: "halter-dress", bottoms: null, outer: "long-cardigan", shoes: "knee-boots", socks: "sheer-tights", acc1: "hoop-earrings", acc2: null}, col: { tops: "beige", outer: "cream"}},
-{ name: "ストリートギャル", img: "preset-street.jpg", sel: { tops: "baby-tee", bottoms: "cargo-pants", outer: "ma1", shoes: "platform-sneakers", socks: "crew-socks", acc1: "chain-belt", acc2: "heart-sunglasses"}, col: { tops: "black", outer: "khaki"}},
-{ name: "モノトーンコーデ", img: "preset-monotone.jpg", sel: { tops: "tube-top", bottoms: "leather-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "none", acc2: null}, col: { tops: "black", bottoms: "black", outer: "black", shoes: "black"}},
-{ name: "夏のお出かけ", img: "preset-summer.jpg", sel: { tops: "tube-top", bottoms: "denim-mini", outer: "none", shoes: "heel-sandals", socks: "ankle-socks", acc1: "straw-hat", acc2: "heart-bag"}, col: { tops: "white", bottoms: "blue"}},
-{ name: "パジャマパーティー", img: "preset-pajama.jpg", sel: { tops: "big-hoodie", bottoms: "sweat-shorts", outer: "none", shoes: "slippers", socks: "crew-socks", acc1: "none", acc2: null}, col: { tops: "pink"}},
-{ name: "カレッジガール", img: "preset-afterschool.jpg", sel: { tops: "oxford-shirt", bottoms: "pleated-skirt", outer: "knit-vest", shoes: "loafers", socks: "high-socks", acc1: "backpack", acc2: null}, col: { bottoms: "navy", outer: "beige"}},
-{ name: "韓国カジュアル", img: "preset-korean.jpg", sel: { tops: "knit-sweater", bottoms: "straight-jeans", outer: "none", shoes: "canvas-sneakers", socks: "ankle-socks", acc1: "tote-bag", acc2: null}, col: { tops: "cream", bottoms: "lightblue"}},
-{ name: "フレンチガーリー", img: "preset-french.jpg", sel: { tops: "princess-blouse", bottoms: "flare-skirt", outer: "none", shoes: "ballet-flats", socks: "ribbon-socks", acc1: "beret", acc2: null}, col: { bottoms: "red"}},
-{ name: "森ガール", img: "preset-mori.jpg", sel: { tops: "plain-blouse", bottoms: "long-skirt", outer: "long-cardigan", shoes: "ballet-flats", socks: "ribbon-socks", acc1: "straw-hat", acc2: "tote-bag"}, col: { tops: "cream", bottoms: "green", outer: "beige"}},
-{ name: "スポーティカジュアル", img: "preset-sportmix.jpg", sel: { tops: "baby-tee", bottoms: "wide-pants", outer: "denim-jacket", shoes: "platform-sneakers", socks: "crew-socks", acc1: "none", acc2: null}, col: { bottoms: "khaki"}},
-{ name: "オフィスカジュアル", img: "preset-office.jpg", sel: { tops: "oxford-shirt", bottoms: "wide-pants", outer: "tailored", shoes: "strap-pumps", socks: "none", acc1: "tote-bag", acc2: null}, col: { tops: "white", bottoms: "navy", outer: "gray"}},
-{ name: "図書館コーデ", img: "preset-library.jpg", sel: { tops: "turtleneck", bottoms: "long-skirt", outer: "short-cardigan", shoes: "loafers", socks: "high-socks", acc1: "tote-bag", acc2: null}, col: { tops: "beige", bottoms: "brown", outer: "lightbrown"}},
-{ name: "雨の日コーデ", img: "preset-rain.jpg", sel: { tops: "knit-sweater", bottoms: "straight-jeans", outer: "trench", shoes: "knee-boots", socks: "none", acc1: "none", acc2: null}, col: { tops: "navy", outer: "beige"}},
-{ name: "紅葉狩りコーデ", img: "preset-outdoor.jpg", sel: { tops: "turtleneck", bottoms: "flare-skirt", outer: "long-cardigan", shoes: "knee-boots", socks: "sheer-tights", acc1: "scarf", acc2: null}, col: { tops: "bordeaux", bottoms: "brown", outer: "lightbrown"}},
-{ name: "冬のあったかコーデ", img: "preset-snow.jpg", sel: { tops: "turtleneck", bottoms: "skinny", outer: "boa-blouson", shoes: "mouton", socks: "leg-warmers", acc1: "scarf", acc2: null}, col: { tops: "white", bottoms: "black", outer: "cream"}},
-{ name: "春のピクニック", img: "preset-picnic.jpg", sel: { tops: "offshoulder", bottoms: "maxi-skirt", outer: "none", shoes: "heel-sandals", socks: "ankle-socks", acc1: "straw-hat", acc2: "heart-bag"}, col: { tops: "pink"}},
-{ name: "海コーデ", img: "preset-umi.jpg", sel: { tops: "cropped-cami", bottoms: "micro-shorts", outer: "none", shoes: "heel-sandals", socks: "none", acc1: "heart-sunglasses", acc2: "straw-hat"}, col: { tops: "white"}},
-{ name: "ショッピングコーデ", img: "preset-shopping.jpg", sel: { tops: "baby-tee", bottoms: "denim-mini", outer: "fur-jacket", shoes: "platform-sneakers", socks: "loose-socks", acc1: "heart-bag", acc2: "ribbon-clip"}, col: { tops: "pink"}},
-{ name: "ライブ参戦コーデ", img: "preset-livecoord.jpg", sel: { tops: "baby-tee", bottoms: "leather-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "chain-belt", acc2: null}, col: { tops: "black", bottoms: "black"}},
-{ name: "カフェ店員風", img: "preset-cafe.jpg", sel: { tops: "oxford-shirt", bottoms: "skinny", outer: "none", shoes: "loafers", socks: "ankle-socks", acc1: "none", acc2: null}, col: { tops: "white", bottoms: "black"}},
-{ name: "デニムオンデニム", img: "preset-denim.jpg", sel: { tops: "baby-tee", bottoms: "straight-jeans", outer: "denim-jacket", shoes: "canvas-sneakers", socks: "crew-socks", acc1: "none", acc2: null}, col: { tops: "white", bottoms: "blue", outer: "blue"}},
-{ name: "パステルコーデ", img: "preset-pink.jpg", sel: { tops: "butterfly-knit", bottoms: "tulle-skirt", outer: "none", shoes: "ballet-flats", socks: "ribbon-socks", acc1: "ribbon-clip", acc2: "heart-bag"}, col: { tops: "pink", bottoms: "lightblue"}},
-{ name: "ビビッドポップ", img: "preset-harajuku.jpg", sel: { tops: "baby-tee", bottoms: "pleated-skirt", outer: "ma1", shoes: "platform-sneakers", socks: "leg-warmers", acc1: "heart-sunglasses", acc2: null}, col: { tops: "yellow", bottoms: "purple", socks: "pink"}},
-{ name: "大人クール", img: "preset-coolbeauty.jpg", sel: { tops: "tube-top", bottoms: "wide-pants", outer: "tailored", shoes: "heel-sandals", socks: "none", acc1: "hoop-earrings", acc2: null}, col: { tops: "black", bottoms: "gray", outer: "black"}},
-{ name: "甘辛ミックス", img: "preset-bike.jpg", sel: { tops: "butterfly-knit", bottoms: "leather-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "lace-choker", acc2: null}, col: { tops: "pink", bottoms: "black"}},
-{ name: "レトロガール", img: "preset-retro.jpg", sel: { tops: "knit-sweater", bottoms: "flare-skirt", outer: "none", shoes: "strap-pumps", socks: "high-socks", acc1: "beret", acc2: null}, col: { tops: "red", bottoms: "navy"}},
-{ name: "ボーイッシュ", img: "preset-skater.jpg", sel: { tops: "boyfriend-shirt", bottoms: "cargo-pants", outer: "none", shoes: "canvas-sneakers", socks: "crew-socks", acc1: "none", acc2: "backpack"}, col: { tops: "white", bottoms: "khaki"}},
-{ name: "フェミニンワンピ", img: "preset-floral.jpg", sel: { tops: "halter-dress", bottoms: null, outer: "lace-bolero", shoes: "rose-pumps", socks: "none", acc1: "ribbon-clip", acc2: null}, col: { tops: "pink"}},
-{ name: "お嬢様カフェ", img: "preset-ojocafe.jpg", sel: { tops: "princess-blouse", bottoms: "lolita-skirt", outer: "lace-bolero", shoes: "rose-pumps", socks: "ribbon-socks", acc1: "lolita-headdress", acc2: null}},
-{ name: "放課後コーデ", img: "preset-oshikatsu.jpg", sel: { tops: "big-hoodie", bottoms: "pleated-skirt", outer: "none", shoes: "loafers", socks: "loose-socks", acc1: "backpack", acc2: null}, col: { tops: "pink"}},
-{ name: "旅行コーデ", img: "preset-travel.jpg", sel: { tops: "knit-sweater", bottoms: "wide-pants", outer: "trench", shoes: "canvas-sneakers", socks: "ankle-socks", acc1: "backpack", acc2: "straw-hat"}, col: { outer: "beige"}},
-{ name: "おしゃれルームウェア", img: "preset-roomwear2.jpg", sel: { tops: "boyfriend-shirt", bottoms: "sweat-shorts", outer: "long-cardigan", shoes: "slippers", socks: "leg-warmers", acc1: "none", acc2: null}, col: { outer: "pink"}},
-{ name: "グランジ風", img: "preset-grunge.jpg", sel: { tops: "baby-tee", bottoms: "denim-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "lace-choker", acc2: "chain-belt"}, col: { tops: "black"}},
-{ name: "ストラップレスレース＆ローライズデニム", img: "preset-lacedenim.jpg", sel: { tops: "strapless-lace", bottoms: "lowrise-denim", outer: "none", shoes: "heel-sandals", socks: "none", acc1: "hoop-earrings", acc2: null}, col: { tops: "white", bottoms: "blue", shoes: "white"}},
-{ name: "お嬢様コーデ", img: "preset-ojocode.jpg", sel: { tops: "offshoulder", bottoms: "flare-skirt", outer: "none", shoes: "strap-pumps", socks: "ankle-socks", acc1: "heart-bag", acc2: null}, col: { tops: "pink", bottoms: "white", shoes: "pink"}},
-{ name: "マイクロホットパンツ×見せブラ（サテン生地）", img: "preset-misebra.jpg", sel: { tops: "satin-bra", bottoms: "micro-shorts", outer: "denim-jacket", shoes: "platform-boots", socks: "none", acc1: "heart-sunglasses", acc2: "chain-belt"}, col: { tops: "pink"}},
-{ name: "マイクロホットパンツ×マイクロチューブブラ（サテン生地）", img: "preset-microtube.jpg", sel: { tops: "micro-tube-top", bottoms: "micro-shorts", outer: "denim-jacket", shoes: "platform-boots", socks: "none", acc1: "heart-sunglasses", acc2: "chain-belt"}, col: { tops: "pink"}},
-{ name: "ミルクティーベージュのニットワンピース", img: null, sel: {}, en: "knit dress, beige knit dress, turtleneck, long sleeves, midi length, belted waist, loafers, pearl earrings, small handbag", jp: "ミルクティーベージュのタートルネックニットワンピースを着た、ベルトでウエストマークした上品なきれいめコーデ。ローファーと小さめバッグでまとめる。"},
-{ name: "白ブラウス×黒マーメイドスカート", img: null, sel: {}, en: "white blouse, ribbon tie blouse, long sleeves, black mermaid skirt, midi skirt, pumps, tote bag", jp: "白のリボンタイブラウスに黒のマーメイドスカートを合わせた、清楚で女性らしいきれいめコーデ。"},
-{ name: "パステルツイードのセットアップ", img: null, sel: {}, en: "pastel pink tweed jacket, cropped jacket, tweed mini skirt, skirt suit, pearl buttons, pumps, chain bag", jp: "パステルピンクのツイードジャケットとミニスカートのセットアップ。パールボタンとチェーンバッグでお嬢様感を出す。"},
-{ name: "ネイビーのフレアワンピース", img: null, sel: {}, en: "navy flare dress, short sleeves, knee length, ribbon belt, pumps, pearl necklace", jp: "ネイビーのフレアワンピースにリボンベルトを効かせた、オフィスにも使えるきちんと感のあるコーデ。"},
-{ name: "とろみシャツ×センタープレスパンツ", img: null, sel: {}, en: "satin blouse, long sleeves, beige wide pants, center crease pants, pumps, shoulder bag, wristwatch", jp: "とろみ感のあるサテンシャツと、センタープレス入りのベージュワイドパンツを合わせた大人のきれいめコーデ。"},
-{ name: "カーデアンサンブル×プリーツスカート", img: null, sel: {}, en: "cardigan twinset, camisole, pleated skirt, midi skirt, ballet flats, shoulder bag", jp: "カーディガンのアンサンブルにプリーツスカートを合わせた、やわらかく上品なコーデ。"},
-{ name: "ベルト付きシャツワンピース", img: null, sel: {}, en: "shirt dress, long sleeves, belted waist, midi length, loafers, tote bag", jp: "ベルト付きのシャツワンピースをさらっと着た、清潔感のあるきれいめコーデ。ローファー合わせ。"},
-{ name: "淡ピンクのAラインワンピース", img: null, sel: {}, en: "light pink a-line dress, short sleeves, knee length, waist ribbon, mary janes, handbag", jp: "淡いピンクのAラインワンピースにウエストリボンを付けた、甘さ控えめのフェミニンコーデ。"},
-{ name: "千鳥柄ジャケットコーデ", img: null, sel: {}, en: "houndstooth jacket, tailored jacket, black mini dress, pumps, chain bag", jp: "千鳥柄のテーラードジャケットを黒のミニワンピに羽織った、都会的なきれいめコーデ。"},
-{ name: "サテンキャミ×ドレープロングスカート", img: null, sel: {}, en: "satin camisole, draped long skirt, cardigan draped over shoulders, sandals, clutch bag", jp: "サテンのキャミソールとドレープ感のあるロングスカートに、カーディガンを肩掛けした大人っぽいコーデ。"},
-{ name: "白テーラード×デニム", img: null, sel: {}, en: "white tailored jacket, white t-shirt, straight jeans, loafers, tote bag", jp: "白のテーラードジャケットにデニムを合わせた、きれいめとカジュアルの橋渡しコーデ。"},
-{ name: "グレージュのロングジレコーデ", img: null, sel: {}, en: "long sleeveless vest, greige, turtleneck knit, wide pants, loafers, shoulder bag", jp: "グレージュのロングジレにタートルニットとワイドパンツを重ねた、縦ラインがきれいなコーデ。"},
-{ name: "花柄シフォンのティアードワンピース", img: null, sel: {}, en: "floral chiffon dress, tiered dress, long dress, puff sleeves, flat sandals, straw bag", jp: "小花柄のシフォンティアードワンピース。ふんわりした袖と麦わらバッグで夏のきれいめコーデ。"},
-{ name: "黒タートル×チェックタイトスカート", img: null, sel: {}, en: "black turtleneck, long sleeves, plaid tight skirt, mini skirt, long boots", jp: "黒のタートルニットにチェックのタイトミニスカートとロングブーツを合わせた、大人きれいめコーデ。"},
-{ name: "クロップドデニムジャケット×カーゴスカート", img: null, sel: {}, en: "cropped denim jacket, tank top, cargo mini skirt, chunky sneakers, crossbody bag", jp: "クロップド丈のデニムジャケットとカーゴミニスカートの、今っぽいストリート寄りトレンドコーデ。"},
-{ name: "バレルレッグジーンズ×コンパクトニット", img: null, sel: {}, en: "barrel leg jeans, compact knit sweater, long sleeves, sneakers, shoulder bag", jp: "バレルレッグジーンズにコンパクトな丈のニットを合わせた、シルエット勝負のトレンドコーデ。"},
-{ name: "オフショルリブニット×デニムミニ", img: null, sel: {}, en: "off-shoulder ribbed knit sweater, denim mini skirt, long boots, handbag", jp: "オフショルダーのリブニットにデニムミニとロングブーツを合わせた、あざとかわいいトレンドコーデ。"},
-{ name: "チュールレイヤードスカート×スウェット", img: null, sel: {}, en: "oversized sweatshirt, layered tulle long skirt, sneakers, baseball cap", jp: "オーバーサイズのスウェットにチュールのレイヤードロングスカートを合わせた、甘辛ミックスコーデ。"},
-{ name: "シアーロンT×キャミワンピ重ね", img: null, sel: {}, en: "sheer long sleeve top, layered camisole dress, long dress, sneakers, mini shoulder bag", jp: "透け感のあるロンTの上にキャミワンピを重ねた、レイヤードが主役のトレンドコーデ。"},
-{ name: "ワイドチノ×クロップドシャツ", img: null, sel: {}, en: "wide chino pants, cropped shirt, short sleeves, belt, sneakers, tote bag", jp: "ワイドなチノパンにクロップド丈のシャツを合わせた、抜け感のあるトレンドコーデ。"},
-{ name: "ナイロンベスト×プリーツミニ", img: null, sel: {}, en: "nylon vest, white t-shirt, pleated mini skirt, chunky sneakers, mini backpack", jp: "ナイロンベストを重ねたスポーティミックス。プリーツミニと厚底スニーカーでまとめる。"},
-{ name: "シルバー小物のY2Kコーデ", img: null, sel: {}, en: "baby tee, cropped t-shirt, cargo pants, silver chain belt, platform sneakers, mini bag", jp: "ベビーTとカーゴパンツにシルバー小物を効かせたY2K風コーデ。"},
-{ name: "チェックシャツ腰巻きレイヤード", img: null, sel: {}, en: "plaid shirt tied around waist, white t-shirt, skinny jeans, sneakers, baseball cap", jp: "チェックシャツを腰に巻いたレイヤードスタイル。白Tとスキニーデニムの定番を格上げする。"},
-{ name: "ボリューム袖ブラウス×ハイウエストデニム", img: null, sel: {}, en: "puff sleeve blouse, high-waist straight jeans, pumps, handbag", jp: "ボリューム袖のブラウスにハイウエストデニムを合わせた、韓国風のきれいめトレンドコーデ。"},
-{ name: "スウェットセットアップ", img: null, sel: {}, en: "sweatshirt and sweatpants set, matching set, sneakers, baseball cap, crossbody pouch", jp: "スウェットのセットアップを外着として着こなす、ワンマイルトレンドコーデ。"},
-{ name: "ロングブーツ×ミニワンピの韓国風", img: null, sel: {}, en: "knit mini dress, cropped cardigan, long boots, mini bag, beret", jp: "ニットミニワンピにクロップドカーデとロングブーツを合わせた韓国風コーデ。ベレー帽がポイント。"},
-{ name: "森ガールレイヤード", img: null, sel: {}, en: "mori girl style, layered cream dress, floral skirt, knit cardigan, lace socks, brown boots, woven bag", jp: "生成りのレイヤードワンピと花柄スカートにニットカーデを重ねた森ガール風コーデ。編みバッグと茶色のブーツでまとめる。"},
-{ name: "ハロウィン魔女風カジュアル", img: null, sel: {}, en: "black dress, purple ribbon accents, witch hat, casual halloween outfit, lace-up boots", jp: "黒ワンピに紫のリボンと魔女帽子を合わせた、ハロウィンのカジュアルコーデ。"},
-{ name: "推し活参戦コーデ", img: null, sel: {}, en: "live concert outfit, plaid skirt, pink ribbon, clear tote bag, long boots, glow stick in hand", jp: "チェックのスカートにピンクのリボン、クリアトートを持った推し活参戦コーデ。ペンライトがポイント。"},
-{ name: "旅行トラベルコーデ", img: null, sel: {}, en: "travel outfit, lightweight jacket, comfortable pants, sneakers, baseball cap, crossbody pouch, backpack", jp: "軽いジャケットと動きやすいパンツ、スニーカーとキャップの旅行コーデ。斜め掛けポーチ付き。"},
-{ name: "雨の日レインコーデ", img: null, sel: {}, en: "knit sweater, mini skirt, rain boots, clear umbrella, waterproof tote bag", jp: "ニットとミニスカートにレインブーツ、透明傘を合わせた雨の日コーデ。"},
-{ name: "クリスマスマーケットコーデ", img: null, sel: {}, en: "white knit sweater, long coat, red plaid scarf, earmuffs, boots", jp: "白ニットにロングコート、赤チェックのマフラーとイヤーマフを合わせたクリスマスマーケットコーデ。"},
-{ name: "初詣カジュアル", img: null, sel: {}, en: "long down coat, knit sweater, long skirt, muffler, boots, shoulder bag", jp: "ロングダウンコートにニットとロングスカートを合わせた、暖かさ重視の初詣カジュアル。"},
-{ name: "ピクニックコーデ", img: null, sel: {}, en: "gingham check dress, straw hat, cardigan, flat sandals, woven basket bag", jp: "ギンガムチェックのワンピに麦わら帽子とカゴバッグを合わせたピクニックコーデ。"},
-{ name: "ライブハウスコーデ", img: null, sel: {}, en: "band t-shirt, leather jacket, black skinny jeans, chain belt, choker, boots", jp: "バンドTにレザージャケットと黒スキニー、チェーンベルトを効かせたライブハウスコーデ。"},
-{ name: "パジャマパーティー一式", img: null, sel: {}, en: "fluffy pajama set, pastel pink room wear, slippers, hair band, plush toy", jp: "もこもこのパジャマセットにスリッパとヘアバンド、ぬいぐるみを抱えたパジャマパーティーコーデ。"},
-{ name: "ボーダーTのマリン風", img: null, sel: {}, en: "striped border shirt, long sleeves, white pants, sneakers, canvas tote bag", jp: "ボーダーのロンTに白パンツとスニーカーを合わせた、爽やかなマリン風カジュアル。"},
-{ name: "オーバーオール×ロンT", img: null, sel: {}, en: "denim overalls, long sleeve t-shirt, sneakers, baseball cap", jp: "デニムのオーバーオールにロンTとキャップを合わせた、元気なカジュアルコーデ。"},
-{ name: "ヒョウ柄小物×黒ミニ", img: null, sel: {}, en: "black knit mini dress, leopard print belt, gold hoop earrings, long boots", jp: "黒のニットミニワンピにヒョウ柄ベルトとゴールドのピアスを効かせた、強めギャルコーデ。"},
-{ name: "デコデニム×厚底の姫ギャル寄り", img: null, sel: {}, en: "decorated denim jacket, lace camisole top, mini skirt, platform shoes, pink ribbon hair accessories", jp: "デコったデニムジャケットにレースキャミとミニスカート、厚底シューズとピンクリボンの姫ギャル寄りコーデ。"},
-{ name: "マイクロホットパンツ×クロップドキャミ", img: "preset-hotpants.jpg", sel: {}, model: "詩織", en: "cropped camisole top, micro denim hot pants, oversized denim jacket, chain belt, platform boots, heart-shaped sunglasses", jp: "見本モデル：詩織。\n【トップス】\n白いレース縁取りのクロップド丈キャミソール。胸元に小さなリボン\n【ボトムス】\nマイクロ丈のデニムホットパンツ。ダブルベルトと垂れたチェーンでギャル感強め\n【アウター】\nオーバーサイズのデニムジャケット。肩を落としてラフに羽織る\n【シューズ】\n黒い厚底ロングブーツ。編み上げタイプ\n【小物１】\nハート型のサングラス。頭に乗せる\n【小物２】\nデニム素材のホーボーバッグ"},
-{ name: "ストラップレスレース＆ローライズデニム", img: "preset-lace-denim.jpg", sel: {}, en: "white lace strapless crop top, low-rise bootcut jeans, gold hoop earrings, white strappy high-heel sandals", jp: "【トップス】\n白いレースのストラップレスクロップトップ。スカラップレースの裾と中央のリボン\n【ボトムス】\nローライズのブーツカットデニム。サイドのレースアップとポケットの刺繍がポイント\n【シューズ】\n白いストラップのハイヒールサンダル。細めのヒールで華奢に\n【小物１】\nゴールドのフープイヤリング\n【小物２】\nゴールドの重ね付けネックレス"},
-{ name: "サテンスリップ（ピンク）", img: "preset-satin-pink.jpg", sel: {}, en: "pink satin slip dress, lace trim, ribbon bow, barefoot indoors", jp: "【ワンピース】\n淡いピンクのサテンスリップドレス。胸元と裾にレースの縁取り、胸元に小さなリボン。細い肩ストラップ\n【シューズ】\n室内のため裸足"},
-{ name: "サテンスリップ（ワイン）", img: "preset-satin-wine.jpg", sel: {}, model: "詩織", en: "wine red satin slip dress, black lace trim, ribbon bow, necklace, barefoot indoors", jp: "見本モデル：詩織。\n【ワンピース】\nワインレッドのサテンスリップドレス。胸元と裾に黒レースの縁取り、胸元にリボン。細い肩ストラップ\n【小物１】\n細いシルバーのネックレス\n【シューズ】\n室内のため裸足"},
-{ name: "ローブ付きサテンセット", img: "preset-robe-satin.jpg", sel: {}, en: "champagne beige satin camisole and shorts set, sheer lace long robe, barefoot indoors", jp: "【トップス】\nシャンパンベージュのサテンキャミソール。胸元にレースの縁取り\n【ボトムス】\n同素材のサテンショーツ。裾にレース\n【アウター】\nシアーなロングローブ。袖口と裾に大きなレースの縁取り、ウエストは共布ベルト\n【シューズ】\n室内のため裸足"},
-{ name: "黒サテン＆ローブセット", img: "preset-robe-black.jpg", sel: {}, model: "詩織", en: "black satin camisole and shorts set, black lace long robe, barefoot indoors", jp: "見本モデル：詩織。\n【トップス】\n黒いサテンのキャミソール。胸元にレースの縁取り\n【ボトムス】\n同素材の黒サテンショーツ。裾にレース\n【アウター】\n黒いシアーのロングローブ。袖口と裾にレースの縁取り\n【シューズ】\n室内のため裸足"}
+{ name: "清楚系お嬢様", img: "preset-ojousama.jpg", sel: {"tops":"plain-blouse","bottoms":"long-skirt","outer":"short-cardigan","shoes":"strap-pumps","socks":"high-socks","acc1":"ribbon-clip","acc2":null}},
+{ name: "ギャル定番コーデ", img: "preset-galcoord.jpg", sel: {"tops":"baby-tee","bottoms":"pleated-skirt","outer":"fur-jacket","shoes":"loafers","socks":"loose-socks","acc1":"ribbon-clip","acc2":"heart-bag"}},
+{ name: "おうちリラックス", img: "preset-roomwear.jpg", sel: {"tops":"boyfriend-shirt","bottoms":"sweat-shorts","outer":"none","shoes":"barefoot","socks":"none","acc1":"none","acc2":null}},
+{ name: "マイクロホットパンツ×クロップドキャミ", img: "preset-gal.jpg", sel: {"tops":"cropped-cami","bottoms":"micro-shorts","outer":"denim-jacket","shoes":"platform-boots","socks":"none","acc1":"heart-sunglasses","acc2":"chain-belt"}},
+{ name: "背開きニットドレス Ver.2", img: "preset-knitdress.jpg", sel: {"tops":"none","dress":"halter-dress","bottoms":null,"outer":"none","shoes":"knee-boots","socks":"none","acc1":"hoop-earrings","acc2":null}},
+{ name: "デートカフェコーデ", img: "preset-datecafe.jpg", sel: {"tops":"offshoulder","bottoms":"flare-skirt","outer":"none","shoes":"strap-pumps","socks":"ankle-socks","acc1":"heart-bag","acc2":null}},
+{ name: "ニットワンピース風", img: "preset-whitedown.jpg", sel: {"tops":"none","dress":"halter-dress","bottoms":null,"outer":"long-cardigan","shoes":"knee-boots","socks":"sheer-tights","acc1":"hoop-earrings","acc2":null}},
+{ name: "ストリートギャル", img: "preset-street.jpg", sel: {"tops":"baby-tee","bottoms":"cargo-pants","outer":"ma1","shoes":"platform-sneakers","socks":"crew-socks","acc1":"chain-belt","acc2":"heart-sunglasses"}},
+{ name: "ライダース×レザーミニコーデ", img: "preset-monotone.jpg", sel: {"tops":"tube-top","bottoms":"leather-mini","outer":"riders","shoes":"platform-boots","socks":"fishnet","acc1":"none","acc2":null}},
+{ name: "夏のお出かけ", img: "preset-summer.jpg", sel: {"tops":"tube-top","bottoms":"denim-mini","outer":"none","shoes":"heel-sandals","socks":"ankle-socks","acc1":"straw-hat","acc2":"heart-bag"}},
+{ name: "パジャマパーティー", img: "preset-pajama.jpg", sel: {"tops":"big-hoodie","bottoms":"sweat-shorts","outer":"none","shoes":"slippers","socks":"crew-socks","acc1":"none","acc2":null}},
+{ name: "カレッジガール", img: "preset-afterschool.jpg", sel: {"tops":"oxford-shirt","bottoms":"pleated-skirt","outer":"knit-vest","shoes":"loafers","socks":"high-socks","acc1":"backpack","acc2":null}},
+{ name: "韓国カジュアル", img: "preset-korean.jpg", sel: {"tops":"knit-sweater","bottoms":"straight-jeans","outer":"none","shoes":"canvas-sneakers","socks":"ankle-socks","acc1":"tote-bag","acc2":null}},
+{ name: "フレンチガーリー", img: "preset-french.jpg", sel: {"tops":"princess-blouse","bottoms":"flare-skirt","outer":"none","shoes":"ballet-flats","socks":"ribbon-socks","acc1":"beret","acc2":null}},
+{ name: "森ガール", img: "preset-mori.jpg", sel: {"tops":"plain-blouse","bottoms":"long-skirt","outer":"long-cardigan","shoes":"ballet-flats","socks":"ribbon-socks","acc1":"straw-hat","acc2":"tote-bag"}},
+{ name: "スポーティカジュアル", img: "preset-sportmix.jpg", sel: {"tops":"baby-tee","bottoms":"wide-pants","outer":"denim-jacket","shoes":"platform-sneakers","socks":"crew-socks","acc1":"none","acc2":null}},
+{ name: "オフィスカジュアル", img: "preset-office.jpg", sel: {"tops":"oxford-shirt","bottoms":"wide-pants","outer":"tailored","shoes":"strap-pumps","socks":"none","acc1":"tote-bag","acc2":null}},
+{ name: "図書館コーデ", img: "preset-library.jpg", sel: {"tops":"turtleneck","bottoms":"long-skirt","outer":"short-cardigan","shoes":"loafers","socks":"high-socks","acc1":"tote-bag","acc2":null}},
+{ name: "雨の日コーデ", img: "preset-rain.jpg", sel: {"tops":"knit-sweater","bottoms":"straight-jeans","outer":"trench","shoes":"knee-boots","socks":"none","acc1":"none","acc2":null}},
+{ name: "紅葉狩りコーデ", img: "preset-outdoor.jpg", sel: {"tops":"turtleneck","bottoms":"flare-skirt","outer":"long-cardigan","shoes":"knee-boots","socks":"sheer-tights","acc1":"scarf","acc2":null}},
+{ name: "冬のあったかコーデ", img: "preset-snow.jpg", sel: {"tops":"turtleneck","bottoms":"skinny","outer":"boa-blouson","shoes":"mouton","socks":"leg-warmers","acc1":"scarf","acc2":null}},
+{ name: "春のピクニック", img: "preset-picnic.jpg", sel: {"tops":"offshoulder","bottoms":"maxi-skirt","outer":"none","shoes":"heel-sandals","socks":"ankle-socks","acc1":"straw-hat","acc2":"heart-bag"}},
+{ name: "海コーデ", img: "preset-umi.jpg", sel: {"tops":"cropped-cami","bottoms":"micro-shorts","outer":"none","shoes":"heel-sandals","socks":"none","acc1":"heart-sunglasses","acc2":"straw-hat"}},
+{ name: "ショッピングコーデ", img: "preset-shopping.jpg", sel: {"tops":"baby-tee","bottoms":"denim-mini","outer":"fur-jacket","shoes":"platform-sneakers","socks":"loose-socks","acc1":"heart-bag","acc2":"ribbon-clip"}},
+{ name: "ライブ参戦コーデ", img: "preset-livecoord.jpg", sel: {"tops":"baby-tee","bottoms":"leather-mini","outer":"riders","shoes":"platform-boots","socks":"fishnet","acc1":"chain-belt","acc2":null}},
+{ name: "カフェ店員風", img: "preset-cafe.jpg", sel: {"tops":"oxford-shirt","bottoms":"skinny","outer":"none","shoes":"loafers","socks":"ankle-socks","acc1":"none","acc2":null}},
+{ name: "デニムオンデニム", img: "preset-denim.jpg", sel: {"tops":"baby-tee","bottoms":"straight-jeans","outer":"denim-jacket","shoes":"canvas-sneakers","socks":"crew-socks","acc1":"none","acc2":null}},
+{ name: "バタフライニット×チュールスカート", img: "preset-pink.jpg", sel: {"tops":"butterfly-knit","bottoms":"tulle-skirt","outer":"none","shoes":"ballet-flats","socks":"ribbon-socks","acc1":"ribbon-clip","acc2":"heart-bag"}},
+{ name: "ビビッドポップ", img: "preset-harajuku.jpg", sel: {"tops":"baby-tee","bottoms":"pleated-skirt","outer":"ma1","shoes":"platform-sneakers","socks":"leg-warmers","acc1":"heart-sunglasses","acc2":null}},
+{ name: "大人クール", img: "preset-coolbeauty.jpg", sel: {"tops":"tube-top","bottoms":"wide-pants","outer":"tailored","shoes":"heel-sandals","socks":"none","acc1":"hoop-earrings","acc2":null}},
+{ name: "甘辛ミックス", img: "preset-bike.jpg", sel: {"tops":"butterfly-knit","bottoms":"leather-mini","outer":"riders","shoes":"platform-boots","socks":"fishnet","acc1":"lace-choker","acc2":null}},
+{ name: "レトロガール", img: "preset-retro.jpg", sel: {"tops":"knit-sweater","bottoms":"flare-skirt","outer":"none","shoes":"strap-pumps","socks":"high-socks","acc1":"beret","acc2":null}},
+{ name: "ボーイッシュ", img: "preset-skater.jpg", sel: {"tops":"boyfriend-shirt","bottoms":"cargo-pants","outer":"none","shoes":"canvas-sneakers","socks":"crew-socks","acc1":"none","acc2":"backpack"}},
+{ name: "フェミニンワンピ", img: "preset-floral.jpg", sel: {"tops":"none","dress":"halter-dress","bottoms":null,"outer":"lace-bolero","shoes":"rose-pumps","socks":"none","acc1":"ribbon-clip","acc2":null}},
+{ name: "お嬢様カフェ", img: "preset-ojocafe.jpg", sel: {"tops":"princess-blouse","bottoms":"lolita-skirt","outer":"lace-bolero","shoes":"rose-pumps","socks":"ribbon-socks","acc1":"lolita-headdress","acc2":null}},
+{ name: "放課後コーデ", img: "preset-oshikatsu.jpg", sel: {"tops":"big-hoodie","bottoms":"pleated-skirt","outer":"none","shoes":"loafers","socks":"loose-socks","acc1":"backpack","acc2":null}},
+{ name: "旅行コーデ", img: "preset-travel.jpg", sel: {"tops":"knit-sweater","bottoms":"wide-pants","outer":"trench","shoes":"canvas-sneakers","socks":"ankle-socks","acc1":"backpack","acc2":"straw-hat"}},
+{ name: "おしゃれルームウェア", img: "preset-roomwear2.jpg", sel: {"tops":"boyfriend-shirt","bottoms":"sweat-shorts","outer":"long-cardigan","shoes":"slippers","socks":"leg-warmers","acc1":"none","acc2":null}},
+{ name: "グランジ風", img: "preset-grunge.jpg", sel: {"tops":"baby-tee","bottoms":"denim-mini","outer":"riders","shoes":"platform-boots","socks":"fishnet","acc1":"lace-choker","acc2":"chain-belt"}},
+{ name: "ストラップレスレース＆ローライズデニム", img: "preset-lacedenim.jpg", sel: {"tops":"strapless-lace","bottoms":"lowrise-denim","outer":"none","shoes":"heel-sandals","socks":"none","acc1":"hoop-earrings","acc2":null}},
+{ name: "お嬢様コーデ", img: "preset-ojocode.jpg", sel: {"tops":"offshoulder","bottoms":"flare-skirt","outer":"none","shoes":"strap-pumps","socks":"ankle-socks","acc1":"heart-bag","acc2":null}},
+{ name: "マイクロホットパンツ×見せブラ（サテン生地）", img: "preset-misebra.jpg", sel: {"tops":"satin-bra","bottoms":"micro-shorts","outer":"denim-jacket","shoes":"platform-boots","socks":"none","acc1":"heart-sunglasses","acc2":"chain-belt"}},
+{ name: "マイクロホットパンツ×マイクロチューブブラ（サテン生地）", img: "preset-microtube.jpg", sel: {"tops":"micro-tube-top","bottoms":"micro-shorts","outer":"denim-jacket","shoes":"platform-boots","socks":"none","acc1":"heart-sunglasses","acc2":"chain-belt"}},
+{ name: "ニットワンピース", img: null, sel: {"tops":"none","dress":"turtleneck-knit-dress","bottoms":null,"outer":"none","shoes":"plain-loafers","socks":"none","acc1":"pearl-earrings","acc2":"handbag"}, en: "knit dress, turtleneck, long sleeves, midi length, belted waist, loafers, pearl earrings, small handbag", jp: "【ワンピース】\nタートルネックニットワンピース。長袖で丈は膝下のミディ丈、ベルトでウエストマークした上品なきれいめシルエット\n【シューズ】\nローファー。きちんと感のある定番合わせ\n【小物１】\nパールのイヤリング。小さめで上品に\n【小物２】\n小さめのハンドバッグ。必要最低限が入るサイズ"},
+{ name: "ブラウス×マーメイドスカート", img: null, sel: {"tops":"ribbon-tie-blouse","dress":null,"bottoms":"mermaid-skirt","outer":"none","shoes":"pumps","socks":"none","acc1":"tote-bag","acc2":null}, en: "blouse, ribbon tie blouse, long sleeves, mermaid skirt, midi skirt, pumps, tote bag", jp: "【トップス】\nリボンタイブラウス。長袖で、胸元のリボンが清楚なポイント\n【ボトムス】\nマーメイドスカート。膝下までのミディ丈で、裾に向かって広がる女性らしいライン\n【シューズ】\nパンプス。低めのヒールで上品に\n【小物１】\nトートバッグ。きれいめにも映えるシンプルなデザイン"},
+{ name: "ツイードセットアップ", img: null, sel: {"tops":"none","dress":null,"bottoms":"tweed-mini-skirt","outer":"tweed-jacket","shoes":"pumps","socks":"none","acc1":"chain-bag","acc2":null}, en: "tweed jacket, cropped jacket, tweed mini skirt, skirt suit, pearl buttons, pumps, chain bag", jp: "【アウター】\nツイードジャケット。クロップド丈で、パールボタンがお嬢様感を出す\n【ボトムス】\n同じツイード生地のミニスカート。ジャケットとセットアップで着る\n【シューズ】\nパンプス。セットアップに合わせた上品な足元\n【小物１】\nチェーンバッグ。肩掛けできる小さめサイズ"},
+{ name: "フレアワンピース", img: null, sel: {"tops":"none","dress":"flare-dress","bottoms":null,"outer":"none","shoes":"pumps","socks":"none","acc1":"pearl-necklace","acc2":null}, en: "flare dress, short sleeves, knee length, ribbon belt, pumps, pearl necklace", jp: "【ワンピース】\nフレアワンピース。半袖で膝丈、ウエストのリボンベルトが効いた、オフィスにも使えるきちんと感のあるデザイン\n【シューズ】\nパンプス。上品で安定感のある足元\n【小物１】\nパールのネックレス。一連で清楚に"},
+{ name: "とろみシャツ×センタープレスパンツ", img: null, sel: {"tops":"satin-blouse","dress":null,"bottoms":"center-crease-wide-pants","outer":"none","shoes":"pumps","socks":"none","acc1":"shoulder-bag","acc2":"wristwatch"}, en: "satin blouse, long sleeves, wide pants, center crease pants, pumps, shoulder bag, wristwatch", jp: "【トップス】\nとろみ感のあるサテンシャツ。長袖で、落ち感のある生地が大人の雰囲気\n【ボトムス】\nワイドパンツ。センタープレス入りで脚をまっすぐきれいに見せる\n【シューズ】\nパンプス。シャープな足元で引き締める\n【小物１】\nショルダーバッグ\n【小物２】\n腕時計。シンプルな大人の小物"},
+{ name: "カーデアンサンブル×プリーツスカート", img: null, sel: {"tops":"cardigan-ensemble","dress":null,"bottoms":"pleated-midi-skirt","outer":"none","shoes":"ballet-flats","socks":"none","acc1":"shoulder-bag","acc2":null}, en: "cardigan twinset, camisole, pleated skirt, midi skirt, ballet flats, shoulder bag", jp: "【トップス】\nカーディガンのアンサンブル。同色のキャミソールの上にカーディガンを羽織る、やわらかく上品な組み合わせ\n【ボトムス】\nプリーツスカート。膝下までのミディ丈で、歩くと揺れるプリーツ\n【シューズ】\nバレエシューズ。フラットでやさしい足元\n【小物１】\nショルダーバッグ。小さめで上品に"},
+{ name: "ベルト付きシャツワンピース", img: null, sel: {"tops":"none","dress":"shirt-dress","bottoms":null,"outer":"none","shoes":"plain-loafers","socks":"none","acc1":"tote-bag","acc2":null}, en: "shirt dress, long sleeves, belted waist, midi length, loafers, tote bag", jp: "【ワンピース】\nベルト付きのシャツワンピース。長袖で膝下のミディ丈、ウエストベルトでメリハリを付けた清潔感のあるデザイン\n【シューズ】\nローファー。さらっと着るのに合う定番合わせ\n【小物１】\nトートバッグ。シンプルで実用的"},
+{ name: "Aラインワンピース", img: null, sel: {"tops":"none","dress":"aline-dress","bottoms":null,"outer":"none","shoes":"mary-janes","socks":"none","acc1":"handbag","acc2":null}, en: "a-line dress, short sleeves, knee length, waist ribbon, mary janes, handbag", jp: "【ワンピース】\nAラインワンピース。半袖で膝丈、ウエストリボンで甘さ控えめにまとめたフェミニンなデザイン\n【シューズ】\nメリージェーン。丸みのあるストラップシューズで上品な足元\n【小物１】\n小さめのハンドバッグ"},
+{ name: "千鳥柄ジャケットコーデ", img: null, sel: {"tops":"none","dress":"mini-dress","bottoms":null,"outer":"houndstooth-jacket","shoes":"pumps","socks":"none","acc1":"chain-bag","acc2":null}, en: "houndstooth jacket, tailored jacket, mini dress, pumps, chain bag", jp: "【ワンピース】\nミニワンピース。シンプルなデザインでジャケットを引き立てる\n【アウター】\n千鳥柄のテーラードジャケット。ワンピースの上に羽織る、都会的なきれいめアウター\n【シューズ】\nパンプス\n【小物１】\nチェーンバッグ。肩掛けの小さめサイズ"},
+{ name: "サテンキャミ×ドレープロングスカート", img: null, sel: {"tops":"satin-camisole","dress":null,"bottoms":"drape-long-skirt","outer":"cardigan","shoes":"heel-sandals","socks":"none","acc1":"clutch-bag","acc2":null}, en: "satin camisole, draped long skirt, cardigan draped over shoulders, sandals, clutch bag", jp: "【トップス】\nサテンのキャミソール。光沢のある生地で大人っぽく\n【ボトムス】\nドレープ感のあるロングスカート。なめらかに落ちるシルエット\n【アウター】\nカーディガンを肩掛け。羽織らず肩に乗せる、抜け感のある着こなし\n【シューズ】\nサンダル。華奢なストラップ\n【小物１】\nクラッチバッグ"},
+{ name: "テーラード×デニム", img: null, sel: {"tops":"plain-tee","dress":null,"bottoms":"straight-jeans","outer":"tailored","shoes":"plain-loafers","socks":"none","acc1":"tote-bag","acc2":null}, en: "tailored jacket, t-shirt, straight jeans, loafers, tote bag", jp: "【トップス】\nTシャツ。シンプルな無地\n【ボトムス】\nストレートジーンズ。きれいめにも寄せられる王道デニム\n【アウター】\nテーラードジャケット。カジュアルなデニム合わせをきれいめに引き上げる\n【シューズ】\nローファー\n【小物１】\nトートバッグ"},
+{ name: "ロングジレコーデ", img: null, sel: {"tops":"turtleneck","dress":null,"bottoms":"wide-pants","outer":"long-gilet","shoes":"plain-loafers","socks":"none","acc1":"shoulder-bag","acc2":null}, en: "long sleeveless vest, turtleneck knit, wide pants, loafers, shoulder bag", jp: "【トップス】\nタートルネックのニット。ジレの下に着る、すっきりしたインナー\n【ボトムス】\nワイドパンツ。縦ラインを強調するゆるいシルエット\n【アウター】\nロングジレ。袖なしのロング丈で、重ねるだけで縦ラインがきれいに出る\n【シューズ】\nローファー\n【小物１】\nショルダーバッグ"},
+{ name: "花柄シフォンのティアードワンピース", img: null, sel: {"tops":"none","dress":"tiered-dress","bottoms":null,"outer":"none","shoes":"flat-sandals","socks":"none","acc1":"basket-bag","acc2":null}, en: "floral chiffon dress, tiered dress, long dress, puff sleeves, flat sandals, straw bag", jp: "【ワンピース】\n小花柄のシフォンティアードワンピース。ふんわりしたパフスリーブと、段になって揺れるティアードのロング丈\n【シューズ】\nフラットサンダル。軽やかな足元\n【小物１】\n麦わらバッグ。夏らしい素材感"},
+{ name: "タートル×チェックタイトスカート", img: null, sel: {"tops":"turtleneck","dress":null,"bottoms":"check-tight-skirt","outer":"none","shoes":"black-long-boots","socks":"none","acc1":"none","acc2":null}, en: "turtleneck, long sleeves, plaid tight skirt, mini skirt, long boots", jp: "【トップス】\nタートルネックニット。長袖で、体に沿うすっきりしたシルエット\n【ボトムス】\nチェック柄のタイトスカート。ミニ丈で大人っぽく\n【シューズ】\nロングブーツ。膝下まで届く丈"},
+{ name: "クロップドデニムジャケット×カーゴスカート", img: null, sel: {"tops":"tank-top","dress":null,"bottoms":"cargo-skirt","outer":"cropped-denim-jacket","shoes":"platform-sneakers","socks":"none","acc1":"crossbody-bag","acc2":null}, en: "cropped denim jacket, tank top, cargo mini skirt, chunky sneakers, crossbody bag", jp: "【トップス】\nタンクトップ。ジャケットの下に着るシンプルなインナー\n【ボトムス】\nカーゴミニスカート。ポケット使いがストリート感を出す\n【アウター】\nクロップド丈のデニムジャケット。短め丈で今っぽく羽織る\n【シューズ】\n厚底スニーカー。ボリュームのある足元\n【小物１】\nクロスボディバッグ。斜め掛けの小さめサイズ"},
+{ name: "バレルレッグジーンズ×コンパクトニット", img: null, sel: {"tops":"compact-knit","dress":null,"bottoms":"barrel-jeans","outer":"none","shoes":"sneakers","socks":"none","acc1":"shoulder-bag","acc2":null}, en: "barrel leg jeans, compact knit sweater, long sleeves, sneakers, shoulder bag", jp: "【トップス】\nコンパクトな丈のニット。長袖で、短め丈がパンツのボリュームと好バランス\n【ボトムス】\nバレルレッグジーンズ。丸みのある樽型シルエットが主役のデニム\n【シューズ】\nスニーカー\n【小物１】\nショルダーバッグ"},
+{ name: "オフショルリブニット×デニムミニ", img: null, sel: {"tops":"offshoulder-rib-knit","dress":null,"bottoms":"denim-mini","outer":"none","shoes":"black-long-boots","socks":"none","acc1":"handbag","acc2":null}, en: "off-shoulder ribbed knit sweater, denim mini skirt, long boots, handbag", jp: "【トップス】\nオフショルダーのリブニット。肩を出してあざとかわいく、リブ編みで体にフィット\n【ボトムス】\nデニムのミニスカート。王道の短め丈\n【シューズ】\nロングブーツ。ミニ丈とのバランスが良い膝下丈\n【小物１】\n小さめのハンドバッグ"},
+{ name: "チュールレイヤードスカート×スウェット", img: null, sel: {"tops":"oversized-sweat","dress":null,"bottoms":"tulle-layered-skirt","outer":"none","shoes":"sneakers","socks":"none","acc1":"cap","acc2":null}, en: "oversized sweatshirt, layered tulle long skirt, sneakers, baseball cap", jp: "【トップス】\nオーバーサイズのスウェット。ゆるっと着る大きめシルエット\n【ボトムス】\nチュールのレイヤードロングスカート。重なった透け感が甘いアクセント\n【シューズ】\nスニーカー。甘辛ミックスの仕上げ\n【小物１】\nベースボールキャップ。カジュアルに寄せるポイント"},
+{ name: "シアーロンT×キャミワンピ重ね", img: null, sel: {"tops":"sheer-longtee","dress":"camisole-dress","bottoms":null,"outer":"none","shoes":"sneakers","socks":"none","acc1":"crossbody-bag","acc2":null}, en: "sheer long sleeve top, layered camisole dress, long dress, sneakers, mini shoulder bag", jp: "【トップス】\n透け感のあるシアーロンT。下に重ねる長袖インナー\n【ワンピース】\nシアーロンTの上に重ねたキャミワンピース。ロング丈で、レイヤードが主役の着こなし\n【シューズ】\nスニーカー。抜け感のある足元\n【小物１】\nミニショルダーバッグ。小さめの斜め掛け"},
+{ name: "ワイドチノ×クロップドシャツ", img: null, sel: {"tops":"cropped-shirt","dress":null,"bottoms":"chino-pants","outer":"none","shoes":"sneakers","socks":"none","acc1":"tote-bag","acc2":null}, en: "wide chino pants, cropped shirt, short sleeves, belt, sneakers, tote bag", jp: "【トップス】\nクロップド丈のシャツ。半袖で、短め丈が抜け感を出す\n【ボトムス】\nワイドなチノパン。ベルトでウエストをマークしてゆるく着る\n【シューズ】\nスニーカー\n【小物１】\nトートバッグ。カジュアルな大容量タイプ"},
+{ name: "ナイロンベスト×プリーツミニ", img: null, sel: {"tops":"plain-tee","dress":null,"bottoms":"pleated-mini-skirt","outer":"nylon-vest","shoes":"platform-sneakers","socks":"none","acc1":"mini-backpack","acc2":null}, en: "nylon vest, t-shirt, pleated mini skirt, chunky sneakers, mini backpack", jp: "【トップス】\nTシャツ。ベストの下に着る定番インナー\n【ボトムス】\nプリーツミニスカート。スポーティな中に女の子らしさ\n【アウター】\nナイロンベスト。Tシャツの上に重ねる、スポーティミックスの主役\n【シューズ】\n厚底スニーカー\n【小物１】\nミニリュック。小さめのバックパック"},
+{ name: "チェーンベルトのY2Kコーデ", img: null, sel: {"tops":"baby-tee","dress":null,"bottoms":"cargo-pants-plain","outer":"none","shoes":"platform-sneakers","socks":"none","acc1":"chain-belt","acc2":"square-mini-bag"}, en: "baby tee, cropped t-shirt, cargo pants, chain belt, platform sneakers, mini bag", jp: "【トップス】\nベビーT。クロップド丈の小さめTシャツで、Y2Kらしいコンパクトなシルエット\n【ボトムス】\nカーゴパンツ。ゆるいシルエットにポケット使い\n【シューズ】\n厚底スニーカー\n【小物１】\nチェーンベルト。ウエストに巻いてY2K感を強める\n【小物２】\n小さめのミニバッグ"},
+{ name: "チェックシャツ腰巻きレイヤード", img: null, sel: {"tops":"plain-tee","dress":null,"bottoms":"black-skinny-pants","outer":"waist-tied-check-shirt","shoes":"sneakers","socks":"none","acc1":"cap","acc2":null}, en: "plaid shirt tied around waist, t-shirt, skinny jeans, sneakers, baseball cap", jp: "【トップス】\nTシャツ。定番のシンプルな無地\n【ボトムス】\nスキニージーンズ。細身で脚のラインを出す\n【アウター】\nチェックシャツを腰に巻いたレイヤード。羽織らず巻くことでこなれ感を出す\n【シューズ】\nスニーカー\n【小物１】\nベースボールキャップ"},
+{ name: "ボリューム袖ブラウス×ハイウエストデニム", img: null, sel: {"tops":"puff-sleeve-blouse","dress":null,"bottoms":"highwaist-straight-jeans","outer":"none","shoes":"pumps","socks":"none","acc1":"handbag","acc2":null}, en: "puff sleeve blouse, high-waist straight jeans, pumps, handbag", jp: "【トップス】\nボリューム袖のブラウス。ふんわりした袖が韓国風のポイント\n【ボトムス】\nハイウエストのストレートジーンズ。ブラウスをインして脚長に見せる\n【シューズ】\nパンプス。きれいめに寄せる足元\n【小物１】\nハンドバッグ"},
+{ name: "スウェットセットアップ", img: null, sel: {"tops":"sweat-setup-top","dress":null,"bottoms":"sweatpants","outer":"none","shoes":"sneakers","socks":"none","acc1":"cap","acc2":"crossbody-bag"}, en: "sweatshirt and sweatpants set, matching set, sneakers, baseball cap, crossbody pouch", jp: "【トップス】\nスウェットのトップス。下と同素材・同色で揃えたセットアップの上\n【ボトムス】\nスウェットパンツ。トップスと揃えた、外着仕様のワンマイルスタイル\n【シューズ】\nスニーカー。動きやすい足元\n【小物１】\nベースボールキャップ\n【小物２】\nクロスボディポーチ。斜め掛けの小さなポーチ"},
+{ name: "ロングブーツ×ミニワンピの韓国風", img: null, sel: {"tops":"none","dress":"knit-mini-dress","bottoms":null,"outer":"short-cardigan","shoes":"black-long-boots","socks":"none","acc1":"square-mini-bag","acc2":"beret"}, en: "knit mini dress, cropped cardigan, long boots, mini bag, beret", jp: "【ワンピース】\nニットのミニワンピース。短め丈とロングブーツのバランスが韓国風\n【アウター】\nクロップド丈のカーディガン。ワンピースの上に短く羽織る\n【シューズ】\nロングブーツ。膝下まで届く丈\n【小物１】\n小さめのミニバッグ\n【小物２】\nベレー帽。コーデのポイント"},
+{ name: "森ガールレイヤード", img: null, sel: {"tops":"none","dress":"layered-dress","bottoms":null,"outer":"knit-cardigan","shoes":"short-boots","socks":"lace-socks","acc1":"basket-bag","acc2":null}, en: "mori girl style, layered dress, floral skirt, knit cardigan, lace socks, boots, woven bag", jp: "【ワンピース】\nレイヤードワンピース。花柄スカートを重ねたような、森ガールらしい重ね感\n【アウター】\nニットカーディガン。ゆるく羽織る\n【シューズ】\nブーツ\n【ソックス】\nレースソックス。裾から覗くレースがポイント\n【小物１】\n編みバッグ。ナチュラルな素材感"},
+{ name: "ハロウィン魔女風カジュアル", img: null, sel: {"tops":"none","dress":"ribbon-accent-dress","bottoms":null,"outer":"none","shoes":"laceup-boots","socks":"none","acc1":"witch-hat","acc2":"ribbon-clip"}, en: "dress, ribbon accents, witch hat, casual halloween outfit, lace-up boots", jp: "【ワンピース】\nワンピース。リボンをアクセントに付けた魔女風デザイン\n【シューズ】\n編み上げブーツ。魔女っぽさを強める足元\n【小物１】\n魔女帽子。とんがり帽子がハロウィンの主役小物\n【小物２】\nリボンのヘアアクセサリー"},
+{ name: "推し活参戦コーデ", img: null, sel: {"tops":"plain-tee","dress":null,"bottoms":"check-mini-skirt","outer":"none","shoes":"black-long-boots","socks":"none","acc1":"clear-tote","acc2":"penlight"}, en: "live concert outfit, plaid skirt, ribbon, clear tote bag, long boots, glow stick in hand", jp: "【トップス】\nシンプルなトップス。リボンを付けて推し活参戦仕様に\n【ボトムス】\nチェック柄のスカート。動きやすくかわいい定番丈\n【シューズ】\nロングブーツ。長時間立っても安定感のある足元\n【小物１】\nクリアトートバッグ。中身が見える参戦の定番\n【小物２】\n手に持ったペンライト。推しカラーに光らせる"},
+{ name: "旅行トラベルコーデ", img: null, sel: {"tops":"cutsew","dress":null,"bottoms":"wide-pants","outer":"short-jacket","shoes":"sneakers","socks":"none","acc1":"cap","acc2":"backpack"}, en: "travel outfit, lightweight jacket, comfortable pants, sneakers, baseball cap, crossbody pouch, backpack", jp: "【トップス】\nシンプルなカットソー。シワになりにくく動きやすい旅行向き\n【ボトムス】\n動きやすいパンツ。歩き回れるゆとりのあるシルエット\n【アウター】\n軽いジャケット。さっと羽織れて荷物にならない薄手タイプ\n【シューズ】\nスニーカー。歩き疲れしない定番\n【小物１】\nベースボールキャップ\n【小物２】\n斜め掛けポーチとリュック。両手が空く旅行仕様"},
+{ name: "雨の日レインコーデ", img: null, sel: {"tops":"knit-sweater","dress":null,"bottoms":"plain-mini-skirt","outer":"none","shoes":"rain-boots","socks":"none","acc1":"clear-umbrella","acc2":"tote-bag"}, en: "knit sweater, mini skirt, rain boots, clear umbrella, waterproof tote bag", jp: "【トップス】\nニットセーター。雨の日でも気分が上がる一枚\n【ボトムス】\nミニスカート。裾が濡れにくい短め丈が雨の日に最適\n【シューズ】\nレインブーツ。雨の日専用の防水ブーツ\n【小物１】\n透明傘。視界が広く、コーデも隠さない\n【小物２】\n防水トートバッグ。濡れても大丈夫な素材"},
+{ name: "クリスマスマーケットコーデ", img: null, sel: {"tops":"knit-sweater","dress":null,"bottoms":null,"outer":"long-coat","shoes":"short-boots","socks":"none","acc1":"check-scarf","acc2":"earmuffs"}, en: "knit sweater, long coat, plaid scarf, earmuffs, boots", jp: "【トップス】\nニットセーター。冬の定番のあったかニット\n【アウター】\nロングコート。膝下まで届く丈でしっかり防寒\n【シューズ】\nブーツ。冬のお出かけ仕様\n【小物１】\nチェックのマフラー。クリスマスカラーの差し色\n【小物２】\nイヤーマフ。耳当てで防寒とかわいさの両立"},
+{ name: "初詣カジュアル", img: null, sel: {"tops":"knit-sweater","dress":null,"bottoms":"long-skirt","outer":"down-coat","shoes":"short-boots","socks":"none","acc1":"scarf","acc2":"shoulder-bag"}, en: "long down coat, knit sweater, long skirt, muffler, boots, shoulder bag", jp: "【トップス】\nニットセーター。コートの下に着込むあったかインナー\n【ボトムス】\nロングスカート。寒さ対策になる長め丈\n【アウター】\nロングダウンコート。暖かさ重視の冬アウター\n【シューズ】\nブーツ。歩きやすい防寒仕様\n【小物１】\nマフラー。首元までしっかり暖かく\n【小物２】\nショルダーバッグ"},
+{ name: "ピクニックコーデ", img: null, sel: {"tops":"none","dress":"gingham-dress","bottoms":null,"outer":"cardigan","shoes":"flat-sandals","socks":"none","acc1":"straw-hat","acc2":"basket-bag"}, en: "gingham check dress, straw hat, cardigan, flat sandals, woven basket bag", jp: "【ワンピース】\nギンガムチェックのワンピース。ピクニックらしい爽やかな柄\n【アウター】\nカーディガン。日よけと冷え対策に軽く羽織る\n【シューズ】\nフラットサンダル。芝生でも歩きやすいぺたんこ\n【小物１】\n麦わら帽子\n【小物２】\nカゴバッグ。編み素材でお出かけ気分が上がる"},
+{ name: "ライブハウスコーデ", img: null, sel: {"tops":"band-tee","dress":null,"bottoms":"black-skinny-pants","outer":"riders","shoes":"short-boots","socks":"none","acc1":"chain-belt","acc2":"velvet-choker"}, en: "band t-shirt, leather jacket, skinny jeans, chain belt, choker, boots", jp: "【トップス】\nバンドTシャツ。ライブハウスの主役アイテム\n【ボトムス】\nスキニージーンズ。細身でロックに決める\n【アウター】\nレザージャケット。バンドTに羽織る定番\n【シューズ】\nブーツ。存在感のある足元\n【小物１】\nチェーンベルト\n【小物２】\nチョーカー。首元を引き締める"},
+{ name: "パジャマパーティー一式", img: null, sel: {"tops":"fluffy-pajama-top","dress":null,"bottoms":"pajama-pants","outer":"none","shoes":"slippers","socks":"none","acc1":"hairband","acc2":"plush-toy"}, en: "fluffy pajama set, room wear, slippers, hair band, plush toy", jp: "【トップス】\nもこもこのパジャマトップス。ふわふわルームウェアの上\n【ボトムス】\n同じくもこもこのパジャマパンツ。トップスとセットで着る\n【シューズ】\nスリッパ。室内用のふわふわタイプ\n【小物１】\nヘアバンド。お泊まりの夜仕様\n【小物２】\n抱えたぬいぐるみ。パジャマパーティーのお供"},
+{ name: "ボーダーTのマリン風", img: null, sel: {"tops":"border-cutsew","dress":null,"bottoms":"wide-pants","outer":"none","shoes":"sneakers","socks":"none","acc1":"tote-bag","acc2":null}, en: "striped border shirt, long sleeves, pants, sneakers, canvas tote bag", jp: "【トップス】\nボーダー柄のロンT。長袖の爽やかなマリン定番\n【ボトムス】\nパンツ。ボーダーと合わせて清潔感\n【シューズ】\nスニーカー。軽快な足元\n【小物１】\nキャンバス地のトートバッグ"},
+{ name: "オーバーオール×ロンT", img: null, sel: {"tops":"long-tee","dress":null,"bottoms":"overalls","outer":"none","shoes":"sneakers","socks":"none","acc1":"cap","acc2":null}, en: "denim overalls, long sleeve t-shirt, sneakers, baseball cap", jp: "【トップス】\nロンT。オーバーオールの下に着る長袖インナー\n【ボトムス】\nデニムのオーバーオール。元気なカジュアルの主役\n【シューズ】\nスニーカー\n【小物１】\nベースボールキャップ"},
+{ name: "ヒョウ柄小物×ミニワンピース", img: null, sel: {"tops":"none","dress":"knit-mini-dress","bottoms":null,"outer":"none","shoes":"black-long-boots","socks":"none","acc1":"leopard-belt","acc2":"hoop-earrings"}, en: "knit mini dress, leopard print belt, hoop earrings, long boots", jp: "【ワンピース】\nニットミニワンピース。体に沿うタイトなシルエット\n【シューズ】\nロングブーツ。強めの印象に合う膝下丈\n【小物１】\nヒョウ柄のベルト。ウエストに巻いて効かせる主役小物\n【小物２】\nフープピアス"},
+{ name: "デコデニム×厚底の姫ギャル寄り", img: null, sel: {"tops":"lace-cropped-cami","dress":null,"bottoms":"plain-mini-skirt","outer":"deco-denim-jacket","shoes":"platform-shoes","socks":"none","acc1":"ribbon-clip","acc2":null}, en: "decorated denim jacket, lace camisole top, mini skirt, platform shoes, ribbon hair accessories", jp: "【トップス】\nレースのキャミソールトップス。姫ギャルらしい甘い素材\n【ボトムス】\nミニスカート。短め丈でギャル感\n【アウター】\nデコレーションしたデニムジャケット。きらきらデコが目を引く主役アウター\n【シューズ】\n厚底シューズ。盛れる足元\n【小物１】\nリボンのヘアアクセサリー"},
+{ name: "マイクロホットパンツ×クロップドキャミ（詩織）", img: "preset-hotpants.jpg", sel: {"tops":"lace-cropped-cami","dress":null,"bottoms":"micro-shorts","outer":"denim-jacket","shoes":"platform-boots","socks":"none","acc1":"heart-sunglasses","acc2":"denim-hobo-bag"}, model: "詩織", en: "cropped camisole top, micro denim hot pants, oversized denim jacket, chain belt, platform boots, heart-shaped sunglasses", jp: "見本モデル：詩織。\n【トップス】\nレース縁取りのクロップド丈キャミソール。胸元に小さなリボン\n【ボトムス】\nマイクロ丈のデニムホットパンツ。ダブルベルトと垂れたチェーンでギャル感強め\n【アウター】\nオーバーサイズのデニムジャケット。肩を落としてラフに羽織る\n【シューズ】\n厚底ロングブーツ。編み上げタイプ\n【小物１】\nハート型のサングラス。頭に乗せる\n【小物２】\nデニム素材のホーボーバッグ"},
+{ name: "ストラップレスレース＆ブーツカットデニム", img: "preset-lace-denim.jpg", sel: {"tops":"strapless-lace","dress":null,"bottoms":"bootcut-jeans","outer":"none","shoes":"strap-heel-sandals","socks":"none","acc1":"hoop-earrings","acc2":"layered-necklace"}, en: "lace strapless crop top, low-rise bootcut jeans, hoop earrings, strappy high-heel sandals", jp: "【トップス】\nレースのストラップレスクロップトップ。スカラップレースの裾と中央のリボン\n【ボトムス】\nローライズのブーツカットデニム。サイドのレースアップとポケットの刺繍がポイント\n【シューズ】\nストラップのハイヒールサンダル。細めのヒールで華奢に\n【小物１】\nフープイヤリング\n【小物２】\n重ね付けネックレス"},
+{ name: "サテンスリップ（ミュウ）", img: "preset-satin-pink.jpg", sel: {"tops":"none","dress":"satin-slip-dress","bottoms":null,"outer":"none","shoes":"barefoot","socks":"none","acc1":"none","acc2":null}, en: "satin slip dress, lace trim, ribbon bow, barefoot indoors", jp: "【ワンピース】\nサテンスリップドレス。胸元と裾にレースの縁取り、胸元に小さなリボン。細い肩ストラップ\n【シューズ】\n室内のため裸足"},
+{ name: "サテンスリップ（詩織）", img: "preset-satin-wine.jpg", sel: {"tops":"none","dress":"satin-slip-dress","bottoms":null,"outer":"none","shoes":"barefoot","socks":"none","acc1":"necklace","acc2":null}, model: "詩織", en: "satin slip dress, lace trim, ribbon bow, necklace, barefoot indoors", jp: "見本モデル：詩織。\n【ワンピース】\nサテンスリップドレス。胸元と裾にレースの縁取り、胸元にリボン。細い肩ストラップ\n【小物１】\n細いネックレス\n【シューズ】\n室内のため裸足"},
+{ name: "ローブ付きサテンセット", img: "preset-robe-satin.jpg", sel: {"tops":"satin-camisole","dress":null,"bottoms":"satin-shorts","outer":"lace-long-robe","shoes":"barefoot","socks":"none","acc1":"none","acc2":null}, en: "satin camisole and shorts set, sheer lace long robe, barefoot indoors", jp: "【トップス】\nサテンキャミソール。胸元にレースの縁取り\n【ボトムス】\n同素材のサテンショーツ。裾にレース\n【アウター】\nシアーなロングローブ。袖口と裾に大きなレースの縁取り、ウエストは共布ベルト\n【シューズ】\n室内のため裸足"},
+{ name: "サテン＆ローブセット", img: "preset-robe-black.jpg", sel: {"tops":"satin-camisole","dress":null,"bottoms":"satin-shorts","outer":"lace-long-robe","shoes":"barefoot","socks":"none","acc1":"none","acc2":null}, model: "詩織", en: "satin camisole and shorts set, lace long robe, barefoot indoors", jp: "見本モデル：詩織。\n【トップス】\nサテンのキャミソール。胸元にレースの縁取り\n【ボトムス】\n同素材のサテンショーツ。裾にレース\n【アウター】\nシアーのロングローブ。袖口と裾にレースの縁取り\n【シューズ】\n室内のため裸足"}
 ];
 
-var PRESET_CAT = {
-"清楚系お嬢様": "kireime", "デートカフェコーデ": "kireime", "ニットワンピース風": "kireime", "オフィスカジュアル": "kireime", "図書館コーデ": "kireime", "フレンチガーリー": "kireime", "大人クール": "kireime",
-"おうちリラックス": "casual", "パジャマパーティー": "casual", "カレッジガール": "casual", "森ガール": "casual", "雨の日コーデ": "casual", "紅葉狩りコーデ": "casual", "冬のあったかコーデ": "casual", "春のピクニック": "casual", "海コーデ": "casual", "カフェ店員風": "casual", "デニムオンデニム": "casual", "ボーイッシュ": "casual", "放課後コーデ": "casual", "旅行コーデ": "casual", "おしゃれルームウェア": "casual",
-"ギャル定番コーデ": "gal", "マイクロホットパンツ×クロップドキャミ": "gal", "ストリートギャル": "gal", "モノトーンコーデ": "gal", "夏のお出かけ": "gal", "ショッピングコーデ": "gal", "ライブ参戦コーデ": "gal", "甘辛ミックス": "gal",
-"背開きニットドレス Ver.2": "trend", "パステルコーデ": "trend", "ビビッドポップ": "trend", "韓国カジュアル": "trend", "スポーティカジュアル": "trend", "ストラップレスレース＆ローライズデニム": "trend",
-"お嬢様カフェ": "other", "フェミニンワンピ": "other", "グランジ風": "other", "レトロガール": "other",
-"お嬢様コーデ": "kireime", "マイクロホットパンツ×見せブラ（サテン生地）": "gal", "マイクロホットパンツ×マイクロチューブブラ（サテン生地）": "gal",
-"ミルクティーベージュのニットワンピース": "kireime", "白ブラウス×黒マーメイドスカート": "kireime", "パステルツイードのセットアップ": "kireime", "ネイビーのフレアワンピース": "kireime", "とろみシャツ×センタープレスパンツ": "kireime", "カーデアンサンブル×プリーツスカート": "kireime", "ベルト付きシャツワンピース": "kireime", "淡ピンクのAラインワンピース": "kireime", "千鳥柄ジャケットコーデ": "kireime", "サテンキャミ×ドレープロングスカート": "kireime", "白テーラード×デニム": "kireime", "グレージュのロングジレコーデ": "kireime", "花柄シフォンのティアードワンピース": "kireime", "黒タートル×チェックタイトスカート": "kireime",
-"クロップドデニムジャケット×カーゴスカート": "trend", "バレルレッグジーンズ×コンパクトニット": "trend", "オフショルリブニット×デニムミニ": "trend", "チュールレイヤードスカート×スウェット": "trend", "シアーロンT×キャミワンピ重ね": "trend", "ワイドチノ×クロップドシャツ": "trend", "ナイロンベスト×プリーツミニ": "trend", "シルバー小物のY2Kコーデ": "trend", "チェックシャツ腰巻きレイヤード": "trend", "ボリューム袖ブラウス×ハイウエストデニム": "trend", "スウェットセットアップ": "trend", "ロングブーツ×ミニワンピの韓国風": "trend",
-"森ガールレイヤード": "other", "ハロウィン魔女風カジュアル": "other", "推し活参戦コーデ": "other", "旅行トラベルコーデ": "other", "雨の日レインコーデ": "other", "クリスマスマーケットコーデ": "other", "初詣カジュアル": "other", "ピクニックコーデ": "other", "ライブハウスコーデ": "other", "パジャマパーティー一式": "other",
-"ボーダーTのマリン風": "casual", "オーバーオール×ロンT": "casual",
-"ヒョウ柄小物×黒ミニ": "gal", "デコデニム×厚底の姫ギャル寄り": "gal",
-"サテンスリップ（ピンク）": "other", "サテンスリップ（ワイン）": "other", "ローブ付きサテンセット": "other", "黒サテン＆ローブセット": "other"
-};
+var PRESET_CAT = {"清楚系お嬢様":"kireime","ギャル定番コーデ":"gal","おうちリラックス":"casual","マイクロホットパンツ×クロップドキャミ":"gal","背開きニットドレス Ver.2":"trend","デートカフェコーデ":"kireime","ニットワンピース風":"kireime","ストリートギャル":"gal","ライダース×レザーミニコーデ":"gal","夏のお出かけ":"gal","パジャマパーティー":"casual","カレッジガール":"casual","韓国カジュアル":"trend","フレンチガーリー":"kireime","森ガール":"casual","スポーティカジュアル":"trend","オフィスカジュアル":"kireime","図書館コーデ":"kireime","雨の日コーデ":"casual","紅葉狩りコーデ":"casual","冬のあったかコーデ":"casual","春のピクニック":"casual","海コーデ":"casual","ショッピングコーデ":"gal","ライブ参戦コーデ":"gal","カフェ店員風":"casual","デニムオンデニム":"casual","バタフライニット×チュールスカート":"trend","ビビッドポップ":"trend","大人クール":"kireime","甘辛ミックス":"gal","レトロガール":"other","ボーイッシュ":"casual","フェミニンワンピ":"other","お嬢様カフェ":"other","放課後コーデ":"casual","旅行コーデ":"casual","おしゃれルームウェア":"casual","グランジ風":"other","ストラップレスレース＆ローライズデニム":"trend","お嬢様コーデ":"kireime","マイクロホットパンツ×見せブラ（サテン生地）":"gal","マイクロホットパンツ×マイクロチューブブラ（サテン生地）":"gal","ニットワンピース":"kireime","ブラウス×マーメイドスカート":"kireime","ツイードセットアップ":"kireime","フレアワンピース":"kireime","とろみシャツ×センタープレスパンツ":"kireime","カーデアンサンブル×プリーツスカート":"kireime","ベルト付きシャツワンピース":"kireime","Aラインワンピース":"kireime","千鳥柄ジャケットコーデ":"kireime","サテンキャミ×ドレープロングスカート":"kireime","テーラード×デニム":"kireime","ロングジレコーデ":"kireime","花柄シフォンのティアードワンピース":"kireime","タートル×チェックタイトスカート":"kireime","クロップドデニムジャケット×カーゴスカート":"trend","バレルレッグジーンズ×コンパクトニット":"trend","オフショルリブニット×デニムミニ":"trend","チュールレイヤードスカート×スウェット":"trend","シアーロンT×キャミワンピ重ね":"trend","ワイドチノ×クロップドシャツ":"trend","ナイロンベスト×プリーツミニ":"trend","チェーンベルトのY2Kコーデ":"trend","チェックシャツ腰巻きレイヤード":"trend","ボリューム袖ブラウス×ハイウエストデニム":"trend","スウェットセットアップ":"trend","ロングブーツ×ミニワンピの韓国風":"trend","森ガールレイヤード":"other","ハロウィン魔女風カジュアル":"other","推し活参戦コーデ":"other","旅行トラベルコーデ":"other","雨の日レインコーデ":"other","クリスマスマーケットコーデ":"other","初詣カジュアル":"other","ピクニックコーデ":"other","ライブハウスコーデ":"other","パジャマパーティー一式":"other","ボーダーTのマリン風":"casual","オーバーオール×ロンT":"casual","ヒョウ柄小物×ミニワンピース":"gal","デコデニム×厚底の姫ギャル寄り":"gal","マイクロホットパンツ×クロップドキャミ（詩織）":"gal","ストラップレスレース＆ブーツカットデニム":"trend","サテンスリップ（ミュウ）":"other","サテンスリップ（詩織）":"other","ローブ付きサテンセット":"other","サテン＆ローブセット":"other"};
 PRESETS.forEach(function (p) { p.cat = PRESET_CAT[p.name] || "other";});
 
-var DEFAULTS = { tops: "cropped-cami", bottoms: "micro-shorts", outer: "none", shoes: "platform-boots", socks: "none", acc1: "hoop-earrings", acc2: null, other: null};
+var DEFAULTS = { tops: "cropped-cami", dress: null, bottoms: "micro-shorts", outer: "none", shoes: "platform-boots", socks: "none", acc1: "hoop-earrings", acc2: null, other: null};
 
 /* 状態: catId -> { item: id|null, none: bool, custom: string, color: 色ID|"" } */
 var state = {};
@@ -1077,6 +1320,10 @@ CATS.forEach(function (c) { catById[c.id] = c;});
 function findItem(cat, id) {
 var pool = ITEMS[cat.pool];
 for (var i = 0; i < pool.length; i++) if (pool[i].id === id) return pool[i];
+for (var k in ITEMS) {
+var p2 = ITEMS[k];
+for (var j = 0; j < p2.length; j++) if (p2[j] && p2[j].id === id) return p2[j];
+}
 return null;
 }
 
@@ -1126,6 +1373,8 @@ b.setAttribute("aria-pressed", "false");
 b.addEventListener("click", function () {
 state[cat.id] = { item: item.id, none: false, custom: "", color: state[cat.id].color};
 activePreset = null;
+activeText = null;
+textColors = {};
 refresh();
 });
 chipMap[item.id] = b;
@@ -1140,6 +1389,8 @@ nb.setAttribute("aria-pressed", "false");
 nb.addEventListener("click", function () {
 state[cat.id] = { item: null, none: true, custom: "", color: state[cat.id].color};
 activePreset = null;
+activeText = null;
+textColors = {};
 refresh();
 });
 chipMap["__none"] = nb;
@@ -1166,6 +1417,7 @@ nc.className = "cchip none-c";
 nc.textContent = "指定なし";
 nc.setAttribute("aria-pressed", "true");
 nc.addEventListener("click", function () {
+if (activeText) { delete textColors[cat.id]; themeState = ""; refresh(); return;}
 state[cat.id].color = "";
 themeState = "";
 activePreset = null;
@@ -1184,6 +1436,7 @@ sw.style.background = col.sw;
 cb.appendChild(sw);
 cb.appendChild(document.createTextNode(col.label));
 cb.addEventListener("click", function () {
+if (activeText) { textColors[cat.id] = col.id; themeState = ""; refresh(); return;}
 state[cat.id].color = col.id;
 themeState = "";
 activePreset = null;
@@ -1203,6 +1456,8 @@ custom.setAttribute("aria-label", cat.label + "の自由入力");
 custom.addEventListener("input", function () {
 state[cat.id].custom = custom.value;
 activePreset = null;
+activeText = null;
+textColors = {};
 refresh(false);
 });
 body.appendChild(custom);
@@ -1212,9 +1467,71 @@ sectionsEl.appendChild(sec);
 ui[cat.id] = { chips: chipMap, custom: custom, detail: detail, now: now, colorRow: colorRow, colors: cMap};
 });
 
+/* ---------- サムネイル拡大表示（ライトボックス） ---------- */
+/* 閉じれば元の画面・選択状態にそのまま戻るオーバーレイ表示 */
+var lightboxEl = document.getElementById("lightbox");
+var lightboxImg = document.getElementById("lightboxImg");
+var lightboxCaption = document.getElementById("lightboxCaption");
+function openLightbox(src, caption) {
+if (!src) return;
+lightboxImg.src = src;
+lightboxImg.alt = caption || "";
+lightboxCaption.textContent = caption || "";
+lightboxEl.hidden = false;
+document.body.style.overflow = "hidden";
+}
+function closeLightbox() {
+lightboxEl.hidden = true;
+lightboxImg.removeAttribute("src");
+document.body.style.overflow = "";
+}
+document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+lightboxEl.addEventListener("click", function (e) { if (e.target === lightboxEl || e.target === lightboxCaption) closeLightbox();});
+document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lightboxEl.hidden) closeLightbox();});
+/* カード内サムネイル用：カード本体のクリック（詳細へ遷移）と競合させない */
+function attachZoom(img) {
+img.classList.add("zoomable");
+img.setAttribute("title", "タップで拡大表示");
+img.addEventListener("click", function (e) {
+e.preventDefault();
+e.stopPropagation();
+openLightbox(img.src, img.alt);
+});
+}
+/* 詳細画面の大きな立ち絵と、お気に入りパネルのサムネイル */
+(function () {
+var s = document.getElementById("stageImg");
+s.classList.add("zoomable");
+s.setAttribute("title", "タップで拡大表示");
+s.addEventListener("click", function () { openLightbox(s.src, s.alt);});
+var f = document.getElementById("favThumbImg");
+f.classList.add("zoomable");
+f.setAttribute("title", "タップで拡大表示");
+f.addEventListener("click", function () { openLightbox(f.src, f.alt);});
+})();
+
 /* プリセット（立ち絵見本カード） */
 var activePreset = null;
 var stagePreset = null; /* 詳細画面に表示中の見本（パーツ編集後も写真とNo.を保持する） */
+var activeText = null; /* jp/en単体型プリセット（選択中）。色を付けても本文は消さない */
+var textColors = {}; /* テキスト型プリセットへの色指定 catId -> 色ID */
+var currentFavId = null; /* 編集中のお気に入りID（呼び出し元） */
+var SEC2CAT = { "トップス": "tops", "ボトムス": "bottoms", "アウター": "outer", "シューズ": "shoes", "ソックス": "socks", "小物１": "acc1", "小物２": "acc2", "ワンピース": "dress", "その他": "other"};
+var SEC_NOUN = { tops: "top", dress: "dress", bottoms: "bottoms", outer: "outerwear", shoes: "shoes", socks: "socks", acc1: "accessory", acc2: "accessory", other: "outfit"};
+var _tsmCache = { p: null, map: null};
+function textSectionMap() {
+if (!activeText) return null;
+if (_tsmCache.p === activeText) return _tsmCache.map;
+var map = {};
+var cur = null;
+activeText.jp.split("\n").forEach(function (ln) {
+var m = ln.match(/^【(.+)】$/);
+if (m) { cur = SEC2CAT[m[1]] || null; if (cur && !(cur in map)) map[cur] = ""; return;}
+if (cur) map[cur] = map[cur]? map[cur] + "\n" + ln: ln;
+});
+_tsmCache = { p: activeText, map: map};
+return map;
+}
 function applyPreset(p) {
 CATS.forEach(function (c) {
 var v = p.sel[c.id];
@@ -1223,6 +1540,9 @@ if (v === null || v === undefined || v === "none") state[c.id] = { item: null, n
 else state[c.id] = { item: v, none: false, custom: "", color: colr};
 });
 themeState = "";
+activeText = (p.jp && p.en)? p: null;
+textColors = {};
+currentFavId = null;
 activePreset = p.name;
 stagePreset = p;
 document.getElementById("coordName").value = p.name;
@@ -1245,6 +1565,7 @@ im = document.createElement("img");
 im.src = "assets/" + p.img;
 im.alt = "「" + p.name + "」の立ち絵見本（" + (p.model || "ミュウ") + "）";
 im.loading = "lazy";
+attachZoom(im);
 } else {
 im = document.createElement("span");
 im.className = "preset-placeholder";
@@ -1284,8 +1605,9 @@ nb.textContent = "指定なし";
 nb.setAttribute("aria-pressed", "true");
 nb.addEventListener("click", function () {
 themeState = "";
-activePreset = null;
-["tops", "bottoms", "outer", "shoes", "socks"].forEach(function (id) { state[id].color = "";});
+textColors = {};
+if (!activeText) activePreset = null;
+["tops", "bottoms", "outer", "shoes", "socks", "dress"].forEach(function (id) { state[id].color = "";});
 refresh();
 });
 themeBtns[""] = nb;
@@ -1302,10 +1624,20 @@ b.appendChild(sw);
 b.appendChild(document.createTextNode(t.name));
 b.addEventListener("click", function () {
 themeState = t.id;
+if (activeText) {
+/* テキスト型プリセットでは本文を消さず、色指定だけを差し替える */
+["tops", "bottoms", "outer", "shoes", "socks"].forEach(function (id) {
+if (t.map[id]) textColors[id] = t.map[id];
+});
+textColors.dress = t.map.tops;
+refresh();
+return;
+}
 activePreset = null;
 ["tops", "bottoms", "outer", "shoes", "socks"].forEach(function (id) {
 state[id].color = t.map[id] || "";
 });
+state.dress.color = t.map.tops || "";
 refresh();
 });
 themeBtns[t.id] = b;
@@ -1338,20 +1670,34 @@ return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").repl
 /* ---------- 出力生成 ---------- */
 function buildOutputs() {
 var name = document.getElementById("coordName").value.trim();
-/* 画像なし新規プリセット（プロンプト単体型）：選択中は専用の日英プロンプトをそのまま出す */
-if (activePreset) {
-var actP = (stagePreset && stagePreset.name === activePreset && stagePreset.jp && stagePreset.en)? stagePreset: null;
-if (!actP) {
-for (var pi = 0; pi < PRESETS.length; pi++) {
-var pp = PRESETS[pi];
-if (pp.name === activePreset && pp.jp && pp.en) { actP = pp; break;}
+/* プロンプト単体型プリセット：本文はそのまま出し、色指定があれば各セクションの先頭に色を足す（本文は消さない） */
+if (activeText) {
+var curCat = null;
+var curNoun = "top";
+var colorTags = [];
+var jpLines = activeText.jp.split("\n").map(function (ln) {
+var m = ln.match(/^【(.+)】$/);
+if (m) {
+curCat = SEC2CAT[m[1]] || null;
+curNoun = (m[1] === "ワンピース")? "dress": (curCat? SEC_NOUN[curCat]: "top");
+return ln;
+}
+if (curCat && ln && textColors[curCat]) {
+var col = colorById[textColors[curCat]];
+if (col) {
+var ctag = col.en + " " + curNoun;
+if (colorTags.indexOf(ctag) === -1) colorTags.push(ctag);
+return col.jp + ln;
 }
 }
-if (actP) {
-var pText = (name ? name + "\n" : "") + actP.jp;
-var pHtml = (name ? '<span class="cname">' + esc(name) + "</span>\n" : "") + esc(actP.jp);
-return { text: pText, html: pHtml, tags: actP.en};
-}
+return ln;
+});
+var jpOut = jpLines.join("\n");
+var enTags = activeText.en.split(",").map(function (t) { return t.trim();}).filter(function (t) { return t;});
+var tagText = colorTags.concat(enTags.filter(function (t) { return colorTags.indexOf(t) === -1;})).join(", ");
+var pText = (name ? name + "\n" : "") + jpOut;
+var pHtml = (name ? '<span class="cname">' + esc(name) + "</span>\n" : "") + esc(jpOut);
+return { text: pText, html: pHtml, tags: tagText};
 }
 var lines = []; // {sec, body} の配列（sec=null は名前行）
 var htmlParts = [];
@@ -1439,10 +1785,13 @@ if (cat.id === "acc2") {
 var r1 = resolve(catById.acc1);
 if (r && r1 && r.kind === "item" && r1.kind === "item" && r.item.id === r1.item.id) r = null;
 }
-var showColor =!!(r && (r.kind === "item" || r.kind === "custom"));
+var tMap = textSectionMap();
+var inText =!!(tMap && (cat.id in tMap));
+var showColor =!!(r && (r.kind === "item" || r.kind === "custom")) || inText;
 u.colorRow.className = "color-row" + (showColor? " show": "");
 Object.keys(u.colors).forEach(function (key) {
-u.colors[key].setAttribute("aria-pressed", (s.color || "") === key? "true": "false");
+var cur = inText? (textColors[cat.id] || ""): (s.color || "");
+u.colors[key].setAttribute("aria-pressed", cur === key? "true": "false");
 });
 if (!r) {
 u.now.textContent = cat.noneMode === "omit"? "（出力なし）": "";
@@ -1463,6 +1812,12 @@ var h = '<div class="d-desc">' + esc((r.color? r.color.jp: "") + r.item.desc) + 
 h += '<div class="d-tags">' + esc(r.item.tags) + "</div>";
 if (r.item.note) h += '<div class="d-note">備考へ追加：' + esc(r.item.note) + "</div>";
 u.detail.innerHTML = h;
+}
+if (inText && (!r || r.kind === "none")) {
+var tcol = textColors[cat.id]? colorById[textColors[cat.id]]: null;
+u.now.textContent = "プリセット収録" + (tcol? "（" + tcol.label + "）": "");
+u.detail.className = "item-detail show";
+u.detail.innerHTML = '<div class="d-desc">' + esc((tcol? tcol.jp: "") + tMap[cat.id]) + '</div><div class="d-note">色テーマで色を付けると、この文章の先頭に色が付きます</div>';
 }
 });
 
@@ -1504,6 +1859,7 @@ lastOutputs = buildOutputs();
 promptOut.innerHTML = lastOutputs.html || '<span style="color:var(--muted)">アイテムを選んでください</span>';
 tagOut.textContent = lastOutputs.tags || "（タグなし）";
 charCount.textContent = lastOutputs.text.length + "文字";
+updateFavPanel();
 }
 
 /* ---------- コピー ---------- */
@@ -1552,7 +1908,7 @@ CATS.forEach(function (cat) {
 var r = Math.random();
 if (cat.id === "outer" || cat.id === "socks") {
 state[cat.id] = r < 0.3? { item: null, none: true, custom: ""}: { item: pick(ITEMS[cat.pool]), none: false, custom: ""};
-} else if (cat.id === "acc2" || cat.id === "other") {
+} else if (cat.id === "acc2" || cat.id === "other" || cat.id === "dress") {
 state[cat.id] = r < 0.5? { item: null, none: true, custom: ""}: { item: pick(ITEMS[cat.pool]), none: false, custom: ""};
 } else if (cat.id === "acc1") {
 state[cat.id] = r < 0.15? { item: null, none: true, custom: ""}: { item: pick(ITEMS[cat.pool]), none: false, custom: ""};
@@ -1567,6 +1923,9 @@ state[cat.id].color = (cat.id === "acc1" || cat.id === "acc2" || cat.id === "oth
 themeState = "";
 document.getElementById("coordName").value = "おまかせコーデ";
 activePreset = null;
+activeText = null;
+textColors = {};
+currentFavId = null;
 stagePreset = null;
 refresh();
 showToast("おまかせコーデを組みました");
@@ -1575,6 +1934,9 @@ showToast("おまかせコーデを組みました");
 document.getElementById("resetBtn").addEventListener("click", function () {
 resetState();
 activePreset = null;
+activeText = null;
+textColors = {};
+currentFavId = null;
 stagePreset = null;
 document.getElementById("coordName").value = "";
 document.getElementById("manualNote").value = "";
@@ -1601,7 +1963,7 @@ window.scrollTo(0, 0);
 }
 backBtnEl.addEventListener("click", showHome);
 document.getElementById("toListBtn").addEventListener("click", showHome);
-document.getElementById("manualBtn").addEventListener("click", function () { stagePreset = null; activePreset = null; refresh(); showBuild();});
+document.getElementById("manualBtn").addEventListener("click", function () { stagePreset = null; activePreset = null; activeText = null; textColors = {}; currentFavId = null; refresh(); showBuild();});
 
 /* ---------- プリセットの仕分けフィルター＋検索（コスプレカタログと同じ作り） ---------- */
 var presetFilter = "all";
@@ -1643,6 +2005,239 @@ presetQuery = this.value;
 applyPresetFilter();
 });
 applyPresetFilter();
+
+/* ---------- お気に入りコーデ（この端末に保存） ---------- */
+var FAV_KEY = "myuKisekaeFavoritesV1";
+function loadFavs() {
+try {
+var v = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+return Array.isArray(v)? v: [];
+} catch (e) { return [];}
+}
+function saveFavs(list) {
+try { localStorage.setItem(FAV_KEY, JSON.stringify(list));}
+catch (e) { showToast("保存できませんでした（容量オーバーかも）");}
+}
+function findFav(id) {
+var list = loadFavs();
+for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+return null;
+}
+function currentFav() { return currentFavId? findFav(currentFavId): null;}
+function snapshotFav(name) {
+var fav = {
+id: currentFavId || ("f" + Date.now().toString(36) + Math.floor(Math.random() * 1000)),
+name: name || "無題のコーデ",
+note: document.getElementById("manualNote").value,
+theme: themeState,
+thumb: null,
+imgRef: (stagePreset && stagePreset.img)? stagePreset.img: null,
+text: null,
+textColors: {},
+state: {},
+createdAt: Date.now(),
+updatedAt: Date.now()
+};
+if (activeText) {
+fav.text = { presetName: activeText.name || "", jp: activeText.jp, en: activeText.en};
+fav.textColors = JSON.parse(JSON.stringify(textColors));
+}
+CATS.forEach(function (c) {
+fav.state[c.id] = { item: state[c.id].item, none: state[c.id].none, custom: state[c.id].custom, color: state[c.id].color};
+});
+return fav;
+}
+function updateFavPanel() {
+var fav = currentFav();
+var img = document.getElementById("favThumbImg");
+var ph = document.getElementById("favThumbPh");
+if (!img || !ph) return;
+var src = fav && fav.thumb? fav.thumb: (fav && fav.imgRef? "assets/" + fav.imgRef: (stagePreset && stagePreset.img? "assets/" + stagePreset.img: null));
+if (src) { img.src = src; img.hidden = false; ph.hidden = true;}
+else { img.removeAttribute("src"); img.hidden = true; ph.hidden = false;}
+document.getElementById("favStatus").textContent = fav? ("お気に入り登録済み：「" + fav.name + "」"): "このコーデはまだお気に入りに登録されていません";
+document.getElementById("favSaveBtn").lastChild.textContent = fav? "お気に入りを更新": "お気に入りに登録";
+document.getElementById("favDeleteBtn").hidden = !fav;
+}
+function renderFavs() {
+var list = loadFavs();
+list.sort(function (a, b) { return (b.updatedAt || 0) - (a.updatedAt || 0);});
+var grid = document.getElementById("favGrid");
+grid.innerHTML = "";
+document.getElementById("favEmpty").hidden = list.length > 0;
+document.getElementById("favCount").textContent = list.length? ("（" + list.length + "）"): "";
+list.forEach(function (fav) {
+var wrap = document.createElement("div");
+wrap.className = "fav-card";
+var b = document.createElement("button");
+b.type = "button";
+b.className = "preset-card";
+b.setAttribute("aria-label", fav.name + "のお気に入りコーデを開く");
+var im;
+if (fav.thumb || fav.imgRef) {
+im = document.createElement("img");
+im.src = fav.thumb? fav.thumb: ("assets/" + fav.imgRef);
+im.alt = "「" + fav.name + "」のサムネイル";
+im.loading = "lazy";
+attachZoom(im);
+} else {
+im = document.createElement("span");
+im.className = "preset-placeholder";
+im.setAttribute("aria-hidden", "true");
+im.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span class="ph-label">サムネイルなし</span><span class="ph-sub">開いて画像を登録できます</span>';
+}
+var body = document.createElement("span");
+body.className = "card-body";
+var tg = document.createElement("span");
+tg.className = "no";
+tg.textContent = "FAVORITE";
+var nm = document.createElement("span");
+nm.className = "p-name";
+nm.textContent = fav.name;
+var dt = document.createElement("span");
+dt.className = "fav-date";
+var d = new Date(fav.updatedAt || fav.createdAt || Date.now());
+dt.textContent = "更新：" + d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
+body.appendChild(tg);
+body.appendChild(nm);
+body.appendChild(dt);
+b.appendChild(im);
+b.appendChild(body);
+b.addEventListener("click", function () { applyFav(fav.id);});
+var del = document.createElement("button");
+del.type = "button";
+del.className = "fav-del";
+del.textContent = "削除";
+del.setAttribute("aria-label", fav.name + "をお気に入りから削除");
+del.addEventListener("click", function () {
+var l = loadFavs().filter(function (f) { return f.id !== fav.id;});
+saveFavs(l);
+if (currentFavId === fav.id) currentFavId = null;
+renderFavs();
+updateFavPanel();
+showToast("お気に入りから削除しました");
+});
+wrap.appendChild(b);
+wrap.appendChild(del);
+grid.appendChild(wrap);
+});
+}
+function applyFav(id) {
+var fav = findFav(id);
+if (!fav) { showToast("お気に入りが見つかりませんでした"); return;}
+resetState();
+currentFavId = fav.id;
+document.getElementById("coordName").value = fav.name || "";
+document.getElementById("manualNote").value = fav.note || "";
+if (fav.text) {
+activeText = { name: fav.text.presetName, jp: fav.text.jp, en: fav.text.en};
+textColors = fav.textColors || {};
+CATS.forEach(function (c) { state[c.id] = { item: null, none: true, custom: "", color: ""};});
+CATS.forEach(function (c) {
+var s = (fav.state || {})[c.id];
+if (s && s.item) state[c.id] = { item: s.item, none: false, custom: "", color: s.color || ""};
+});
+activePreset = null;
+stagePreset = null;
+for (var i = 0; i < PRESETS.length; i++) if (PRESETS[i].name === fav.text.presetName) { stagePreset = PRESETS[i]; break;}
+} else {
+activeText = null;
+textColors = {};
+activePreset = null;
+stagePreset = null;
+CATS.forEach(function (c) {
+var s = (fav.state || {})[c.id];
+if (s) state[c.id] = { item: s.item || null, none:!!s.none, custom: s.custom || "", color: s.color || ""};
+});
+}
+themeState = fav.theme || "";
+refresh();
+showBuild();
+showToast("お気に入り「" + fav.name + "」を呼び出しました");
+}
+document.getElementById("favSaveBtn").addEventListener("click", function () {
+var name = document.getElementById("coordName").value.trim() || (stagePreset? stagePreset.name: "") || "無題のコーデ";
+document.getElementById("coordName").value = name;
+var list = loadFavs();
+var fav = snapshotFav(name);
+var idx = -1;
+if (currentFavId) for (var i = 0; i < list.length; i++) if (list[i].id === currentFavId) idx = i;
+if (idx >= 0) {
+fav.thumb = list[idx].thumb || null;
+fav.createdAt = list[idx].createdAt || fav.createdAt;
+list[idx] = fav;
+showToast("お気に入りを更新しました");
+} else {
+list.push(fav);
+currentFavId = fav.id;
+showToast("お気に入りに登録しました");
+}
+saveFavs(list);
+renderFavs();
+updateFavPanel();
+});
+document.getElementById("favDeleteBtn").addEventListener("click", function () {
+if (!currentFavId) return;
+var l = loadFavs().filter(function (f) { return f.id !== currentFavId;});
+saveFavs(l);
+currentFavId = null;
+renderFavs();
+updateFavPanel();
+showToast("お気に入りから削除しました");
+});
+document.getElementById("favImgInput").addEventListener("change", function () {
+var file = this.files && this.files[0];
+this.value = "";
+if (!file) return;
+if (!file.type || file.type.indexOf("image/") !== 0) { showToast("画像ファイルを選んでください"); return;}
+var reader = new FileReader();
+reader.onload = function () {
+var imgEl = new Image();
+imgEl.onload = function () {
+var max = 480;
+var sc = Math.min(1, max / Math.max(imgEl.width || 1, imgEl.height || 1));
+var cv = document.createElement("canvas");
+cv.width = Math.max(1, Math.round(imgEl.width * sc));
+cv.height = Math.max(1, Math.round(imgEl.height * sc));
+cv.getContext("2d").drawImage(imgEl, 0, 0, cv.width, cv.height);
+var data = "";
+try { data = cv.toDataURL("image/jpeg", 0.82);} catch (e) { data = "";}
+if (!data) { showToast("画像を読み込めませんでした"); return;}
+var list = loadFavs();
+var fav = currentFav();
+if (!fav) {
+var name = document.getElementById("coordName").value.trim() || (stagePreset? stagePreset.name: "") || "無題のコーデ";
+document.getElementById("coordName").value = name;
+fav = snapshotFav(name);
+list.push(fav);
+currentFavId = fav.id;
+}
+fav.thumb = data;
+fav.updatedAt = Date.now();
+for (var i = 0; i < list.length; i++) if (list[i].id === fav.id) list[i] = fav;
+saveFavs(list);
+renderFavs();
+updateFavPanel();
+showToast("サムネイルを登録しました");
+};
+imgEl.onerror = function () { showToast("画像を読み込めませんでした");};
+imgEl.src = reader.result;
+};
+reader.readAsDataURL(file);
+});
+
+/* ---------- トップ画面のタブ切替 ---------- */
+function setHomeMode(m) {
+document.getElementById("presetSection").hidden = m !== "preset";
+document.getElementById("favSection").hidden = m !== "fav";
+document.getElementById("tabPreset").setAttribute("aria-selected", m === "preset"? "true": "false");
+document.getElementById("tabFav").setAttribute("aria-selected", m === "fav"? "true": "false");
+if (m === "fav") renderFavs();
+}
+document.getElementById("tabPreset").addEventListener("click", function () { setHomeMode("preset");});
+document.getElementById("tabFav").addEventListener("click", function () { setHomeMode("fav");});
+document.getElementById("favManualBtn").addEventListener("click", function () { stagePreset = null; activePreset = null; activeText = null; textColors = {}; currentFavId = null; refresh(); showBuild();});
+renderFavs();
 
 showHome();
 refresh();

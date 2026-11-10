@@ -1,0 +1,755 @@
+ハブに戻る (→ /spaces/v2/comfyuipuronputobiruda/)
+コスプレカタログへ
+(→ /spaces/v2/miyuu-kosupurekatarogu/)
+ComfyUIプロンプトビルダー（最終調整・出力）へ
+# 私服着せ替えビルダー
+まず下のタブでプリセットコーデ／お気に入りコーデを切り替えられます。プリセット（89種）からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。お気に入りは、自分でトップスやボトムスを選んで組み立てたコーデを保存しておく場所です。色は最初から決めず、カラーテーマで自分の好きな色を付けられます。カテゴリ（トップス／ワンピース・ドレス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。
+プリセット全89コーデ
+単品パーツ229点
+全体カラーテーマ8種
+色はパーツごとに変更OK
+お気に入り登録OK
+ハブ：ComfyUIプロンプトビルダー (→ /spaces/v2/comfyuipuronputobiruda/) 衣装：コスプレカタログ (→ /spaces/v2/miyuu-kosupurekatarogu/)
+衣装：着せ替えビルダー（私服）
+カメラ：アングル早見表 (→ /spaces/v2/kameraanguruzao-jian-biao/)
+私服
+このページ
+プリセット89種を画像で選んで、トップス／ボトムスなどのパーツと色テーマを個別に調整できるビルダー。全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。
+コスプレ
+コスプレカタログへ →
+全60着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。
+(→ /spaces/v2/miyuu-kosupurekatarogu/)
+[button: プリセットコーデ] [button: お気に入りコーデ ]
+## 私服プリセットコーデ
+立ち絵見本カードをタップすると、大きな立ち絵とプロンプトの画面に移ります。セット後は「ロングスカート→ミニスカート」のように各カテゴリで個別に変更できます。コーデ名は全体プロンプトの先頭に入ります。
+[input search: コーデ名で探す（例：ギャル、カフェ、お嬢様）]
+89 コーデヒット
+[button: すべて89] [button: きれいめ系22] [button: カジュアル系17] [button: ギャル系13] [button: トレンド系19] [button: その他18]
+[button: [image: 「清楚系お嬢様」の立ち絵見本（ミュウ）]
+No.01
+清楚系お嬢様
+きれいめ系
+] [button: [image: 「ギャル定番コーデ」の立ち絵見本（ミュウ）]
+No.02
+ギャル定番コーデ
+ギャル系
+] [button: [image: 「おうちリラックス」の立ち絵見本（ミュウ）]
+No.03
+おうちリラックス
+カジュアル系
+] [button: [image: 「マイクロホットパンツ×クロップドキャミ」の立ち絵見本（ミュウ）]
+No.04
+マイクロホットパンツ×クロップドキャミ
+ギャル系
+] [button: [image: 「背開きニットドレス Ver.2」の立ち絵見本（ミュウ）]
+No.05
+背開きニットドレス Ver.2
+トレンド系
+] [button: [image: 「デートカフェコーデ」の立ち絵見本（ミュウ）]
+No.06
+デートカフェコーデ
+きれいめ系
+] [button: [image: 「ニットワンピース風」の立ち絵見本（ミュウ）]
+No.07
+ニットワンピース風
+きれいめ系
+] [button: [image: 「ストリートギャル」の立ち絵見本（ミュウ）]
+No.08
+ストリートギャル
+ギャル系
+] [button: [image: 「ライダース×レザーミニコーデ」の立ち絵見本（ミュウ）]
+No.09
+ライダース×レザーミニコーデ
+ギャル系
+] [button: [image: 「夏のお出かけ」の立ち絵見本（ミュウ）]
+No.10
+夏のお出かけ
+ギャル系
+] [button: [image: 「パジャマパーティー」の立ち絵見本（ミュウ）]
+No.11
+パジャマパーティー
+カジュアル系
+] [button: [image: 「カレッジガール」の立ち絵見本（ミュウ）]
+No.12
+カレッジガール
+カジュアル系
+] [button: [image: 「韓国カジュアル」の立ち絵見本（ミュウ）]
+No.13
+韓国カジュアル
+トレンド系
+] [button: [image: 「フレンチガーリー」の立ち絵見本（ミュウ）]
+No.14
+フレンチガーリー
+きれいめ系
+] [button: [image: 「森ガール」の立ち絵見本（ミュウ）]
+No.15
+森ガール
+カジュアル系
+] [button: [image: 「スポーティカジュアル」の立ち絵見本（ミュウ）]
+No.16
+スポーティカジュアル
+トレンド系
+] [button: [image: 「オフィスカジュアル」の立ち絵見本（ミュウ）]
+No.17
+オフィスカジュアル
+きれいめ系
+] [button: [image: 「図書館コーデ」の立ち絵見本（ミュウ）]
+No.18
+図書館コーデ
+きれいめ系
+] [button: [image: 「雨の日コーデ」の立ち絵見本（ミュウ）]
+No.19
+雨の日コーデ
+カジュアル系
+] [button: [image: 「紅葉狩りコーデ」の立ち絵見本（ミュウ）]
+No.20
+紅葉狩りコーデ
+カジュアル系
+] [button: [image: 「冬のあったかコーデ」の立ち絵見本（ミュウ）]
+No.21
+冬のあったかコーデ
+カジュアル系
+] [button: [image: 「春のピクニック」の立ち絵見本（ミュウ）]
+No.22
+春のピクニック
+カジュアル系
+] [button: [image: 「海コーデ」の立ち絵見本（ミュウ）]
+No.23
+海コーデ
+カジュアル系
+] [button: [image: 「ショッピングコーデ」の立ち絵見本（ミュウ）]
+No.24
+ショッピングコーデ
+ギャル系
+] [button: [image: 「ライブ参戦コーデ」の立ち絵見本（ミュウ）]
+No.25
+ライブ参戦コーデ
+ギャル系
+] [button: [image: 「カフェ店員風」の立ち絵見本（ミュウ）]
+No.26
+カフェ店員風
+カジュアル系
+] [button: [image: 「デニムオンデニム」の立ち絵見本（ミュウ）]
+No.27
+デニムオンデニム
+カジュアル系
+] [button: [image: 「バタフライニット×チュールスカート」の立ち絵見本（ミュウ）]
+No.28
+バタフライニット×チュールスカート
+トレンド系
+] [button: [image: 「ビビッドポップ」の立ち絵見本（ミュウ）]
+No.29
+ビビッドポップ
+トレンド系
+] [button: [image: 「大人クール」の立ち絵見本（ミュウ）]
+No.30
+大人クール
+きれいめ系
+] [button: [image: 「甘辛ミックス」の立ち絵見本（ミュウ）]
+No.31
+甘辛ミックス
+ギャル系
+] [button: [image: 「レトロガール」の立ち絵見本（ミュウ）]
+No.32
+レトロガール
+その他
+] [button: [image: 「ボーイッシュ」の立ち絵見本（ミュウ）]
+No.33
+ボーイッシュ
+カジュアル系
+] [button: [image: 「フェミニンワンピ」の立ち絵見本（ミュウ）]
+No.34
+フェミニンワンピ
+その他
+] [button: [image: 「お嬢様カフェ」の立ち絵見本（ミュウ）]
+No.35
+お嬢様カフェ
+その他
+] [button: [image: 「放課後コーデ」の立ち絵見本（ミュウ）]
+No.36
+放課後コーデ
+カジュアル系
+] [button: [image: 「旅行コーデ」の立ち絵見本（ミュウ）]
+No.37
+旅行コーデ
+カジュアル系
+] [button: [image: 「おしゃれルームウェア」の立ち絵見本（ミュウ）]
+No.38
+おしゃれルームウェア
+カジュアル系
+] [button: [image: 「グランジ風」の立ち絵見本（ミュウ）]
+No.39
+グランジ風
+その他
+] [button: [image: 「ストラップレスレース＆ローライズデニム」の立ち絵見本（ミュウ）]
+No.40
+ストラップレスレース＆ローライズデニム
+トレンド系
+] [button: [image: 「お嬢様コーデ」の立ち絵見本（ミュウ）]
+No.41
+お嬢様コーデ
+きれいめ系
+] [button: [image: 「マイクロホットパンツ×見せブラ（サテン生地）」の立ち絵見本（ミュウ）]
+No.42
+マイクロホットパンツ×見せブラ（サテン生地）
+ギャル系
+] [button: [image: 「マイクロホットパンツ×マイクロチューブブラ（サテン生地）」の立ち絵見本（ミュウ）]
+No.43
+マイクロホットパンツ×マイクロチューブブラ（サテン生地）
+ギャル系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.44
+ニットワンピース
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.45
+ブラウス×マーメイドスカート
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.46
+ツイードセットアップ
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.47
+フレアワンピース
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.48
+とろみシャツ×センタープレスパンツ
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.49
+カーデアンサンブル×プリーツスカート
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.50
+ベルト付きシャツワンピース
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.51
+Aラインワンピース
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.52
+千鳥柄ジャケットコーデ
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.53
+サテンキャミ×ドレープロングスカート
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.54
+テーラード×デニム
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.55
+ロングジレコーデ
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.56
+花柄シフォンのティアードワンピース
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.57
+タートル×チェックタイトスカート
+きれいめ系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.58
+クロップドデニムジャケット×カーゴスカート
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.59
+バレルレッグジーンズ×コンパクトニット
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.60
+オフショルリブニット×デニムミニ
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.61
+チュールレイヤードスカート×スウェット
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.62
+シアーロンT×キャミワンピ重ね
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.63
+ワイドチノ×クロップドシャツ
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.64
+ナイロンベスト×プリーツミニ
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.65
+チェーンベルトのY2Kコーデ
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.66
+チェックシャツ腰巻きレイヤード
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.67
+ボリューム袖ブラウス×ハイウエストデニム
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.68
+スウェットセットアップ
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.69
+ロングブーツ×ミニワンピの韓国風
+トレンド系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.70
+森ガールレイヤード
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.71
+ハロウィン魔女風カジュアル
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.72
+推し活参戦コーデ
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.73
+旅行トラベルコーデ
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.74
+雨の日レインコーデ
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.75
+クリスマスマーケットコーデ
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.76
+初詣カジュアル
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.77
+ピクニックコーデ
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.78
+ライブハウスコーデ
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.79
+パジャマパーティー一式
+その他
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.80
+ボーダーTのマリン風
+カジュアル系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.81
+オーバーオール×ロンT
+カジュアル系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.82
+ヒョウ柄小物×ミニワンピース
+ギャル系
+] [button:
+[hidden] 見本は後日
+[hidden] プロンプトは使えます
+No.83
+デコデニム×厚底の姫ギャル寄り
+ギャル系
+] [button: [image: 「マイクロホットパンツ×クロップドキャミ（詩織）」の立ち絵見本（詩織）]
+No.84
+マイクロホットパンツ×クロップドキャミ（詩織）
+ギャル系
+] [button: [image: 「ストラップレスレース＆ブーツカットデニム」の立ち絵見本（ミュウ）]
+No.85
+ストラップレスレース＆ブーツカットデニム
+トレンド系
+] [button: [image: 「サテンスリップ（ミュウ）」の立ち絵見本（ミュウ）]
+No.86
+サテンスリップ（ミュウ）
+その他
+] [button: [image: 「サテンスリップ（詩織）」の立ち絵見本（詩織）]
+No.87
+サテンスリップ（詩織）
+その他
+] [button: [image: 「ローブ付きサテンセット」の立ち絵見本（ミュウ）]
+No.88
+ローブ付きサテンセット
+その他
+] [button: [image: 「サテン＆ローブセット」の立ち絵見本（詩織）]
+No.89
+サテン＆ローブセット
+その他
+]
+[hidden] 見つからなかった…検索ワードを変えてみて
+[button: プリセットなしで自分で組み立てる]
+[hidden] ## お気に入りコーデ
+[hidden] 自分でトップスやボトムスを選んで組み立てたコーデを、名前・パーツ・プロンプトごと保存しておく場所です。カードをタップすると組み立て画面で呼び出せます。詳細画面では、コーデの画像をアップしてサムネイル登録もできます。
+[hidden] まだお気に入りがありません。下の「自分で組み立てる」から作って、詳細画面の「お気に入りに登録」で保存できます。
+[hidden] [button: 自分で組み立てる（新規コーデ）]
+[hidden] [button:
+[hidden] コーデ一覧へ戻る ]
+[hidden] ハブ（プロンプトビルダー）に戻る (→ /spaces/v2/comfyuipuronputobiruda/)
+[hidden] [image: no alt text]
+[hidden] カスタムコーデ
+[hidden] [input text: コーデ名]
+[hidden] カテゴリ：パーツ組み立て
+[hidden] ### 全体プロンプト
+[hidden] 229文字
+[hidden] 【トップス】 クロップド丈キャミソール。へそが見える短い丈、細い肩紐、胸元の小さなリボン 【ボトムス】 デニムのマイクロホットパンツ。極端に短い丈、ローライズ 【アウター】 なし 【シューズ】 厚底ロングブーツ。編み上げとベルトストラップ、太いプラットフォームソール 【ソックス】 なし 【小物１】 大きめのフープピアス 【備考】 ・キャミソールは本当のクロップド丈で、へそがしっかり見える短さにする ・ホットパンツの丈は本当のマイクロ丈（極端に短く）にする
+[hidden] [button:
+[hidden] 全体プロンプトをコピー ] [button:
+[hidden] お気に入りに登録]
+[hidden] [image: お気に入りコーデのサムネイル]
+[hidden] サムネイル 未登録
+[hidden] このコーデはまだお気に入りに登録されていません
+[hidden] 画像をアップしてサムネイル登録
+[hidden] [input file: ]
+[hidden] [button: お気に入りから削除]
+[hidden] ### Danbooruタグ形式
+[hidden] cropped camisole, midriff, spaghetti straps, small ribbon, denim micro shorts, hot pants, low rise, platform boots, lace-up boots, belt straps, platform sole, hoop earrings, large
+[hidden] [button:
+[hidden] タグをコピー ] [button:
+[hidden] おまかせコーデ ] [button:
+[hidden] リセット ] [button:
+[hidden] 一覧に戻る ]
+[hidden] カラーテーマ（トップス／ワンピース〜ソックスの色味をまとめて変更）
+[hidden] [button: 指定なし] [button:
+[hidden] ピンク系] [button:
+[hidden] ブルー系] [button:
+[hidden] ブラウン系] [button:
+[hidden] モノトーン] [button:
+[hidden] ネイビー系] [button:
+[hidden] パステル] [button:
+[hidden] ボルドー系] [button:
+[hidden] グリーン系]
+[hidden] 【トップス】
+[hidden] クロップドキャミソール
+[hidden] ▾
+[hidden] [button: クロップドキャミソール] [button: バックレスニットセーター] [button: バタフライニット] [button: コルセットビスチェ（薔薇姫）] [button: オフショルフリルトップス] [button: Y2KベビーTシャツ] [button: ビッグパーカー] [button: 彼シャツ] [button: チューブトップ] [button: 見せブラ（サテン生地）] [button: マイクロチューブトップ] [button: ストラップレスレーストップス] [button: 姫袖ブラウス] [button: シンプルブラウス] [button: ベーシックニット] [button: タートルネックニット] [button: オックスフォードシャツ] [button: リブニットキャミソール] [button: シアーブラウス] [button: デニムベストトップス] [button: クロップドスウェット] [button: レースアップトップス] [button: きれいめタートルネックニット] [button: ボウタイサテンブラウス] [button: シャツ] [button: カーディガンアンサンブル] [button: フリルブラウス] [button: リボンブラウス] [button: ボーダーカットソー] [button: ベーシックブラウス] [button: ベビーTシャツ] [button: メッシュトップス] [button: コンパクトニット] [button: シアーシャツ] [button: トラックジャケット] [button: グラフィックロンT] [button: ビスチェ] [button: ニットベスト] [button: パジャマシャツ] [button: スウェットプルオーバー] [button: ルームキャミソール] [button: もこもこパーカー] [button: ヒョウ柄キャミソール] [button: レースクロップドキャミソール] [button: レースバンドゥトップ] [button: サテンキャミソール] [button: デニムシャツ] [button: Tシャツ] [button: タンクトップ] [button: カットソー] [button: ロンT] [button: バンドTシャツ] [button: リボンタイブラウス] [button: とろみサテンシャツ] [button: オフショルリブニット] [button: オーバーサイズスウェット] [button: シアーロンT] [button: クロップドシャツ] [button: ボリューム袖ブラウス] [button: スウェットトップス] [button: もこもこパジャマトップス]
+[hidden] クロップド丈キャミソール。へそが見える短い丈、細い肩紐、胸元の小さなリボン
+[hidden] cropped camisole, midriff, spaghetti straps, small ribbon
+[hidden] 備考へ追加：キャミソールは本当のクロップド丈で、へそがしっかり見える短さにする
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: トップスの自由入力]
+[hidden] 【ワンピース・ドレス】
+[hidden] （出力なし）
+[hidden] ▾
+[hidden] [button: バックレスニットドレス] [button: タートルネックニットワンピース] [button: プリーツワンピース] [button: 総レースワンピース] [button: サマーワンピース] [button: キャミソールワンピース] [button: サテンロングワンピース] [button: 浴衣風ルームウェア] [button: エプロンドレス] [button: メイド風ルームドレス] [button: Tシャツワンピース] [button: サテンスリップドレス] [button: フレアワンピース] [button: シャツワンピース] [button: ティアードワンピース] [button: ミニワンピース] [button: ニットミニワンピース] [button: Aラインワンピース] [button: レイヤードワンピース] [button: ギンガムチェックワンピース] [button: リボンワンピース] [button: なし（使わない）]
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: ワンピース・ドレスの自由入力]
+[hidden] 【ボトムス】
+[hidden] マイクロホットパンツ
+[hidden] ▾
+[hidden] [button: マイクロホットパンツ] [button: プリーツミニスカート] [button: デニムミニスカート] [button: 多層フリルスカート（薔薇姫）] [button: レザーミニスカート] [button: ローライズカーゴパンツ] [button: スウェットショーツ] [button: 花柄マキシスカート] [button: ハイウエストスキニー] [button: ローライズデニム] [button: チュールスカート] [button: ロングスカート] [button: フレアスカート] [button: ワイドパンツ] [button: ストレートジーンズ] [button: バミューダパンツ] [button: プリーツロングスカート] [button: スリットタイトスカート] [button: ジョガーパンツ] [button: ティアードミニスカート] [button: ピンストライプリボンミニスカート] [button: ラウンジショーツ] [button: デニムショートパンツ] [button: プリーツジャージーミニスカート] [button: グレンチェックタイトスカート] [button: テーパードパンツ] [button: スラックス] [button: マーメイドスカート] [button: 花柄フレアスカート] [button: Aラインスカート] [button: スキニーパンツ] [button: ニットスカート] [button: カーゴパンツ] [button: チェックミニスカート] [button: ワイドデニム] [button: カーゴスカート] [button: パジャマハーフパンツ] [button: スウェットパンツ] [button: ルームショートパンツ] [button: もこもこショートパンツ] [button: レギンス] [button: サテンショーツ] [button: オーバーオール] [button: バレルレッグジーンズ] [button: チノパンツ] [button: パジャマパンツ] [button: ツイードミニスカート] [button: プリーツミディスカート] [button: センタープレスワイドパンツ] [button: ドレープロングスカート] [button: チェックタイトスカート] [button: プリーツミニスカート] [button: ミニスカート] [button: チュールレイヤードスカート] [button: ハイウエストストレートジーンズ] [button: ブーツカットデニム] [button: ボトムスなし（ワンピース等）]
+[hidden] デニムのマイクロホットパンツ。極端に短い丈、ローライズ
+[hidden] denim micro shorts, hot pants, low rise
+[hidden] 備考へ追加：ホットパンツの丈は本当のマイクロ丈（極端に短く）にする
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: ボトムスの自由入力]
+[hidden] 【アウター】
+[hidden] なし
+[hidden] ▾
+[hidden] [button: レースボレロ（薔薇姫）] [button: ファー付きショートジャケット] [button: ライダースジャケット] [button: ロングカーディガン] [button: デニムジャケット] [button: ボアブルゾン] [button: ケープコート] [button: MA-1ブルゾン] [button: ショートカーディガン] [button: トレンチコート] [button: テーラードジャケット] [button: ニットベスト] [button: シアーカーディガン] [button: クロップドブレザー] [button: キルティングジャケット] [button: フリースベスト] [button: ロングコート] [button: ボアジャケット] [button: クロシェカーディガン] [button: ローブカーディガン] [button: バスローブ] [button: レースロングローブ] [button: ショートジャケット] [button: ツイードジャケット] [button: ロングジレ] [button: ダウンコート] [button: ナイロンベスト] [button: 千鳥柄ジャケット] [button: クロップドデニムジャケット] [button: ニットカーディガン] [button: カーディガン] [button: 腰巻きチェックシャツ] [button: デコデニムジャケット] [button: なし]
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: アウターの自由入力]
+[hidden] 【シューズ】
+[hidden] 厚底ロングブーツ
+[hidden] ▾
+[hidden] [button: 厚底ロングブーツ] [button: 厚底ストラップパンプス（薔薇姫）] [button: 厚底スニーカー] [button: 厚底ローファー] [button: ニーハイブーツ] [button: ヒールサンダル] [button: ムートンブーツ] [button: 裸足] [button: ルームスリッパ] [button: ワンストラップパンプス] [button: バレエシューズ] [button: キャンバススニーカー] [button: ショートブーツ] [button: スニーカーサンダル] [button: ウェッジサンダル] [button: レースアップサンダル] [button: ローファー] [button: パンプス] [button: ロングブーツ] [button: 厚底ブーツ] [button: トレーニングシューズ] [button: ストラップサンダル] [button: メリージェーン] [button: フラットサンダル] [button: レインブーツ] [button: スニーカー] [button: 編み上げブーツ] [button: 厚底シューズ]
+[hidden] 厚底ロングブーツ。編み上げとベルトストラップ、太いプラットフォームソール
+[hidden] platform boots, lace-up boots, belt straps, platform sole
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: シューズの自由入力]
+[hidden] 【ソックス】
+[hidden] なし
+[hidden] ▾
+[hidden] [button: ニーハイソックス] [button: ルーズソックス] [button: レースストッキング（薔薇姫）] [button: シアータイツ] [button: 網タイツ] [button: クルーソックス] [button: レッグウォーマー] [button: リボン付きソックス] [button: ハイソックス] [button: アンクルソックス] [button: メッシュソックス] [button: ラインソックス] [button: シースルーソックス] [button: レースソックス] [button: なし]
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: ソックスの自由入力]
+[hidden] 【小物１】
+[hidden] フープピアス
+[hidden] ▾
+[hidden] [button: レースチョーカー] [button: ティアラ（薔薇姫）] [button: 薔薇コサージュ] [button: 猫耳ヘッドドレス] [button: ハートサングラス] [button: リボンヘアクリップ] [button: フープピアス] [button: チェーンベルト] [button: ハート型ミニバッグ] [button: レース手袋] [button: うさ耳カチューシャ] [button: ロリータヘッドドレス] [button: トートバッグ] [button: リュック] [button: ベレー帽] [button: マフラー] [button: 麦わら帽子] [button: パールネックレス] [button: キャップ] [button: ベルベットチョーカー] [button: アンクレット] [button: サッシュベルト] [button: スクエアミニバッグ] [button: かごバッグ] [button: ヘアバンド] [button: ハンドバッグ] [button: ショルダーバッグ] [button: チェーンバッグ] [button: クラッチバッグ] [button: クロスボディバッグ] [button: ミニリュック] [button: クリアトートバッグ] [button: イヤーマフ] [button: 透明傘] [button: ペンライト] [button: ぬいぐるみ] [button: 魔女帽子] [button: 腕時計] [button: ウエストベルト] [button: パールイヤリング] [button: ネックレス] [button: ヒョウ柄ベルト] [button: デニムホーボーバッグ] [button: 重ね付けネックレス] [button: チェックマフラー] [button: なし]
+[hidden] 大きめのフープピアス
+[hidden] hoop earrings, large
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: 小物１の自由入力]
+[hidden] 【小物２】
+[hidden] （出力なし）
+[hidden] ▾
+[hidden] [button: レースチョーカー] [button: ティアラ（薔薇姫）] [button: 薔薇コサージュ] [button: 猫耳ヘッドドレス] [button: ハートサングラス] [button: リボンヘアクリップ] [button: フープピアス] [button: チェーンベルト] [button: ハート型ミニバッグ] [button: レース手袋] [button: うさ耳カチューシャ] [button: ロリータヘッドドレス] [button: トートバッグ] [button: リュック] [button: ベレー帽] [button: マフラー] [button: 麦わら帽子] [button: パールネックレス] [button: キャップ] [button: ベルベットチョーカー] [button: アンクレット] [button: サッシュベルト] [button: スクエアミニバッグ] [button: かごバッグ] [button: ヘアバンド] [button: ハンドバッグ] [button: ショルダーバッグ] [button: チェーンバッグ] [button: クラッチバッグ] [button: クロスボディバッグ] [button: ミニリュック] [button: クリアトートバッグ] [button: イヤーマフ] [button: 透明傘] [button: ペンライト] [button: ぬいぐるみ] [button: 魔女帽子] [button: 腕時計] [button: ウエストベルト] [button: パールイヤリング] [button: ネックレス] [button: ヒョウ柄ベルト] [button: デニムホーボーバッグ] [button: 重ね付けネックレス] [button: チェックマフラー] [button: なし]
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: 小物２の自由入力]
+[hidden] 【その他】
+[hidden] （出力なし）
+[hidden] ▾
+[hidden] クレイのオリジナル衣装を、まるごと1着で選ぶ項目です（元はカメラアングル早見表にあった衣装）。選ぶと衣装一式がそのまま【その他】に入ります。トップス〜小物と組み合わせる場合は、重なるアイテム側を「なし」にしてください。
+[hidden] [button: アーバン・エクスペディション] [button: アイヴォリー・ブレイド] [button: ミュウの基本コーデ] [button: ネイビーレース＆ローライズデニム] [button: なし（使わない）]
+[hidden] 色テーマ
+[hidden] [button: 指定なし] [button:
+[hidden] ホワイト] [button:
+[hidden] ブラック] [button:
+[hidden] ピンク] [button:
+[hidden] レッド] [button:
+[hidden] ボルドー] [button:
+[hidden] ブルー] [button:
+[hidden] 水色] [button:
+[hidden] ネイビー] [button:
+[hidden] ベージュ] [button:
+[hidden] クリーム] [button:
+[hidden] ライトブラウン] [button:
+[hidden] ブラウン] [button:
+[hidden] グレー] [button:
+[hidden] カーキ] [button:
+[hidden] グリーン] [button:
+[hidden] イエロー] [button:
+[hidden] パープル] [button:
+[hidden] オレンジ]
+[hidden] [input text: その他の自由入力]
+[hidden] ## 備考（自由記入）
+[hidden] 出力が難しい部分の補助プロンプトなど。選んだアイテムの注意書きと一緒に【備考】へ入ります。
+[hidden] [textarea: 例：背面もしっかり描く／指輪は左手の薬指に]
+[hidden] コピーしたらハブで最終調整 → (→ /spaces/v2/comfyuipuronputobiruda/) コスプレはコスプレカタログで選ぶ → (→ /spaces/v2/miyuu-kosupurekatarogu/)
+[hidden] [button:
+[hidden] ← 前のコーデ
+[hidden] —
+[hidden] ] [button:
+[hidden] 次のコーデ →
+[hidden] 清楚系お嬢様
+[hidden] ]
+ハブに戻る（ComfyUIプロンプトビルダー） (→ /spaces/v2/comfyuipuronputobiruda/)
+選んだ私服の断片は、ハブの「断片の取り込み」に貼ると全体のプロンプトに合流します。

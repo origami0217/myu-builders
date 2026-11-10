@@ -1,0 +1,140 @@
+{
+  "ok": true,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-1df32b86-5216-4506-a1e0-ae9bc2232781/",
+  "duration_ms": 4728.907157000001,
+  "output_dir": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-10T06-58-24Z-177921733",
+  "nav_status": 200,
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-10T06-58-24Z-177921733/screenshot.png",
+      "fullpage_screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-10T06-58-24Z-177921733/screenshot-full.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-10T06-58-24Z-177921733/screenshot-mobile.png"
+    }
+  },
+  "mobile_layout": {
+    "viewport_width": 390,
+    "scroll_width": 390,
+    "overflow_px": 0,
+    "widest_selector": null,
+    "verdict": "pass"
+  },
+  "horizontal_scrollers": [],
+  "unreachable_controls": {
+    "desktop": [],
+    "mobile": []
+  },
+  "clipped": {
+    "desktop": [],
+    "mobile": []
+  },
+  "images": {
+    "total": 5,
+    "broken": [],
+    "duplicate": [],
+    "unstable": [],
+    "failed_requests": [],
+    "external_blocked": {
+      "count": 0,
+      "sample": []
+    },
+    "sample_urls": [
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-1df32b86-5216-4506-a1e0-ae9bc2232781/assets/nav-myu.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-1df32b86-5216-4506-a1e0-ae9bc2232781/assets/nav-shiori.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-1df32b86-5216-4506-a1e0-ae9bc2232781/assets/nav-cosplay.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-1df32b86-5216-4506-a1e0-ae9bc2232781/assets/nav-outfit.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-1df32b86-5216-4506-a1e0-ae9bc2232781/assets/nav-face.jpg"
+    ],
+    "verdict": "pass"
+  },
+  "text_issues": [],
+  "console_errors": [],
+  "console_warnings": [],
+  "external_fetch_failures": 2,
+  "external_fetch_failure_samples": [
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)",
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)"
+  ],
+  "blocked_requests": [],
+  "external_requests": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap",
+      "method": "GET",
+      "resource_type": "stylesheet"
+    }
+  ],
+  "external_requests_dropped": 0,
+  "external_requests_dropped_data_bearing": 0,
+  "transport_ledger_active": true,
+  "egress_lockdown": true,
+  "transport_connections": [
+    {
+      "host": "artifact-capture.invalid",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 4028,
+      "bytes_down": 2488
+    },
+    {
+      "host": "fonts.googleapis.com",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 0,
+      "bytes_down": 0,
+      "policy_denied": true
+    }
+  ],
+  "transport_udp_attempts": 0,
+  "transport_overflow": 0,
+  "unexplained_transport_hosts": [],
+  "broken_assets": [],
+  "blocked_affordances": [],
+  "interactive_nodes": 28,
+  "aria_snapshot": "- banner:\n  - heading \"プロンプトビルダー Ver3.3\" [level=1]\n  - paragraph:\n    - text: まず\n    - strong: キャラクター\n    - text: を決めて、服や表情は\n    - strong: 各部屋\n    - text: で。ここは、選んだタグを\n    - strong: 貼って・まとめて・コピーする\n    - text: 場所です。\n  - text: STEP 1 キャラクターを 選ぶ STEP 2 部屋で選んで タグをコピー STEP 3 下の「貼る」に ペースト STEP 4 できあがりを コピーして使う\n  - button \"最小構成にリセット\"\n- main:\n  - text: 1 キャラクターを選ぶ 誰を作るか決めます\n  - heading \"キャラクター\" [level=2]\n  - radiogroup \"作成するキャラクター\":\n    - radio \"ミュウ ミュウ 専用プロンプトが自動で入ります ✓ 選択中\" [checked]\n    - img \"ミュウ\"\n    - text: ミュウ 専用プロンプトが自動で入ります ✓ 選択中\n    - radio \"詩織 詩織 専用プロンプトが自動で入ります\"\n    - img \"詩織\"\n    - text: 詩織 専用プロンプトが自動で入ります\n    - radio \"なし 自分でタグを書くとき\"\n    - text: なし 自分でタグを書くとき\n  - paragraph: ミュウを選択中：ComfyUI用の専用タグ（LoRA・肌・指輪）と、ChatGPT用の人物説明が自動で入ります。\n  - heading \"人数\" [level=2]\n  - radio \"ソロ\" [checked]\n  - text: ソロ\n  - radio \"二人（男）\"\n  - text: 二人（男）\n  - radio \"二人（女）\"\n  - text: 二人（女）\n  - textbox \"相手のタグ（英語）例：black hair, tall\" [disabled]\n  - textbox \"相手の説明（日本語）例：黒髪で背の高い男性\" [disabled]\n  - button \"「俺」セットを入れる\" [disabled]\n  - paragraph: 二人では、相手の特徴をはっきり書くと混ざりにくいです。\n  - heading \"プロンプトの長さ\" [level=2]\n  - radio \"通常版（短い）\" [checked]\n  - text: 通常版（短い）\n  - radio \"完全版（長い）\"\n  - text: 完全版（長い）\n  - paragraph:\n    - strong: 通常版（おすすめ）\n    - text: — LoRAありの時はこちら。短くて安定します。\n  - heading \"固定ブロックキャラクターの土台・自動で入ります\" [level=2]\n  - text: masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger\n  - paragraph: 通常版：14タグ / 209文字（完全版は 37タグ）\n  - text: 2 服・表情・ポーズを選ぶ タップで部屋へ移動します\n  - region \"部屋へのリンク\":\n    - link \"メイド服のコスプレをしたミュウ コスプレ コスプレカタログ 開く →\":\n      - /url: /spaces/v2/miyuu-kosupurekatarogu/\n      - img \"メイド服のコスプレをしたミュウ\"\n      - text: コスプレ コスプレカタログ 開く →\n    - link \"私服を着たミュウ 私服 着せ替えビルダー 開く →\":\n      - /url: /spaces/v2/miyuuzhao-seti-ebiruda/\n      - img \"私服を着たミュウ\"\n      - text: 私服 着せ替えビルダー 開く →\n    - link \"笑顔のミュウの顔のアップ 表情・ポーズ カメラアングル早見表 開く →\":\n      - /url: /spaces/v2/kameraanguruzao-jian-biao/\n      - img \"笑顔のミュウの顔のアップ\"\n      - text: 表情・ポーズ カメラアングル早見表 開く →\n    - strong: 背景・光・時間帯・シチュエーション\n    - text: の部屋はまだありません。作ったタグは、この下の\n    - strong: 「貼る」\n    - text: に直接貼ればOKです。\n  - text: 3 貼る 貼るだけで自動判別して「できあがり」へ反映します\n  - paragraph: まとめて貼る（自動判別）\n  - textbox \"部屋でコピーしたものを、まるごとここに貼ってください。英語タグ・日本語の文・ネガティブが混ざっていても、自動で振り分けて下の欄と「できあがり」に反映します。\"\n  - paragraph\n  - button \"振り分ける\"\n  - button \"貼る欄をクリア\"\n  - link \"できあがりを見る ↓\":\n    - /url: \"#outSec\"\n  - paragraph: 英語タグ（ComfyUI用）\n  - textbox \"例：maid outfit, apron, headdress\"\n  - paragraph: 日本語の文（ChatGPT用）\n  - textbox \"例：メイド服を着て、カフェで微笑んでいる\"\n  - paragraph: ネガティブ（貼った分だけ追加）\n  - text: （なし）\n  - paragraph: 重なったタグは、自動で1つにまとめます。英語タグ欄・日本語欄に直接貼っても、混ざった内容は自動で振り分けます。\n  - text: ＋ 細かい設定 ふだんはそのままでOK\n  - heading \"自分で足すタグ英語・カンマ区切り\" [level=2]\n  - textbox \"例：holding cup, steam, window seat\"\n  - heading \"お気に入り登録ブラウザに保存されます\" [level=2]\n  - textbox \"名前（例：お気に入り1）\"\n  - textbox \"登録したいタグを貼り付け\"\n  - button \"登録する\"\n  - heading \"ネガティブ設定失敗よけ\" [level=2]\n  - checkbox \"手の破綻を防ぐ\" [checked]\n  - text: 手の破綻を防ぐ\n  - checkbox \"日焼け跡・色割れを防ぐ\" [checked]\n  - text: 日焼け跡・色割れを防ぐ 4 できあがり コピーして使ってください\n  - heading \"英語プロンプト（ComfyUI用） — 14タグ / 209文字\" [level=2]\n  - textbox: masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger\n  - button \"コピーする\"\n  - heading \"英語ネガティブ — 32タグ / 373文字（重複 1 件を除去）\" [level=2]\n  - textbox: worst quality, low quality, bad anatomy, watermark, text, child, loli, young, pale skin, tan lines, muscular, abs, censored, multiple views, 2girls, 1boy, multiple girls, split screen, duplicate, clone, bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands, (tan lines:1.5), tanlines, (uneven skin tone:1.4), two-tone skin, fair skin, white skin\n  - button \"コピーする\"\n  - paragraph: 推奨設定：832×1216 / steps 28 / CFG 5.5 / euler_ancestral / FaceDetailer ON（0.30）/ LoRA myu_original_v2（0.8）。絵が崩れたら「完全版」に切り替えてください。\n  - heading \"日本語プロンプト（ChatGPT用） — 119文字\" [level=2]\n  - textbox: アニメ風のイラスト。27歳の成人女性「ミュウ」。黒ギャルで、明るいベージュブロンドの短いレイヤードボブ、茶色の瞳、小さめの鼻と口元、耳ピアス。肌はディープブロンズの均一な褐色で、体型は曲線的で柔らか。左手の薬指に銀の結婚指輪を着けている。\n  - button \"コピーする\"\n  - paragraph: ChatGPT用は文章だけです（品質タグとネガティブは入りません）。\n- contentinfo: プロンプトビルダー Ver3.3 — 選ぶのは各部屋、ここは貼って・まとめて・コピーする場所です。\n- navigation \"ページ内ショートカット\":\n  - link \"キャラ\":\n    - /url: \"#charaSec\"\n  - link \"貼る\":\n    - /url: \"#fragSec\"\n  - link \"できあがり\":\n    - /url: \"#outSec\"\n  - button \"ページの一番上へ戻る\": ↑ トップへ",
+  "document_text": {
+    "path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-10T06-58-24Z-177921733/document-text.txt",
+    "chars": 3209,
+    "truncated": false
+  },
+  "audit_session_id": "2a8fab5f-763e-4109-9e97-52f9a780b1a7",
+  "readiness": {
+    "desktop": {
+      "settled": true,
+      "settle_ms": 625,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    },
+    "mobile": {
+      "settled": true,
+      "settle_ms": 691,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    }
+  },
+  "color_scheme": {
+    "declared": "light dark",
+    "media_dependent": null,
+    "dark_frame": false
+  },
+  "mobile_ms": 2416.575137,
+  "cold_launch_ms": 1027.841708,
+  "desktop_ms": 2854.73751,
+  "browser_launches": 1,
+  "audit_path": "shared-concurrent",
+  "diagnostics": {
+    "audit_path": "shared-concurrent",
+    "concurrent_ran": true,
+    "concurrent_desktop_retry": false,
+    "concurrent_mobile_retry": false,
+    "shared_launch_failed": false,
+    "nav_retries": 0,
+    "settle_retries": 0
+  }
+}

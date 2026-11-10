@@ -226,8 +226,16 @@
         transition: transform 0.15s ease, box-shadow 0.15s ease;
       }
       .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-      .card .thumb { aspect-ratio: 832 / 1216; background: var(--bg-soft); overflow: hidden; }
+      .card .thumb { aspect-ratio: 832 / 1216; background: var(--bg-soft); overflow: hidden; position: relative; }
       .card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+      .zoom-badge {
+        position: absolute; right: 8px; bottom: 8px; z-index: 2;
+        display: inline-flex; align-items: center; gap: 4px;
+        background: rgba(20, 8, 14, 0.72); color: #fff;
+        font-size: 11px; font-weight: 800; line-height: 1;
+        border-radius: 999px; padding: 6px 10px;
+        pointer-events: none;
+      }
       .thumb-noimg, .detail-noimg {
         width: 100%; height: 100%; min-height: 100%;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -286,7 +294,9 @@
       .detail-photo {
         border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
         background: var(--bg-soft); box-shadow: var(--shadow);
+        position: relative;
       }
+      .detail-photo #d-img { cursor: zoom-in; }
       .detail-info .no { font-size: 11px; font-weight: 900; letter-spacing: 0.16em; color: var(--gold); }
       .detail-info h2 {
         font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
@@ -362,6 +372,37 @@
         border-top: 1px dashed var(--line); padding-top: 12px;
       }
       .settings-note b { color: var(--ink); }
+      /* ---------- color theme (衣装詳細) ---------- */
+      .theme-block {
+        border: 1.5px solid var(--line); border-radius: 14px;
+        padding: 12px 14px 13px; margin-bottom: 16px; background: var(--card);
+      }
+      .theme-block .t-head {
+        display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+        margin-bottom: 4px;
+      }
+      .theme-block .t-head h3 { font-size: 13px; font-weight: 900; margin: 0; letter-spacing: 0.05em; }
+      .theme-block .t-now { font-size: 12px; font-weight: 800; color: var(--accent-strong); white-space: nowrap; }
+      @media (prefers-color-scheme: dark) { .theme-block .t-now { color: var(--accent); } }
+      .theme-block .t-hint { font-size: 12px; color: var(--ink-soft); margin: 0 0 10px; line-height: 1.55; }
+      .color-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+      .cchip {
+        display: inline-flex; align-items: center; gap: 6px;
+        border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+        border-radius: 999px; padding: 5px 12px 5px 7px;
+        font-size: 12.5px; font-weight: 700;
+      }
+      .cchip:hover { border-color: var(--accent); }
+      .cchip .sw {
+        width: 15px; height: 15px; border-radius: 50%; flex: none;
+        border: 1px solid var(--line);
+      }
+      .cchip[aria-pressed="true"] {
+        background: var(--accent); border-color: var(--accent); color: var(--accent-ink);
+      }
+      .cchip.none-c[aria-pressed="true"] {
+        background: var(--ink); border-color: var(--ink); color: var(--bg);
+      }
       .detail-nav {
         display: flex; justify-content: space-between; gap: 10px; margin-top: 26px;
       }
@@ -377,6 +418,34 @@
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       }
       .detail-nav button:disabled { opacity: 0.35; }
+
+      /* ---------- lightbox（画像拡大オーバーレイ） ---------- */
+      .lightbox {
+        position: fixed; inset: 0; z-index: 80;
+        display: flex; align-items: center; justify-content: center;
+        background: rgba(16, 7, 12, 0.93);
+        padding: 18px 14px calc(18px + env(safe-area-inset-bottom));
+      }
+      .lightbox figure { margin: 0; text-align: center; max-width: 100%; }
+      .lightbox img {
+        max-width: min(96vw, 880px); max-height: 82vh;
+        object-fit: contain; margin: 0 auto;
+        border-radius: 10px; background: #241a20;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+      }
+      .lightbox figcaption {
+        color: #fdf3f7; font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+        font-size: 16px; margin-top: 12px; line-height: 1.45;
+      }
+      .lightbox .lb-sub { color: #d8b7c4; font-size: 12px; font-weight: 700; margin-top: 2px; }
+      .lightbox-close {
+        position: absolute; top: calc(12px + env(safe-area-inset-top)); right: 12px;
+        width: 44px; height: 44px; border-radius: 50%;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.12); color: #fff;
+        display: inline-flex; align-items: center; justify-content: center;
+      }
+      .lightbox-close:hover { background: rgba(255, 255, 255, 0.24); }
 
       /* ---------- toast ---------- */
       .toast {
@@ -414,9 +483,10 @@
       <section id="view-list">
         <div class="lead">
           <h1><span class="accent">コスプレ</span>カタログ</h1>
-          <p>96着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。29着は見本イラストを新しい立ち絵に差し替えてあって、うち15着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。今回追加した7着と前回追加した26着は見本イラスト準備中のためプレースホルダー表示だよ。</p>
+          <p>96着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。29着は見本イラストを新しい立ち絵に差し替えてあって、うち15着はお友達の詩織がモデルだよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。詳細ではカラーテーマ（18色）も選べて、レースクイーンのチームカラーみたいに衣装の色味を変えられるよ。今回追加した7着と前回追加した26着は見本イラスト準備中のためプレースホルダー表示だよ。</p>
           <div class="meta-line">
             <span class="meta-chip">全96着</span>
+            <span class="meta-chip">カラーテーマ18色対応（詳細から選択）</span>
             <span class="meta-chip">新規13着追加（オーナー提供・画像付き）</span>
             <span class="meta-chip">新規7着追加（制服系3＋ファンタジー・イベント4）</span>
             <span class="meta-chip">新規26着追加（和・中華系16＋アニメ・ゲーム10）</span>
@@ -491,11 +561,20 @@
             </a>
           </div>
           <div class="detail-layout">
-            <div class="detail-photo"><img id="d-img" alt="" /><div id="d-noimg" class="detail-noimg" hidden><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><div class="ph-label">NO IMAGE</div><div class="ph-name" id="d-noimg-name"></div><div class="ph-sub">見本イラスト準備中<br />プロンプトとタグはそのまま使えるよ</div></div></div>
+            <div class="detail-photo"><img id="d-img" alt="" /><span class="zoom-badge" id="d-zoom-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/><path d="M11 8v6M8 11h6"/></svg>タップで拡大</span><div id="d-noimg" class="detail-noimg" hidden><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><div class="ph-label">NO IMAGE</div><div class="ph-name" id="d-noimg-name"></div><div class="ph-sub">見本イラスト準備中<br />プロンプトとタグはそのまま使えるよ</div></div></div>
             <div class="detail-info">
               <div class="no" id="d-no"></div>
               <h2 id="d-name"></h2>
               <div class="cat-name" id="d-cat"></div>
+
+              <div class="theme-block">
+                <div class="t-head">
+                  <h3>カラーテーマ</h3>
+                  <span class="t-now" id="d-color-now">指定なし</span>
+                </div>
+                <p class="t-hint">レースクイーンのチームカラーなど、衣装全体の色味を変えたいときに選んでね。選んだ色は衣装プロンプトの頭に足されるだけだから、全体プロンプトもDanbooruタグもそのまま残るよ。</p>
+                <div class="color-chips" id="color-chips" aria-label="カラーテーマを選ぶ"></div>
+              </div>
 
               <div class="overall-panel">
                 <div class="op-head">
@@ -558,12 +637,48 @@
       </section>
     </div>
 
+    <!-- ======= 画像拡大オーバーレイ ======= -->
+    <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="見本画像の拡大表示">
+      <button class="lightbox-close" id="lightbox-close" type="button" aria-label="拡大表示を閉じる">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <figure>
+        <img id="lightbox-img" alt="" />
+        <figcaption id="lightbox-caption"></figcaption>
+        <div class="lb-sub">背景タップ・Escキーでも閉じられるよ</div>
+      </figure>
+    </div>
+
     <div class="toast" id="toast" role="status"></div>
 
     <script>
       "use strict";
 
       var NEG = "bad quality, worst quality, low quality, lowres, blurry, bad anatomy, watermark, text, logo, signature, long hair, child, teen, loli, young looking, muscular, abs, visible veins, toned body, 2girls, 1boy, multiple girls, multiple boys, multiple views, character sheet, split screen, duplicate, clone, cropped, out of frame, bad hands, extra fingers, missing fingers, (tan lines:1.5), (uneven skin tone:1.4), two-tone skin, pale skin, fair skin, white skin, light skin, shiny skin, oily skin, sweat";
+
+      /* ---------- 色テーマ（着せ替えビルダーと共通の18色） ---------- */
+      var COLORS = [
+        { id: "white", label: "ホワイト", jp: "白い", en: "white", sw: "#ffffff" },
+        { id: "black", label: "ブラック", jp: "黒い", en: "black", sw: "#2b2b2b" },
+        { id: "pink", label: "ピンク", jp: "ピンクの", en: "pink", sw: "#f7a8c4" },
+        { id: "red", label: "レッド", jp: "赤い", en: "red", sw: "#d43a3a" },
+        { id: "bordeaux", label: "ボルドー", jp: "ボルドーの", en: "bordeaux", sw: "#722f37" },
+        { id: "blue", label: "ブルー", jp: "青い", en: "blue", sw: "#3a6fd8" },
+        { id: "lightblue", label: "水色", jp: "水色の", en: "light blue", sw: "#a8d4f0" },
+        { id: "navy", label: "ネイビー", jp: "ネイビーの", en: "navy", sw: "#232c4e" },
+        { id: "beige", label: "ベージュ", jp: "ベージュの", en: "beige", sw: "#e3d3b8" },
+        { id: "cream", label: "クリーム", jp: "クリーム色の", en: "cream", sw: "#f5ecd7" },
+        { id: "lightbrown", label: "ライトブラウン", jp: "ライトブラウンの", en: "light brown", sw: "#b98a5e" },
+        { id: "brown", label: "ブラウン", jp: "茶色の", en: "brown", sw: "#6f4525" },
+        { id: "gray", label: "グレー", jp: "グレーの", en: "grey", sw: "#9a9a9a" },
+        { id: "khaki", label: "カーキ", jp: "カーキの", en: "khaki", sw: "#8a8552" },
+        { id: "green", label: "グリーン", jp: "緑の", en: "green", sw: "#4d8a4f" },
+        { id: "yellow", label: "イエロー", jp: "黄色い", en: "yellow", sw: "#f2c93c" },
+        { id: "purple", label: "パープル", jp: "紫の", en: "purple", sw: "#8a5fc0" },
+        { id: "orange", label: "オレンジ", jp: "オレンジの", en: "orange", sw: "#ef8a3c" }
+      ];
+      var colorById = {};
+      COLORS.forEach(function (c) { colorById[c.id] = c; });
 
       var CATEGORIES = [
         { id: "all",     name: "すべて" },
@@ -581,121 +696,121 @@
 
       var ITEMS = [
         /* 定番 */
-        { key: "negligee", name: "ネグリジェ", cat: "classic", jp: "透け感のある白いネグリジェ。レースの縁取り、細い肩紐、胸元の開いた上品なシルエット", tags: "negligee, sheer nightgown, lace trim" },
-        { key: "bunny", name: "バニースーツ", cat: "classic", jp: "黒いバニースーツ。うさ耳カチューシャ、蝶ネクタイ、袖カフス、網タイツの王道バニー", tags: "bunny suit, black bunny suit, bunny ears, bowtie, cuffs, fishnet stockings" },
-        { key: "sailor", name: "セーラー服・冬服", cat: "uniform", who: "詩織", jp: "長袖の白いセーラー服コス（冬服）。赤いネッカチーフ、紺のプリーツスカート", tags: "sailor costume, serafuku cosplay, long sleeves, neckerchief, pleated skirt" },
-        { key: "maid", name: "メイド", cat: "classic", jp: "黒×白の王道メイド服。白エプロン、ヘッドドレス、フリルたっぷりのスカート", tags: "maid outfit, apron, headdress" },
-        { key: "nurse", name: "ナース", cat: "classic", who: "詩織", jp: "白衣のナース服。ナースキャップ、タイトなミニ丈ワンピース型ユニフォーム", tags: "nurse outfit, nurse cap, white uniform" },
-        { key: "miko", name: "巫女", cat: "classic", jp: "白い羽織に赤い袴の巫女装束。水引のような赤い紐飾り", tags: "miko outfit, shrine maiden, red hakama, white haori" },
-        { key: "devil", name: "悪魔コス", cat: "classic", who: "詩織", jp: "黒×深紅のゴシックドレスの悪魔コス。角、コウモリ羽、尻尾、厚底ブーツ", tags: "devil costume, demon horns, demon wings, demon tail, black dress, gothic dress" },
-        { key: "santa", name: "サンタコス", cat: "classic", jp: "赤いサンタドレス。白ファーの縁取り、サンタ帽、黒ベルトとブーツで締めたクリスマスコス", tags: "santa costume, red dress, fur trim, santa hat" },
+        { key: "negligee", name: "ネグリジェ", cat: "classic", jp: "透け感のあるネグリジェ。レースの縁取り、細い肩紐、胸元の開いた上品なシルエット", tags: "negligee, sheer nightgown, lace trim" },
+        { key: "bunny", name: "バニースーツ", cat: "classic", jp: "バニースーツ。うさ耳カチューシャ、蝶ネクタイ、袖カフス、網タイツの王道バニー", tags: "bunny suit, bunny ears, bowtie, cuffs, fishnet stockings" },
+        { key: "sailor", name: "セーラー服・冬服", cat: "uniform", who: "詩織", jp: "長袖のセーラー服コス（冬服）。ネッカチーフ、プリーツスカート", tags: "sailor costume, serafuku cosplay, long sleeves, neckerchief, pleated skirt" },
+        { key: "maid", name: "メイド", cat: "classic", jp: "王道メイド服。エプロン、ヘッドドレス、フリルたっぷりのスカート", tags: "maid outfit, apron, headdress" },
+        { key: "nurse", name: "ナース", cat: "classic", who: "詩織", jp: "ナース服。ナースキャップ、タイトなミニ丈ワンピース型ユニフォーム", tags: "nurse outfit, nurse cap, uniform" },
+        { key: "miko", name: "巫女", cat: "classic", jp: "羽織に袴の巫女装束。水引のような紐飾り", tags: "miko outfit, shrine maiden, hakama, haori" },
+        { key: "devil", name: "悪魔コス", cat: "classic", who: "詩織", jp: "ゴシックドレスの悪魔コス。角、コウモリ羽、尻尾、厚底ブーツ", tags: "devil costume, demon horns, demon wings, demon tail, gothic dress" },
+        { key: "santa", name: "サンタコス", cat: "classic", jp: "サンタドレス。ファーの縁取り、サンタ帽、ベルトとブーツで締めたクリスマスコス", tags: "santa costume, fur trim, santa hat" },
         /* 制服系 */
-        { key: "police", name: "警察官", cat: "uniform", who: "詩織", jp: "紺の警察制服。制帽、バッジ、ネクタイ、タイトスカートの婦警スタイル", tags: "police uniform, policewoman, peaked cap, navy uniform, badge, necktie" },
-        { key: "military", name: "軍服", cat: "uniform", jp: "オリーブ色の軍服。制帽、肩章、金ボタン、カーゴパンツに編み上げブーツの凛々しい軍装", tags: "military uniform, military jacket, peaked cap, epaulettes, cargo pants, lace-up boots" },
-        { key: "ca", name: "CA", cat: "uniform", who: "詩織", jp: "紺スーツの客室乗務員制服。スカーフ、小さなピルボックス帽、ヒール", tags: "flight attendant uniform, cabin attendant, scarf, navy suit, pillbox hat" },
-        { key: "agent", name: "エージェント", cat: "uniform", jp: "黒いボディスーツのスパイコス。サングラスとイヤーピースでミッション感", tags: "spy outfit, black bodysuit, agent, sunglasses, earpiece" },
+        { key: "police", name: "警察官", cat: "uniform", who: "詩織", jp: "警察制服。制帽、バッジ、ネクタイ、タイトスカートの婦警スタイル", tags: "police uniform, policewoman, peaked cap, badge, necktie" },
+        { key: "military", name: "軍服", cat: "uniform", jp: "軍服。制帽、肩章、ボタン、カーゴパンツに編み上げブーツの凛々しい軍装", tags: "military uniform, military jacket, peaked cap, epaulettes, cargo pants, lace-up boots" },
+        { key: "ca", name: "CA", cat: "uniform", who: "詩織", jp: "スーツの客室乗務員制服。スカーフ、小さなピルボックス帽、ヒール", tags: "flight attendant uniform, cabin attendant, scarf, suit, pillbox hat" },
+        { key: "agent", name: "エージェント", cat: "uniform", jp: "ボディスーツのスパイコス。サングラスとイヤーピースでミッション感", tags: "spy outfit, bodysuit, agent, sunglasses, earpiece" },
         /* ファンタジー・イベント */
         { key: "magical", name: "魔法少女", cat: "fantasy", who: "詩織", jp: "フリルドレスの魔法少女コス。リボンと手袋、魔法のステッキ", tags: "magical girl, frilled dress, ribbon, gloves, magic wand" },
-        { key: "witch", name: "魔女", cat: "fantasy", jp: "黒ドレスと三角帽子の魔女コス。マントを羽織ったハロウィンの定番", tags: "witch costume, witch hat, black dress, cape, halloween" },
+        { key: "witch", name: "魔女", cat: "fantasy", jp: "ドレスと三角帽子の魔女コス。マントを羽織ったハロウィンの定番", tags: "witch costume, witch hat, dress, cape, halloween" },
         { key: "vampire", name: "ヴァンパイア", cat: "fantasy", jp: "ゴシックドレスのヴァンパイア。マント、牙、チョーカーで妖しく", tags: "vampire costume, gothic dress, cape, fangs, choker" },
-        { key: "wedding", name: "ウェディングドレス", cat: "fantasy", who: "詩織", jp: "純白のウェディングドレス。ベール、白手袋、ブーケを持った花嫁姿", tags: "wedding dress, bridal veil, white dress, bouquet, white gloves" },
-        { key: "gothloli", name: "ゴスロリ", cat: "fantasy", jp: "黒フリルのゴシックロリータ。ヘッドドレス、コルセット風ウエスト、レースの日傘", tags: "gothic lolita, black frilled dress, headdress, lace trim, parasol" },
-        { key: "elf", name: "エルフ", cat: "fantasy", jp: "白いロングドレスのエルフ。尖り耳、ファー付きマント、サークレット、深いスリット", tags: "elf costume, pointy ears, white dress, circlet, fur-trimmed cape, side slit" },
-        { key: "elfprincess", name: "エルフのお姫様", cat: "fantasy", jp: "クリーム色のロングドレスを着たエルフのお姫様。金の葉模様の刺繍、深緑のマント、宝石付きのサークレット、尖り耳、裾の深いスリット", tags: "elf princess, elf costume, pointy ears, cream long dress, gold leaf embroidery, dark green cape, circlet, gemstone accessories, side slit, strappy high heels" },
+        { key: "wedding", name: "ウェディングドレス", cat: "fantasy", who: "詩織", jp: "ウェディングドレス。ベール、手袋、ブーケを持った花嫁姿", tags: "wedding dress, bridal veil, bouquet, gloves" },
+        { key: "gothloli", name: "ゴスロリ", cat: "fantasy", jp: "フリルのゴシックロリータ。ヘッドドレス、コルセット風ウエスト、レースの日傘", tags: "gothic lolita, frilled dress, headdress, lace trim, parasol" },
+        { key: "elf", name: "エルフ", cat: "fantasy", jp: "ロングドレスのエルフ。尖り耳、ファー付きマント、サークレット、深いスリット", tags: "elf costume, pointy ears, long dress, circlet, fur-trimmed cape, side slit" },
+        { key: "elfprincess", name: "エルフのお姫様", cat: "fantasy", jp: "ロングドレスを着たエルフのお姫様。葉模様の刺繍、マント、宝石付きのサークレット、尖り耳、裾の深いスリット", tags: "elf princess, elf costume, pointy ears, long dress, leaf embroidery, cape, circlet, gemstone accessories, side slit, strappy high heels" },
         { key: "nun", name: "シスター", cat: "fantasy", who: "詩織", jp: "修道服のシスターコス。ベールと十字架のネックレスで清楚に", tags: "nun costume, habit, veil, cross necklace" },
-        { key: "android", name: "サイバーアンドロイド", cat: "fantasy", jp: "白×黒の近未来ボディスーツ。機械関節とハーネスが映えるサイバーアンドロイド", tags: "android girl, cyberpunk outfit, bodysuit, mechanical joints, headset" },
-        { key: "fallenrose", name: "堕ちた薔薇姫", cat: "fantasy", jp: "黒いゴシックなボールガウン。深紅の薔薇を全身にあしらい、黒レース手袋、チョーカー、小さな冠。裾が前だけ短いフィッシュテールで脚が見える", tags: "gothic ball gown, black frilled dress, red rose ornaments, rose hair ornament, black lace gloves, choker, small crown, tiara, high-low hem dress, black high heels" },
-        { key: "idol", name: "アイドル", cat: "fantasy", jp: "ピンク×白のフリルたっぷりアイドルドレス。大きな胸リボン、パフスリーブ、白い編み上げショートブーツ、手にはマイク", tags: "idol costume, pink frilled dress, large bow, puff sleeves, microphone, white lace-up boots, heart choker" },
-        { key: "ballerina", name: "バレリーナ", cat: "fantasy", jp: "白いバレエ衣装。レース付きレオタード、チュールチュチュ、白タイツ、ピンクのトウシューズ", tags: "ballerina, ballet costume, white leotard, lace trim, tutu, tulle skirt, white tights, pointe shoes, pink ribbon" },
+        { key: "android", name: "サイバーアンドロイド", cat: "fantasy", jp: "近未来ボディスーツ。機械関節とハーネスが映えるサイバーアンドロイド", tags: "android girl, cyberpunk outfit, bodysuit, mechanical joints, headset" },
+        { key: "fallenrose", name: "堕ちた薔薇姫", cat: "fantasy", jp: "ゴシックなボールガウン。薔薇を全身にあしらい、レース手袋、チョーカー、小さな冠。裾が前だけ短いフィッシュテールで脚が見える", tags: "gothic ball gown, frilled dress, rose ornaments, rose hair ornament, lace gloves, choker, small crown, tiara, high-low hem dress, high heels" },
+        { key: "idol", name: "アイドル", cat: "fantasy", jp: "フリルたっぷりアイドルドレス。大きな胸リボン、パフスリーブ、編み上げショートブーツ、手にはマイク", tags: "idol costume, frilled dress, large bow, puff sleeves, microphone, lace-up boots, heart choker" },
+        { key: "ballerina", name: "バレリーナ", cat: "fantasy", jp: "バレエ衣装。レース付きレオタード、チュールチュチュ、タイツ、トウシューズ", tags: "ballerina, ballet costume, leotard, lace trim, tutu, tulle skirt, tights, pointe shoes, ribbon" },
         /* 和・中華系 */
-        { key: "china", name: "チャイナドレス", cat: "wa", who: "詩織", jp: "深紅のロングチャイナドレス。金の花柄刺繍、サイドスリット、マンダリンカラー、お団子ヘア", tags: "china dress, cheongsam, red china dress, floral embroidery, side slit, mandarin collar, hair bun" },
-        { key: "wamaid", name: "和風メイド", cat: "wa", jp: "着物風メイド服。白エプロンと合わせて和モダンに", tags: "wa maid, kimono maid outfit, apron" },
-        { key: "furisode", name: "振袖着物", cat: "wa", jp: "白地に青い花柄の着物ドレス。黒い帯、深めのスリット、髪には青い花飾り。足元は厚底ヒールで今風に", tags: "kimono dress, white kimono, floral pattern, obi, deep slit, kanzashi, platform heels, japanese clothes" },
-        { key: "hakama", name: "卒業袴", cat: "wa", jp: "花柄の着物に濃い紫の袴を合わせた卒業式スタイル。大きなリボンの髪飾り、足元は茶色の編み上げブーツ", tags: "hakama, graduation hakama, floral kimono, purple hakama, large ribbon hair accessory, brown lace-up boots, japanese clothes" },
+        { key: "china", name: "チャイナドレス", cat: "wa", who: "詩織", jp: "ロングチャイナドレス。花柄刺繍、サイドスリット、マンダリンカラー、お団子ヘア", tags: "china dress, cheongsam, floral embroidery, side slit, mandarin collar, hair bun" },
+        { key: "wamaid", name: "和風メイド", cat: "wa", jp: "着物風メイド服。エプロンと合わせて和モダンに", tags: "wa maid, kimono maid outfit, apron" },
+        { key: "furisode", name: "振袖着物", cat: "wa", jp: "花柄の着物ドレス。帯、深めのスリット、髪には花飾り。足元は厚底ヒールで今風に", tags: "kimono dress, floral pattern, obi, deep slit, kanzashi, platform heels, japanese clothes" },
+        { key: "hakama", name: "卒業袴", cat: "wa", jp: "花柄の着物に袴を合わせた卒業式スタイル。大きなリボンの髪飾り、足元は編み上げブーツ", tags: "hakama, graduation hakama, floral kimono, large ribbon hair accessory, lace-up boots, japanese clothes" },
         /* 際どい系 */
         { key: "catmaid", name: "猫耳メイド", cat: "spicy", jp: "猫耳メイド。猫の尻尾、肉球手袋、鈴付きチョーカー", tags: "cat maid, maid outfit, cat ears, cat tail, paw gloves, bell choker" },
         { key: "revbunny", name: "逆バニー", cat: "spicy", jp: "逆バニーコス。うさ耳、蝶ネクタイ、カフスの攻めたバニー", tags: "reverse bunny suit, bunny ears, bowtie, cuffs" },
         { key: "sheermaid", name: "シースルーメイド", cat: "spicy", jp: "透け感エプロンのメイドコス。ヘッドドレス付きの際どいメイド", tags: "sheer maid outfit, see-through apron, maid outfit, headdress" },
         { key: "babydoll", name: "ベビードール", cat: "spicy", jp: "透け感ベビードール。レースとリボンの甘いナイトウェア風", tags: "babydoll, sheer nightgown, lace trim, ribbon" },
         { key: "highleg", name: "ハイレグ競泳", cat: "spicy", jp: "ハイレグの競泳水着。レーシングタイプのスポーティーな水着コス", tags: "competition swimsuit, highleg swimsuit, racing swimsuit" },
-        { key: "heartcut", name: "ハートカットアウト", cat: "spicy", who: "詩織", jp: "胸元がハート型に開いた白いリブニットワンピース。タートルネック、ミニ丈、白ヒール", tags: "heart cutout, heart-shaped cutout, white ribbed knit dress, turtleneck sweater dress, mini dress, white high heels" },
-        { key: "deepchina", name: "深スリットチャイナ", cat: "spicy", who: "詩織", jp: "深紅のロングチャイナドレスに深いサイドスリット。金の花柄刺繍、脚が大胆に見える中華コス", tags: "china dress, cheongsam, red china dress, floral embroidery, deep side slit, mandarin collar, hair bun" },
+        { key: "heartcut", name: "ハートカットアウト", cat: "spicy", who: "詩織", jp: "胸元がハート型に開いたリブニットワンピース。タートルネック、ミニ丈、ヒール", tags: "heart cutout, heart-shaped cutout, ribbed knit dress, turtleneck sweater dress, mini dress, high heels" },
+        { key: "deepchina", name: "深スリットチャイナ", cat: "spicy", who: "詩織", jp: "ロングチャイナドレスに深いサイドスリット。花柄刺繍、脚が大胆に見える中華コス", tags: "china dress, cheongsam, floral embroidery, deep side slit, mandarin collar, hair bun" },
         { key: "leopard", name: "女豹レオタード", cat: "spicy", jp: "ヒョウ柄レオタード。アニマル柄とハイヒールの女豹コス", tags: "leopard print leotard, animal print, high heels" },
         { key: "minipolice", name: "ミニスカポリス", cat: "spicy", who: "詩織", jp: "ミニスカートの婦警コス。制帽と手錠で逮捕しちゃう系", tags: "police uniform, miniskirt, policewoman, peaked cap, handcuffs" },
-        { key: "sexynurse", name: "セクシーナース", cat: "spicy", who: "詩織", jp: "ミニ丈ナース服。ナースキャップと聴診器の際どい白衣", tags: "nurse outfit, miniskirt, nurse cap, stethoscope, white uniform" },
+        { key: "sexynurse", name: "セクシーナース", cat: "spicy", who: "詩織", jp: "ミニ丈ナース服。ナースキャップと聴診器の際どいユニフォーム", tags: "nurse outfit, miniskirt, nurse cap, stethoscope, uniform" },
         { key: "fishbunny", name: "網タイツバニー", cat: "spicy", jp: "網タイツ合わせのバニースーツ。うさ耳、蝶ネクタイ、カフス", tags: "bunny suit, fishnet stockings, bunny ears, bowtie, cuffs" },
         /* 水着系 */
-        { key: "microbikini", name: "マイクロビキニ", cat: "swim", jp: "黒のマイクロビキニ。ゴールドチェーンがアクセントの最小面積ビキニ", tags: "micro bikini, tiny bikini, string bikini, chain bikini, black bikini, gold chain" },
-        { key: "whitebikini", name: "フリル白ビキニ", cat: "swim", jp: "白いフリルビキニ。リボン付きの甘めホルタービキニ", tags: "white bikini, frill bikini, ribbon bikini, halter bikini" },
-        { key: "sukumizu", name: "スク水", cat: "swim", jp: "紺のスクール水着。ジップ付きワンピースタイプ", tags: "school swimsuit, sukumizu, navy swimsuit, one-piece swimsuit, zipper swimsuit" },
-        { key: "monokini", name: "モノキニ（黒）", cat: "swim", jp: "黒のモノキニ。カットアウトが映えるホルター型ワンピース水着", tags: "monokini, black monokini, cutout swimsuit, halter swimsuit, one-piece swimsuit" },
-        { key: "whitemonokini", name: "白モノキニ", cat: "swim", jp: "白いモノキニ。リング金具とカットアウトのワンピース水着", tags: "white monokini, cutout swimsuit, ring detail swimsuit, one-piece swimsuit" },
+        { key: "microbikini", name: "マイクロビキニ", cat: "swim", jp: "マイクロビキニ。チェーンがアクセントの最小面積ビキニ", tags: "micro bikini, tiny bikini, string bikini, chain bikini, chain" },
+        { key: "whitebikini", name: "フリル白ビキニ", cat: "swim", jp: "フリルビキニ。リボン付きの甘めホルタービキニ", tags: "frill bikini, ribbon bikini, halter bikini" },
+        { key: "sukumizu", name: "スク水", cat: "swim", jp: "スクール水着。ジップ付きワンピースタイプ", tags: "school swimsuit, sukumizu, one-piece swimsuit, zipper swimsuit" },
+        { key: "monokini", name: "モノキニ（黒）", cat: "swim", jp: "モノキニ。カットアウトが映えるホルター型ワンピース水着", tags: "monokini, cutout swimsuit, halter swimsuit, one-piece swimsuit" },
+        { key: "whitemonokini", name: "白モノキニ", cat: "swim", jp: "モノキニ。リング金具とカットアウトのワンピース水着", tags: "monokini, cutout swimsuit, ring detail swimsuit, one-piece swimsuit" },
         /* 下着・ランジェリー系 */
-        { key: "pinkslip", name: "サテンスリップ（ピンク）", cat: "lingerie", jp: "ピンクのサテンスリップ。レース縁取りのキャミドレス型ランジェリー", tags: "satin slip, pink lingerie, lace trim slip, camisole dress, satin lingerie" },
-        { key: "wineslip", name: "サテンスリップ（ワイン）", cat: "lingerie", jp: "ワインレッドのサテンスリップ。黒レースの縁取りで大人っぽく", tags: "satin slip, wine red lingerie, black lace trim, camisole dress, satin lingerie" },
-        { key: "camisoleset", name: "キャミソールセット（水色）", cat: "lingerie", jp: "水色のキャミソールセット。レースキャミとリボン、ショーツのセットアップ", tags: "camisole set, light blue lingerie, lace camisole, ribbon, shorts set" },
-        { key: "robeset", name: "ローブ付きサテンセット", cat: "lingerie", jp: "シャンパン色のサテンセット。キャミ＋ショーツに透け感ローブを羽織って", tags: "satin camisole set, sheer robe, satin shorts, champagne lingerie, lace trim robe" },
-        { key: "blacksatinset", name: "黒サテン＆ローブセット", cat: "lingerie", jp: "黒サテンのキャミセット。ローブとショーツの3点セット", tags: "black satin camisole set, satin robe, satin shorts, black lingerie, lace trim" },
-        { key: "harness", name: "ハーネス", cat: "fantasy", who: "詩織", jp: "白いハイレグボディスーツに黒いレザーハーネスを重ねた近未来風コスチューム。ハイネックで前面はファスナー開き、胸元に縦長のキーホールカットアウト。袖は大きく広がる白いベルスリーブで、袖口と上腕に黒いベルト。腰から両脇に黒いチェーンが垂れ、腿にはベルト付きの白いレッグカバーが付属する", tags: "white bodysuit, highleg leotard, black harness, chest harness, high collar, front zipper, keyhole cutout, bell sleeves, wide sleeves, belt, chain, thigh belt, white legwear, futuristic, cyber" },
+        { key: "pinkslip", name: "サテンスリップ（ピンク）", cat: "lingerie", jp: "サテンスリップ。レース縁取りのキャミドレス型ランジェリー", tags: "satin slip, lace trim slip, camisole dress, satin lingerie" },
+        { key: "wineslip", name: "サテンスリップ（ワイン）", cat: "lingerie", jp: "サテンスリップ。レースの縁取りで大人っぽく", tags: "satin slip, lace trim, camisole dress, satin lingerie" },
+        { key: "camisoleset", name: "キャミソールセット（水色）", cat: "lingerie", jp: "キャミソールセット。レースキャミとリボン、ショーツのセットアップ", tags: "camisole set, lace camisole, ribbon, shorts set" },
+        { key: "robeset", name: "ローブ付きサテンセット", cat: "lingerie", jp: "サテンセット。キャミ＋ショーツに透け感ローブを羽織って", tags: "satin camisole set, sheer robe, satin shorts, lace trim robe" },
+        { key: "blacksatinset", name: "黒サテン＆ローブセット", cat: "lingerie", jp: "サテンのキャミセット。ローブとショーツの3点セット", tags: "satin camisole set, satin robe, satin shorts, lingerie, lace trim" },
+        { key: "harness", name: "ハーネス", cat: "fantasy", who: "詩織", jp: "ハイレグボディスーツにレザーハーネスを重ねた近未来風コスチューム。ハイネックで前面はファスナー開き、胸元に縦長のキーホールカットアウト。袖は大きく広がるベルスリーブで、袖口と上腕にベルト。腰から両脇にチェーンが垂れ、腿にはベルト付きのレッグカバーが付属する", tags: "bodysuit, highleg leotard, harness, chest harness, high collar, front zipper, keyhole cutout, bell sleeves, wide sleeves, belt, chain, thigh belt, legwear, futuristic, cyber" },
         /* 和・中華系（追加 No.51-66） */
         { key: "new-furisode", name: "振袖", cat: "wa", noImg: true, jp: "furisode, long-sleeved kimono, floral pattern kimono, ornate obi, kanzashi hair ornament, zori sandals, kinchaku bag", tags: "furisode, kimono, japanese clothes, obi, kanzashi" },
         { key: "new-hakama", name: "袴", cat: "wa", noImg: true, jp: "hakama, kimono top, hakama skirt, large ribbon hair ornament, hakama boots", tags: "hakama, kimono, japanese clothes" },
-        { key: "kitsune-miko", name: "狐巫女", cat: "wa", noImg: true, jp: "miko outfit, white kimono top, gold trim, detached sleeves, red hakama, fox ears, fox tail, ribbon", tags: "miko, fox ears, animal ears, fox tail, hakama" },
+        { key: "kitsune-miko", name: "狐巫女", cat: "wa", noImg: true, jp: "miko outfit, kimono top, trim, detached sleeves, hakama, fox ears, fox tail, ribbon", tags: "miko, fox ears, animal ears, fox tail, hakama" },
         { key: "taisho-kimono", name: "大正ロマン着物", cat: "wa", noImg: true, jp: "taisho roman style kimono, yagasuri pattern, hakama, lace gloves, leather boots, ribbon hair ornament", tags: "kimono, hakama, japanese clothes, gloves" },
-        { key: "china-red", name: "チャイナドレス・赤", cat: "wa", noImg: true, jp: "red china dress, cheongsam, mandarin collar, floral embroidery, side slit, long dress, high heels, bun hair ornament", tags: "china dress, cheongsam, chinese clothes, mandarin collar" },
-        { key: "china-blueporcelain", name: "チャイナドレス・青花瓷", cat: "wa", noImg: true, jp: "white china dress, blue floral porcelain pattern, cheongsam, mandarin collar, side slit, high heels", tags: "china dress, chinese clothes, floral pattern" },
+        { key: "china-red", name: "チャイナドレス・赤", cat: "wa", noImg: true, jp: "china dress, cheongsam, mandarin collar, floral embroidery, side slit, long dress, high heels, bun hair ornament", tags: "china dress, cheongsam, chinese clothes, mandarin collar" },
+        { key: "china-blueporcelain", name: "チャイナドレス・青花瓷", cat: "wa", noImg: true, jp: "china dress, blue floral porcelain pattern, cheongsam, mandarin collar, side slit, high heels", tags: "china dress, chinese clothes, floral pattern" },
         { key: "chinese-maid", name: "中華メイド", cat: "wa", noImg: true, jp: "chinese maid outfit, cheongsam-style dress, apron, maid headdress, double bun covers, puff sleeves", tags: "maid, apron, maid headdress, china dress" },
         { key: "hanfu", name: "漢服", cat: "wa", noImg: true, jp: "hanfu, flowing layered robe, wide sleeves, embroidered waist sash, sheer outer robe, hairpin ornament", tags: "hanfu, chinese clothes, hairpin" },
         { key: "hanfu-dress", name: "改良漢服ドレス", cat: "wa", noImg: true, jp: "modern hanfu dress, short hanfu dress, wide sleeves, embroidered collar, ribbon sash, mary janes", tags: "hanfu, dress, chinese clothes" },
-        { key: "yukata-asagao", name: "浴衣・朝顔柄", cat: "wa", noImg: true, jp: "blue yukata, morning glory pattern, obi sash, geta sandals, hair ornament, paper fan", tags: "yukata, japanese clothes, geta, obi" },
-        { key: "yukata-kingyo", name: "浴衣・金魚柄", cat: "wa", noImg: true, jp: "black yukata, goldfish pattern, red obi sash, geta sandals, hairpin ornament", tags: "yukata, japanese clothes, geta" },
+        { key: "yukata-asagao", name: "浴衣・朝顔柄", cat: "wa", noImg: true, jp: "yukata, morning glory pattern, obi sash, geta sandals, hair ornament, paper fan", tags: "yukata, japanese clothes, geta, obi" },
+        { key: "yukata-kingyo", name: "浴衣・金魚柄", cat: "wa", noImg: true, jp: "yukata, goldfish pattern, obi sash, geta sandals, hairpin ornament", tags: "yukata, japanese clothes, geta" },
         { key: "geisha-dress", name: "芸者風ドレス", cat: "wa", noImg: true, jp: "geisha-inspired kimono dress, wide obi belt, floral pattern, long sleeves, kanzashi, platform sandals", tags: "kimono, obi, kanzashi, japanese clothes" },
         { key: "kunoichi", name: "くノ一", cat: "wa", noImg: true, jp: "kunoichi ninja outfit, short kimono top, scarf, arm guards, leg wraps, shorts, kunai", tags: "ninja, kunoichi, kunai, scarf" },
         { key: "onna-kenshi", name: "女剣士", cat: "wa", noImg: true, jp: "female swordsman outfit, kimono top, hakama, katana, sash belt, fingerless gloves, boots", tags: "hakama, katana, japanese clothes, gloves" },
-        { key: "oiran-dress", name: "花魁風ドレス", cat: "wa", noImg: true, jp: "oiran-inspired kimono dress, luxurious floral kimono, wide ornate obi, gold kanzashi, long hair ornaments, platform sandals", tags: "oiran style, kimono, kanzashi, obi" },
-        { key: "tennyo-dress", name: "天女の羽衣ドレス", cat: "wa", noImg: true, jp: "celestial maiden outfit, hagoromo shawl, flowing sheer scarf, white and pastel dress, gold ornaments, long sleeves", tags: "hagoromo, dress, shawl, japanese clothes" },
+        { key: "oiran-dress", name: "花魁風ドレス", cat: "wa", noImg: true, jp: "oiran-inspired kimono dress, luxurious floral kimono, wide ornate obi, kanzashi, long hair ornaments, platform sandals", tags: "oiran style, kimono, kanzashi, obi" },
+        { key: "tennyo-dress", name: "天女の羽衣ドレス", cat: "wa", noImg: true, jp: "celestial maiden outfit, hagoromo shawl, flowing sheer scarf, dress, ornaments, long sleeves", tags: "hagoromo, dress, shawl, japanese clothes" },
         /* アニメ・ゲーム（追加 No.67-76） */
-        { key: "magical-pink", name: "魔法少女（ピンク）", cat: "animegame", noImg: true, jp: "magical girl outfit, pink frilled dress, large ribbon bow, puff sleeves, heart brooch, magic wand, white gloves, ribbon boots", tags: "magical girl, wand, ribbon, frills" },
-        { key: "magical-dark", name: "魔法少女・ダーク", cat: "animegame", noImg: true, jp: "dark magical girl outfit, black and purple frilled dress, bat wing ribbon, magic staff, lace gloves, choker", tags: "magical girl, staff, black dress, choker" },
+        { key: "magical-pink", name: "魔法少女（ピンク）", cat: "animegame", noImg: true, jp: "magical girl outfit, frilled dress, large ribbon bow, puff sleeves, heart brooch, magic wand, gloves, ribbon boots", tags: "magical girl, wand, ribbon, frills" },
+        { key: "magical-dark", name: "魔法少女・ダーク", cat: "animegame", noImg: true, jp: "magical girl outfit, frilled dress, bat wing ribbon, magic staff, lace gloves, choker", tags: "magical girl, staff, dress, choker" },
         { key: "sailor-warrior", name: "セーラー戦士風", cat: "animegame", noImg: true, jp: "sailor warrior outfit, sailor collar uniform, pleated mini skirt, large chest bow, tiara, long gloves, knee boots", tags: "sailor collar, pleated skirt, tiara, gloves" },
-        { key: "mecha-pilot", name: "メカパイロットスーツ", cat: "animegame", noImg: true, jp: "futuristic pilot suit, white and blue techwear, fitted jacket, headset, gloves, belt, boots", tags: "pilot suit, headset, techwear, gloves" },
+        { key: "mecha-pilot", name: "メカパイロットスーツ", cat: "animegame", noImg: true, jp: "futuristic pilot suit, techwear, fitted jacket, headset, gloves, belt, boots", tags: "pilot suit, headset, techwear, gloves" },
         { key: "rpg-hero", name: "RPG勇者", cat: "animegame", noImg: true, jp: "hero outfit, cape, light armor breastplate, tunic, sword and shield, belt pouch, fingerless gloves, boots", tags: "cape, armor, sword, shield" },
         { key: "rpg-wizard", name: "RPG魔法使い", cat: "animegame", noImg: true, jp: "wizard robe, long robe, wide-brim pointed hat, crystal magic staff, spell book, capelet, boots", tags: "wizard, robe, staff, hat" },
-        { key: "idol-stage", name: "アイドルステージ衣装", cat: "animegame", noImg: true, jp: "idol stage outfit, sparkling frilled dress, plaid ribbon accents, headset microphone, wrist ribbons, white boots", tags: "idol, microphone, frills, ribbon" },
-        { key: "cyber-streamer", name: "サイバーストリーマー", cat: "animegame", noImg: true, jp: "cyber streamer outfit, neon trim techwear jacket, gaming headset, fingerless gloves, belt straps, platform sneakers", tags: "headset, techwear, neon, gloves" },
+        { key: "idol-stage", name: "アイドルステージ衣装", cat: "animegame", noImg: true, jp: "idol stage outfit, sparkling frilled dress, plaid ribbon accents, headset microphone, wrist ribbons, boots", tags: "idol, microphone, frills, ribbon" },
+        { key: "cyber-streamer", name: "サイバーストリーマー", cat: "animegame", noImg: true, jp: "cyber streamer outfit, trim techwear jacket, gaming headset, fingerless gloves, belt straps, platform sneakers", tags: "headset, techwear, gloves" },
         { key: "neko-gamer", name: "猫耳ゲーマー", cat: "animegame", noImg: true, jp: "gamer outfit, oversized hoodie, cat ear headphones, shorts, striped thigh-high socks, game controller", tags: "cat ear headphones, hoodie, game controller" },
-        { key: "vampire-lady", name: "ヴァンパイア令嬢", cat: "animegame", noImg: true, jp: "vampire lady outfit, gothic black and red dress, lace choker with gemstone, bat hair ornament, long gloves, heeled boots", tags: "vampire, gothic dress, choker, gloves" },
+        { key: "vampire-lady", name: "ヴァンパイア令嬢", cat: "animegame", noImg: true, jp: "vampire lady outfit, gothic dress, lace choker with gemstone, bat hair ornament, long gloves, heeled boots", tags: "vampire, gothic dress, choker, gloves" },
         /* 制服系（追加 No.77-78） */
-        { key: "blazer-winter", name: "ブレザー制服・冬服", cat: "uniform", noImg: true, jp: "school uniform, navy blazer, white shirt, red ribbon tie, plaid skirt, loafers, school bag", tags: "school uniform, blazer, plaid skirt, neck ribbon" },
-        { key: "sailor-summer", name: "セーラー服・夏服", cat: "uniform", noImg: true, jp: "sailor school uniform, white blouse, blue sailor collar, red neckerchief, pleated skirt, loafers", tags: "serafuku, sailor collar, neckerchief, pleated skirt" },
+        { key: "blazer-winter", name: "ブレザー制服・冬服", cat: "uniform", noImg: true, jp: "school uniform, blazer, shirt, ribbon tie, plaid skirt, loafers, school bag", tags: "school uniform, blazer, plaid skirt, neck ribbon" },
+        { key: "sailor-summer", name: "セーラー服・夏服", cat: "uniform", noImg: true, jp: "sailor school uniform, blouse, sailor collar, neckerchief, pleated skirt, loafers", tags: "serafuku, sailor collar, neckerchief, pleated skirt" },
         /* ファンタジー・イベント（追加 No.79-82） */
-        { key: "elf-forest", name: "エルフの森ドレス", cat: "fantasy", noImg: true, jp: "elf outfit, green forest dress, leaf ornaments, circlet, long gloves, cape, lace-up boots, bow", tags: "elf, dress, circlet, cape" },
-        { key: "witch-apprentice", name: "魔女見習い", cat: "fantasy", noImg: true, jp: "witch apprentice outfit, purple dress, star-pattern cape, witch hat, broom, ribbon boots, magic pouch", tags: "witch, witch hat, broom, cape" },
-        { key: "angel-dress", name: "天使ドレス", cat: "fantasy", noImg: true, jp: "angel outfit, white dress, feather wings, halo, gold trim, white gloves, sandals", tags: "angel, wings, halo, white dress" },
+        { key: "elf-forest", name: "エルフの森ドレス", cat: "fantasy", noImg: true, jp: "elf outfit, forest dress, leaf ornaments, circlet, long gloves, cape, lace-up boots, bow", tags: "elf, dress, circlet, cape" },
+        { key: "witch-apprentice", name: "魔女見習い", cat: "fantasy", noImg: true, jp: "witch apprentice outfit, dress, star-pattern cape, witch hat, broom, ribbon boots, magic pouch", tags: "witch, witch hat, broom, cape" },
+        { key: "angel-dress", name: "天使ドレス", cat: "fantasy", noImg: true, jp: "angel outfit, dress, feather wings, halo, trim, gloves, sandals", tags: "angel, wings, halo, dress" },
         { key: "pirate-captain", name: "海賊船長", cat: "fantasy", noImg: true, jp: "pirate captain outfit, long coat, tricorn hat, blouse, corset belt, boots, cutlass", tags: "pirate, hat, coat, sword" },
         /* オーナー提供・画像付き（追加 No.83-95） */
-        { key: "cos-teacher", name: "教師", cat: "uniform", who: "詩織", jp: "teacher outfit, brown skirt suit, tailored jacket, white blouse, pencil skirt, black pantyhose, high heels, glasses, book in hand", tags: "teacher, suit, glasses, pantyhose, skirt suit" },
-        { key: "cos-racequeen", name: "レースクイーン", cat: "fantasy", jp: "race queen outfit, high-leg racing leotard costume, black white and orange, cropped racing jacket, checker pattern choker, wrist cuffs, white high heels", tags: "race queen, leotard, racing jacket, choker" },
-        { key: "cos-cheer", name: "チアリーダー", cat: "classic", who: "詩織", jp: "cheerleader outfit, burgundy and white, sleeveless crop top, pleated mini skirt, pom-poms, crew socks, white sneakers", tags: "cheerleader, pom pom, pleated skirt" },
-        { key: "cos-doctor", name: "女医", cat: "uniform", jp: "doctor outfit, white lab coat, dark gray scrubs, stethoscope, id badge, clipboard, sneakers", tags: "doctor, lab coat, stethoscope, scrubs" },
-        { key: "cos-secretary", name: "秘書", cat: "uniform", who: "詩織", jp: "secretary outfit, beige skirt suit, burgundy turtleneck sweater, pencil skirt, pantyhose, short boots, glasses, clipboard", tags: "secretary, suit, glasses, office lady, pantyhose" },
-        { key: "cos-succubus", name: "サキュバス", cat: "spicy", jp: "succubus costume, black heart-cutout leotard, bat wings, horns, heart-tipped tail, bow tie, white cuffs, garter fishnet stockings, high heels", tags: "succubus, bat wings, horns, tail, fishnet stockings" },
-        { key: "cos-bikini-red", name: "ストリングビキニ（赤）", cat: "spicy", who: "詩織", jp: "red string bikini, triangle bikini top, side-tie bikini bottom, small necklace", tags: "bikini, swimsuit, red bikini, side-tie" },
-        { key: "cos-bikini-frill", name: "フリルビキニ", cat: "spicy", jp: "white and pink frilled bikini, ribbon bows, side-tie bikini bottom, wedge sandals", tags: "bikini, frills, ribbon, pink bikini" },
-        { key: "cos-bikini-leopard", name: "ヒョウ柄ビキニ", cat: "spicy", who: "詩織", jp: "leopard print bikini, triangle bikini top, side-tie bikini bottom, gold high-heel sandals", tags: "bikini, leopard print, animal print" },
-        { key: "cos-cafe", name: "カフェ店員", cat: "uniform", jp: "cafe staff uniform, white shirt, brown vest, bow tie, waist apron, mini skirt, pumps, serving tray with coffee", tags: "cafe uniform, apron, bow tie, waitress" },
+        { key: "cos-teacher", name: "教師", cat: "uniform", who: "詩織", jp: "teacher outfit, skirt suit, tailored jacket, blouse, pencil skirt, pantyhose, high heels, glasses, book in hand", tags: "teacher, suit, glasses, pantyhose, skirt suit" },
+        { key: "cos-racequeen", name: "レースクイーン", cat: "fantasy", jp: "race queen outfit, high-leg racing leotard costume, cropped racing jacket, checker pattern choker, wrist cuffs, high heels", tags: "race queen, leotard, racing jacket, choker" },
+        { key: "cos-cheer", name: "チアリーダー", cat: "classic", who: "詩織", jp: "cheerleader outfit, sleeveless crop top, pleated mini skirt, pom-poms, crew socks, sneakers", tags: "cheerleader, pom pom, pleated skirt" },
+        { key: "cos-doctor", name: "女医", cat: "uniform", jp: "doctor outfit, lab coat, scrubs, stethoscope, id badge, clipboard, sneakers", tags: "doctor, lab coat, stethoscope, scrubs" },
+        { key: "cos-secretary", name: "秘書", cat: "uniform", who: "詩織", jp: "secretary outfit, skirt suit, turtleneck sweater, pencil skirt, pantyhose, short boots, glasses, clipboard", tags: "secretary, suit, glasses, office lady, pantyhose" },
+        { key: "cos-succubus", name: "サキュバス", cat: "spicy", jp: "succubus costume, heart-cutout leotard, bat wings, horns, heart-tipped tail, bow tie, cuffs, garter fishnet stockings, high heels", tags: "succubus, bat wings, horns, tail, fishnet stockings" },
+        { key: "cos-bikini-red", name: "ストリングビキニ（赤）", cat: "spicy", who: "詩織", jp: "string bikini, triangle bikini top, side-tie bikini bottom, small necklace", tags: "bikini, swimsuit, side-tie" },
+        { key: "cos-bikini-frill", name: "フリルビキニ", cat: "spicy", jp: "frilled bikini, ribbon bows, side-tie bikini bottom, wedge sandals", tags: "bikini, frills, ribbon" },
+        { key: "cos-bikini-leopard", name: "ヒョウ柄ビキニ", cat: "spicy", who: "詩織", jp: "leopard print bikini, triangle bikini top, side-tie bikini bottom, high-heel sandals", tags: "bikini, leopard print, animal print" },
+        { key: "cos-cafe", name: "カフェ店員", cat: "uniform", jp: "cafe staff uniform, shirt, vest, bow tie, waist apron, mini skirt, pumps, serving tray with coffee", tags: "cafe uniform, apron, bow tie, waitress" },
         { key: "cos-bikini-floral", name: "パレオ付き花柄ビキニ", cat: "spicy", jp: "floral hibiscus print bikini, matching sheer pareo wrap skirt, wedge sandals, anklet", tags: "bikini, floral pattern, pareo, hibiscus" },
-        { key: "cos-camisole-set", name: "キャミソールセット", cat: "spicy", who: "詩織", jp: "champagne beige satin camisole nightdress, lace trim, ribbon bow, necklace", tags: "camisole, satin, lace trim, nightwear" },
-        { key: "cos-corset", name: "コルセットランジェリー", cat: "spicy", jp: "brown lace corset dress, lace-up corset, frilled mini skirt, garter straps, lace-top fishnet stockings, lace choker, high-heel sandals", tags: "corset, lace, garter, fishnet stockings, choker" },
+        { key: "cos-camisole-set", name: "キャミソールセット", cat: "spicy", who: "詩織", jp: "satin camisole nightdress, lace trim, ribbon bow, necklace", tags: "camisole, satin, lace trim, nightwear" },
+        { key: "cos-corset", name: "コルセットランジェリー", cat: "spicy", jp: "lace corset dress, lace-up corset, frilled mini skirt, garter straps, lace-top fishnet stockings, lace choker, high-heel sandals", tags: "corset, lace, garter, fishnet stockings, choker" },
         /* 制服系（追加 No.96） */
-        { key: "blazer-summer", name: "ブレザー制服・夏服", cat: "uniform", noImg: true, jp: "summer school uniform, short-sleeved white shirt, navy vest, red ribbon tie, plaid skirt, loafers, school bag", tags: "school uniform, vest, plaid skirt, neck ribbon, short sleeves" }
+        { key: "blazer-summer", name: "ブレザー制服・夏服", cat: "uniform", noImg: true, jp: "summer school uniform, short-sleeved shirt, vest, ribbon tie, plaid skirt, loafers, school bag", tags: "school uniform, vest, plaid skirt, neck ribbon, short sleeves" }
       ];
       ITEMS.forEach(function (it, i) { it.no = i + 1; });
       var BY_KEY = {};
       ITEMS.forEach(function (it) { BY_KEY[it.key] = it; });
 
       var PER_PAGE = 12;
-      var state = { cat: "all", query: "", page: 1, detailKey: null, returnPage: 1 };
+      var state = { cat: "all", query: "", page: 1, detailKey: null, returnPage: 1, color: "" };
 
       var el = function (id) { return document.getElementById(id); };
       var viewList = el("view-list"), viewDetail = el("view-detail");
@@ -710,6 +825,38 @@
         clearTimeout(toastTimer);
         toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 1800);
       }
+
+      /* ---------- 画像拡大オーバーレイ（一覧・詳細の状態はそのまま保つ） ---------- */
+      var lightbox = el("lightbox"), lightboxImg = el("lightbox-img"),
+          lightboxCaption = el("lightbox-caption"), lightboxLastFocus = null;
+
+      function openLightbox(it) {
+        if (!it || it.noImg) return;
+        lightboxLastFocus = document.activeElement;
+        lightboxImg.src = "assets/" + it.key + ".jpg";
+        lightboxImg.alt = (it.who || "ミュウ") + "のコスプレ：" + it.name + "（拡大表示）";
+        lightboxCaption.textContent = "No." + String(it.no).padStart(2, "0") + "　" + it.name;
+        lightbox.hidden = false;
+        document.body.style.overflow = "hidden";
+        el("lightbox-close").focus();
+      }
+
+      function closeLightbox() {
+        if (lightbox.hidden) return;
+        lightbox.hidden = true;
+        lightboxImg.removeAttribute("src");
+        document.body.style.overflow = "";
+        if (lightboxLastFocus && lightboxLastFocus.focus) lightboxLastFocus.focus();
+        lightboxLastFocus = null;
+      }
+
+      el("lightbox-close").addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", function (e) {
+        if (e.target !== lightboxImg) closeLightbox();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeLightbox();
+      });
 
       function copyText(text, label) {
         function done() { showToast(label + "をコピーしたよ"); }
@@ -728,8 +875,57 @@
         }
       }
 
+      /* ---------- カラーテーマの適用（頭に色を足すだけ・元の文は消さない） ---------- */
+      function currentColor() {
+        return (state.color && colorById[state.color]) ? colorById[state.color] : null;
+      }
+      function coloredJp(it) {
+        var c = currentColor();
+        if (!c) return it.jp;
+        /* 日本語プロンプトには日本語の色を、英語だけのプロンプトには英語の色を頭に足す */
+        if (/[^\x00-\x7F]/.test(it.jp)) return c.jp + it.jp;
+        return c.en + " " + it.jp;
+      }
+      function coloredTags(it) {
+        var c = currentColor();
+        if (!c) return it.tags;
+        /* タグ文字列の頭に色を足すだけ（先頭タグが色付きになる） */
+        if (it.tags.indexOf(c.en + " ") === 0) return it.tags;
+        return c.en + " " + it.tags;
+      }
+      function renderColorChips() {
+        var box = el("color-chips");
+        box.innerHTML = "";
+        function addChip(id, label, sw) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "cchip" + (id === "" ? " none-c" : "");
+          b.setAttribute("aria-pressed", (state.color || "") === id ? "true" : "false");
+          if (sw) {
+            var s = document.createElement("span");
+            s.className = "sw"; s.style.background = sw;
+            b.appendChild(s);
+          }
+          b.appendChild(document.createTextNode(label));
+          b.addEventListener("click", function () {
+            state.color = id;
+            renderColorChips();
+            var it = BY_KEY[state.detailKey];
+            if (it) {
+              renderOverall(it);
+              el("d-tags").textContent = coloredTags(it);
+            }
+          });
+          box.appendChild(b);
+        }
+        addChip("", "指定なし", null);
+        COLORS.forEach(function (c) { addChip(c.id, c.label, c.sw); });
+        var c = currentColor();
+        el("d-color-now").textContent = c ? c.label : "指定なし";
+      }
+
       function overallText(it) {
-        return "【衣装】\n" + it.jp + "\n\n【備考】\n・衣装の小物と靴は見本イラストとタグの内容を一致させる";
+        return "【衣装】\n" + coloredJp(it) + "\n\n【備考】\n・衣装の小物と靴は見本イラストとタグの内容を一致させる";
       }
 
       function renderOverall(it) {
@@ -745,7 +941,7 @@
           s.appendChild(t); s.appendChild(b);
           box.appendChild(s);
         }
-        sec("衣装", it.jp);
+        sec("衣装", coloredJp(it));
         var s3 = document.createElement("div");
         s3.className = "sec";
         var t3 = document.createElement("div");
@@ -887,15 +1083,19 @@
         if (it.noImg) {
           el("d-img").hidden = true;
           el("d-img").removeAttribute("src");
+          el("d-zoom-badge").hidden = true;
           el("d-noimg").hidden = false;
           el("d-noimg-name").textContent = it.name;
         } else {
           el("d-noimg").hidden = true;
           el("d-img").hidden = false;
+          el("d-zoom-badge").hidden = false;
           el("d-img").src = "assets/" + it.key + ".jpg";
           el("d-img").alt = (it.who || "ミュウ") + "のコスプレ：" + it.name + "（全身）";
+          el("d-img").title = "タップで拡大表示";
           el("d-img").onerror = function () {
             el("d-img").hidden = true;
+            el("d-zoom-badge").hidden = true;
             el("d-noimg").hidden = false;
             el("d-noimg-name").textContent = it.name;
           };
@@ -903,8 +1103,9 @@
         el("d-no").textContent = "No." + String(it.no).padStart(2, "0") + " / 全" + ITEMS.length + "着";
         el("d-name").textContent = it.name;
         el("d-cat").textContent = "カテゴリ：" + CAT_NAME[it.cat] + (it.who ? " ／ 見本モデル：" + it.who : "");
+        renderColorChips();
         renderOverall(it);
-        el("d-tags").textContent = it.tags;
+        el("d-tags").textContent = coloredTags(it);
         el("d-negative").textContent = NEG;
 
         var idx = ITEMS.indexOf(it);
@@ -934,6 +1135,10 @@
         if (location.hash) history.pushState(null, "", location.pathname + location.search);
       }
 
+      el("d-img").addEventListener("click", function () {
+        var it = BY_KEY[state.detailKey];
+        if (it && !it.noImg && !el("d-img").hidden) openLightbox(it);
+      });
       el("back-btn").addEventListener("click", closeDetail);
       el("to-list-btn").addEventListener("click", closeDetail);
       el("random-btn").addEventListener("click", function () {
@@ -947,7 +1152,7 @@
           if (!it) return;
           var kind = btn.getAttribute("data-copy");
           if (kind === "jp") copyText(overallText(it), "全体プロンプト");
-          else if (kind === "tags") copyText(it.tags, "衣装タグ");
+          else if (kind === "tags") copyText(coloredTags(it), "衣装タグ");
           else copyText(NEG, "ネガティブ");
         });
       });
@@ -959,6 +1164,7 @@
       });
 
       window.addEventListener("popstate", function () {
+        closeLightbox();
         var m = location.hash.match(/^#\/(.+)$/);
         if (m && BY_KEY[m[1]]) {
           if (state.detailKey !== m[1]) openDetail(m[1]);
