@@ -181,12 +181,11 @@ border-radius: 999px; padding: 2px 9px;
 .branch-card .b-desc { font-size: 12.5px; color: var(--ink-soft); margin: 3px 0 0; line-height: 1.6;}
 .layout {
 display: grid;
-grid-template-columns: minmax(0, 1fr) 400px;
+grid-template-columns: minmax(0, 1fr);
 gap: 20px;
 align-items: start;
 margin-top: 18px;
 }
-.layout.home-mode { grid-template-columns: minmax(0, 1fr);}
 .controls { display: grid; gap: 16px; min-width: 0;}
 .card {
 background: var(--card);
@@ -296,24 +295,31 @@ border-color: var(--accent);
 }
 .name-input { margin-top: 0; margin-bottom: 12px; font-weight: 700;}
 textarea.note-input { margin-top: 0; min-height: 76px; resize: vertical;}
-.output { position: sticky; top: 16px;}
-.out-card {
-background: var(--card);
-border: 1.5px solid var(--accent);
-border-radius: 16px;
+/* 全体プロンプトパネル：コスプレカタログ詳細と共通 */
+.overall-panel {
+border: 1.5px solid var(--accent); border-radius: 16px;
+padding: 16px; margin-bottom: 18px; background: var(--card);
+}
+.overall-panel .op-head {
+display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+margin-bottom: 10px;
+}
+.overall-panel .op-head h3 {
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+font-size: 17px; margin: 0;
+}
+.overall-panel .op-count { font-size: 12px; font-weight: 700; color: var(--ink-soft); white-space: nowrap;}
+.big-copy-btn {
+display: flex; align-items: center; justify-content: center; gap: 8px;
+width: 100%; margin-top: 12px;
+background: var(--accent); color: var(--accent-ink);
+border: 0; border-radius: 999px; padding: 13px 16px;
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 15px;
 box-shadow: var(--shadow);
-padding: 16px;
+cursor: pointer;
 }
-.out-head {
-display: flex;
-align-items: baseline;
-gap: 8px;
-font-size: 17px;
-font-weight: 800;
-font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
-margin: 0 0 10px;
-}
-.out-head .count { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--ink-soft); white-space: nowrap;}
+.big-copy-btn:hover { background: var(--accent-strong);}
+.big-copy-btn svg { width: 16px; height: 16px; flex: none;}
 .prompt-box {
 background: var(--bg-soft);
 border: 1px solid var(--line);
@@ -323,8 +329,6 @@ font-size: 13.5px;
 line-height: 1.85;
 white-space: pre-wrap;
 word-break: break-word;
-max-height: 46vh;
-overflow-y: auto;
 }
 .prompt-box .sec { color: var(--accent-strong); font-weight: 800;}
 @media (prefers-color-scheme: dark) { .prompt-box .sec { color: var(--accent);}}
@@ -338,10 +342,9 @@ font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 font-size: 12.5px;
 line-height: 1.65;
 word-break: break-word;
-max-height: 22vh;
+max-height: 168px;
 overflow-y: auto;
 }
-.btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;}
 .btn {
 appearance: none;
 border: 1.5px solid var(--line);
@@ -358,32 +361,31 @@ background: var(--card);
 color: var(--ink);
 }
 .btn svg { width: 16px; height: 16px; flex: none;}
-.btn-primary {
-background: var(--accent); color: var(--accent-ink);
-border-color: var(--accent);
-font-family: "M PLUS Rounded 1c", sans-serif;
-font-size: 15px;
-padding: 13px 16px;
-justify-content: center;
-box-shadow: var(--shadow);
-}
-.btn-row .btn-primary { flex: 1 1 100%;}
-.btn-primary:hover { background: var(--accent-strong);}
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent-strong);}
 @media (prefers-color-scheme: dark) { .btn-ghost:hover { color: var(--accent);}}
-.out-sub { margin: 18px 0 8px; font-size: 16px;}
-.hub-go {
-display: flex; align-items: center; justify-content: center; gap: 7px;
-margin-top: 14px;
-background: var(--card); color: var(--accent-strong);
-border: 1.5px solid var(--line);
-font-size: 12.5px; font-weight: 700; text-decoration: none;
-border-radius: 999px; padding: 6px 13px;
-text-align: center;
+/* タグ形式まわり：コスプレカタログ詳細と共通 */
+.tag-format-title {
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+font-size: 16px; margin: 0 0 8px;
 }
-.hub-go:hover { border-color: var(--accent);}
-@media (prefers-color-scheme: dark) { .hub-go { color: var(--accent);}}
-.hub-go svg { width: 16px; height: 16px; flex: none;}
+.tag-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;}
+.pill-btn {
+display: inline-flex; align-items: center; gap: 7px;
+border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+border-radius: 999px; padding: 9px 18px; font-weight: 800; font-size: 13.5px;
+cursor: pointer; font: inherit;
+}
+.pill-btn svg { width: 15px; height: 15px; flex: none;}
+.pill-btn:hover { border-color: var(--accent); color: var(--accent-strong);}
+@media (prefers-color-scheme: dark) { .pill-btn:hover { color: var(--accent);}}
+.detail-links { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px;}
+.detail-links a {
+font-size: 12.5px; font-weight: 700; color: var(--accent-strong);
+text-decoration: none; border: 1.5px solid var(--line); border-radius: 999px;
+padding: 6px 13px; background: var(--card);
+}
+.detail-links a:hover { border-color: var(--accent);}
+@media (prefers-color-scheme: dark) { .detail-links a { color: var(--accent);}}
 .hub-foot { text-align: center; margin-top: 30px;}
 .hub-foot .hub-note { margin: 10px 0 0; font-size: 12.5px; color: var(--muted);}
 .toast {
@@ -496,43 +498,69 @@ box-shadow: inset 0 0 0 1px var(--accent);
 margin-top: 40px; text-align: center; color: var(--ink-soft); font-size: 14.5px;
 }
 /* 選択中プリセットの見本プレビュー */
-.preview { margin: 0 0 14px;}
-.preview img {
-display: block;
-width: 100%;
-max-height: 430px;
-object-fit: contain;
+/* 詳細（組み立て画面）：コスプレカタログ詳細と共通レイアウト */
+.detail { margin-top: 18px;}
+.detail-top { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center;}
+.detail-top .hub-top-link {
+display: inline-flex; align-items: center; gap: 6px;
+color: var(--accent); font-weight: 900; font-size: 14.5px; text-decoration: none; padding: 6px 0;
+}
+.detail-top .hub-top-link svg { width: 16px; height: 16px; flex: none;}
+.detail-layout { display: grid; gap: 22px; margin-top: 8px;}
+@media (min-width: 760px) {
+.detail-layout { grid-template-columns: minmax(0, 430px) 1fr; align-items: start;}
+.detail-layout.no-photo { grid-template-columns: minmax(0, 1fr);}
+}
+.detail-photo {
+margin: 0;
+border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
+background: var(--bg-soft); box-shadow: var(--shadow);
+}
+.detail-photo img {
+display: block; width: 100%; aspect-ratio: 832 / 1216; object-fit: cover;
 background: var(--bg-soft);
-border: 1px solid var(--line);
-border-radius: 12px;
 }
-.preview figcaption { margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--muted);}
-.stage { margin: 0;}
-.stage img {
-display: block; width: 100%; max-height: 520px; object-fit: contain;
-background: var(--bg-soft); border: 1px solid var(--line); border-radius: 16px;
-box-shadow: var(--shadow);
+.detail-info .no { font-size: 11px; font-weight: 900; letter-spacing: 0.16em; color: var(--gold);}
+.title-input {
+display: block; width: 100%;
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+font-size: clamp(24px, 5vw, 32px); line-height: 1.3;
+margin: 2px 0 4px; padding: 0;
+border: 0; background: transparent; color: var(--ink);
 }
-.stage figcaption { margin-top: 6px; font-size: 12.5px; font-weight: 700; color: var(--muted);}
+.title-input:focus { outline: none; border-bottom: 2px solid var(--accent);}
+.title-input::placeholder { color: var(--ink-soft); opacity: 0.6;}
+.detail-info .cat-name { color: var(--ink-soft); font-size: 13px; margin-bottom: 16px;}
+.theme-block { margin: 20px 0 4px;}
+.theme-block .color-row { margin-top: 0;}
+.detail-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 26px;}
+.detail-nav button {
+flex: 1; max-width: 46%;
+border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+border-radius: 12px; padding: 12px; text-align: left; cursor: pointer; font: inherit;
+}
+.detail-nav button.next { text-align: right; margin-left: auto;}
+.detail-nav .dn-label { font-size: 11px; color: var(--ink-soft); font-weight: 700;}
+.detail-nav .dn-name {
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 15.5px;
+white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.detail-nav button:disabled { opacity: 0.35; cursor: default;}
 .card h2 .chev { margin-left: 6px; font-size: 12px; color: var(--muted); transition: transform.15s;}
 .card.open h2 .chev { transform: rotate(180deg);}
 .card .cat-body { display: none;}
 .card.open .cat-body { display: block;}
 .card h2.clickable { cursor: pointer;}
 .back-btn {
-justify-self: start;
-background: none; border: 0; color: var(--accent);
-font-weight: 900; font-size: 14.5px; padding: 6px 0;
-border-radius: 0;
+display: inline-flex; align-items: center; gap: 6px;
+background: none; border: 0; color: var(--accent); font-weight: 900;
+font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 }
-.back-btn:hover { color: var(--accent); border: 0;}
+.back-btn svg { width: 16px; height: 16px; flex: none;}
 .manual-btn { margin-top: 16px;}
 [hidden] { display: none !important;}
 @media (max-width: 1023px) {
 .layout { grid-template-columns: minmax(0, 1fr);}
-.output { position: static;}
-.prompt-box { max-height: none;}
-.tag-box { max-height: none;}
 }
 </style>
   <style data-hatch-cvm-bundle></style>
@@ -591,17 +619,10 @@ border-radius: 0;
 </a>
 </div>
 
-<div class="layout">
-<div class="controls">
-<button type="button" class="btn btn-ghost back-btn" id="backBtn" hidden>← コーデ一覧へ戻る</button>
-<figure class="stage" id="stageFig" hidden>
-<img id="stageImg" alt="" />
-<figcaption id="stageCap"></figcaption>
-</figure>
+<div class="layout" id="layoutRoot">
 <section class="preset-area" id="presetSection" aria-label="私服プリセットコーデ">
 <h2>私服プリセットコーデ</h2>
-<p class="hint">立ち絵見本カードをタップすると、コーデを構成するアイテムと色テーマが下の各カテゴリに一括でセットされます。セット後は「ロングスカート→ミニスカート」のように個別に変更できます。コーデ名は全体プロンプトの先頭に入ります。</p>
-<input class="name-input" id="coordName" type="text" placeholder="コーデ名（例：おでかけギャル）" autocomplete="off" />
+<p class="hint">立ち絵見本カードをタップすると、大きな立ち絵とプロンプトの画面に移ります。セット後は「ロングスカート→ミニスカート」のように各カテゴリで個別に変更できます。コーデ名は全体プロンプトの先頭に入ります。</p>
 <div class="preset-controls">
 <div class="search-row">
 <label class="search-box">
@@ -622,58 +643,92 @@ border-radius: 0;
 <div class="preset-grid" id="presetChips"></div>
 <p class="empty" id="presetEmpty" hidden>見つからなかった…検索ワードを変えてみて</p>
 <button type="button" class="btn btn-ghost manual-btn" id="manualBtn">プリセットなしで自分で組み立てる</button>
-<div class="color-row show">
-<div class="c-label">カラーテーマ（トップス〜ソックスの色味をまとめて変更）</div>
-<div class="cchips" id="themeChips"></div>
-</div>
-</section>
-
-<div id="catSections" style="display:grid;gap:16px;"></div>
-
-<section class="card" id="noteSection" aria-label="備考の自由記入">
-<h2><span class="dot"></span>備考（自由記入）</h2>
-<p class="hint">出力が難しい部分の補助プロンプトなど。選んだアイテムの注意書きと一緒に&#12304;備考&#12305;へ入ります。</p>
-<textarea class="note-input" id="manualNote" placeholder="例：背面もしっかり描く／指輪は左手の薬指に"></textarea>
 </section>
 </div>
 
-<aside class="output" aria-label="生成されたプロンプト">
-<div class="out-card">
-<figure class="preview" id="presetPreview" hidden>
-<img id="presetPreviewImg" alt="" />
-<figcaption id="presetPreviewCap"></figcaption>
+<div class="build-view" id="buildView" hidden>
+<div class="detail">
+<div class="detail-top">
+<button type="button" class="back-btn" id="backBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+コーデ一覧へ戻る
+</button>
+<a class="hub-top-link" href="../comfyuipuronputobiruda/">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+ハブ（プロンプトビルダー）に戻る
+</a>
+</div>
+<div class="detail-layout" id="detailLayout">
+<figure class="detail-photo" id="stageFig" hidden>
+<img id="stageImg" alt="" />
 </figure>
-<p class="out-head">全体プロンプト<span class="count" id="charCount"></span></p>
+<div class="detail-info">
+<div class="no" id="detailNo"></div>
+<input class="title-input" id="coordName" type="text" placeholder="コーデ名（例：おでかけギャル）" autocomplete="off" aria-label="コーデ名" />
+<div class="cat-name" id="detailCat"></div>
+
+<div class="overall-panel">
+<div class="op-head"><h3>全体プロンプト</h3><span class="op-count" id="charCount"></span></div>
 <div class="prompt-box" id="promptOut"></div>
-<div class="btn-row">
-<button class="btn btn-primary" id="copyPrompt" type="button">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+<button class="big-copy-btn" id="copyPrompt" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
 全体プロンプトをコピー
 </button>
 </div>
 
-<p class="out-head out-sub">Danbooruタグ形式</p>
+<h3 class="tag-format-title">Danbooruタグ形式</h3>
 <div class="tag-box" id="tagOut"></div>
-<div class="btn-row">
-<button class="btn btn-ghost" id="copyTags" type="button">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+<div class="tag-actions">
+<button class="pill-btn" id="copyTags" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
 タグをコピー
 </button>
-<button class="btn btn-ghost" id="randomBtn" type="button">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>
+<button class="pill-btn" id="randomBtn" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>
 おまかせコーデ
 </button>
-<button class="btn btn-ghost" id="resetBtn" type="button">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+<button class="pill-btn" id="resetBtn" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
 リセット
 </button>
+<button class="pill-btn" id="toListBtn" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+一覧に戻る
+</button>
 </div>
-<a class="hub-go" href="../comfyuipuronputobiruda/">
-コピーしたらハブへ：最終調整・出力する
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
-</a>
+
+<div class="theme-block">
+<div class="color-row show">
+<div class="c-label">カラーテーマ（トップス〜ソックスの色味をまとめて変更）</div>
+<div class="cchips" id="themeChips"></div>
 </div>
-</aside>
+</div>
+
+<div id="catSections" style="display:grid;gap:16px;"></div>
+
+<section class="card" id="noteSection" style="margin-top:16px;" aria-label="備考の自由記入">
+<h2><span class="dot"></span>備考（自由記入）</h2>
+<p class="hint">出力が難しい部分の補助プロンプトなど。選んだアイテムの注意書きと一緒に&#12304;備考&#12305;へ入ります。</p>
+<textarea class="note-input" id="manualNote" placeholder="例：背面もしっかり描く／指輪は左手の薬指に"></textarea>
+</section>
+
+<div class="detail-links">
+<a href="../comfyuipuronputobiruda/">コピーしたらハブで最終調整 →</a>
+<a href="../miyuu-kosupurekatarogu/">コスプレはコスプレカタログで選ぶ →</a>
+</div>
+</div>
+</div>
+<div class="detail-nav">
+<button type="button" id="prevPresetBtn">
+<div class="dn-label">← 前のコーデ</div>
+<div class="dn-name" id="prevPresetName">—</div>
+</button>
+<button type="button" id="nextPresetBtn" class="next">
+<div class="dn-label">次のコーデ →</div>
+<div class="dn-name" id="nextPresetName"></div>
+</button>
+</div>
+</div>
 </div>
 
 <div class="hub-foot">
@@ -3966,6 +4021,30 @@ ${v}`;
     };
   });
   var activePreset = null;
+  var stagePreset = null;
+  function applyPreset(p) {
+    CATS.forEach(function (c) {
+      var v = p.sel[c.id];
+      var colr = p.col && p.col[c.id] || "";
+      if (v === null || v === undefined || v === "none") state[c.id] = {
+        item: null,
+        none: true,
+        custom: "",
+        color: colr
+      };else state[c.id] = {
+        item: v,
+        none: false,
+        custom: "",
+        color: colr
+      };
+    });
+    themeState = "";
+    activePreset = p.name;
+    stagePreset = p;
+    document.getElementById("coordName").value = p.name;
+    refresh();
+    showBuild();
+  }
   var presetBtns = {};
   var presetWrap = document.getElementById("presetChips");
   var PRESET_CAT_LABEL = {
@@ -4002,26 +4081,7 @@ ${v}`;
     b.appendChild(im);
     b.appendChild(body);
     b.addEventListener("click", function () {
-      CATS.forEach(function (c) {
-        var v = p.sel[c.id];
-        var colr = p.col && p.col[c.id] || "";
-        if (v === null || v === undefined || v === "none") state[c.id] = {
-          item: null,
-          none: true,
-          custom: "",
-          color: colr
-        };else state[c.id] = {
-          item: v,
-          none: false,
-          custom: "",
-          color: colr
-        };
-      });
-      themeState = "";
-      activePreset = p.name;
-      document.getElementById("coordName").value = p.name;
-      refresh();
-      showBuild();
+      applyPreset(p);
     });
     presetBtns[p.name] = b;
     presetWrap.appendChild(b);
@@ -4221,26 +4281,39 @@ ${v}`;
     Object.keys(presetBtns).forEach(function (k) {
       __tunnel.setAttr(presetBtns[k], "aria-pressed", activePreset === k ? "true" : "false");
     });
-    var pv = document.getElementById("presetPreview");
-    var pp = null;
-    if (activePreset) PRESETS.forEach(function (p) {
-      if (p.name === activePreset) pp = p;
-    });
-    if (pp) {
-      var pimg = document.getElementById("presetPreviewImg");
-      __tunnel.setUrlProp(pimg, "src", "assets/" + pp.img);
-      pimg.alt = "「" + pp.name + "」の立ち絵見本（ミュウ）";
-      document.getElementById("presetPreviewCap").textContent = "コーデ見本：" + pp.name;
-      pv.hidden = false;
-      var sfig = document.getElementById("stageFig");
-      __tunnel.setUrlProp(document.getElementById("stageImg"), "src", "assets/" + pp.img);
-      document.getElementById("stageImg").alt = "「" + pp.name + "」の立ち絵見本（ミュウ）";
-      document.getElementById("stageCap").textContent = "コーデ見本：" + pp.name;
+    var sfig = document.getElementById("stageFig");
+    var dlayout = document.getElementById("detailLayout");
+    if (stagePreset) {
+      var simg = document.getElementById("stageImg");
+      __tunnel.setUrlProp(simg, "src", "assets/" + stagePreset.img);
+      simg.alt = "「" + stagePreset.name + "」の立ち絵見本（ミュウ）";
       sfig.hidden = false;
+      dlayout.classList.remove("no-photo");
     } else {
-      pv.hidden = true;
-      document.getElementById("stageFig").hidden = true;
+      sfig.hidden = true;
+      dlayout.classList.add("no-photo");
     }
+    var sidx = stagePreset ? PRESETS.indexOf(stagePreset) : -1;
+    document.getElementById("detailNo").textContent = stagePreset ? "No." + String(sidx + 1).padStart(2, "0") + " / 全" + PRESETS.length + "コーデ" : "カスタムコーデ";
+    document.getElementById("detailCat").textContent = stagePreset ? "カテゴリ：" + (PRESET_CAT_LABEL[stagePreset.cat] || "その他") : "カテゴリ：パーツ組み立て";
+    var prevP = sidx > 0 ? PRESETS[sidx - 1] : null;
+    var nextP = sidx >= 0 ? sidx < PRESETS.length - 1 ? PRESETS[sidx + 1] : null : PRESETS[0];
+    var prevBtn = document.getElementById("prevPresetBtn");
+    var nextBtn = document.getElementById("nextPresetBtn");
+    prevBtn.disabled = !prevP;
+    document.getElementById("prevPresetName").textContent = prevP ? prevP.name : "—";
+    nextBtn.disabled = !nextP;
+    document.getElementById("nextPresetName").textContent = nextP ? nextP.name : "—";
+    prevBtn.onclick = prevP ? function (t) {
+      return function () {
+        applyPreset(t);
+      };
+    }(prevP) : null;
+    nextBtn.onclick = nextP ? function (t) {
+      return function () {
+        applyPreset(t);
+      };
+    }(nextP) : null;
     lastOutputs = buildOutputs();
     __tunnel.setInnerHTML(promptOut, lastOutputs.html || '<span style="color:var(--muted)">アイテムを選んでください</span>', "innerHTML");
     tagOut.textContent = lastOutputs.tags || "（タグなし）";
@@ -4348,47 +4421,45 @@ ${v}`;
     themeState = "";
     document.getElementById("coordName").value = "おまかせコーデ";
     activePreset = null;
+    stagePreset = null;
     refresh();
     showToast("おまかせコーデを組みました");
   });
   document.getElementById("resetBtn").addEventListener("click", function () {
     resetState();
     activePreset = null;
+    stagePreset = null;
     document.getElementById("coordName").value = "";
     document.getElementById("manualNote").value = "";
     refresh();
     showToast("リセットしました");
   });
-  var presetSectionEl = document.getElementById("presetSection");
-  var noteSectionEl = document.getElementById("noteSection");
-  var outputEl = document.querySelector("aside.output");
+  var layoutRootEl = document.getElementById("layoutRoot");
+  var buildViewEl = document.getElementById("buildView");
   var backBtnEl = document.getElementById("backBtn");
+  var chromeEls = [document.querySelector(".lead"), document.querySelector(".room-nav"), document.querySelector(".branch"), document.querySelector(".hub-foot")];
   function showHome() {
-    document.querySelector(".layout").classList.add("home-mode");
-    __tunnel.setStyle(presetSectionEl, "display", "");
-    __tunnel.setStyle(sectionsEl, "display", "none");
-    __tunnel.setStyle(noteSectionEl, "display", "none");
-    __tunnel.setStyle(outputEl, "display", "none");
-    backBtnEl.hidden = true;
-    document.getElementById("stageFig").hidden = true;
+    buildViewEl.hidden = true;
+    __tunnel.setStyle(layoutRootEl, "display", "");
+    chromeEls.forEach(function (el) {
+      if (el) __tunnel.setStyle(el, "display", "");
+    });
     window.scrollTo(0, 0);
   }
   function showBuild() {
-    document.querySelector(".layout").classList.remove("home-mode");
-    __tunnel.setStyle(presetSectionEl, "display", "none");
-    __tunnel.setStyle(sectionsEl, "display", "");
-    __tunnel.setStyle(noteSectionEl, "display", "");
-    __tunnel.setStyle(outputEl, "display", "");
-    backBtnEl.hidden = false;
-    var pp2 = null;
-    if (activePreset) PRESETS.forEach(function (p) {
-      if (p.name === activePreset) pp2 = p;
+    buildViewEl.hidden = false;
+    __tunnel.setStyle(layoutRootEl, "display", "none");
+    chromeEls.forEach(function (el) {
+      if (el) __tunnel.setStyle(el, "display", "none");
     });
-    document.getElementById("stageFig").hidden = !pp2;
     window.scrollTo(0, 0);
   }
   backBtnEl.addEventListener("click", showHome);
+  document.getElementById("toListBtn").addEventListener("click", showHome);
   document.getElementById("manualBtn").addEventListener("click", function () {
+    stagePreset = null;
+    activePreset = null;
+    refresh();
     showBuild();
   });
   var presetByName = {};
