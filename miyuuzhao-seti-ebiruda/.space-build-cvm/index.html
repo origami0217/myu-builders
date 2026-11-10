@@ -8,49 +8,58 @@
 <title>ミュウ着せ替えビルダー</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
-/* 配色・書体はハブ（ComfyUIプロンプトビルダー）と統一 */
+/* 配色・書体・部品はコスプレカタログと統一 */
 :root {
 color-scheme: light dark;
---bg: #fdf7f3;
---panel: #fffdf9;
---panel2: #fbeef3;
---card-bg: #fdf7f3;
---ink: #2e2126;
---muted: #7d6570;
---accent: #d81b74;
---accent-strong: #b8125f;
+--bg: #fdf8f9;
+--bg-soft: #fbf0f4;
+--card: #ffffff;
+--ink: #2b1d23;
+--ink-soft: #92707d;
+--line: #f0d3dd;
+--accent: #dd1c7f;
+--accent-strong: #c2136c;
+--accent-soft: #fde9f2;
 --accent-ink: #ffffff;
---accent-soft: #fbeef3;
---accent2: #b8125f;
---accent2-strong: #b8125f;
---gold: #9a741f;
---gold-soft: #faf3e0;
---line: #ecd9d2;
 --chip: #fbf0f4;
---shadow: 0 10px 28px rgba(196,30,110,.08);
---radius: 14px;
+--chip-ink: #7c4a5c;
+--gold: #a87e2f;
+--gold-soft: #faf3e0;
+--shadow: 0 10px 28px rgba(194,19,108,.13);
+/* 旧変数名のエイリアス */
+--panel: #ffffff;
+--panel2: #fde9f2;
+--card-bg: #ffffff;
+--muted: #92707d;
+--accent2: #c2136c;
+--accent2-strong: #c2136c;
+--radius: 16px;
 }
 @media (prefers-color-scheme: dark) {
 :root {
---bg: #1b1318;
---panel: #271d24;
---panel2: #33252f;
---card-bg: #1b1318;
---ink: #f7edf2;
---muted: #c3a6b5;
+--bg: #171114;
+--bg-soft: #2c2229;
+--card: #231b20;
+--ink: #f9eef3;
+--ink-soft: #c09dab;
+--line: #413039;
 --accent: #ff5da2;
 --accent-strong: #ff77ae;
---accent-ink: #2a0f1e;
---accent-soft: #33252f;
---accent2: #ff5da2;
---accent2-strong: #ff77ae;
+--accent-soft: #40222f;
+--accent-ink: #33101f;
+--chip: #2c2229;
+--chip-ink: #e3c3d0;
 --gold: #d9ab4e;
 --gold-soft: #38301d;
---line: #463443;
---chip: #2c2229;
---shadow: none;
+--shadow: 0 10px 28px rgba(0,0,0,.45);
+--panel: #231b20;
+--panel2: #40222f;
+--card-bg: #231b20;
+--muted: #c09dab;
+--accent2: #ff5da2;
+--accent2-strong: #ff5da2;
 }
 }
 * { box-sizing: border-box;}
@@ -59,77 +68,128 @@ body {
 margin: 0;
 background: var(--bg);
 color: var(--ink);
-font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
 line-height: 1.6;
 }
+button { font: inherit; cursor: pointer;}
+img { max-width: 100%;}
 .wrap {
-max-width: 1180px;
+max-width: 1080px;
 margin: 0 auto;
-padding: 20px 16px 40px;
+padding: 0 16px 64px;
 }
-.lead {
-margin: 2px 0 16px;
-font-size: 15px;
-font-weight: 500;
-color: var(--muted);
-}
-.lead strong { color: var(--ink);}
-/* ハブへ戻るバー（常時表示）＋部屋ナビ：他ページと共通の作り */
+/* ハブへ戻るバー（常時表示）：コスプレカタログと共通の作り */
 .hub-bar {
 position: sticky; top: 0; z-index: 40;
 display: flex; align-items: center; justify-content: space-between; gap: 10px;
-background: var(--bg);
-padding: 10px 0 10px;
+background: color-mix(in srgb, var(--bg) 92%, transparent);
+backdrop-filter: blur(8px);
+padding: 10px 0 8px;
 border-bottom: 1.5px solid var(--line);
-margin-bottom: 14px;
 }
 .hub-back {
 display: inline-flex; align-items: center; gap: 7px;
 background: var(--accent); color: var(--accent-ink);
-font-size: 13.5px; font-weight: 800; text-decoration: none;
+font-size: 13.5px; font-weight: 900; text-decoration: none;
 border-radius: 999px; padding: 8px 16px;
 box-shadow: var(--shadow);
 white-space: nowrap;
 }
 .hub-back:hover { background: var(--accent-strong);}
 .hub-back svg { width: 15px; height: 15px; flex: none;}
+.hub-bar .hub-right {
+display: flex; align-items: center; gap: 10px; min-width: 0;
+}
+.hub-alt {
+flex: none; display: inline-flex; align-items: center; gap: 6px;
+background: var(--card); color: var(--accent-strong);
+border: 1.5px solid var(--accent);
+font-size: 13px; font-weight: 900; text-decoration: none;
+border-radius: 999px; padding: 7px 14px;
+}
+.hub-alt:hover { background: var(--accent-soft);}
+.hub-alt svg { width: 14px; height: 14px; flex: none;}
+@media (prefers-color-scheme: dark) { .hub-alt { color: var(--accent);}}
 .hub-bar .hub-label {
-font-size: 11.5px; font-weight: 700; color: var(--muted);
+font-size: 11.5px; font-weight: 700; color: var(--ink-soft);
 text-align: right; line-height: 1.45;
 }
-@media (max-width: 480px) { .hub-bar .hub-label { display: none;}}
-.room-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px;}
+@media (max-width: 560px) { .hub-bar .hub-label { display: none;}}
+/* 見出し（リード）：コスプレカタログと共通 */
+.lead { padding: 26px 2px 6px;}
+.lead h1 {
+font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", sans-serif;
+font-weight: 800;
+font-size: clamp(26px, 6vw, 40px);
+letter-spacing: 0.04em;
+margin: 0 0 6px;
+line-height: 1.3;
+}
+.lead h1 .accent { color: var(--accent);}
+.lead p { margin: 0; color: var(--ink-soft); font-size: 14px; max-width: 640px;}
+.lead p strong { color: var(--ink);}
+.lead .meta-line { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px;}
+.meta-chip {
+font-size: 11.5px; font-weight: 700; color: var(--chip-ink);
+background: var(--chip); border-radius: 999px; padding: 3px 10px;
+}
+/* 部屋ナビ：コスプレカタログと共通 */
+.room-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;}
 .room-nav a, .room-nav span {
 display: inline-flex; align-items: center; gap: 6px;
 font-size: 12.5px; font-weight: 700; text-decoration: none;
 border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 13px;
-background: var(--panel); color: var(--muted);
+background: var(--card); color: var(--ink-soft);
 }
 .room-nav a:hover { border-color: var(--accent); color: var(--accent-strong);}
 .room-nav span[aria-current="page"] {
 background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong);
 }
-.hub-go {
-display: flex; align-items: center; justify-content: center; gap: 7px;
-margin-top: 14px;
-background: var(--accent); color: var(--accent-ink);
-font-size: 14px; font-weight: 800; text-decoration: none;
-border-radius: 999px; padding: 11px 18px;
-text-align: center;
+@media (prefers-color-scheme: dark) {
+.room-nav span[aria-current="page"] { color: var(--accent);}
+.room-nav a:hover { color: var(--accent);}
 }
-.hub-go:hover { background: var(--accent-strong);}
-.hub-go svg { width: 16px; height: 16px; flex: none;}
-.hub-foot { text-align: center; margin-top: 30px;}
-.hub-foot .hub-note { margin: 10px 0 0; font-size: 12.5px; color: var(--muted);}
+/* 衣装の分岐カード：コスプレカタログと共通 */
+.branch {
+display: grid; gap: 12px; margin-top: 14px;
+grid-template-columns: 1fr;
+}
+@media (min-width: 620px) { .branch { grid-template-columns: 1fr 1fr;}}
+.branch-card {
+display: flex; gap: 14px; align-items: flex-start;
+background: var(--card); border: 1.5px solid var(--line); border-radius: 16px;
+padding: 16px; text-decoration: none; color: var(--ink);
+}
+a.branch-card { transition: border-color.15s ease, box-shadow.15s ease, transform.15s ease;}
+a.branch-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px);}
+.branch-card.current { border-color: var(--accent); background: var(--accent-soft);}
+.branch-card .b-icon {
+flex: none; width: 44px; height: 44px; border-radius: 12px;
+display: flex; align-items: center; justify-content: center;
+background: var(--accent); color: var(--accent-ink);
+}
+.branch-card .b-title {
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 17px;
+display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.branch-card .b-badge {
+font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em;
+background: var(--accent); color: var(--accent-ink);
+border-radius: 999px; padding: 2px 9px;
+}
+.branch-card .b-badge.go { background: var(--gold-soft); color: var(--gold);}
+.branch-card .b-desc { font-size: 12.5px; color: var(--ink-soft); margin: 3px 0 0; line-height: 1.6;}
 .layout {
 display: grid;
 grid-template-columns: minmax(0, 1fr) 400px;
 gap: 20px;
 align-items: start;
+margin-top: 18px;
 }
+.layout.home-mode { grid-template-columns: minmax(0, 1fr);}
 .controls { display: grid; gap: 16px; min-width: 0;}
 .card {
-background: var(--panel);
+background: var(--card);
 border: 1px solid var(--line);
 border-radius: var(--radius);
 box-shadow: var(--shadow);
@@ -140,20 +200,14 @@ margin: 0 0 4px;
 font-size: 16px;
 font-weight: 800;
 font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
-color: var(--accent2);
+color: var(--ink);
 display: flex;
 align-items: baseline;
 gap: 10px;
 flex-wrap: wrap;
 }
-.card h2 > span:not(.dot):not(.now) { color: var(--accent2);}
-.card h2 .dot {
-width: 10px; height: 10px;
-border-radius: 3px;
-background: var(--accent);
-align-self: center;
-flex: none;
-}
+.card h2 > span:not(.dot):not(.now) { color: var(--ink);}
+.card h2 .dot { display: none;}
 .card h2 .now {
 font-size: 12.5px;
 font-weight: 700;
@@ -161,12 +215,12 @@ color: var(--accent);
 margin-left: auto;
 text-align: right;
 }
-.card .hint { margin: 0 0 12px; font-size: 12.5px; color: var(--muted);}
+.card .hint { margin: 0 0 12px; font-size: 12.5px; color: var(--ink-soft);}
 .chips { display: flex; flex-wrap: wrap; gap: 8px;}
 .chip {
 appearance: none;
 border: 1.5px solid var(--line);
-background: var(--chip);
+background: var(--card);
 color: var(--ink);
 border-radius: 999px;
 padding: 7px 14px;
@@ -190,7 +244,7 @@ color: var(--accent-ink);
 .cchip {
 appearance: none;
 border: 1.5px solid var(--line);
-background: var(--chip);
+background: var(--card);
 color: var(--ink);
 border-radius: 999px;
 padding: 4px 10px 4px 6px;
@@ -224,16 +278,17 @@ color: var(--muted);
 word-break: break-word;
 }
 .detail .d-note { margin-top: 6px; font-size: 12.5px; color: var(--accent-strong); font-weight: 700;}
+@media (prefers-color-scheme: dark) { .detail .d-note { color: var(--accent);}}
 .custom-input,.name-input, textarea.note-input {
 width: 100%;
 margin-top: 12px;
-border: 1.5px solid var(--line);
+border: 1px solid var(--line);
 border-radius: 10px;
-background: var(--card-bg);
+background: var(--card);
 color: var(--ink);
 font: inherit;
-font-size: 13.5px;
-padding: 9px 12px;
+font-size: 15px;
+padding: 10px 12px;
 }
 .custom-input:focus,.name-input:focus, textarea.note-input:focus {
 outline: none;
@@ -243,27 +298,27 @@ border-color: var(--accent);
 textarea.note-input { margin-top: 0; min-height: 76px; resize: vertical;}
 .output { position: sticky; top: 16px;}
 .out-card {
-background: var(--panel);
+background: var(--card);
 border: 1.5px solid var(--accent);
-border-radius: var(--radius);
+border-radius: 16px;
 box-shadow: var(--shadow);
-padding: 18px;
+padding: 16px;
 }
 .out-head {
 display: flex;
 align-items: baseline;
 gap: 8px;
-font-size: 15px;
+font-size: 17px;
 font-weight: 800;
 font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
 margin: 0 0 10px;
 }
-.out-head .count { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--muted);}
+.out-head .count { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--ink-soft); white-space: nowrap;}
 .prompt-box {
-background: var(--card-bg);
+background: var(--bg-soft);
 border: 1px solid var(--line);
 border-radius: 12px;
-padding: 14px;
+padding: 12px 14px;
 font-size: 13.5px;
 line-height: 1.85;
 white-space: pre-wrap;
@@ -272,15 +327,16 @@ max-height: 46vh;
 overflow-y: auto;
 }
 .prompt-box .sec { color: var(--accent-strong); font-weight: 800;}
+@media (prefers-color-scheme: dark) { .prompt-box .sec { color: var(--accent);}}
 .prompt-box .cname { font-weight: 800; font-size: 14.5px;}
 .tag-box {
-background: var(--card-bg);
+background: var(--bg-soft);
 border: 1px solid var(--line);
-border-radius: 12px;
-padding: 12px 14px;
+border-radius: 10px;
+padding: 10px 12px;
 font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 font-size: 12.5px;
-line-height: 1.7;
+line-height: 1.65;
 word-break: break-word;
 max-height: 22vh;
 overflow-y: auto;
@@ -288,32 +344,53 @@ overflow-y: auto;
 .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;}
 .btn {
 appearance: none;
-border: none;
+border: 1.5px solid var(--line);
 border-radius: 999px;
-padding: 10px 18px;
+padding: 9px 18px;
 font: inherit;
-font-size: 14px;
+font-size: 13.5px;
 font-weight: 800;
 cursor: pointer;
 display: inline-flex;
 align-items: center;
 gap: 7px;
+background: var(--card);
+color: var(--ink);
 }
 .btn svg { width: 16px; height: 16px; flex: none;}
-.btn-primary { background: var(--accent); color: var(--accent-ink);}
-.btn-primary:hover { background: var(--accent-strong);}
-.btn-ghost {
-background: transparent;
-color: var(--ink);
-border: 1.5px solid var(--line);
+.btn-primary {
+background: var(--accent); color: var(--accent-ink);
+border-color: var(--accent);
+font-family: "M PLUS Rounded 1c", sans-serif;
+font-size: 15px;
+padding: 13px 16px;
+justify-content: center;
+box-shadow: var(--shadow);
 }
-.btn-ghost:hover { border-color: var(--accent2); color: var(--accent2);}
-.out-sub { margin: 18px 0 10px;}
+.btn-row .btn-primary { flex: 1 1 100%;}
+.btn-primary:hover { background: var(--accent-strong);}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent-strong);}
+@media (prefers-color-scheme: dark) { .btn-ghost:hover { color: var(--accent);}}
+.out-sub { margin: 18px 0 8px; font-size: 16px;}
+.hub-go {
+display: flex; align-items: center; justify-content: center; gap: 7px;
+margin-top: 14px;
+background: var(--card); color: var(--accent-strong);
+border: 1.5px solid var(--line);
+font-size: 12.5px; font-weight: 700; text-decoration: none;
+border-radius: 999px; padding: 6px 13px;
+text-align: center;
+}
+.hub-go:hover { border-color: var(--accent);}
+@media (prefers-color-scheme: dark) { .hub-go { color: var(--accent);}}
+.hub-go svg { width: 16px; height: 16px; flex: none;}
+.hub-foot { text-align: center; margin-top: 30px;}
+.hub-foot .hub-note { margin: 10px 0 0; font-size: 12.5px; color: var(--muted);}
 .toast {
 position: fixed;
 left: 50%;
-bottom: calc(24px + env(safe-area-inset-bottom));
-transform: translate(-50%, 20px);
+bottom: calc(22px + env(safe-area-inset-bottom));
+transform: translate(-50%, 16px);
 background: var(--ink);
 color: var(--bg);
 font-size: 13.5px;
@@ -322,40 +399,102 @@ padding: 10px 20px;
 border-radius: 999px;
 opacity: 0;
 pointer-events: none;
-transition: opacity.2s, transform.2s;
+transition: opacity.2s ease, transform.2s ease;
 z-index: 50;
+box-shadow: var(--shadow);
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0);}
-/* プリセット：立ち絵見本カード */
-.preset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; margin-top: 12px;}
+/* プリセット一覧：コスプレカタログのグリッドと同じ作り */
+.preset-area { min-width: 0;}
+.preset-area h2 {
+margin: 0 0 4px;
+font-size: 20px;
+font-weight: 800;
+font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
+}
+.preset-area .hint { margin: 0 0 12px; font-size: 12.5px; color: var(--ink-soft); max-width: 640px;}
+.preset-controls {
+position: sticky; top: 52px; z-index: 20;
+background: color-mix(in srgb, var(--bg) 92%, transparent);
+backdrop-filter: blur(8px);
+padding: 12px 0 10px;
+border-bottom: 1px solid var(--line);
+}
+.search-row { display: flex; gap: 8px; align-items: center;}
+.search-box {
+flex: 1; display: flex; align-items: center; gap: 8px;
+background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+padding: 0 12px;
+}
+.search-box svg { flex: none; color: var(--ink-soft);}
+.search-box input {
+flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+color: var(--ink); font: inherit; font-size: 15px; padding: 10px 0;
+}
+.count-badge {
+flex: none; font-size: 12.5px; font-weight: 700; color: var(--ink-soft);
+white-space: nowrap;
+}
+.count-badge b { color: var(--accent); font-size: 15px;}
+.filter-tabs {
+display: flex; gap: 8px; margin-top: 10px;
+overflow-x: auto; padding-bottom: 2px;
+scrollbar-width: none;
+}
+.filter-tabs::-webkit-scrollbar { display: none;}
+.filter-tabs .chip {
+flex: none; background: var(--card);
+}
+.filter-tabs .chip .n { color: var(--ink-soft); font-weight: 500; font-size: 12px; margin-left: 4px;}
+.filter-tabs .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg);}
+.filter-tabs .chip[aria-pressed="true"] .n { color: inherit; opacity: 0.7;}
+.preset-grid {
+display: grid; gap: 14px; margin-top: 18px;
+grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 620px) { .preset-grid { grid-template-columns: repeat(3, 1fr); gap: 18px;}}
+@media (min-width: 960px) { .preset-grid { grid-template-columns: repeat(4, 1fr);}}
 .preset-card {
 appearance: none;
 padding: 0;
 border: 1px solid var(--line);
-border-radius: 12px;
-background: var(--card-bg);
+border-radius: 14px;
+background: var(--card);
 color: var(--ink);
 font: inherit;
 cursor: pointer;
 overflow: hidden;
 text-align: left;
-transition: border-color.15s;
+width: 100%;
+transition: transform.15s ease, box-shadow.15s ease, border-color.15s ease;
 }
+.preset-card:hover { transform: translateY(-3px); box-shadow: var(--shadow);}
 .preset-card img {
 display: block;
 width: 100%;
-aspect-ratio: 17 / 25;
-object-fit: contain;
-background: var(--card-bg);
+aspect-ratio: 832 / 1216;
+object-fit: cover;
+background: var(--bg-soft);
 }
-.preset-card .p-name { display: block; padding: 8px 10px; font-size: 12.5px; font-weight: 700; line-height: 1.45;}
-.preset-card:hover { border-color: var(--accent2);}
+.preset-card .card-body { display: block; padding: 10px 12px 12px;}
+.preset-card .no {
+display: block;
+font-size: 10.5px; font-weight: 900; letter-spacing: 0.14em; color: var(--gold);
+}
+.preset-card .p-name {
+display: block;
+font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+font-size: 16.5px; line-height: 1.35; margin: 1px 0 2px;
+}
+.preset-card .p-cat { display: block; font-size: 11.5px; color: var(--ink-soft);}
 .preset-card[aria-pressed="true"] {
 border-color: var(--accent);
-background: var(--accent-soft);
 box-shadow: inset 0 0 0 1px var(--accent);
 }
 .preset-card[aria-pressed="true"] .p-name { color: var(--accent);}
+.empty {
+margin-top: 40px; text-align: center; color: var(--ink-soft); font-size: 14.5px;
+}
 /* 選択中プリセットの見本プレビュー */
 .preview { margin: 0 0 14px;}
 .preview img {
@@ -363,26 +502,32 @@ display: block;
 width: 100%;
 max-height: 430px;
 object-fit: contain;
-background: var(--card-bg);
+background: var(--bg-soft);
 border: 1px solid var(--line);
 border-radius: 12px;
 }
 .preview figcaption { margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--muted);}
-.filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px;}
-.filter-tabs .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink);}
 .stage { margin: 0;}
-.stage img { display: block; width: 100%; max-height: 520px; object-fit: contain; background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px;}
+.stage img {
+display: block; width: 100%; max-height: 520px; object-fit: contain;
+background: var(--bg-soft); border: 1px solid var(--line); border-radius: 16px;
+box-shadow: var(--shadow);
+}
 .stage figcaption { margin-top: 6px; font-size: 12.5px; font-weight: 700; color: var(--muted);}
 .card h2 .chev { margin-left: 6px; font-size: 12px; color: var(--muted); transition: transform.15s;}
 .card.open h2 .chev { transform: rotate(180deg);}
 .card .cat-body { display: none;}
 .card.open .cat-body { display: block;}
 .card h2.clickable { cursor: pointer;}
-.back-btn { justify-self: start;}
-.manual-btn { margin-top: 12px;}
-@media (max-width: 560px) {
-.preset-grid { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));}
+.back-btn {
+justify-self: start;
+background: none; border: 0; color: var(--accent);
+font-weight: 900; font-size: 14.5px; padding: 6px 0;
+border-radius: 0;
 }
+.back-btn:hover { color: var(--accent); border: 0;}
+.manual-btn { margin-top: 16px;}
+[hidden] { display: none !important;}
 @media (max-width: 1023px) {
 .layout { grid-template-columns: minmax(0, 1fr);}
 .output { position: static;}
@@ -399,9 +544,24 @@ border-radius: 12px;
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
 ハブに戻る
 </a>
+<div class="hub-right">
+<a class="hub-alt" href="../miyuu-kosupurekatarogu/">
+コスプレカタログへ
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+</a>
 <span class="hub-label">ComfyUIプロンプトビルダー（最終調整・出力）へ</span>
 </div>
-<p class="lead">ここは<strong>私服の部屋</strong>です。まず下の<strong>私服プリセット（43種）</strong>からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
+</div>
+<div class="lead">
+<h1><span class="accent">私服</span>着せ替えビルダー</h1>
+<p>まず下の<strong>私服プリセット（43種）</strong>からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
+<div class="meta-line">
+<span class="meta-chip">プリセット全43コーデ</span>
+<span class="meta-chip">パーツ8カテゴリ</span>
+<span class="meta-chip">全体カラーテーマ8種</span>
+<span class="meta-chip">色はパーツごとに変更OK</span>
+</div>
+</div>
 
 <nav class="room-nav" aria-label="部屋ナビ">
 <a href="../comfyuipuronputobiruda/">ハブ：ComfyUIプロンプトビルダー</a>
@@ -410,6 +570,27 @@ border-radius: 12px;
 <a href="../kameraanguruzao-jian-biao/">カメラ：アングル早見表</a>
 </nav>
 
+<div class="branch" aria-label="衣装の種類を選ぶ">
+<div class="branch-card current" aria-current="true">
+<div class="b-icon" aria-hidden="true">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+</div>
+<div>
+<div class="b-title">私服 <span class="b-badge">このページ</span></div>
+<p class="b-desc">プリセット43種を画像で選んで、トップス／ボトムスなどのパーツと色テーマを個別に調整できるビルダー。全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
+</div>
+</div>
+<a class="branch-card" href="../miyuu-kosupurekatarogu/">
+<div class="b-icon" aria-hidden="true">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.4L12 15l-1.9-4.6L5.5 9l4.6-1.4z"/><path d="M19 15.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/></svg>
+</div>
+<div>
+<div class="b-title">コスプレ <span class="b-badge go">コスプレカタログへ →</span></div>
+<p class="b-desc">全60着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
+</div>
+</a>
+</div>
+
 <div class="layout">
 <div class="controls">
 <button type="button" class="btn btn-ghost back-btn" id="backBtn" hidden>← コーデ一覧へ戻る</button>
@@ -417,10 +598,18 @@ border-radius: 12px;
 <img id="stageImg" alt="" />
 <figcaption id="stageCap"></figcaption>
 </figure>
-<section class="card" id="presetSection" aria-label="私服プリセットコーデ">
-<h2><span class="dot"></span>私服プリセットコーデ</h2>
+<section class="preset-area" id="presetSection" aria-label="私服プリセットコーデ">
+<h2>私服プリセットコーデ</h2>
 <p class="hint">立ち絵見本カードをタップすると、コーデを構成するアイテムと色テーマが下の各カテゴリに一括でセットされます。セット後は「ロングスカート→ミニスカート」のように個別に変更できます。コーデ名は全体プロンプトの先頭に入ります。</p>
 <input class="name-input" id="coordName" type="text" placeholder="コーデ名（例：おでかけギャル）" autocomplete="off" />
+<div class="preset-controls">
+<div class="search-row">
+<label class="search-box">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+<input id="presetSearch" type="search" placeholder="コーデ名で探す（例：ギャル、カフェ、お嬢様）" autocomplete="off" />
+</label>
+<span class="count-badge"><b id="presetHitCount">43</b> コーデヒット</span>
+</div>
 <div class="filter-tabs" id="presetFilters" role="group" aria-label="プリセットの仕分け">
 <button type="button" class="chip" data-f="all" aria-pressed="true">すべて</button>
 <button type="button" class="chip" data-f="kireime" aria-pressed="false">きれいめ系</button>
@@ -429,7 +618,9 @@ border-radius: 12px;
 <button type="button" class="chip" data-f="trend" aria-pressed="false">トレンド系</button>
 <button type="button" class="chip" data-f="other" aria-pressed="false">その他</button>
 </div>
+</div>
 <div class="preset-grid" id="presetChips"></div>
+<p class="empty" id="presetEmpty" hidden>見つからなかった…検索ワードを変えてみて</p>
 <button type="button" class="btn btn-ghost manual-btn" id="manualBtn">プリセットなしで自分で組み立てる</button>
 <div class="color-row show">
 <div class="c-label">カラーテーマ（トップス〜ソックスの色味をまとめて変更）</div>
@@ -3777,19 +3968,39 @@ ${v}`;
   var activePreset = null;
   var presetBtns = {};
   var presetWrap = document.getElementById("presetChips");
-  PRESETS.forEach(function (p) {
+  var PRESET_CAT_LABEL = {
+    kireime: "きれいめ系",
+    casual: "カジュアル系",
+    gal: "ギャル系",
+    trend: "トレンド系",
+    other: "その他"
+  };
+  PRESETS.forEach(function (p, idx) {
     var b = document.createElement("button");
     b.type = "button";
     b.className = "preset-card";
     __tunnel.setAttr(b, "aria-pressed", "false");
+    __tunnel.setAttr(b, "aria-label", p.name + "のコーデを選ぶ");
     var im = document.createElement("img");
     __tunnel.setUrlProp(im, "src", "assets/" + p.img);
     im.alt = "「" + p.name + "」の立ち絵見本（ミュウ）";
+    im.loading = "lazy";
+    var body = document.createElement("span");
+    body.className = "card-body";
+    var no = document.createElement("span");
+    no.className = "no";
+    no.textContent = "No." + String(idx + 1).padStart(2, "0");
     var nm = document.createElement("span");
     nm.className = "p-name";
     nm.textContent = p.name;
+    var cn = document.createElement("span");
+    cn.className = "p-cat";
+    cn.textContent = PRESET_CAT_LABEL[p.cat] || "その他";
+    body.appendChild(no);
+    body.appendChild(nm);
+    body.appendChild(cn);
     b.appendChild(im);
-    b.appendChild(nm);
+    b.appendChild(body);
     b.addEventListener("click", function () {
       CATS.forEach(function (c) {
         var v = p.sel[c.id];
@@ -4153,6 +4364,7 @@ ${v}`;
   var outputEl = document.querySelector("aside.output");
   var backBtnEl = document.getElementById("backBtn");
   function showHome() {
+    document.querySelector(".layout").classList.add("home-mode");
     __tunnel.setStyle(presetSectionEl, "display", "");
     __tunnel.setStyle(sectionsEl, "display", "none");
     __tunnel.setStyle(noteSectionEl, "display", "none");
@@ -4162,6 +4374,7 @@ ${v}`;
     window.scrollTo(0, 0);
   }
   function showBuild() {
+    document.querySelector(".layout").classList.remove("home-mode");
     __tunnel.setStyle(presetSectionEl, "display", "none");
     __tunnel.setStyle(sectionsEl, "display", "");
     __tunnel.setStyle(noteSectionEl, "display", "");
@@ -4182,17 +4395,48 @@ ${v}`;
   PRESETS.forEach(function (p) {
     presetByName[p.name] = p;
   });
+  var presetFilter = "all";
+  var presetQuery = "";
+  function applyPresetFilter() {
+    var q = presetQuery.trim().toLowerCase();
+    var visible = 0;
+    Object.keys(presetBtns).forEach(function (name) {
+      var p = presetByName[name];
+      var okCat = presetFilter === "all" || p && p.cat === presetFilter;
+      var okQ = !q || name.toLowerCase().indexOf(q) >= 0;
+      var show = okCat && okQ;
+      __tunnel.setStyle(presetBtns[name], "display", show ? "" : "none");
+      if (show) visible++;
+    });
+    document.getElementById("presetHitCount").textContent = visible;
+    document.getElementById("presetEmpty").hidden = visible > 0;
+  }
+  (function () {
+    var btns = document.querySelectorAll("#presetFilters button[data-f]");
+    for (var i = 0; i < btns.length; i++) {
+      var f = btns[i].getAttribute("data-f");
+      var n = f === "all" ? PRESETS.length : PRESETS.filter(function (p) {
+        return p.cat === f;
+      }).length;
+      var s = document.createElement("span");
+      s.className = "n";
+      s.textContent = n;
+      btns[i].appendChild(s);
+    }
+  })();
   document.getElementById("presetFilters").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-f]");
     if (!b) return;
-    var f = b.getAttribute("data-f");
+    presetFilter = b.getAttribute("data-f");
     var btns = this.querySelectorAll("button[data-f]");
     for (var i = 0; i < btns.length; i++) __tunnel.setAttr(btns[i], "aria-pressed", btns[i] === b ? "true" : "false");
-    Object.keys(presetBtns).forEach(function (name) {
-      var p = presetByName[name];
-      __tunnel.setStyle(presetBtns[name], "display", f === "all" || p && p.cat === f ? "" : "none");
-    });
+    applyPresetFilter();
   });
+  document.getElementById("presetSearch").addEventListener("input", function () {
+    presetQuery = this.value;
+    applyPresetFilter();
+  });
+  applyPresetFilter();
   showHome();
   refresh();
 })();</script>

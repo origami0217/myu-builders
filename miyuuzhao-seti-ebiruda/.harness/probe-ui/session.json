@@ -2,8 +2,8 @@
   "schema_version": "hatch.probe_ui_session.v1",
   "socket": "/home/hatch/workspace/ts-spaces/miyuuzhao-seti-ebiruda/.harness/probe-ui/sock",
   "slug": "miyuuzhao-seti-ebiruda",
-  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-e2e3cf12-b5f1-4dae-9b3a-d8ac25cfe824/",
-  "audit_session_id": "f0b788f2-0b97-42bc-b543-642b9934b496",
-  "pid": 11158,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-e658649c-7a4b-4522-98a2-6a0ee76ca2ba/",
+  "audit_session_id": "624b599d-7325-46c8-b614-910b0ced71f7",
+  "pid": 5887,
   "phone_first": true
 }
