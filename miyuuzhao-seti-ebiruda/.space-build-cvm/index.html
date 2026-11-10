@@ -4051,39 +4051,39 @@ ${v}`;
     sel: {},
     model: "詩織",
     en: "cropped camisole top, micro denim hot pants, oversized denim jacket, chain belt, platform boots, heart-shaped sunglasses",
-    jp: "見本モデル：詩織。クロップド丈のキャミソールにマイクロ丈のデニムホットパンツ、オーバーサイズのデニムジャケットを羽織ったギャルコーデ。厚底ブーツとチェーンベルトがポイント。"
+    jp: "見本モデル：詩織。\n【トップス】\n白いレース縁取りのクロップド丈キャミソール。胸元に小さなリボン\n【ボトムス】\nマイクロ丈のデニムホットパンツ。ダブルベルトと垂れたチェーンでギャル感強め\n【アウター】\nオーバーサイズのデニムジャケット。肩を落としてラフに羽織る\n【シューズ】\n黒い厚底ロングブーツ。編み上げタイプ\n【小物１】\nハート型のサングラス。頭に乗せる\n【小物２】\nデニム素材のホーボーバッグ"
   }, {
     name: "ストラップレスレース＆ローライズデニム",
     img: "preset-lace-denim.jpg",
     sel: {},
     en: "white lace strapless crop top, low-rise bootcut jeans, gold hoop earrings, white strappy high-heel sandals",
-    jp: "白レースのストラップレスクロップトップにローライズのブーツカットデニムを合わせた、夏のリゾート風コーデ。"
+    jp: "【トップス】\n白いレースのストラップレスクロップトップ。スカラップレースの裾と中央のリボン\n【ボトムス】\nローライズのブーツカットデニム。サイドのレースアップとポケットの刺繍がポイント\n【シューズ】\n白いストラップのハイヒールサンダル。細めのヒールで華奢に\n【小物１】\nゴールドのフープイヤリング\n【小物２】\nゴールドの重ね付けネックレス"
   }, {
     name: "サテンスリップ（ピンク）",
     img: "preset-satin-pink.jpg",
     sel: {},
     en: "pink satin slip dress, lace trim, ribbon bow, barefoot indoors",
-    jp: "ピンクのサテンスリップドレス。レースの縁取りとリボンが可愛いルームウェア。室内では裸足。"
+    jp: "【ワンピース】\n淡いピンクのサテンスリップドレス。胸元と裾にレースの縁取り、胸元に小さなリボン。細い肩ストラップ\n【シューズ】\n室内のため裸足"
   }, {
     name: "サテンスリップ（ワイン）",
     img: "preset-satin-wine.jpg",
     sel: {},
     model: "詩織",
     en: "wine red satin slip dress, black lace trim, ribbon bow, necklace, barefoot indoors",
-    jp: "見本モデル：詩織。ワインレッドのサテンスリップに黒レースを効かせた、大人っぽいルームウェア。室内では裸足。"
+    jp: "見本モデル：詩織。\n【ワンピース】\nワインレッドのサテンスリップドレス。胸元と裾に黒レースの縁取り、胸元にリボン。細い肩ストラップ\n【小物１】\n細いシルバーのネックレス\n【シューズ】\n室内のため裸足"
   }, {
     name: "ローブ付きサテンセット",
     img: "preset-robe-satin.jpg",
     sel: {},
     en: "champagne beige satin camisole and shorts set, sheer lace long robe, barefoot indoors",
-    jp: "シャンパンベージュのサテンキャミ＆ショーツに、レースのロングローブを重ねたホテルライクなセット。室内では裸足。"
+    jp: "【トップス】\nシャンパンベージュのサテンキャミソール。胸元にレースの縁取り\n【ボトムス】\n同素材のサテンショーツ。裾にレース\n【アウター】\nシアーなロングローブ。袖口と裾に大きなレースの縁取り、ウエストは共布ベルト\n【シューズ】\n室内のため裸足"
   }, {
     name: "黒サテン＆ローブセット",
     img: "preset-robe-black.jpg",
     sel: {},
     model: "詩織",
     en: "black satin camisole and shorts set, black lace long robe, barefoot indoors",
-    jp: "見本モデル：詩織。黒サテンのキャミ＆ショーツに黒レースのローブを合わせた、夜のホテル風セット。室内では裸足。"
+    jp: "見本モデル：詩織。\n【トップス】\n黒いサテンのキャミソール。胸元にレースの縁取り\n【ボトムス】\n同素材の黒サテンショーツ。裾にレース\n【アウター】\n黒いシアーのロングローブ。袖口と裾にレースの縁取り\n【シューズ】\n室内のため裸足"
   }];
   var PRESET_CAT = {
     "清楚系お嬢様": "kireime",
@@ -4524,8 +4524,8 @@ ${v}`;
         }
       }
       if (actP) {
-        var pText = (name ? name + "\n\n" : "") + actP.jp;
-        var pHtml = (name ? '<span class="cname">' + esc(name) + "</span>\n\n" : "") + esc(actP.jp);
+        var pText = (name ? name + "\n" : "") + actP.jp;
+        var pHtml = (name ? '<span class="cname">' + esc(name) + "</span>\n" : "") + esc(actP.jp);
         return {
           text: pText,
           html: pHtml,
@@ -4592,11 +4592,11 @@ ${v}`;
     }
     var text = lines.map(function (l) {
       return l.sec === null ? l.body : "【" + l.sec + "】\n" + l.body;
-    }).join("\n\n");
+    }).join("\n");
     var tags = tagList.join(", ");
     return {
       text: text,
-      html: htmlParts.join("\n\n"),
+      html: htmlParts.join("\n"),
       tags: tags
     };
   }

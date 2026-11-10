@@ -1,0 +1,220 @@
+{
+  "ok": true,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-a78778d3-d371-4d62-b5cb-7943d479cb78/",
+  "duration_ms": 6754.604255,
+  "output_dir": "/home/hatch/workspace/ts-spaces/miyuuzhao-seti-ebiruda/audits/2026-11-10T16-04-12Z-806558395",
+  "nav_status": 200,
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/miyuuzhao-seti-ebiruda/audits/2026-11-10T16-04-12Z-806558395/screenshot.png",
+      "fullpage_screenshot_path": "/home/hatch/workspace/ts-spaces/miyuuzhao-seti-ebiruda/audits/2026-11-10T16-04-12Z-806558395/screenshot-full.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/miyuuzhao-seti-ebiruda/audits/2026-11-10T16-04-12Z-806558395/screenshot-mobile.png"
+    }
+  },
+  "mobile_layout": {
+    "viewport_width": 390,
+    "scroll_width": 390,
+    "overflow_px": 0,
+    "widest_selector": null,
+    "verdict": "pass"
+  },
+  "horizontal_scrollers": [
+    {
+      "selector": "div#presetFilters.filter-tabs",
+      "scroll_width": 672,
+      "client_width": 358
+    }
+  ],
+  "unreachable_controls": {
+    "desktop": [],
+    "mobile": []
+  },
+  "clipped": {
+    "desktop": [],
+    "mobile": [
+      {
+        "tag": "button",
+        "text": "ギャル系13",
+        "kind": "past_viewport",
+        "overflow_px": 79,
+        "bbox": [
+          368,
+          1014,
+          101,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "13",
+        "kind": "past_viewport",
+        "overflow_px": 64,
+        "bbox": [
+          441,
+          1025,
+          13,
+          17
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "トレンド系19",
+        "kind": "past_viewport",
+        "overflow_px": 202,
+        "bbox": [
+          477,
+          1014,
+          115,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "19",
+        "kind": "past_viewport",
+        "overflow_px": 187,
+        "bbox": [
+          564,
+          1025,
+          13,
+          17
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "その他18",
+        "kind": "past_viewport",
+        "overflow_px": 298,
+        "bbox": [
+          600,
+          1014,
+          88,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "18",
+        "kind": "past_viewport",
+        "overflow_px": 283,
+        "bbox": [
+          660,
+          1025,
+          13,
+          17
+        ]
+      }
+    ]
+  },
+  "images": {
+    "total": 50,
+    "broken": [],
+    "duplicate": [],
+    "unstable": [],
+    "failed_requests": [],
+    "external_blocked": {
+      "count": 0,
+      "sample": []
+    },
+    "sample_urls": [
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-a78778d3-d371-4d62-b5cb-7943d479cb78/assets/preset-ojousama.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-a78778d3-d371-4d62-b5cb-7943d479cb78/assets/preset-galcoord.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-a78778d3-d371-4d62-b5cb-7943d479cb78/assets/preset-roomwear.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-a78778d3-d371-4d62-b5cb-7943d479cb78/assets/preset-gal.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-a78778d3-d371-4d62-b5cb-7943d479cb78/assets/preset-knitdress.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-a78778d3-d371-4d62-b5cb-7943d479cb78/assets/preset-datecafe.jpg"
+    ],
+    "verdict": "pass"
+  },
+  "text_issues": [],
+  "console_errors": [],
+  "console_warnings": [],
+  "external_fetch_failures": 2,
+  "external_fetch_failure_samples": [
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)",
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)"
+  ],
+  "blocked_requests": [],
+  "external_requests": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap",
+      "method": "GET",
+      "resource_type": "stylesheet"
+    }
+  ],
+  "external_requests_dropped": 0,
+  "external_requests_dropped_data_bearing": 0,
+  "transport_ledger_active": true,
+  "egress_lockdown": true,
+  "transport_connections": [
+    {
+      "host": "artifact-capture.invalid",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 3996,
+      "bytes_down": 2487
+    },
+    {
+      "host": "fonts.googleapis.com",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 0,
+      "bytes_down": 0,
+      "policy_denied": true
+    }
+  ],
+  "transport_udp_attempts": 0,
+  "transport_overflow": 0,
+  "unexplained_transport_hosts": [],
+  "broken_assets": [],
+  "blocked_affordances": [],
+  "interactive_nodes": 33,
+  "aria_snapshot": "- main:\n  - link \"ハブに戻る\":\n    - /url: /spaces/v2/comfyuipuronputobiruda/\n    - img\n    - text: ハブに戻る\n  - link \"コスプレカタログへ\":\n    - /url: /spaces/v2/miyuu-kosupurekatarogu/\n    - text: コスプレカタログへ\n    - img\n  - text: ComfyUIプロンプトビルダー（最終調整・出力）へ\n  - heading \"私服着せ替えビルダー\" [level=1]\n  - paragraph:\n    - text: まず下の\n    - strong: 私服プリセット（89種）\n    - text: からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。\n  - text: プリセット全89コーデ パーツ8カテゴリ 全体カラーテーマ8種 色はパーツごとに変更OK\n  - navigation \"部屋ナビ\":\n    - link \"ハブ：ComfyUIプロンプトビルダー\":\n      - /url: /spaces/v2/comfyuipuronputobiruda/\n    - link \"衣装：コスプレカタログ\":\n      - /url: /spaces/v2/miyuu-kosupurekatarogu/\n    - text: 衣装：着せ替えビルダー（私服）\n    - link \"カメラ：アングル早見表\":\n      - /url: /spaces/v2/kameraanguruzao-jian-biao/\n  - text: 私服 このページ\n  - paragraph: プリセット89種を画像で選んで、トップス／ボトムスなどのパーツと色テーマを個別に調整できるビルダー。全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。\n  - link \"コスプレ コスプレカタログへ → 全60着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。\":\n    - /url: /spaces/v2/miyuu-kosupurekatarogu/\n    - text: コスプレ コスプレカタログへ →\n    - paragraph: 全60着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。\n  - region \"私服プリセットコーデ\":\n    - heading \"私服プリセットコーデ\" [level=2]\n    - paragraph: 立ち絵見本カードをタップすると、大きな立ち絵とプロンプトの画面に移ります。セット後は「ロングスカート→ミニスカート」のように各カテゴリで個別に変更できます。コーデ名は全体プロンプトの先頭に入ります。\n    - img\n    - searchbox\n    - text: 89 コーデヒット\n    - group \"プリセットの仕分け\":\n      - button \"すべて89\" [pressed]\n      - button \"きれいめ系22\"\n      - button \"カジュアル系17\"\n      - button \"ギャル系13\"\n      - button \"トレンド系19\"\n      - button \"その他18\"\n    - button \"清楚系お嬢様のコーデを選ぶ\":\n      - img \"「清楚系お嬢様」の立ち絵見本（ミュウ）\"\n      - text: No.01 清楚系お嬢様 きれいめ系\n    - button \"ギャル定番コーデのコーデを選ぶ\":\n      - img \"「ギャル定番コーデ」の立ち絵見本（ミュウ）\"\n      - text: No.02 ギャル定番コーデ ギャル系\n    - button \"おうちリラックスのコーデを選ぶ\":\n      - img \"「おうちリラックス」の立ち絵見本（ミュウ）\"\n      - text: No.03 おうちリラックス カジュアル系\n    - button \"マイクロホットパンツ×クロップドキャミのコーデを選ぶ\":\n      - img \"「マイクロホットパンツ×クロップドキャミ」の立ち絵見本（ミュウ）\"\n      - text: No.04 マイクロホットパンツ×クロップドキャミ ギャル系\n    - button \"背開きニットドレス Ver.2のコーデを選ぶ\":\n      - img \"「背開きニットドレス Ver.2」の立ち絵見本（ミュウ）\"\n      - text: No.05 背開きニットドレス Ver.2 トレンド系\n    - button \"デートカフェコーデのコーデを選ぶ\":\n      - img \"「デートカフェコーデ」の立ち絵見本（ミュウ）\"\n      - text: No.06 デートカフェコーデ きれいめ系\n    - button \"ニットワンピース風のコーデを選ぶ\":\n      - img \"「ニットワンピース風」の立ち絵見本（ミュウ）\"\n      - text: No.07 ニットワンピース風 きれいめ系\n    - button \"ストリートギャルのコーデを選ぶ\":\n      - img \"「ストリートギャル」の立ち絵見本（ミュウ）\"\n      - text: No.08 ストリートギャル ギャル系\n    - button \"モノトーンコーデのコーデを選ぶ\":\n      - img \"「モノトーンコーデ」の立ち絵見本（ミュウ）\"\n      - text: No.09 モノトーンコーデ ギャル系\n    - button \"夏のお出かけのコーデを選ぶ\":\n      - img \"「夏のお出かけ」の立ち絵見本（ミュウ）\"\n      - text: No.10 夏のお出かけ ギャル系\n    - button \"パジャマパーティーのコーデを選ぶ\":\n      - img \"「パジャマパーティー」の立ち絵見本（ミュウ）\"\n      - text: No.11 パジャマパーティー カジュアル系\n    - button \"カレッジガールのコーデを選ぶ\":\n      - img \"「カレッジガール」の立ち絵見本（ミュウ）\"\n      - text: No.12 カレッジガール カジュアル系\n    - button \"韓国カジュアルのコーデを選ぶ\":\n      - img \"「韓国カジュアル」の立ち絵見本（ミュウ）\"\n      - text: No.13 韓国カジュアル トレンド系\n    - button \"フレンチガーリーのコーデを選ぶ\":\n      - img \"「フレンチガーリー」の立ち絵見本（ミュウ）\"\n      - text: No.14 フレンチガーリー きれいめ系\n    - button \"森ガールのコーデを選ぶ\":\n      - img \"「森ガール」の立ち絵見本（ミュウ）\"\n      - text: No.15 森ガール カジュアル系\n    - button \"スポーティカジュアルのコーデを選ぶ\":\n      - img \"「スポーティカジュアル」の立ち絵見本（ミュウ）\"\n      - text: No.16 スポーティカジュアル トレンド系\n    - button \"オフィスカジュアルのコーデを選ぶ\":\n      - img \"「オフィスカジュアル」の立ち絵見本（ミュウ）\"\n      - text: No.17 オフィスカジュアル きれいめ系\n    - button \"図書館コーデのコーデを選ぶ\":\n      - img \"「図書館コーデ」の立ち絵見本（ミュウ）\"\n      - text: No.18 図書館コーデ きれいめ系\n    - button \"雨の日コーデのコーデを選ぶ\":\n      - img \"「雨の日コーデ」の立ち絵見本（ミュウ）\"\n      - text: No.19 雨の日コーデ カジュアル系\n    - button \"紅葉狩りコーデのコーデを選ぶ\":\n      - img \"「紅葉狩りコーデ」の立ち絵見本（ミュウ）\"\n      - text: No.20 紅葉狩りコーデ カジュアル系\n    - button \"冬のあったかコーデのコーデを選ぶ\":\n      - img \"「冬のあったかコーデ」の立ち絵見本（ミュウ）\"\n      - text: No.21 冬のあったかコーデ カジュアル系\n    - button \"春のピクニックのコーデを選ぶ\":\n      - img \"「春のピクニック」の立ち絵見本（ミュウ）\"\n      - text: No.22 春のピクニック カジュアル系\n    - button \"海コーデのコーデを選ぶ\":\n      - img \"「海コーデ」の立ち絵見本（ミュウ）\"\n      - text: No.23 海コーデ カジュアル系\n    - button \"ショッピングコーデのコーデを選ぶ\":\n      - img \"「ショッピングコーデ」の立ち絵見本（ミュウ）\"\n      - text: No.24 ショッピングコーデ ギャル系\n    - button \"ライブ参戦コーデのコーデを選ぶ\":\n      - img \"「ライブ参戦コーデ」の立ち絵見本（ミュウ）\"\n      - text: No.25 ライブ参戦コーデ ギャル系\n    - button \"カフェ店員風のコーデを選ぶ\":\n      - img \"「カフェ店員風」の立ち絵見本（ミュウ）\"\n      - text: No.26 カフェ店員風 カジュアル系\n    - button \"デニムオンデニムのコーデを選ぶ\":\n      - img \"「デニムオンデニム」の立ち絵見本（ミュウ）\"\n      - text: No.27 デニムオンデニム カジュアル系\n    - button \"パステルコーデのコーデを選ぶ\":\n      - img \"「パステルコーデ」の立ち絵見本（ミュウ）\"\n      - text: No.28 パステルコーデ トレンド系\n    - button \"ビビッドポップのコーデを選ぶ\":\n      - img \"「ビビッドポップ」の立ち絵見本（ミュウ）\"\n      - text: No.29 ビビッドポップ トレンド系\n    - button \"大人クールのコーデを選ぶ\":\n      - img \"「大人クール」の立ち絵見本（ミュウ）\"\n      - text: No.30 大人クール きれいめ系\n    - button \"甘辛ミックスのコーデを選ぶ\":\n      - img \"「甘辛ミックス」の立ち絵見本（ミュウ）\"\n      - text: No.31 甘辛ミックス ギャル系\n    - button \"レトロガールのコーデを選ぶ\":\n      - img \"「レトロガール」の立ち絵見本（ミュウ）\"\n      - text: No.32 レトロガール その他\n    - button \"ボーイッシュのコーデを選ぶ\":\n      - img \"「ボーイッシュ」の立ち絵見本（ミュウ）\"\n      - text: No.33 ボーイッシュ カジュアル系\n    - button \"フェミニンワンピのコーデを選ぶ\":\n      - img \"「フェミニンワンピ」の立ち絵見本（ミュウ）\"\n      - text: No.34 フェミニンワンピ その他\n    - button \"お嬢様カフェのコーデを選ぶ\":\n      - img \"「お嬢様カフェ」の立ち絵見本（ミュウ）\"\n      - text: No.35 お嬢様カフェ その他\n    - button \"放課後コーデのコーデを選ぶ\":\n      - img \"「放課後コーデ」の立ち絵見本（ミュウ）\"\n      - text: No.36 放課後コーデ カジュアル系\n    - button \"旅行コーデのコーデを選ぶ\":\n      - img \"「旅行コーデ」の立ち絵見本（ミュウ）\"\n      - text: No.37 旅行コーデ カジュアル系\n    - button \"おしゃれルームウェアのコーデを選ぶ\":\n      - img \"「おしゃれルームウェア」の立ち絵見本（ミュウ）\"\n      - text: No.38 おしゃれルームウェア カジュアル系\n    - button \"グランジ風のコーデを選ぶ\":\n      - img \"「グランジ風」の立ち絵見本（ミュウ）\"\n      - text: No.39 グランジ風 その他\n    - button \"ストラップレスレース＆ローライズデニムのコーデを選ぶ\":\n      - img \"「ストラップレスレース＆ローライズデニム」の立ち絵見本（ミュウ）\"\n      - text: No.40 ストラップレスレース＆ローライズデニム トレンド系\n    - button \"お嬢様コーデのコーデを選ぶ\":\n      - img \"「お嬢様コーデ」の立ち絵見本（ミュウ）\"\n      - text: No.41 お嬢様コーデ きれいめ系\n    - button \"マイクロホットパンツ×見せブラ（サテン生地）のコーデを選ぶ\":\n      - img \"「マイクロホットパンツ×見せブラ（サテン生地）」の立ち絵見本（ミュウ）\"\n      - text: No.42 マイクロホットパンツ×見せブラ（サテン生地） ギャル系\n    - button \"マイクロホットパンツ×マイクロチューブブラ（サテン生地）のコーデを選ぶ\":\n      - img \"「マイクロホットパンツ×マイクロチューブブラ（サテン生地）」の立ち絵見本（ミュウ）\"\n      - text: No.43 マイクロホットパンツ×マイクロチューブブラ（サテン生地） ギャル系\n    - button \"ミルクティーベージュのニットワンピースのコーデを選ぶ\": No.44 ミルクティーベージュのニットワンピース きれいめ系\n    - button \"白ブラウス×黒マーメイドスカートのコーデを選ぶ\": No.45 白ブラウス×黒マーメイドスカート きれいめ系\n    - button \"パステルツイードのセットアップのコーデを選ぶ\": No.46 パステルツイードのセットアップ きれいめ系\n    - button \"ネイビーのフレアワンピースのコーデを選ぶ\": No.47 ネイビーのフレアワンピース きれいめ系\n    - button \"とろみシャツ×センタープレスパンツのコーデを選ぶ\": No.48 とろみシャツ×センタープレスパンツ きれいめ系\n    - button \"カーデアンサンブル×プリーツスカートのコーデを選ぶ\": No.49 カーデアンサンブル×プリーツスカート きれいめ系\n    - button \"ベルト付きシャツワンピースのコーデを選ぶ\": No.50 ベルト付きシャツワンピース きれいめ系\n    - button \"淡ピンクのAラインワンピースのコーデを選ぶ\": No.51 淡ピンクのAラインワンピース きれいめ系\n    - button \"千鳥柄ジャケットコーデのコーデを選ぶ\": No.52 千鳥柄ジャケットコーデ きれいめ系\n    - button \"サテンキャミ×ドレープロングスカートのコーデを選ぶ\": No.53 サテンキャミ×ドレープロングスカート きれいめ系\n    - button \"白テーラード×デニムのコーデを選ぶ\": No.54 白テーラード×デニム きれいめ系\n    - button \"グレージュのロングジレコーデのコーデを選ぶ\": No.55 グレージュのロングジレコーデ きれいめ系\n    - button \"花柄シフォンのティアードワンピースのコーデを選ぶ\": No.56 花柄シフォンのティアードワンピース きれいめ系\n    - button \"黒タートル×チェックタイトスカートのコーデを選ぶ\": No.57 黒タートル×チェックタイトスカート きれいめ系\n    - button \"クロップドデニムジャケット×カーゴスカートのコーデを選ぶ\": No.58 クロップドデニムジャケット×カーゴスカート トレンド系\n    - button \"バレルレッグジーンズ×コンパクトニットのコーデを選ぶ\": No.59 バレルレッグジーンズ×コンパクトニット トレンド系\n    - button \"オフショルリブニット×デニムミニのコーデを選ぶ\": No.60 オフショルリブニット×デニムミニ トレンド系\n    - button \"チュールレイヤードスカート×スウェットのコーデを選ぶ\": No.61 チュールレイヤードスカート×スウェット トレンド系\n    - button \"シアーロンT×キャミワンピ重ねのコーデを選ぶ\": No.62 シアーロンT×キャミワンピ重ね トレンド系\n    - button \"ワイドチノ×クロップドシャツのコーデを選ぶ\": No.63 ワイドチノ×クロップドシャツ トレンド系\n    - button \"ナイロンベスト×プリーツミニのコーデを選ぶ\": No.64 ナイロンベスト×プリーツミニ トレンド系\n    - button \"シルバー小物のY2Kコーデのコーデを選ぶ\": No.65 シルバー小物のY2Kコーデ トレンド系\n    - button \"チェックシャツ腰巻きレイヤードのコーデを選ぶ\": No.66 チェックシャツ腰巻きレイヤード トレンド系\n    - button \"ボリューム袖ブラウス×ハイウエストデニムのコーデを選ぶ\": No.67 ボリューム袖ブラウス×ハイウエストデニム トレンド系\n    - button \"スウェットセットアップのコーデを選ぶ\": No.68 スウェットセットアップ トレンド系\n    - button \"ロングブーツ×ミニワンピの韓国風のコーデを選ぶ\": No.69 ロングブーツ×ミニワンピの韓国風 トレンド系\n    - button \"森ガールレイヤードのコーデを選ぶ\": No.70 森ガールレイヤード その他\n    - button \"ハロウィン魔女風カジュアルのコーデを選ぶ\": No.71 ハロウィン魔女風カジュアル その他\n    - button \"推し活参戦コーデのコーデを選ぶ\": No.72 推し活参戦コーデ その他\n    - button \"旅行トラベルコーデのコーデを選ぶ\": No.73 旅行トラベルコーデ その他\n    - button \"雨の日レインコーデのコーデを選ぶ\": No.74 雨の日レインコーデ その他\n    - button \"クリスマスマーケットコーデのコーデを選ぶ\": No.75 クリスマスマーケットコーデ その他\n    - button \"初詣カジュアルのコーデを選ぶ\": No.76 初詣カジュアル その他\n    - button \"ピクニックコーデのコーデを選ぶ\": No.77 ピクニックコーデ その他\n    - button \"ライブハウスコーデのコーデを選ぶ\": No.78 ライブハウスコーデ その他\n    - button \"パジャマパーティー一式のコーデを選ぶ\": No.79 パジャマパーティー一式 その他\n    - button \"ボーダーTのマリン風のコーデを選ぶ\": No.80 ボーダーTのマリン風 カジュアル系\n    - button \"オーバーオール×ロンTのコーデを選ぶ\": No.81 オーバーオール×ロンT カジュアル系\n    - button \"ヒョウ柄小物×黒ミニのコーデを選ぶ\": No.82 ヒョウ柄小物×黒ミニ ギャル系\n    - button \"デコデニム×厚底の姫ギャル寄りのコーデを選ぶ\": No.83 デコデニム×厚底の姫ギャル寄り ギャル系\n    - button \"マイクロホットパンツ×クロップドキャミのコーデを選ぶ\":\n      - img \"「マイクロホットパンツ×クロップドキャミ」の立ち絵見本（詩織）\"\n      - text: No.84 マイクロホットパンツ×クロップドキャミ ギャル系\n    - button \"ストラップレスレース＆ローライズデニムのコーデを選ぶ\":\n      - img \"「ストラップレスレース＆ローライズデニム」の立ち絵見本（ミュウ）\"\n      - text: No.85 ストラップレスレース＆ローライズデニム トレンド系\n    - button \"サテンスリップ（ピンク）のコーデを選ぶ\":\n      - img \"「サテンスリップ（ピンク）」の立ち絵見本（ミュウ）\"\n      - text: No.86 サテンスリップ（ピンク） その他\n    - button \"サテンスリップ（ワイン）のコーデを選ぶ\":\n      - img \"「サテンスリップ（ワイン）」の立ち絵見本（詩織）\"\n      - text: No.87 サテンスリップ（ワイン） その他\n    - button \"ローブ付きサテンセットのコーデを選ぶ\":\n      - img \"「ローブ付きサテンセット」の立ち絵見本（ミュウ）\"\n      - text: No.88 ローブ付きサテンセット その他\n    - button \"黒サテン＆ローブセットのコーデを選ぶ\":\n      - img \"「黒サテン＆ローブセット」の立ち絵見本（詩織）\"\n      - text: No.89 黒サテン＆ローブセット その他\n    - button \"プリセットなしで自分で組み立てる\"\n  - link \"ハブに戻る（ComfyUIプロンプトビルダー）\":\n    - /url: /spaces/v2/comfyuipuronputobiruda/\n    - img\n    - text: ハブに戻る（ComfyUIプロンプトビルダー）\n  - paragraph: 選んだ私服の断片は、ハブの「断片の取り込み」に貼ると全体のプロンプトに合流します。\n- status",
+  "document_text": {
+    "path": "/home/hatch/workspace/ts-spaces/miyuuzhao-seti-ebiruda/audits/2026-11-10T16-04-12Z-806558395/document-text.txt",
+    "chars": 16500,
+    "truncated": false
+  },
+  "audit_session_id": "560a97e6-f424-47f8-938a-40ffed0e79ae",
+  "readiness": {
+    "desktop": {
+      "settled": true,
+      "settle_ms": 1119,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    },
+    "mobile": {
+      "settled": true,
+      "settle_ms": 1188,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    }
+  },
+  "color_scheme": {
+    "declared": "light dark",
+    "media_dependent": null,
+    "dark_frame": false
+  },
+  "mobile_ms": 3694.2547289999998,
+  "cold_launch_ms": 432.09512099999995,
+  "desktop_ms": 5406.990725,
+  "browser_launches": 1,
+  "audit_path": "shared-concurrent",
+  "diagnostics": {
+    "audit_path": "shared-concurrent",
+    "concurrent_ran": true,
+    "concurrent_desktop_retry": false,
+    "concurrent_mobile_retry": false,
+    "shared_launch_failed": false,
+    "nav_retries": 0,
+    "settle_retries": 0
+  }
+}
