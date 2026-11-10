@@ -259,7 +259,7 @@ gap: 6px;
 .cchip:hover { border-color: var(--accent);}
 .cchip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink);}
 .cchip.none-c[aria-pressed="true"] { background: var(--muted); border-color: var(--muted); color: var(--accent-ink);}
-.detail {
+.item-detail {
 margin-top: 12px;
 background: var(--accent-soft);
 border-radius: 12px;
@@ -267,17 +267,17 @@ padding: 10px 12px;
 font-size: 13px;
 display: none;
 }
-.detail.show { display: block;}
-.detail .d-desc { font-weight: 500;}
-.detail .d-tags {
+.item-detail.show { display: block;}
+.item-detail .d-desc { font-weight: 500;}
+.item-detail .d-tags {
 margin-top: 4px;
 font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 font-size: 12px;
 color: var(--muted);
 word-break: break-word;
 }
-.detail .d-note { margin-top: 6px; font-size: 12.5px; color: var(--accent-strong); font-weight: 700;}
-@media (prefers-color-scheme: dark) { .detail .d-note { color: var(--accent);}}
+.item-detail .d-note { margin-top: 6px; font-size: 12.5px; color: var(--accent-strong); font-weight: 700;}
+@media (prefers-color-scheme: dark) { .item-detail .d-note { color: var(--accent);}}
 .custom-input,.name-input, textarea.note-input {
 width: 100%;
 margin-top: 12px;
@@ -499,7 +499,7 @@ margin-top: 40px; text-align: center; color: var(--ink-soft); font-size: 14.5px;
 }
 /* 選択中プリセットの見本プレビュー */
 /* 詳細（組み立て画面）：コスプレカタログ詳細と共通レイアウト */
-.detail { margin-top: 18px;}
+.build-detail { margin-top: 18px;}
 .detail-top { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center;}
 .detail-top .hub-top-link {
 display: inline-flex; align-items: center; gap: 6px;
@@ -647,7 +647,7 @@ font-size: 14.5px; padding: 6px 0; cursor: pointer; font: inherit;
 </div>
 
 <div class="build-view" id="buildView" hidden>
-<div class="detail">
+<div class="build-detail">
 <div class="detail-top">
 <button type="button" class="back-btn" id="backBtn">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
@@ -3953,7 +3953,7 @@ ${v}`;
     }
     body.appendChild(chips);
     var detail = document.createElement("div");
-    detail.className = "detail";
+    detail.className = "item-detail";
     body.appendChild(detail);
     var colorRow = document.createElement("div");
     colorRow.className = "color-row";
@@ -4256,19 +4256,19 @@ ${v}`;
       });
       if (!r) {
         u.now.textContent = cat.noneMode === "omit" ? "（出力なし）" : "";
-        u.detail.className = "detail";
+        u.detail.className = "item-detail";
         __tunnel.setInnerHTML(u.detail, "", "innerHTML");
       } else if (r.kind === "none") {
         u.now.textContent = "なし";
-        u.detail.className = "detail";
+        u.detail.className = "item-detail";
         __tunnel.setInnerHTML(u.detail, "", "innerHTML");
       } else if (r.kind === "custom") {
         u.now.textContent = "自由入力";
-        u.detail.className = "detail show";
+        u.detail.className = "item-detail show";
         __tunnel.setInnerHTML(u.detail, '<div class="d-desc">' + esc((r.color ? r.color.jp : "") + r.text) + "</div>", "innerHTML");
       } else {
         u.now.textContent = r.item.name + (r.color ? "（" + r.color.label + "）" : "");
-        u.detail.className = "detail show";
+        u.detail.className = "item-detail show";
         var h = '<div class="d-desc">' + esc((r.color ? r.color.jp : "") + r.item.desc) + "</div>";
         h += '<div class="d-tags">' + esc(r.item.tags) + "</div>";
         if (r.item.note) h += '<div class="d-note">備考へ追加：' + esc(r.item.note) + "</div>";
