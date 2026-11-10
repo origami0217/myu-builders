@@ -2,8 +2,8 @@
   "schema_version": "hatch.probe_ui_session.v1",
   "socket": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/.harness/probe-ui/sock",
   "slug": "comfyuipuronputobiruda",
-  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-46051b0e-c05f-45b8-9a7c-cad18adbd8c0/",
-  "audit_session_id": "5bc4f697-524e-444b-ab9b-1930d9f41def",
-  "pid": 14542,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-fdeab9b1-1810-43e4-8030-a1a72bf178e1/",
+  "audit_session_id": "ddc3364d-6725-4f00-9052-14b6e9fa2af3",
+  "pid": 6046,
   "phone_first": true
 }

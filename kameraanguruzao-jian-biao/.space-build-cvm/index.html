@@ -342,7 +342,7 @@
     <div class="wrap">
       <!-- ======= ハブへ戻るバー（スクロールしても常時表示） ======= -->
       <div class="hub-bar">
-        <a class="hub-back" href="/spaces/v2/comfyuipuronputobiruda/" rel="noopener">
+        <a class="hub-back" href="../comfyuipuronputobiruda/" rel="noopener">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
           ハブに戻る
         </a>
@@ -369,9 +369,9 @@
           <a href="#builder">完成プロンプト</a>
         </nav>
         <nav class="room-nav" aria-label="部屋ナビ">
-          <a href="/spaces/v2/comfyuipuronputobiruda/" rel="noopener">ハブ：ComfyUIプロンプトビルダー</a>
-          <a href="/spaces/v2/miyuu-kosupurekatarogu/" rel="noopener">衣装：コスプレカタログ</a>
-          <a href="/spaces/v2/miyuuzhao-seti-ebiruda/" rel="noopener">衣装：着せ替えビルダー（私服）</a>
+          <a href="../comfyuipuronputobiruda/" rel="noopener">ハブ：ComfyUIプロンプトビルダー</a>
+          <a href="../miyuu-kosupurekatarogu/" rel="noopener">衣装：コスプレカタログ</a>
+          <a href="../miyuuzhao-seti-ebiruda/" rel="noopener">衣装：着せ替えビルダー（私服）</a>
           <span aria-current="page">カメラ：アングル早見表（このページ）</span>
         </nav>
       </header>
@@ -952,7 +952,7 @@
       <!-- ============ 表情編 ============ -->
       <section id="expression">
         <div class="sec-head"><h2>表情編</h2><span class="count">喜怒哀楽＋特殊・全32種／1つだけ選択</span></div>
-        <p class="sec-note">【喜】の6種はクレイの見本写真、その他は顔の模式図でニュアンスを確認してタップ。表情は<strong>1つだけ</strong>（選び直すと切り替わり、同じカードをもう一度タップすると解除）。完成プロンプトでは「視線：◯◯／表情：◯◯」と区別して入るよ。</p>
+        <p class="sec-note">【喜】【怒】【哀】の17種はクレイの見本写真、その他は顔の模式図でニュアンスを確認してタップ。表情は<strong>1つだけ</strong>（選び直すと切り替わり、同じカードをもう一度タップすると解除）。完成プロンプトでは「視線：◯◯／表情：◯◯」と区別して入るよ。</p>
         <div id="expression-root"></div>
         <div class="preview-box" id="expression-preview">表情未選択 — カードを選ぶとここに表示されるよ。</div>
         <p style="margin:12px 0 0"><button class="clear-btn" id="clear-expression" type="button">表情の選択を解除</button></p>
@@ -1029,17 +1029,17 @@
         <div class="row" style="display:flex;justify-content:flex-end">
           <button class="clear-btn" id="clear-sel">画角・ポーズ・視線の選択をすべて解除</button>
         </div>
-        <a class="hub-cta" href="/spaces/v2/comfyuipuronputobiruda/" rel="noopener">
+        <a class="hub-cta" href="../comfyuipuronputobiruda/" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
           コピーしたらハブ（ComfyUIプロンプトビルダー）で最終調整する →
         </a>
       </div>
-      <div class="sticky-bar"><span id="sticky-count">選択中：0件</span><span class="sticky-links"><a href="#builder">プロンプトを見る ↓</a><a href="/spaces/v2/comfyuipuronputobiruda/" rel="noopener">ハブに戻る</a></span></div>
+      <div class="sticky-bar"><span id="sticky-count">選択中：0件</span><span class="sticky-links"><a href="#builder">プロンプトを見る ↓</a><a href="../comfyuipuronputobiruda/" rel="noopener">ハブに戻る</a></span></div>
 
       <nav class="return-links" aria-label="部屋ナビ（ページ下部）">
-        <a href="/spaces/v2/comfyuipuronputobiruda/" rel="noopener">← ハブ：ComfyUIプロンプトビルダーに戻る</a>
-        <a href="/spaces/v2/miyuu-kosupurekatarogu/" rel="noopener">衣装：コスプレカタログ</a>
-        <a href="/spaces/v2/miyuuzhao-seti-ebiruda/" rel="noopener">衣装：着せ替えビルダー（私服）</a>
+        <a href="../comfyuipuronputobiruda/" rel="noopener">← ハブ：ComfyUIプロンプトビルダーに戻る</a>
+        <a href="../miyuu-kosupurekatarogu/" rel="noopener">衣装：コスプレカタログ</a>
+        <a href="../miyuuzhao-seti-ebiruda/" rel="noopener">衣装：着せ替えビルダー（私服）</a>
         <span aria-current="page">カメラ：アングル早見表</span>
       </nav>
 
@@ -3175,6 +3175,7 @@ var EXPRESSION_CATS = [{
     en: 'Angry, glaring',
     fx: '眉を寄せて睨む、本気の怒り。',
     jp: '怒って睨んで',
+    img: 'assets/expr-angry.jpg',
     tag: 'angry, glaring',
     svg: FACE(EO + BROWS('M78 50 l15 5 M122 50 l-15 5'), M_FLAT + '<path d="M138 30 l6 6 M144 30 l-6 6 M141 27 v12" stroke="#d9534f" stroke-width="2.4" stroke-linecap="round"/>')
   }, {
@@ -3182,6 +3183,7 @@ var EXPRESSION_CATS = [{
     en: 'Pouting, puffed cheeks',
     fx: '頬を膨らませた拗ね怒り。可愛い系の怒り。',
     jp: '頬を膨らませてぷんぷん怒って',
+    img: 'assets/expr-pout.jpg',
     tag: 'pouting, puffed cheeks, angry',
     svg: FACE(EHALF + BROWS('M78 50 l15 5 M122 50 l-15 5'), '<circle cx="100" cy="84" r="3.5" fill="none" stroke="var(--ink)" stroke-width="2.5"/><ellipse cx="70" cy="74" rx="10" ry="6" fill="#e88a7a" opacity=".4"/><ellipse cx="130" cy="74" rx="10" ry="6" fill="#e88a7a" opacity=".4"/>')
   }, {
@@ -3189,6 +3191,7 @@ var EXPRESSION_CATS = [{
     en: 'Sulky, pout',
     fx: '唇を尖らせたムッとした顔。',
     jp: 'ムッと不機嫌そうに唇を尖らせて',
+    img: 'assets/expr-sulky.jpg',
     tag: 'sulky, pout',
     svg: FACE('<circle class="eye" cx="86" cy="62" r="3.6"/><circle class="eye" cx="114" cy="62" r="3.6"/>' + BROWS('M78 52 q8 2 16 0 M106 52 q8 2 16 0'), '<ellipse cx="100" cy="84" rx="6" ry="3.5" fill="none" stroke="var(--ink)" stroke-width="2.6"/>')
   }, {
@@ -3196,6 +3199,7 @@ var EXPRESSION_CATS = [{
     en: 'Exasperated, sighing',
     fx: '半目＋ため息の呆れ顔。',
     jp: '呆れたようにため息をついて',
+    img: 'assets/expr-sigh.jpg',
     tag: 'exasperated, sighing',
     svg: FACE(EHALF, MOUTH('M94 84 q6 -3 12 0') + '<path d="M126 88 q10 2 14 -4" stroke="var(--ink-3)" stroke-width="2.2" fill="none"/>')
   }, {
@@ -3203,6 +3207,7 @@ var EXPRESSION_CATS = [{
     en: 'Jitome, half-lidded eyes',
     fx: '半目でじっと見るジト目。冷めた視線。',
     jp: 'ジト目で半目にして',
+    img: 'assets/expr-jitome.jpg',
     tag: 'half-lidded eyes, jitome',
     svg: FACE('<path d="M77 56 h18 M105 56 h18" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round"/><circle class="eye" cx="86" cy="63" r="3"/><circle class="eye" cx="114" cy="63" r="3"/>', M_FLAT)
   }]
@@ -3213,6 +3218,7 @@ var EXPRESSION_CATS = [{
     en: 'Sad expression',
     fx: '眉が下がった悲しげな顔。',
     jp: '悲しそうな表情で',
+    img: 'assets/expr-sad.jpg',
     tag: 'sad expression',
     svg: FACE(EO + BROWS('M78 52 q8 -6 16 -2 M106 50 q8 -4 16 2'), MOUTH('M92 86 q8 -6 16 0'))
   }, {
@@ -3220,6 +3226,7 @@ var EXPRESSION_CATS = [{
     en: 'Teary-eyed, about to cry',
     fx: '目に涙をためて今にも泣きそう。',
     jp: '目に涙をためて泣きそうに',
+    img: 'assets/expr-teary.jpg',
     tag: 'teary-eyed, about to cry',
     svg: FACE(EWIDE + BROWS('M78 52 q8 -6 16 -2 M106 50 q8 -4 16 2'), MOUTH('M93 85 q7 -4 14 0') + '<ellipse cx="86" cy="66" rx="6" ry="3" fill="#7ab8d9" opacity=".6"/><ellipse cx="114" cy="66" rx="6" ry="3" fill="#7ab8d9" opacity=".6"/>')
   }, {
@@ -3227,6 +3234,7 @@ var EXPRESSION_CATS = [{
     en: 'Crying, tears streaming',
     fx: '涙が頬を流れる泣き顔。',
     jp: '涙を流して泣いて',
+    img: 'assets/expr-crying.jpg',
     tag: 'crying, tears streaming',
     svg: FACE(ECLOSED + BROWS('M78 52 q8 -6 16 -2 M106 50 q8 -4 16 2'), '<ellipse cx="100" cy="86" rx="7" ry="5" fill="var(--ink)"/>' + TEAR)
   }, {
@@ -3234,6 +3242,7 @@ var EXPRESSION_CATS = [{
     en: 'Lonely expression',
     fx: '伏し目がちで寂しげな表情。',
     jp: '寂しそうな表情で',
+    img: 'assets/expr-lonely.jpg',
     tag: 'lonely expression',
     svg: FACE('<circle class="eye" cx="86" cy="64" r="3.2"/><circle class="eye" cx="114" cy="64" r="3.2"/>' + BROWS('M78 53 q8 -5 16 -2 M106 51 q8 -3 16 2'), MOUTH('M94 85 q6 -3 12 0'))
   }, {
@@ -3241,6 +3250,7 @@ var EXPRESSION_CATS = [{
     en: 'Troubled, worried',
     fx: '眉を寄せた困り顔。汗マークが効く。',
     jp: '困ったように眉を寄せて',
+    img: 'assets/expr-troubled.jpg',
     tag: 'troubled, worried',
     svg: FACE(EO + BROWS('M78 54 q8 -7 16 -3 M106 51 q8 -4 16 3'), '<path d="M91 84 q4 -3 9 0 q5 3 9 0" stroke="var(--ink)" stroke-width="2.6" fill="none" stroke-linecap="round"/>' + SWEAT)
   }, {
@@ -3248,6 +3258,7 @@ var EXPRESSION_CATS = [{
     en: 'Anxious expression',
     fx: 'おどおどした不安げな表情。',
     jp: '不安げな表情で',
+    img: 'assets/expr-anxious.jpg',
     tag: 'anxious expression',
     svg: FACE(EWIDE + BROWS('M78 51 q8 -6 16 -2 M106 49 q8 -4 16 2'), M_O + SWEAT)
   }]

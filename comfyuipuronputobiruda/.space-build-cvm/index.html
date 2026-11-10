@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<title>プロンプトビルダー Ver3.1</title>
+<title>プロンプトビルダー Ver3.2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
@@ -70,7 +70,8 @@ border-radius:12px;padding:10px 12px;font-family:ui-monospace,Menlo,Consolas,mon
 .mode-desc{margin:10px 0 0}
 .mode-desc strong{color:var(--txt)}
 /* ---------- キャラクター選択カード ---------- */
-.chara-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.chara-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px}
+@media (max-width:560px){.chara-grid{grid-template-columns:1fr}}
 .chara-card{position:relative;display:block;border:2px solid var(--line);border-radius:14px;background:var(--bg);
 padding:10px;text-align:center;cursor:pointer;transition:border-color.15s, background.15s}
 .chara-card input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:1;background:transparent;border:0;appearance:none;-webkit-appearance:none;cursor:pointer}
@@ -140,7 +141,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 </head>
 <body>
 <header>
-<h1>プロンプトビルダー <span class="ver">Ver3.1</span></h1>
+<h1>プロンプトビルダー <span class="ver">Ver3.2</span></h1>
 <p>まず<strong>キャラクター</strong>を決めて、服や表情は<strong>各部屋</strong>で。ここは、選んだタグを<strong>貼って・まとめて・コピーする</strong>場所です。</p>
 <div class="steps" aria-label="使い方">
 <div class="step">
@@ -179,8 +180,14 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 <div class="chara-grid" role="radiogroup" aria-label="作成するキャラクター">
 <label class="chara-card">
 <input type="radio" name="chara" value="myu" checked>
-<span class="chara-thumb"><img data-hatch-src="assets/nav-face.jpg" alt="ミュウ" width="480" height="702" loading="lazy"></span>
+<span class="chara-thumb"><img data-hatch-src="assets/nav-myu.jpg" alt="ミュウ" width="480" height="639" loading="lazy"></span>
 <span class="chara-name">ミュウ</span>
+<span class="chara-sub">専用プロンプトが自動で入ります</span>
+</label>
+<label class="chara-card">
+<input type="radio" name="chara" value="shiori">
+<span class="chara-thumb"><img data-hatch-src="assets/nav-shiori.jpg" alt="詩織" width="480" height="639" loading="lazy"></span>
+<span class="chara-name">詩織</span>
 <span class="chara-sub">専用プロンプトが自動で入ります</span>
 </label>
 <label class="chara-card">
@@ -218,7 +225,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 <div class="step-head"><span class="step-num">2</span><span class="step-title">服・表情・ポーズを選ぶ</span><span class="step-sub">タップで部屋へ移動します</span></div>
 <section id="roomMapSec" aria-label="部屋へのリンク">
 <div class="room-grid">
-<a class="room-card" href="/spaces/v2/miyuu-kosupurekatarogu/" target="_top">
+<a class="room-card" href="../miyuu-kosupurekatarogu/">
 <img data-hatch-src="assets/nav-cosplay.jpg" alt="メイド服のコスプレをしたミュウ" width="480" height="702" loading="lazy">
 <span class="room-body">
 <span class="room-name">コスプレ</span>
@@ -226,7 +233,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 <span class="room-go">開く →</span>
 </span>
 </a>
-<a class="room-card" href="/spaces/v2/miyuuzhao-seti-ebiruda/" target="_top">
+<a class="room-card" href="../miyuuzhao-seti-ebiruda/">
 <img data-hatch-src="assets/nav-outfit.jpg" alt="私服を着たミュウ" width="480" height="701" loading="lazy">
 <span class="room-body">
 <span class="room-name">私服</span>
@@ -234,7 +241,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 <span class="room-go">開く →</span>
 </span>
 </a>
-<a class="room-card" href="/spaces/v2/kameraanguruzao-jian-biao/" target="_top">
+<a class="room-card" href="../kameraanguruzao-jian-biao/">
 <img data-hatch-src="assets/nav-face.jpg" alt="笑顔のミュウの顔のアップ" width="480" height="702" loading="lazy">
 <span class="room-body">
 <span class="room-name">表情・ポーズ</span>
@@ -299,7 +306,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 <button data-copy="negOut" data-msg="copiedNeg">コピーする</button>
 <span class="copied" id="copiedNeg"></span>
 </div>
-<p class="memo">推奨設定：832×1216 / steps 28 / CFG 5.5 / euler_ancestral / FaceDetailer ON（0.30）/ LoRA myu_original_v2（0.8）。絵が崩れたら「完全版」に切り替えてください。</p>
+<p class="memo" id="recMemo">推奨設定：832×1216 / steps 28 / CFG 5.5 / euler_ancestral / FaceDetailer ON（0.30）/ LoRA myu_original_v2（0.8）。絵が崩れたら「完全版」に切り替えてください。</p>
 </section>
 
 <section>
@@ -313,7 +320,7 @@ background:var(--panel);border:1.5px solid var(--line);border-radius:999px;paddi
 </section>
 
 </main>
-<footer>プロンプトビルダー Ver3.1 — 選ぶのは各部屋、ここは貼って・まとめて・コピーする場所です。</footer>
+<footer>プロンプトビルダー Ver3.2 — 選ぶのは各部屋、ここは貼って・まとめて・コピーする場所です。</footer>
 
 <nav class="float-nav" id="floatNav" aria-label="ページ内ショートカット">
 <a href="#charaSec">キャラ</a>
@@ -1844,8 +1851,15 @@ const PEOPLE_GENERIC = {
   duo_f: "2girls, adult woman"
 };
 const NEG_BASE_GENERIC = "worst quality, low quality, bad anatomy, watermark, text, censored, multiple views";
+const PEOPLE_SHIORI = {
+  solo: "(solo:1.3), 1girl, adult woman, mature female",
+  duo_m: "1girl, 1boy, adult woman, mature female",
+  duo_f: "2girls, adult woman, mature female"
+};
 function peopleTags() {
-  return charaMode === "myu" ? PEOPLE[peopleMode] : PEOPLE_GENERIC[peopleMode];
+  if (charaMode === "myu") return PEOPLE[peopleMode];
+  if (charaMode === "shiori") return PEOPLE_SHIORI[peopleMode];
+  return PEOPLE_GENERIC[peopleMode];
 }
 const ORE_TAGS = "man, adult man";
 let promptMode = "lite";
@@ -1855,15 +1869,30 @@ const MODE_DESC = {
   lite: "<strong>通常版（おすすめ）</strong> — LoRAありの時はこちら。短くて安定します。",
   full: "<strong>完全版</strong> — LoRAなし・他モデル・img2img の時だけ。顔・髪・体型まで全部入ります。"
 };
+const SHIORI_POST_LITE = ["long hair, wavy hair, dark brown hair, blue eyes, droopy eyes", "wedding ring, silver ring on left ring finger"];
+const SHIORI_POST_FULL = ["(very long hair:1.2), hair reaching waist, wavy hair, loose waves, dark brown hair, warm brown hair, reddish brown highlights, center part, see-through bangs, bangs, hair strands over forehead, sidelocks", "almond-shaped eyes, droopy eyes, tareme, blue eyes, clear blue eyes, detailed blue iris, dark blue limbal ring, brown eyebrows, arched eyebrows, small nose, small mouth, pale pink lips, soft round cheeks, small chin", "fair skin, light skin, peach beige skin, warm skin tone, natural blush, blush on cheeks and nose", "(curvy:1.15), (large breasts:1.1), narrow waist, wide hips, round hips, thick thighs, soft body, natural body line", "wedding ring, silver ring on left ring finger, flower pendant necklace"];
+const MODE_DESC_SHIORI = {
+  lite: "<strong>通常版</strong> — 詩織の核（ロングヘア・青い瞳・指輪）だけの短い版です。",
+  full: "<strong>完全版（おすすめ）</strong> — 詩織には専用LoRAがないので、顔立ち・髪・肌・体格まで入るこちらが安定します。"
+};
+function fullPost() {
+  if (charaMode === "myu") return FIXED_POST_FULL;
+  if (charaMode === "shiori") return SHIORI_POST_FULL;
+  return [];
+}
 function fixedPost() {
-  if (charaMode !== "myu") return [];
-  return promptMode === "lite" ? FIXED_POST_LITE : FIXED_POST_FULL;
+  if (charaMode === "myu") return promptMode === "lite" ? FIXED_POST_LITE : FIXED_POST_FULL;
+  if (charaMode === "shiori") return promptMode === "lite" ? SHIORI_POST_LITE : SHIORI_POST_FULL;
+  return [];
 }
 const NEG_BASE_LITE = "worst quality, low quality, bad anatomy, watermark, text, child, loli, young, pale skin, tan lines, muscular, abs, censored, multiple views";
 const NEG_BASE_FULL = "bad quality, worst quality, low quality, lowres, blurry, bad anatomy, watermark, text, logo, signature, long hair, medium hair, very long hair, smooth straight hair, heavy makeup, thick eyebrows, child, teen, loli, young, young looking, muscular, abs, defined muscles, visible muscle lines, censored, mosaic censoring, bar censor, multiple views, character sheet";
+const NEG_SHIORI_LITE = "worst quality, low quality, bad anatomy, watermark, text, child, loli, young, short hair, bob hair, blonde hair, brown eyes, dark skin, tanned skin, muscular, abs, censored, multiple views";
+const NEG_SHIORI_FULL = "bad quality, worst quality, low quality, lowres, blurry, bad anatomy, watermark, text, logo, signature, short hair, bob hair, medium hair, straight hair, blonde hair, light hair, black hair, twin tails, brown eyes, red eyes, green eyes, dark skin, dark-skinned female, tanned skin, tan lines, gyaru, heavy makeup, thick eyebrows, child, teen, loli, young, young looking, muscular, abs, defined muscles, visible muscle lines, censored, mosaic censoring, bar censor, multiple views, character sheet";
 function negBase() {
-  if (charaMode !== "myu") return NEG_BASE_GENERIC;
-  return promptMode === "lite" ? NEG_BASE_LITE : NEG_BASE_FULL;
+  if (charaMode === "myu") return promptMode === "lite" ? NEG_BASE_LITE : NEG_BASE_FULL;
+  if (charaMode === "shiori") return promptMode === "lite" ? NEG_SHIORI_LITE : NEG_SHIORI_FULL;
+  return NEG_BASE_GENERIC;
 }
 const NEG_TOGGLES = {
   "手の破綻を防ぐ": "bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands",
@@ -2046,6 +2075,7 @@ function dedupeJoin(strs) {
   };
 }
 const JP_CHARA = "27歳の成人女性「ミュウ」。黒ギャルで、明るいベージュブロンドの短いレイヤードボブ、茶色の瞳、小さめの鼻と口元、耳ピアス。肌はディープブロンズの均一な褐色で、体型は曲線的で柔らか。左手の薬指に銀の結婚指輪を着けている。";
+const JP_CHARA_SHIORI = "成人女性「詩織」。暖かみのあるダークブラウンの、腰付近まで届くロングヘアで、中央分けと隙間から額が見える前髪、中間から毛先に大きくゆるいウェーブ。横長のアーモンド形のたれ目で、瞳は濃い青の外周と内側の澄んだ青を持つ透明感のあるブルー。頬はやわらかく丸みがあり、眉はブラウンで緩やかな弧、小ぶりな鼻と淡いピンクの口元。肌は明るめで暖かみのあるピーチベージュで、頬から鼻先に自然な赤み。身長160cmで、胸元に厚みがありウエストが明確にくびれ、腰からヒップに自然な丸みのある体型。左手の薬指に結婚指輪を着けている。";
 const PEOPLE_JP = {
   solo: "",
   duo_m: "男性のパートナーと二人で写っている。",
@@ -2054,6 +2084,7 @@ const PEOPLE_JP = {
 function buildJp() {
   const s = ["アニメ風のイラスト。"];
   if (charaMode === "myu") s.push(JP_CHARA);
+  if (charaMode === "shiori") s.push(JP_CHARA_SHIORI);
   if (PEOPLE_JP[peopleMode]) s.push(PEOPLE_JP[peopleMode]);
   const partnerJp = document.getElementById("partnerTagsJp").value.trim();
   if (peopleMode !== "solo" && partnerJp) s.push("相手は" + partnerJp + "。");
@@ -2063,15 +2094,16 @@ function buildJp() {
 }
 function update() {
   const post = fixedPost();
-  document.getElementById("charaDesc").textContent = charaMode === "myu" ? "ミュウを選択中：ComfyUI用の専用タグ（LoRA・肌・指輪）と、ChatGPT用の人物説明が自動で入ります。" : "キャラクターなし：ミュウ専用プロンプトは入りません。「貼る」や「自分で足すタグ」に書いたものだけが入ります。";
-  __tunnel.setInnerHTML(document.getElementById("modeDesc"), charaMode === "myu" ? MODE_DESC[promptMode] : "キャラクター未選択のため、通常版／完全版（ミュウ用）は使われません。", "innerHTML");
+  document.getElementById("charaDesc").textContent = charaMode === "myu" ? "ミュウを選択中：ComfyUI用の専用タグ（LoRA・肌・指輪）と、ChatGPT用の人物説明が自動で入ります。" : charaMode === "shiori" ? "詩織を選択中：ComfyUI用の専用タグ（ロングヘア・青い瞳・ピーチベージュの肌・指輪）と、ChatGPT用の人物説明が自動で入ります。専用LoRAはないので「完全版」がおすすめです。" : "キャラクターなし：専用プロンプトは入りません。「貼る」や「自分で足すタグ」に書いたものだけが入ります。";
+  __tunnel.setInnerHTML(document.getElementById("modeDesc"), charaMode === "myu" ? MODE_DESC[promptMode] : charaMode === "shiori" ? MODE_DESC_SHIORI[promptMode] : "キャラクター未選択のため、通常版／完全版は使われません。", "innerHTML");
+  document.getElementById("recMemo").textContent = charaMode === "shiori" ? "推奨設定：832×1216 / steps 28 / CFG 5.5 / euler_ancestral / FaceDetailer ON（0.30）。詩織には専用LoRAがないため「完全版」がおすすめです。" : charaMode === "myu" ? "推奨設定：832×1216 / steps 28 / CFG 5.5 / euler_ancestral / FaceDetailer ON（0.30）/ LoRA myu_original_v2（0.8）。絵が崩れたら「完全版」に切り替えてください。" : "推奨設定：832×1216 / steps 28 / CFG 5.5 / euler_ancestral / FaceDetailer ON（0.30）。";
   const parts = [...FIXED_PRE, peopleTags()];
   const partner = document.getElementById("partnerTags").value.trim();
   if (peopleMode !== "solo" && partner) parts.push(partner);
   parts.push(...post);
   const fixedStr = [...FIXED_PRE, peopleTags(), ...post].join(", ");
   document.getElementById("fixedView").textContent = fixedStr;
-  document.getElementById("fixedMeta").textContent = charaMode !== "myu" ? "キャラクター未選択：ミュウ専用のタグは入っていません。" : promptMode === "lite" ? "通常版：" + tagCount(fixedStr) + "タグ / " + fixedStr.length + "文字（完全版は " + tagCount([...FIXED_PRE, PEOPLE[peopleMode], ...FIXED_POST_FULL].join(", ")) + "タグ）" : "完全版：" + tagCount(fixedStr) + "タグ / " + fixedStr.length + "文字";
+  document.getElementById("fixedMeta").textContent = charaMode === "none" ? "キャラクター未選択：専用のタグは入っていません。" : promptMode === "lite" ? "通常版：" + tagCount(fixedStr) + "タグ / " + fixedStr.length + "文字（完全版は " + tagCount([...FIXED_PRE, peopleTags(), ...fullPost()].join(", ")) + "タグ）" : "完全版：" + tagCount(fixedStr) + "タグ / " + fixedStr.length + "文字";
   const fragEn = document.getElementById("fragEn").value.trim();
   if (fragEn) parts.push(fragEn);
   const free = document.getElementById("freeTags").value.trim();
