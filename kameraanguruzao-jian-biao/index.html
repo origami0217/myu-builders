@@ -159,6 +159,8 @@
       }
       .fig { background: var(--fig-bg); padding: 10px 14px 4px; border-bottom: 1px solid var(--line); }
       .fig svg { width: 100%; height: auto; display: block; }
+      .fig-photo { padding: 0; }
+      .fig-photo img { width: 100%; height: 280px; object-fit: cover; object-position: 50% 12%; display: block; }
       .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
       .card h3 { font-size: 18px; font-weight: 900; margin: 0; line-height: 1.45; }
       .card h3 .en { display: block; font-size: 12.5px; font-weight: 700; color: var(--accent-ink); letter-spacing: .04em; margin-top: 2px; }
@@ -942,14 +944,14 @@
       <!-- ============ 視線編 ============ -->
       <section id="gaze">
         <div class="sec-head"><h2>視線編</h2><span class="count">目の向き・全10種</span></div>
-        <p class="sec-note">顔アップの模式図＋矢印が視線の向き。表情のニュアンスがガラッと変わる最後のひと押し。</p>
+        <p class="sec-note">クレイの見本写真で視線の向きを確認してタップ。表情のニュアンスがガラッと変わる最後のひと押し。</p>
         <div class="grid" id="gaze-grid"></div>
       </section>
 
       <!-- ============ 表情編 ============ -->
       <section id="expression">
         <div class="sec-head"><h2>表情編</h2><span class="count">喜怒哀楽＋特殊・全32種／1つだけ選択</span></div>
-        <p class="sec-note">顔の模式図でニュアンスを確認してタップ。表情は<strong>1つだけ</strong>（選び直すと切り替わり、同じカードをもう一度タップすると解除）。完成プロンプトでは「視線：◯◯／表情：◯◯」と区別して入るよ。</p>
+        <p class="sec-note">【喜】の6種はクレイの見本写真、その他は顔の模式図でニュアンスを確認してタップ。表情は<strong>1つだけ</strong>（選び直すと切り替わり、同じカードをもう一度タップすると解除）。完成プロンプトでは「視線：◯◯／表情：◯◯」と区別して入るよ。</p>
         <div id="expression-root"></div>
         <div class="preview-box" id="expression-preview">表情未選択 — カードを選ぶとここに表示されるよ。</div>
         <p style="margin:12px 0 0"><button class="clear-btn" id="clear-expression" type="button">表情の選択を解除</button></p>
@@ -1183,22 +1185,26 @@
       function ARROW(d) { return '<path d="' + d + '" stroke="var(--accent)" stroke-width="2.5" fill="none"/><path d="M0 0" fill="var(--accent)"/>'; }
       var E_OPEN = '<circle class="eye" cx="86" cy="60" r="4"/><circle class="eye" cx="114" cy="60" r="4"/>';
       var GAZE = [
-        { n: 'カメラ目線', en: 'Looking at viewer', fx: 'まっすぐカメラを見る。訴求力No.1で、アイキャッチに最適。', jp: 'カメラ目線で', tag: 'looking at viewer', svg: FACE(E_OPEN + '<circle cx="86" cy="60" r="8" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="114" cy="60" r="8" fill="none" stroke="var(--accent)" stroke-width="2"/>') },
-        { n: '視線外し', en: 'Looking away', fx: '目線をカメラからそらす。自然体で、ふとした瞬間を切り取った感じに。', jp: '視線をカメラから外して', tag: 'looking away', svg: FACE('<circle class="eye" cx="80" cy="60" r="4"/><circle class="eye" cx="106" cy="60" r="4"/>', '', ARROW('M128 52 q18 -6 26 -18') + '<path d="M154 26 l2 10 l-9 -3z" fill="var(--accent)"/>') },
-        { n: '見上げ', en: 'Looking up', fx: '上目遣い気味に見上げる。あどけなさや、空・高い建物を見るシーンに。', jp: '上を見上げて', tag: 'looking up', svg: FACE('<circle class="eye" cx="86" cy="54" r="4"/><circle class="eye" cx="114" cy="54" r="4"/><path d="M78 50 q8 -5 16 0 M106 50 q8 -5 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none"/>', '', ARROW('M150 84 V48') + '<path d="M150 40 l-5 10 h10z" fill="var(--accent)"/>') },
-        { n: '見下ろし', en: 'Looking down', fx: '上から見下ろす視線。ハイアングルの逆で、強さ・余裕の演出に。', jp: '下を見下ろして', tag: 'looking down', svg: FACE('<circle class="eye" cx="86" cy="66" r="4"/><circle class="eye" cx="114" cy="66" r="4"/><path d="M78 56 q8 4 16 0 M106 56 q8 4 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none"/>', '', ARROW('M150 34 v36') + '<path d="M150 78 l-5 -10 h10z" fill="var(--accent)"/>') },
-        { n: '流し目（横目）', en: 'Sidelong glance', fx: '顔は正面、目だけ横へ流す。小悪魔っぽさや意味深な雰囲気に。', jp: '横目で流し目をして', tag: 'sidelong glance', svg: FACE('<ellipse cx="86" cy="60" rx="7" ry="4.5" fill="#fff" stroke="var(--ink)" stroke-width="2"/><ellipse cx="114" cy="60" rx="7" ry="4.5" fill="#fff" stroke="var(--ink)" stroke-width="2"/><circle class="eye" cx="91" cy="60" r="3.2"/><circle class="eye" cx="119" cy="60" r="3.2"/>', '', ARROW('M136 60 h28') + '<path d="M172 60 l-10 -5 v10z" fill="var(--accent)"/>') },
-        { n: '振り返り目線', en: 'Looking back at viewer', fx: '振り返ってカメラを捉える目線。振り返りポーズとセットで使うと最強。', jp: '振り返ってカメラを見て', tag: 'looking back at viewer', svg: FACE('<circle class="eye" cx="82" cy="60" r="4"/><circle class="eye" cx="108" cy="60" r="4"/><path d="M58 84 q-14 -22 -4 -44" stroke="var(--accent)" stroke-width="2.5" fill="none"/>', '<path d="M52 34 l-3 10 l9 -4z" fill="var(--accent)"/>') },
-        { n: '目を閉じて', en: 'Closed eyes', fx: '目を閉じて微笑む・リラックス。幸せそうな空気感の演出に。', jp: '目を閉じて', tag: 'closed eyes', svg: FACE('<path d="M78 60 q8 6 16 0 M106 60 q8 6 16 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M92 80 q8 5 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round"/>') },
-        { n: 'ウインク', en: 'Wink, one eye closed', fx: '片目だけ閉じるウインク。お茶目さとファンサ感が出る。', jp: 'ウインクして', tag: 'wink, one eye closed', svg: FACE('<circle class="eye" cx="86" cy="60" r="4.2"/><path d="M106 60 q8 5 16 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M146 34 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2z" fill="var(--amber)"/>') },
-        { n: '伏し目', en: 'Downcast eyes', fx: '目を伏せる、しっとりした表情。物思いや切ないシーンに。', jp: '伏し目がちに', tag: 'downcast eyes', svg: FACE('<path d="M78 58 q8 7 16 1 M106 58 q8 7 16 1" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><circle class="eye" cx="86" cy="65" r="2.6"/><circle class="eye" cx="114" cy="65" r="2.6"/>') },
-        { n: 'スマホを見つめる', en: 'Looking at smartphone', fx: '手元のスマホに視線を落とす。日常スナップやLINE風自撮りの空気感に。', jp: 'スマホを見つめて', tag: 'looking at smartphone', svg: FACE('<circle class="eye" cx="86" cy="65" r="3.4"/><circle class="eye" cx="114" cy="65" r="3.4"/>', '<g transform="rotate(-6 100 108)"><rect x="84" y="90" width="32" height="24" rx="4" fill="var(--accent)"/><rect x="89" y="95" width="22" height="12" rx="2" fill="var(--fig-bg)"/></g>') }
+        { n: 'カメラ目線', en: 'Looking at viewer', fx: 'まっすぐカメラを見る。訴求力No.1で、アイキャッチに最適。', jp: 'カメラ目線で', img: 'assets/gaze-camera.jpg', tag: 'looking at viewer', svg: FACE(E_OPEN + '<circle cx="86" cy="60" r="8" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="114" cy="60" r="8" fill="none" stroke="var(--accent)" stroke-width="2"/>') },
+        { n: '視線外し', en: 'Looking away', fx: '目線をカメラからそらす。自然体で、ふとした瞬間を切り取った感じに。', jp: '視線をカメラから外して', img: 'assets/gaze-away.jpg', tag: 'looking away', svg: FACE('<circle class="eye" cx="80" cy="60" r="4"/><circle class="eye" cx="106" cy="60" r="4"/>', '', ARROW('M128 52 q18 -6 26 -18') + '<path d="M154 26 l2 10 l-9 -3z" fill="var(--accent)"/>') },
+        { n: '見上げ', en: 'Looking up', fx: '上目遣い気味に見上げる。あどけなさや、空・高い建物を見るシーンに。', jp: '上を見上げて', img: 'assets/gaze-up.jpg', tag: 'looking up', svg: FACE('<circle class="eye" cx="86" cy="54" r="4"/><circle class="eye" cx="114" cy="54" r="4"/><path d="M78 50 q8 -5 16 0 M106 50 q8 -5 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none"/>', '', ARROW('M150 84 V48') + '<path d="M150 40 l-5 10 h10z" fill="var(--accent)"/>') },
+        { n: '見下ろし', en: 'Looking down', fx: '上から見下ろす視線。ハイアングルの逆で、強さ・余裕の演出に。', jp: '下を見下ろして', img: 'assets/gaze-down.jpg', tag: 'looking down', svg: FACE('<circle class="eye" cx="86" cy="66" r="4"/><circle class="eye" cx="114" cy="66" r="4"/><path d="M78 56 q8 4 16 0 M106 56 q8 4 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none"/>', '', ARROW('M150 34 v36') + '<path d="M150 78 l-5 -10 h10z" fill="var(--accent)"/>') },
+        { n: '流し目（横目）', en: 'Sidelong glance', fx: '顔は正面、目だけ横へ流す。小悪魔っぽさや意味深な雰囲気に。', jp: '横目で流し目をして', img: 'assets/gaze-sidelong.jpg', tag: 'sidelong glance', svg: FACE('<ellipse cx="86" cy="60" rx="7" ry="4.5" fill="#fff" stroke="var(--ink)" stroke-width="2"/><ellipse cx="114" cy="60" rx="7" ry="4.5" fill="#fff" stroke="var(--ink)" stroke-width="2"/><circle class="eye" cx="91" cy="60" r="3.2"/><circle class="eye" cx="119" cy="60" r="3.2"/>', '', ARROW('M136 60 h28') + '<path d="M172 60 l-10 -5 v10z" fill="var(--accent)"/>') },
+        { n: '振り返り目線', en: 'Looking back at viewer', fx: '振り返ってカメラを捉える目線。振り返りポーズとセットで使うと最強。', jp: '振り返ってカメラを見て', img: 'assets/gaze-back.jpg', tag: 'looking back at viewer', svg: FACE('<circle class="eye" cx="82" cy="60" r="4"/><circle class="eye" cx="108" cy="60" r="4"/><path d="M58 84 q-14 -22 -4 -44" stroke="var(--accent)" stroke-width="2.5" fill="none"/>', '<path d="M52 34 l-3 10 l9 -4z" fill="var(--accent)"/>') },
+        { n: '目を閉じて', en: 'Closed eyes', fx: '目を閉じて微笑む・リラックス。幸せそうな空気感の演出に。', jp: '目を閉じて', img: 'assets/gaze-closed.jpg', tag: 'closed eyes', svg: FACE('<path d="M78 60 q8 6 16 0 M106 60 q8 6 16 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M92 80 q8 5 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round"/>') },
+        { n: 'ウインク', en: 'Wink, one eye closed', fx: '片目だけ閉じるウインク。お茶目さとファンサ感が出る。', jp: 'ウインクして', img: 'assets/gaze-wink.jpg', tag: 'wink, one eye closed', svg: FACE('<circle class="eye" cx="86" cy="60" r="4.2"/><path d="M106 60 q8 5 16 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M146 34 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2z" fill="var(--amber)"/>') },
+        { n: '伏し目', en: 'Downcast eyes', fx: '目を伏せる、しっとりした表情。物思いや切ないシーンに。', jp: '伏し目がちに', img: 'assets/gaze-downcast.jpg', tag: 'downcast eyes', svg: FACE('<path d="M78 58 q8 7 16 1 M106 58 q8 7 16 1" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><circle class="eye" cx="86" cy="65" r="2.6"/><circle class="eye" cx="114" cy="65" r="2.6"/>') },
+        { n: 'スマホを見つめる', en: 'Looking at smartphone', fx: '手元のスマホに視線を落とす。日常スナップやLINE風自撮りの空気感に。', jp: 'スマホを見つめて', img: 'assets/gaze-phone.jpg', tag: 'looking at smartphone', svg: FACE('<circle class="eye" cx="86" cy="65" r="3.4"/><circle class="eye" cx="114" cy="65" r="3.4"/>', '<g transform="rotate(-6 100 108)"><rect x="84" y="90" width="32" height="24" rx="4" fill="var(--accent)"/><rect x="89" y="95" width="22" height="12" rx="2" fill="var(--fig-bg)"/></g>') }
       ];
       /* ---------- build dynamic cards ---------- */
+      function figHTML(item) {
+        if (item.img) return '<div class="fig fig-photo"><img src="' + item.img + '" alt="' + item.n + 'の見本写真" loading="lazy"></div>';
+        return '<div class="fig"><svg viewBox="0 0 200 118" role="img" aria-label="' + item.n + 'の模式図">' + item.svg + '</svg></div>';
+      }
       function cardHTML(item, label) {
         return '<article class="card" tabindex="0" role="button" aria-pressed="false">' +
           '<span class="sel-badge">✓</span>' +
-          '<div class="fig"><svg viewBox="0 0 200 118" role="img" aria-label="' + item.n + 'の模式図">' + item.svg + '</svg></div>' +
+          figHTML(item) +
           '<div class="card-body"><h3>' + item.n + '<span class="en">' + item.en + '</span></h3>' +
           '<p class="fx">' + item.fx + '</p><span class="select-hint">タップで選択</span>' +
           '<div class="row"><span class="label">CHATGPT フレーズ</span><div class="phrase-line"><p class="phrase-text">「' + item.jp + '」</p><button class="copy" data-copy="' + item.jp + '">コピー</button></div></div>' +
@@ -1225,12 +1231,12 @@
       var M_O = '<circle cx="100" cy="83" r="5" fill="none" stroke="var(--ink)" stroke-width="2.8"/>';
       var EXPRESSION_CATS = [
         { cat: '喜', items: [
-          { n: '微笑み', en: 'Gentle smile', fx: '柔らかく穏やかな笑顔。日常の基本。', jp: '柔らかく微笑んで', tag: 'gentle smile', svg: FACE(EO, M_SMILE + BLUSH) },
-          { n: '満面の笑み', en: 'Big smile', fx: '口を大きく開けた満面の笑顔。', jp: '満面の笑みで大きく笑って', tag: 'big smile, open mouth smile', svg: FACE(ESMILE, M_BIG + BLUSH) },
-          { n: '目を細めて笑う', en: 'Smiling with narrowed eyes', fx: '目を細める嬉しそうな笑い方。', jp: '目を細めて嬉しそうに笑って', tag: 'smiling with narrowed eyes', svg: FACE('<path d="M78 60 q8 3 16 0 M106 60 q8 3 16 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/>', MOUTH('M90 78 q10 8 20 0') + BLUSH) },
-          { n: '爆笑', en: 'Laughing hard', fx: '声を上げて大笑い。目を閉じて弾ける。', jp: '声を上げて爆笑して', tag: 'laughing hard', svg: FACE(ESMILE, '<ellipse cx="100" cy="85" rx="12" ry="10" fill="var(--ink)"/>' + '<text x="140" y="36" font-size="15" font-weight="900" fill="var(--amber)">!</text>') },
-          { n: 'にやり（ニヤリ）', en: 'Grin', fx: '口角を上げるニヤリ。悪巧みや余裕の笑み。', jp: 'にやりと笑って', tag: 'grin', svg: FACE(EHALF, MOUTH('M90 80 q12 2 20 -4')) },
-          { n: '決め顔・ドヤ顔', en: 'Smug grin', fx: '得意げなドヤ顔。決めポーズのお供に。', jp: 'ドヤ顔で得意げに', tag: 'smug grin', svg: FACE(EHALF + BROWS('M78 48 q8 -3 16 -1 M106 47 q8 -2 16 1'), M_GRIN) }
+          { n: '微笑み', en: 'Gentle smile', fx: '柔らかく穏やかな笑顔。日常の基本。', jp: '柔らかく微笑んで', img: 'assets/expr-smile.jpg', tag: 'gentle smile', svg: FACE(EO, M_SMILE + BLUSH) },
+          { n: '満面の笑み', en: 'Big smile', fx: '口を大きく開けた満面の笑顔。', jp: '満面の笑みで大きく笑って', img: 'assets/expr-bigsmile.jpg', tag: 'big smile, open mouth smile', svg: FACE(ESMILE, M_BIG + BLUSH) },
+          { n: '目を細めて笑う', en: 'Smiling with narrowed eyes', fx: '目を細める嬉しそうな笑い方。', jp: '目を細めて嬉しそうに笑って', img: 'assets/expr-narrowed.jpg', tag: 'smiling with narrowed eyes', svg: FACE('<path d="M78 60 q8 3 16 0 M106 60 q8 3 16 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/>', MOUTH('M90 78 q10 8 20 0') + BLUSH) },
+          { n: '爆笑', en: 'Laughing hard', fx: '声を上げて大笑い。目を閉じて弾ける。', jp: '声を上げて爆笑して', img: 'assets/expr-laugh.jpg', tag: 'laughing hard', svg: FACE(ESMILE, '<ellipse cx="100" cy="85" rx="12" ry="10" fill="var(--ink)"/>' + '<text x="140" y="36" font-size="15" font-weight="900" fill="var(--amber)">!</text>') },
+          { n: 'にやり（ニヤリ）', en: 'Grin', fx: '口角を上げるニヤリ。悪巧みや余裕の笑み。', jp: 'にやりと笑って', img: 'assets/expr-grin.jpg', tag: 'grin', svg: FACE(EHALF, MOUTH('M90 80 q12 2 20 -4')) },
+          { n: '決め顔・ドヤ顔', en: 'Smug grin', fx: '得意げなドヤ顔。決めポーズのお供に。', jp: 'ドヤ顔で得意げに', img: 'assets/expr-smug.jpg', tag: 'smug grin', svg: FACE(EHALF + BROWS('M78 48 q8 -3 16 -1 M106 47 q8 -2 16 1'), M_GRIN) }
         ]},
         { cat: '怒', items: [
           { n: '怒り（睨む）', en: 'Angry, glaring', fx: '眉を寄せて睨む、本気の怒り。', jp: '怒って睨んで', tag: 'angry, glaring', svg: FACE(EO + BROWS('M78 50 l15 5 M122 50 l-15 5'), M_FLAT + '<path d="M138 30 l6 6 M144 30 l-6 6 M141 27 v12" stroke="#d9534f" stroke-width="2.4" stroke-linecap="round"/>') },
@@ -1272,7 +1278,7 @@
       var expressionPreview = document.getElementById('expression-preview');
       function exprCardHTML(item) {
         return '<span class="sel-badge">✓</span>' +
-          '<div class="fig"><svg viewBox="0 0 200 118" role="img" aria-label="' + item.n + 'の模式図">' + item.svg + '</svg></div>' +
+          figHTML(item) +
           '<div class="card-body"><h3>' + item.n + '<span class="en">' + item.tag + '</span></h3>' +
           '<p class="fx">' + item.fx + '</p><span class="select-hint">タップで選択</span>' +
           '<div class="row"><span class="label">CHATGPT フレーズ</span><div class="phrase-line"><p class="phrase-text">「' + item.jp + '」</p><button class="copy" data-copy="' + item.jp + '">コピー</button></div></div>' +

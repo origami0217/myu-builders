@@ -1,0 +1,13 @@
+{
+  "schema_version": "hatch.probe_ui_summary.v1",
+  "slug": "comfyuipuronputobiruda",
+  "session_id": "5bc4f697-524e-444b-ab9b-1930d9f41def",
+  "observes": 0,
+  "acts": 0,
+  "acts_ok": 0,
+  "interactive_nodes": 0,
+  "viewports_seen": [
+    "mobile"
+  ],
+  "findings": []
+}

@@ -1,0 +1,268 @@
+{
+  "ok": true,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-f77dfad0-0fad-4f25-ad27-642d566baae2/",
+  "duration_ms": 4374.319614,
+  "output_dir": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T13-13-33Z-715758800",
+  "nav_status": 200,
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T13-13-33Z-715758800/screenshot.png",
+      "fullpage_screenshot_path": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T13-13-33Z-715758800/screenshot-full.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T13-13-33Z-715758800/screenshot-mobile.png"
+    }
+  },
+  "mobile_layout": {
+    "viewport_width": 390,
+    "scroll_width": 390,
+    "overflow_px": 0,
+    "widest_selector": null,
+    "verdict": "pass"
+  },
+  "horizontal_scrollers": [
+    {
+      "selector": "div#cat-tabs.cat-tabs",
+      "scroll_width": 953,
+      "client_width": 358
+    }
+  ],
+  "unreachable_controls": {
+    "desktop": [],
+    "mobile": []
+  },
+  "clipped": {
+    "desktop": [],
+    "mobile": [
+      {
+        "tag": "button",
+        "text": "ファンタジー・イベント8",
+        "kind": "past_viewport",
+        "overflow_px": 81,
+        "bbox": [
+          282,
+          925,
+          189,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "8",
+        "kind": "past_viewport",
+        "overflow_px": 66,
+        "bbox": [
+          449,
+          936,
+          7,
+          17
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "和・中華系3",
+        "kind": "past_viewport",
+        "overflow_px": 197,
+        "bbox": [
+          479,
+          925,
+          108,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "3",
+        "kind": "past_viewport",
+        "overflow_px": 182,
+        "bbox": [
+          566,
+          936,
+          7,
+          17
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "際どい系12",
+        "kind": "past_viewport",
+        "overflow_px": 307,
+        "bbox": [
+          595,
+          925,
+          101,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "12",
+        "kind": "past_viewport",
+        "overflow_px": 292,
+        "bbox": [
+          668,
+          936,
+          13,
+          17
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "水着系8",
+        "kind": "past_viewport",
+        "overflow_px": 396,
+        "bbox": [
+          705,
+          925,
+          81,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "8",
+        "kind": "past_viewport",
+        "overflow_px": 381,
+        "bbox": [
+          764,
+          936,
+          7,
+          17
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "下着・ランジェリー系6",
+        "kind": "past_viewport",
+        "overflow_px": 579,
+        "bbox": [
+          794,
+          925,
+          176,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "6",
+        "kind": "past_viewport",
+        "overflow_px": 564,
+        "bbox": [
+          948,
+          936,
+          7,
+          17
+        ]
+      }
+    ]
+  },
+  "images": {
+    "total": 13,
+    "broken": [],
+    "duplicate": [],
+    "unstable": [],
+    "failed_requests": [],
+    "external_blocked": {
+      "count": 0,
+      "sample": []
+    },
+    "sample_urls": [
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f77dfad0-0fad-4f25-ad27-642d566baae2/assets/negligee.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f77dfad0-0fad-4f25-ad27-642d566baae2/assets/bunny.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f77dfad0-0fad-4f25-ad27-642d566baae2/assets/sailor.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f77dfad0-0fad-4f25-ad27-642d566baae2/assets/maid.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f77dfad0-0fad-4f25-ad27-642d566baae2/assets/nurse.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f77dfad0-0fad-4f25-ad27-642d566baae2/assets/miko.jpg"
+    ],
+    "verdict": "pass"
+  },
+  "text_issues": [],
+  "console_errors": [],
+  "console_warnings": [],
+  "external_fetch_failures": 2,
+  "external_fetch_failure_samples": [
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)",
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)"
+  ],
+  "blocked_requests": [],
+  "external_requests": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap",
+      "method": "GET",
+      "resource_type": "stylesheet"
+    }
+  ],
+  "external_requests_dropped": 0,
+  "external_requests_dropped_data_bearing": 0,
+  "transport_ledger_active": true,
+  "egress_lockdown": true,
+  "transport_connections": [
+    {
+      "host": "artifact-capture.invalid",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 3964,
+      "bytes_down": 2485
+    },
+    {
+      "host": "fonts.googleapis.com",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 0,
+      "bytes_down": 0,
+      "policy_denied": true
+    }
+  ],
+  "transport_udp_attempts": 0,
+  "transport_overflow": 0,
+  "unexplained_transport_hosts": [],
+  "broken_assets": [],
+  "blocked_affordances": [],
+  "interactive_nodes": 35,
+  "aria_snapshot": "- link \"ハブに戻る\":\n  - /url: ../comfyuipuronputobiruda/\n  - img\n  - text: ハブに戻る\n- link \"私服カタログへ\":\n  - /url: ../miyuuzhao-seti-ebiruda/\n  - text: 私服カタログへ\n  - img\n- text: ComfyUIプロンプトビルダー（最終調整・出力）へ\n- heading \"ミュウ コスプレカタログ\" [level=1]\n- paragraph: キャラ・ポーズ・表情は全ページ共通の固定モデル。衣装だけが変わる55着の着せ替えカタログ。マイクロビキニなどの水着系と、サテンやコルセットなどの下着・ランジェリー系が新しく加わったよ。気になる1着を開くと、そのままComfyUIに貼れる衣装タグとプロンプトが取れるよ。\n- text: 全55着 水着系 8着・下着系 6着 NEW seed 939393 固定 LoRA myu_original_v2（0.8） 立ちポーズ・全身・やさしい笑顔\n- navigation \"部屋ナビ\":\n  - link \"ハブ：ComfyUIプロンプトビルダー\":\n    - /url: ../comfyuipuronputobiruda/\n  - text: 衣装：コスプレカタログ\n  - link \"衣装：着せ替えビルダー（私服）\":\n    - /url: ../miyuuzhao-seti-ebiruda/\n  - link \"カメラ：アングル早見表\":\n    - /url: ../kameraanguruzao-jian-biao/\n- text: コスプレ このページ\n- paragraph: 全55着を画像で選ぶカタログ。水着系・下着系も追加済み。開いた詳細から衣装タグとプロンプト全文をコピーして、ハブに貼るだけ。\n- link \"私服 着せ替えビルダーへ → プリセット40種と、トップス／ボトムスなどのパーツ＋色テーマで組む私服はこちら。選んだ断片はハブに貼って合流。\":\n  - /url: ../miyuuzhao-seti-ebiruda/\n  - text: 私服 着せ替えビルダーへ →\n  - paragraph: プリセット40種と、トップス／ボトムスなどのパーツ＋色テーマで組む私服はこちら。選んだ断片はハブに貼って合流。\n- img\n- searchbox\n- text: 55 着ヒット\n- tablist \"カテゴリ\":\n  - tab \"すべて55\" [selected]\n  - tab \"定番8\"\n  - tab \"制服系10\"\n  - tab \"ファンタジー・イベント8\"\n  - tab \"和・中華系3\"\n  - tab \"際どい系12\"\n  - tab \"水着系8\"\n  - tab \"下着・ランジェリー系6\"\n- button \"ネグリジェの詳細を開く\":\n  - img \"ミュウのコスプレ：ネグリジェ\"\n  - text: No.01 ネグリジェ 定番\n- button \"バニースーツの詳細を開く\":\n  - img \"ミュウのコスプレ：バニースーツ\"\n  - text: No.02 バニースーツ 定番\n- button \"セーラー服の詳細を開く\":\n  - img \"ミュウのコスプレ：セーラー服\"\n  - text: No.03 セーラー服 定番\n- button \"メイドの詳細を開く\":\n  - img \"ミュウのコスプレ：メイド\"\n  - text: No.04 メイド 定番\n- button \"ナースの詳細を開く\":\n  - img \"ミュウのコスプレ：ナース\"\n  - text: No.05 ナース 定番\n- button \"巫女の詳細を開く\":\n  - img \"ミュウのコスプレ：巫女\"\n  - text: No.06 巫女 定番\n- button \"悪魔コスの詳細を開く\":\n  - img \"ミュウのコスプレ：悪魔コス\"\n  - text: No.07 悪魔コス 定番\n- button \"サンタコスの詳細を開く\":\n  - img \"ミュウのコスプレ：サンタコス\"\n  - text: No.08 サンタコス 定番\n- button \"警察官の詳細を開く\":\n  - img \"ミュウのコスプレ：警察官\"\n  - text: No.09 警察官 制服系\n- button \"軍服の詳細を開く\":\n  - img \"ミュウのコスプレ：軍服\"\n  - text: No.10 軍服 制服系\n- button \"CAの詳細を開く\":\n  - img \"ミュウのコスプレ：CA\"\n  - text: No.11 CA 制服系\n- button \"教師の詳細を開く\":\n  - img \"ミュウのコスプレ：教師\"\n  - text: No.12 教師 制服系\n- navigation \"ページ送り\":\n  - button \"← 前へ\" [disabled]\n  - button \"1\"\n  - button \"2\"\n  - button \"3\"\n  - button \"4\"\n  - button \"5\"\n  - button \"次へ →\"\n- link \"ハブに戻る（ComfyUIプロンプトビルダー）\":\n  - /url: ../comfyuipuronputobiruda/\n  - img\n  - text: ハブに戻る（ComfyUIプロンプトビルダー）\n- status",
+  "document_text": {
+    "path": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T13-13-33Z-715758800/document-text.txt",
+    "chars": 2203,
+    "truncated": false
+  },
+  "audit_session_id": "8a0c0c3a-a812-4971-9499-82bc154bbb57",
+  "readiness": {
+    "desktop": {
+      "settled": true,
+      "settle_ms": 783,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    },
+    "mobile": {
+      "settled": true,
+      "settle_ms": 820,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    }
+  },
+  "color_scheme": {
+    "declared": "light dark",
+    "media_dependent": null,
+    "dark_frame": false
+  },
+  "mobile_ms": 2802.897733,
+  "cold_launch_ms": 426.80105100000003,
+  "desktop_ms": 3471.1744539999995,
+  "browser_launches": 1,
+  "audit_path": "shared-concurrent",
+  "diagnostics": {
+    "audit_path": "shared-concurrent",
+    "concurrent_ran": true,
+    "concurrent_desktop_retry": false,
+    "concurrent_mobile_retry": false,
+    "shared_launch_failed": false,
+    "nav_retries": 0,
+    "settle_retries": 0
+  }
+}

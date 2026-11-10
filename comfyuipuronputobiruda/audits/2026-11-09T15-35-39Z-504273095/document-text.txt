@@ -1,0 +1,99 @@
+# プロンプトビルダー Ver3.1
+まずキャラクターを決めて、服や表情は各部屋で。ここは、選んだタグを貼って・まとめて・コピーする場所です。
+STEP 1
+キャラクターを 選ぶ
+[hidden] →
+STEP 2
+部屋で選んで タグをコピー
+[hidden] →
+STEP 3
+下の「貼る」に ペースト
+[hidden] →
+STEP 4
+できあがりを コピーして使う
+[button: 最小構成にリセット]
+1
+キャラクターを選ぶ
+誰を作るか決めます
+## キャラクター
+[input radio: chara = myu]
+[image: ミュウ]
+ミュウ
+専用プロンプトが自動で入ります
+[input radio: chara = none]
+なし
+自分でタグを書くとき
+ミュウを選択中：ComfyUI用の専用タグ（LoRA・肌・指輪）と、ChatGPT用の人物説明が自動で入ります。
+## 人数
+[input radio: people = solo]
+ソロ
+[input radio: people = duo_m]
+二人（男）
+[input radio: people = duo_f]
+二人（女）
+[input text: 相手のタグ（英語）例：black hair, tall]
+[input text: 相手の説明（日本語）例：黒髪で背の高い男性]
+[button: 「俺」セットを入れる]
+二人では、相手の特徴をはっきり書くと混ざりにくいです。
+## プロンプトの長さ
+[input radio: promptMode = lite]
+通常版（短い）
+[input radio: promptMode = full]
+完全版（長い）
+通常版（おすすめ） — LoRAありの時はこちら。短くて安定します。
+## 固定ブロックキャラクターの土台・自動で入ります
+masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger
+通常版：14タグ / 209文字（完全版は 37タグ）
+2
+服・表情・ポーズを選ぶ
+タップで部屋へ移動します
+[image: メイド服のコスプレをしたミュウ]
+コスプレ
+コスプレカタログ
+開く → (→ /spaces/v2/miyuu-kosupurekatarogu/) [image: 私服を着たミュウ]
+私服
+着せ替えビルダー
+開く → (→ /spaces/v2/miyuuzhao-seti-ebiruda/) [image: 笑顔のミュウの顔のアップ]
+表情・ポーズ
+カメラアングル早見表
+開く → (→ /spaces/v2/kameraanguruzao-jian-biao/)
+[hidden] 💡
+背景・光・時間帯・シチュエーションの部屋はまだありません。作ったタグは、この下の「貼る」に直接貼ればOKです。
+3
+貼る
+部屋でコピーしたものをここへ
+英語タグ（ComfyUI用）
+[textarea: 例：maid outfit, apron, headdress]
+日本語の文（ChatGPT用）
+[textarea: 例：メイド服を着て、カフェで微笑んでいる]
+重なったタグは、自動で1つにまとめます。
+＋
+細かい設定
+ふだんはそのままでOK
+## 自分で足すタグ英語・カンマ区切り
+[input text: 例：holding cup, steam, window seat]
+## お気に入り登録ブラウザに保存されます
+[input text: 名前（例：お気に入り1）]
+[textarea: 登録したいタグを貼り付け]
+[button: 登録する]
+## ネガティブ設定失敗よけ
+[input checkbox: = on]
+手の破綻を防ぐ
+[input checkbox: = on]
+日焼け跡・色割れを防ぐ
+4
+できあがり
+コピーして使ってください
+## 英語プロンプト（ComfyUI用） — 14タグ / 209文字
+[textarea: = masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger]
+[button: コピーする]
+## 英語ネガティブ — 32タグ / 373文字（重複 1 件を除去）
+[textarea: = worst quality, low quality, bad anatomy, watermark, text, child, loli, young, pale skin, tan lines, muscular, abs, censored, multiple views, 2girls, 1boy, multiple girls, split screen, duplicate, clone, bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands, (tan lines:1.5), tanlines, (uneven skin tone:1.4), two-tone skin, fair skin, white skin]
+[button: コピーする]
+推奨設定：832×1216 / steps 28 / CFG 5.5 / euler_ancestral / FaceDetailer ON（0.30）/ LoRA myu_original_v2（0.8）。絵が崩れたら「完全版」に切り替えてください。
+## 日本語プロンプト（ChatGPT用） — 119文字
+[textarea: = アニメ風のイラスト。27歳の成人女性「ミュウ」。黒ギャルで、明るいベージュブロンドの短いレイヤードボブ、茶色の瞳、小さめの鼻と口元、耳ピアス。肌はディープブロンズの均一な褐色で、体型は曲線的で柔らか。左手の薬指に銀の結婚指輪を着けている。]
+[button: コピーする]
+ChatGPT用は文章だけです（品質タグとネガティブは入りません）。
+プロンプトビルダー Ver3.1 — 選ぶのは各部屋、ここは貼って・まとめて・コピーする場所です。
+キャラ 貼る できあがり [button: ↑ トップへ]

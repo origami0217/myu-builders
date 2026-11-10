@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>コスプレカタログ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #fdf8f9;
+        --bg-soft: #fbf0f4;
+        --card: #ffffff;
+        --ink: #2b1d23;
+        --ink-soft: #92707d;
+        --line: #f0d3dd;
+        --accent: #dd1c7f;
+        --accent-strong: #c2136c;
+        --accent-soft: #fde9f2;
+        --accent-ink: #ffffff;
+        --chip: #fbf0f4;
+        --chip-ink: #7c4a5c;
+        --gold: #a87e2f;
+        --gold-soft: #faf3e0;
+        --shadow: 0 10px 28px rgba(194, 19, 108, 0.13);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #171114;
+          --bg-soft: #2c2229;
+          --card: #231b20;
+          --ink: #f9eef3;
+          --ink-soft: #c09dab;
+          --line: #413039;
+          --accent: #ff5da2;
+          --accent-strong: #ff77ae;
+          --accent-soft: #40222f;
+          --accent-ink: #33101f;
+          --chip: #2c2229;
+          --chip-ink: #e3c3d0;
+          --gold: #d9ab4e;
+          --gold-soft: #38301d;
+          --shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+        line-height: 1.6;
+      }
+      button { font: inherit; cursor: pointer; }
+      img { display: block; max-width: 100%; }
+
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px 64px; }
+
+      /* ---------- hub return bar (always visible) ---------- */
+      .hub-bar {
+        position: sticky; top: 0; z-index: 40;
+        display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: blur(8px);
+        padding: 10px 0 8px;
+        border-bottom: 1.5px solid var(--line);
+      }
+      .hub-back {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: var(--accent); color: var(--accent-ink);
+        font-size: 13.5px; font-weight: 900; text-decoration: none;
+        border-radius: 999px; padding: 8px 16px;
+        box-shadow: var(--shadow);
+      }
+      .hub-back:hover { background: var(--accent-strong); }
+      .hub-bar .hub-right {
+        display: flex; align-items: center; gap: 10px; min-width: 0;
+      }
+      .hub-alt {
+        flex: none; display: inline-flex; align-items: center; gap: 6px;
+        background: var(--card); color: var(--accent-strong);
+        border: 1.5px solid var(--accent);
+        font-size: 13px; font-weight: 900; text-decoration: none;
+        border-radius: 999px; padding: 7px 14px;
+      }
+      .hub-alt:hover { background: var(--accent-soft); }
+      @media (prefers-color-scheme: dark) { .hub-alt { color: var(--accent); } }
+      .hub-bar .hub-label {
+        font-size: 11.5px; font-weight: 700; color: var(--ink-soft);
+        text-align: right; line-height: 1.45;
+      }
+      @media (max-width: 560px) { .hub-bar .hub-label { display: none; } }
+
+      /* ---------- header / lead ---------- */
+      .lead { padding: 26px 2px 6px; }
+      .lead h1 {
+        font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", sans-serif;
+        font-weight: 800;
+        font-size: clamp(26px, 6vw, 40px);
+        letter-spacing: 0.04em;
+        margin: 0 0 6px;
+      }
+      .lead h1 .accent { color: var(--accent); }
+      .lead p { margin: 0; color: var(--ink-soft); font-size: 14px; max-width: 640px; }
+      .lead .meta-line { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+      .meta-chip {
+        font-size: 11.5px; font-weight: 700; color: var(--chip-ink);
+        background: var(--chip); border-radius: 999px; padding: 3px 10px;
+      }
+
+      /* ---------- room nav / branch ---------- */
+      .room-nav {
+        display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;
+      }
+      .room-nav a, .room-nav span {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 12.5px; font-weight: 700; text-decoration: none;
+        border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 13px;
+        background: var(--card); color: var(--ink-soft);
+      }
+      .room-nav a:hover { border-color: var(--accent); color: var(--accent-strong); }
+      .room-nav span[aria-current="page"] {
+        background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong);
+      }
+      @media (prefers-color-scheme: dark) {
+        .room-nav span[aria-current="page"] { color: var(--accent); }
+        .room-nav a:hover { color: var(--accent); }
+      }
+      .branch {
+        display: grid; gap: 12px; margin-top: 14px;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 620px) { .branch { grid-template-columns: 1fr 1fr; } }
+      .branch-card {
+        display: flex; gap: 14px; align-items: flex-start;
+        background: var(--card); border: 1.5px solid var(--line); border-radius: 16px;
+        padding: 16px; text-decoration: none; color: var(--ink);
+      }
+      a.branch-card { transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease; }
+      a.branch-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px); }
+      .branch-card.current { border-color: var(--accent); background: var(--accent-soft); }
+      .branch-card .b-icon {
+        flex: none; width: 44px; height: 44px; border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        background: var(--accent); color: var(--accent-ink);
+      }
+      .branch-card .b-title {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 17px;
+        display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      }
+      .branch-card .b-badge {
+        font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em;
+        background: var(--accent); color: var(--accent-ink);
+        border-radius: 999px; padding: 2px 9px;
+      }
+      .branch-card .b-badge.go { background: var(--gold-soft); color: var(--gold); }
+      .branch-card .b-desc { font-size: 12.5px; color: var(--ink-soft); margin-top: 3px; line-height: 1.6; }
+      .detail-links {
+        margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px;
+      }
+      .detail-links a {
+        font-size: 12.5px; font-weight: 700; color: var(--accent-strong);
+        text-decoration: none; border: 1.5px solid var(--line); border-radius: 999px;
+        padding: 6px 13px; background: var(--card);
+      }
+      .detail-links a:hover { border-color: var(--accent); }
+      @media (prefers-color-scheme: dark) { .detail-links a { color: var(--accent); } }
+
+      /* ---------- controls ---------- */
+      .controls {
+        position: sticky; top: 52px; z-index: 20;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: blur(8px);
+        padding: 12px 0 10px;
+        margin-top: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      .search-row { display: flex; gap: 8px; align-items: center; }
+      .search-box {
+        flex: 1; display: flex; align-items: center; gap: 8px;
+        background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+        padding: 0 12px;
+      }
+      .search-box svg { flex: none; color: var(--ink-soft); }
+      .search-box input {
+        flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+        color: var(--ink); font: inherit; font-size: 15px; padding: 10px 0;
+      }
+      .count-badge {
+        flex: none; font-size: 12.5px; font-weight: 700; color: var(--ink-soft);
+        white-space: nowrap;
+      }
+      .count-badge b { color: var(--accent); font-size: 15px; }
+      .cat-tabs {
+        display: flex; gap: 8px; margin-top: 10px;
+        overflow-x: auto; padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+      .cat-tabs::-webkit-scrollbar { display: none; }
+      .cat-tab {
+        flex: none; border: 1.5px solid var(--line); background: var(--card);
+        color: var(--ink); border-radius: 999px; padding: 7px 14px;
+        font-size: 13.5px; font-weight: 700;
+      }
+      .cat-tab .n { color: var(--ink-soft); font-weight: 500; font-size: 12px; margin-left: 4px; }
+      .cat-tab[aria-selected="true"] {
+        background: var(--ink); color: var(--bg); border-color: var(--ink);
+      }
+      .cat-tab[aria-selected="true"] .n { color: inherit; opacity: 0.7; }
+
+      /* ---------- grid ---------- */
+      .grid {
+        display: grid; gap: 14px; margin-top: 18px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (min-width: 620px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+      @media (min-width: 960px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+      .card {
+        background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+        overflow: hidden; text-align: left; padding: 0; width: 100%;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+      .card .thumb { aspect-ratio: 832 / 1216; background: var(--bg-soft); overflow: hidden; }
+      .card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+      .card .card-body { padding: 10px 12px 12px; }
+      .card .no {
+        font-size: 10.5px; font-weight: 900; letter-spacing: 0.14em; color: var(--gold);
+      }
+      .card .name {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+        font-size: 16.5px; line-height: 1.35; margin: 1px 0 2px;
+      }
+      .card .cat-name { font-size: 11.5px; color: var(--ink-soft); }
+      .empty {
+        margin-top: 40px; text-align: center; color: var(--ink-soft); font-size: 14.5px;
+      }
+
+      /* ---------- pager ---------- */
+      .pager {
+        display: flex; justify-content: center; align-items: center; gap: 6px;
+        margin-top: 26px; flex-wrap: wrap;
+      }
+      .pager button {
+        min-width: 40px; height: 40px; padding: 0 12px;
+        border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+        border-radius: 10px; font-weight: 700; font-size: 14px;
+      }
+      .pager button[aria-current="page"] {
+        background: var(--accent); border-color: var(--accent); color: var(--accent-ink);
+      }
+      .pager button:disabled { opacity: 0.35; cursor: default; }
+
+      /* ---------- detail ---------- */
+      .detail { margin-top: 18px; }
+      .back-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: none; border: 0; color: var(--accent); font-weight: 900;
+        font-size: 14.5px; padding: 6px 0;
+      }
+      .detail-layout { display: grid; gap: 22px; margin-top: 8px; }
+      @media (min-width: 760px) {
+        .detail-layout { grid-template-columns: minmax(0, 430px) 1fr; align-items: start; }
+      }
+      .detail-photo {
+        border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
+        background: var(--bg-soft); box-shadow: var(--shadow);
+      }
+      .detail-info .no { font-size: 11px; font-weight: 900; letter-spacing: 0.16em; color: var(--gold); }
+      .detail-info h2 {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+        font-size: clamp(24px, 5vw, 32px); margin: 2px 0 4px; line-height: 1.3;
+      }
+      .detail-info .cat-name { color: var(--ink-soft); font-size: 13px; margin-bottom: 16px; }
+      .prompt-block { margin-bottom: 16px; }
+      .prompt-block .pb-head {
+        display: flex; justify-content: space-between; align-items: center; gap: 8px;
+        margin-bottom: 6px;
+      }
+      .prompt-block h3 { font-size: 13px; font-weight: 900; margin: 0; letter-spacing: 0.05em; }
+      .copy-btn {
+        flex: none; border: 0; border-radius: 8px; padding: 6px 14px;
+        background: var(--accent); color: var(--accent-ink);
+        font-size: 12.5px; font-weight: 900;
+      }
+      .copy-btn.sub { background: var(--chip); color: var(--chip-ink); }
+      .prompt-text {
+        background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px;
+        padding: 10px 12px; font-size: 12.5px; line-height: 1.65;
+        word-break: break-word; white-space: pre-wrap;
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        max-height: 168px; overflow-y: auto;
+      }
+      /* ---------- overall prompt panel (私服ページ式) ---------- */
+      .overall-panel {
+        border: 1.5px solid var(--accent); border-radius: 16px;
+        padding: 16px; margin-bottom: 18px; background: var(--card);
+      }
+      .overall-panel .op-head {
+        display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+        margin-bottom: 10px;
+      }
+      .overall-panel .op-head h3 {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+        font-size: 17px; margin: 0;
+      }
+      .overall-panel .op-count { font-size: 12px; font-weight: 700; color: var(--ink-soft); white-space: nowrap; }
+      .overall-box {
+        background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px;
+        padding: 12px 14px; font-size: 13.5px; line-height: 1.75;
+      }
+      .overall-box .sec { margin-bottom: 12px; }
+      .overall-box .sec:last-child { margin-bottom: 0; }
+      .overall-box .sec-title { font-weight: 900; color: var(--accent-strong); font-size: 13px; margin-bottom: 2px; }
+      @media (prefers-color-scheme: dark) { .overall-box .sec-title { color: var(--accent); } }
+      .overall-box ul { margin: 2px 0 0; padding-left: 18px; }
+      .overall-box li { margin: 1px 0; }
+      .big-copy-btn {
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        width: 100%; margin-top: 12px;
+        background: var(--accent); color: var(--accent-ink);
+        border: 0; border-radius: 999px; padding: 13px 16px;
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 15px;
+        box-shadow: var(--shadow);
+      }
+      .big-copy-btn:hover { background: var(--accent-strong); }
+      .tag-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+      .pill-btn {
+        display: inline-flex; align-items: center; gap: 7px;
+        border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+        border-radius: 999px; padding: 9px 18px; font-weight: 800; font-size: 13.5px;
+      }
+      .pill-btn:hover { border-color: var(--accent); color: var(--accent-strong); }
+      @media (prefers-color-scheme: dark) { .pill-btn:hover { color: var(--accent); } }
+      .tag-format-title {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+        font-size: 16px; margin: 0 0 8px;
+      }
+      .settings-note {
+        font-size: 12.5px; color: var(--ink-soft);
+        border-top: 1px dashed var(--line); padding-top: 12px;
+      }
+      .settings-note b { color: var(--ink); }
+      .detail-nav {
+        display: flex; justify-content: space-between; gap: 10px; margin-top: 26px;
+      }
+      .detail-nav button {
+        flex: 1; max-width: 46%;
+        border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+        border-radius: 12px; padding: 12px; text-align: left;
+      }
+      .detail-nav button.next { text-align: right; margin-left: auto; }
+      .detail-nav .dn-label { font-size: 11px; color: var(--ink-soft); font-weight: 700; }
+      .detail-nav .dn-name {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 15.5px;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .detail-nav button:disabled { opacity: 0.35; }
+
+      /* ---------- toast ---------- */
+      .toast {
+        position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom));
+        transform: translate(-50%, 16px);
+        background: var(--ink); color: var(--bg);
+        font-size: 13.5px; font-weight: 700;
+        padding: 10px 20px; border-radius: 999px;
+        opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease;
+        z-index: 50; box-shadow: var(--shadow);
+      }
+      .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- ======= ハブへ戻るバー（一覧・詳細の両方で常時表示） ======= -->
+      <div class="hub-bar">
+        <a class="hub-back" href="/spaces/v2/comfyuipuronputobiruda/">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+          ハブに戻る
+        </a>
+        <div class="hub-right">
+          <a class="hub-alt" href="/spaces/v2/miyuuzhao-seti-ebiruda/">
+            私服カタログへ
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <span class="hub-label">ComfyUIプロンプトビルダー（最終調整・出力）へ</span>
+        </div>
+      </div>
+
+      <!-- ======= 一覧ページ ======= -->
+      <section id="view-list">
+        <div class="lead">
+          <h1><span class="accent">コスプレ</span>カタログ</h1>
+          <p>見本イラストはミュウで統一した60着の着せ替えカタログ。プロンプトは衣装だけの内容だから、ほかのキャラに着せるときもそのまま使えるよ。新規の「エルフのお姫様」が加わって、見本イラスト16着分を新しい立ち絵に差し替えたよ。気になる1着を開くと、左に大きな立ち絵、右にプロンプトが表示されるよ。</p>
+          <div class="meta-line">
+            <span class="meta-chip">全60着</span>
+            <span class="meta-chip">エルフのお姫様が新規追加 NEW</span>
+            <span class="meta-chip">seed 939393 固定</span>
+            <span class="meta-chip">LoRA myu_original_v2（0.8）</span>
+            <span class="meta-chip">立ちポーズ・全身・やさしい笑顔</span>
+          </div>
+        </div>
+
+        <nav class="room-nav" aria-label="部屋ナビ">
+          <a href="/spaces/v2/comfyuipuronputobiruda/">ハブ：ComfyUIプロンプトビルダー</a>
+          <span aria-current="page">衣装：コスプレカタログ</span>
+          <a href="/spaces/v2/miyuuzhao-seti-ebiruda/">衣装：着せ替えビルダー（私服）</a>
+          <a href="/spaces/v2/kameraanguruzao-jian-biao/">カメラ：アングル早見表</a>
+        </nav>
+
+        <div class="branch" aria-label="衣装の種類を選ぶ">
+          <div class="branch-card current" aria-current="true">
+            <div class="b-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.4L12 15l-1.9-4.6L5.5 9l4.6-1.4z"/><path d="M19 15.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/></svg>
+            </div>
+            <div>
+              <div class="b-title">コスプレ <span class="b-badge">このページ</span></div>
+              <p class="b-desc">全60着を画像で選ぶカタログ。開いた詳細から全体プロンプトとDanbooruタグをコピーして、ハブに貼るだけ。</p>
+            </div>
+          </div>
+          <a class="branch-card" href="/spaces/v2/miyuuzhao-seti-ebiruda/">
+            <div class="b-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+            </div>
+            <div>
+              <div class="b-title">私服 <span class="b-badge go">着せ替えビルダーへ →</span></div>
+              <p class="b-desc">プリセット40種と、トップス／ボトムスなどのパーツ＋色テーマで組む私服はこちら。選んだ断片はハブに貼って合流。</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="controls">
+          <div class="search-row">
+            <label class="search-box">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+              <input id="search" type="search" placeholder="衣装名・タグで探す（例：ビキニ、bikini、下着）" autocomplete="off" />
+            </label>
+            <span class="count-badge"><b id="hit-count">60</b> 着ヒット</span>
+          </div>
+          <div class="cat-tabs" id="cat-tabs" role="tablist" aria-label="カテゴリ"></div>
+        </div>
+
+        <div class="grid" id="grid"></div>
+        <p class="empty" id="empty" hidden>見つからなかった…検索ワードを変えてみて</p>
+        <nav class="pager" id="pager" aria-label="ページ送り"></nav>
+        <div style="text-align:center; margin-top:30px;">
+          <a class="hub-back" href="/spaces/v2/comfyuipuronputobiruda/">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+            ハブに戻る（ComfyUIプロンプトビルダー）
+          </a>
+        </div>
+      </section>
+
+      <!-- ======= 詳細ページ ======= -->
+      <section id="view-detail" hidden>
+        <div class="detail">
+          <div style="display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center;">
+            <button class="back-btn" id="back-btn" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+              カタログ一覧へ戻る
+            </button>
+            <a href="/spaces/v2/comfyuipuronputobiruda/" style="display:inline-flex; align-items:center; gap:6px; color:var(--accent); font-weight:900; font-size:14.5px; text-decoration:none; padding:6px 0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+              ハブ（プロンプトビルダー）に戻る
+            </a>
+          </div>
+          <div class="detail-layout">
+            <div class="detail-photo"><img id="d-img" alt="" /></div>
+            <div class="detail-info">
+              <div class="no" id="d-no"></div>
+              <h2 id="d-name"></h2>
+              <div class="cat-name" id="d-cat"></div>
+
+              <div class="overall-panel">
+                <div class="op-head">
+                  <h3>全体プロンプト</h3>
+                  <span class="op-count" id="d-jp-count"></span>
+                </div>
+                <div class="overall-box" id="d-jp"></div>
+                <button class="big-copy-btn" type="button" data-copy="jp">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  全体プロンプトをコピー
+                </button>
+              </div>
+
+              <h3 class="tag-format-title">Danbooruタグ形式</h3>
+              <div class="prompt-text" id="d-tags"></div>
+              <div class="tag-actions">
+                <button class="pill-btn" type="button" data-copy="tags">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  タグをコピー
+                </button>
+                <button class="pill-btn" type="button" id="random-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>
+                  おまかせコスプレ
+                </button>
+                <button class="pill-btn" type="button" id="to-list-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+                  一覧に戻る
+                </button>
+              </div>
+
+              <div class="prompt-block" style="margin-top:18px;">
+                <div class="pb-head">
+                  <h3>ネガティブ（カタログ共通）</h3>
+                  <button class="copy-btn sub" type="button" data-copy="negative">コピー</button>
+                </div>
+                <div class="prompt-text" id="d-negative"></div>
+              </div>
+
+              <p class="settings-note">
+                生成条件（カタログ共通）：<b>Prefect Illustrious XL v8</b> ／ LoRA <b>myu_original_v2（0.8）</b> ／
+                seed <b>939393</b> ／ 832×1216 ／ steps 28 ／ CFG 5.5 ／ euler_ancestral
+              </p>
+              <div class="detail-links">
+                <a href="/spaces/v2/comfyuipuronputobiruda/">コピーしたらハブで最終調整 →</a>
+                <a href="/spaces/v2/miyuuzhao-seti-ebiruda/">私服は着せ替えビルダーで選ぶ →</a>
+              </div>
+            </div>
+          </div>
+          <div class="detail-nav">
+            <button type="button" id="prev-btn">
+              <div class="dn-label">← 前の衣装</div>
+              <div class="dn-name" id="prev-name"></div>
+            </button>
+            <button type="button" id="next-btn" class="next">
+              <div class="dn-label">次の衣装 →</div>
+              <div class="dn-name" id="next-name"></div>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script>
+      "use strict";
+
+      var NEG = "bad quality, worst quality, low quality, lowres, blurry, bad anatomy, watermark, text, logo, signature, long hair, child, teen, loli, young looking, muscular, abs, visible veins, toned body, 2girls, 1boy, multiple girls, multiple boys, multiple views, character sheet, split screen, duplicate, clone, cropped, out of frame, bad hands, extra fingers, missing fingers, (tan lines:1.5), (uneven skin tone:1.4), two-tone skin, pale skin, fair skin, white skin, light skin, shiny skin, oily skin, sweat";
+
+      var CATEGORIES = [
+        { id: "all",     name: "すべて" },
+        { id: "classic", name: "定番" },
+        { id: "uniform", name: "制服系" },
+        { id: "fantasy", name: "ファンタジー・イベント" },
+        { id: "wa",      name: "和・中華系" },
+        { id: "spicy",   name: "際どい系" },
+        { id: "swim",    name: "水着系" },
+        { id: "lingerie", name: "下着・ランジェリー系" }
+      ];
+      var CAT_NAME = {};
+      CATEGORIES.forEach(function (c) { CAT_NAME[c.id] = c.name; });
+
+      var ITEMS = [
+        /* 定番 */
+        { key: "negligee", name: "ネグリジェ", cat: "classic", jp: "透け感のある白いネグリジェ。レースの縁取り、細い肩紐、胸元の開いた上品なシルエット", tags: "negligee, sheer nightgown, lace trim" },
+        { key: "bunny", name: "バニースーツ", cat: "classic", jp: "白いバニースーツ。うさ耳カチューシャ、蝶ネクタイ、袖カフス、網タイツの王道バニー", tags: "bunny suit, bunny ears, bowtie, cuffs, fishnet stockings" },
+        { key: "sailor", name: "セーラー服", cat: "classic", jp: "白いセーラー服コス。赤いネッカチーフ、紺のプリーツスカート", tags: "sailor costume, serafuku cosplay, neckerchief, pleated skirt" },
+        { key: "maid", name: "メイド", cat: "classic", jp: "黒×白の王道メイド服。白エプロン、ヘッドドレス、フリルたっぷりのスカート", tags: "maid outfit, apron, headdress" },
+        { key: "nurse", name: "ナース", cat: "classic", jp: "白衣のナース服。ナースキャップ、タイトなミニ丈ワンピース型ユニフォーム", tags: "nurse outfit, nurse cap, white uniform" },
+        { key: "miko", name: "巫女", cat: "classic", jp: "白い羽織に赤い袴の巫女装束。水引のような赤い紐飾り", tags: "miko outfit, shrine maiden, red hakama, white haori" },
+        { key: "devil", name: "悪魔コス", cat: "classic", jp: "黒ドレスの小悪魔コス。小さな角、コウモリ羽、ハート型の尻尾、編み上げブーツ風ヒール", tags: "devil costume, demon horns, demon wings, demon tail, black dress" },
+        { key: "santa", name: "サンタコス", cat: "classic", jp: "赤いサンタドレス。白ファーの縁取り、サンタ帽、黒ベルトとブーツで締めたクリスマスコス", tags: "santa costume, red dress, fur trim, santa hat" },
+        /* 制服系 */
+        { key: "police", name: "警察官", cat: "uniform", jp: "紺の警察制服。制帽、バッジ、ネクタイ、タイトスカートの婦警スタイル", tags: "police uniform, policewoman, peaked cap, navy uniform, badge, necktie" },
+        { key: "military", name: "軍服", cat: "uniform", jp: "白い軍服ジャケット。制帽、肩章、金ボタンが映える凛々しい軍装", tags: "military uniform, military jacket, peaked cap, epaulettes" },
+        { key: "ca", name: "CA", cat: "uniform", jp: "紺スーツの客室乗務員制服。スカーフ、小さなピルボックス帽、ヒール", tags: "flight attendant uniform, cabin attendant, scarf, navy suit, pillbox hat" },
+        { key: "teacher", name: "教師", cat: "uniform", jp: "白いブレザーとタイトスカートの教師コーデ。眼鏡をかけた知的な雰囲気", tags: "teacher outfit, blazer, pencil skirt, glasses" },
+        { key: "racequeen", name: "レースクイーン", cat: "uniform", jp: "白×黒のハイレグレオタードに短いジャケットを羽織ったレースクイーン。白カフス、白いハイヒール", tags: "race queen outfit, highleg leotard, cropped jacket, cuffs, white high heels" },
+        { key: "cheer", name: "チアリーダー", cat: "uniform", jp: "ノースリーブトップとプリーツスカートのチアコス。両手にポンポン", tags: "cheerleader, pom poms, pleated skirt, sleeveless top" },
+        { key: "doctor", name: "女医", cat: "uniform", jp: "白衣を羽織った女医コス。首から聴診器、中はタイトなワンピース", tags: "doctor coat, white coat, stethoscope, doctor outfit" },
+        { key: "secretary", name: "秘書", cat: "uniform", jp: "ブレザーとペンシルスカートの秘書コーデ。眼鏡とクリップボードで出来る女風", tags: "secretary outfit, office lady, blazer, pencil skirt, glasses, clipboard" },
+        { key: "agent", name: "エージェント", cat: "uniform", jp: "黒いボディスーツのスパイコス。サングラスとイヤーピースでミッション感", tags: "spy outfit, black bodysuit, agent, sunglasses, earpiece" },
+        { key: "cafe", name: "カフェ店員", cat: "uniform", jp: "エプロン姿のカフェ店員制服。蝶ネクタイとブラウスで清楚に", tags: "cafe staff uniform, apron, coffee shop uniform, bowtie" },
+        /* ファンタジー・イベント */
+        { key: "magical", name: "魔法少女", cat: "fantasy", jp: "フリルドレスの魔法少女コス。リボンと手袋、魔法のステッキ", tags: "magical girl, frilled dress, ribbon, gloves, magic wand" },
+        { key: "witch", name: "魔女", cat: "fantasy", jp: "黒ドレスと三角帽子の魔女コス。マントを羽織ったハロウィンの定番", tags: "witch costume, witch hat, black dress, cape, halloween" },
+        { key: "vampire", name: "ヴァンパイア", cat: "fantasy", jp: "ゴシックドレスのヴァンパイア。マント、牙、チョーカーで妖しく", tags: "vampire costume, gothic dress, cape, fangs, choker" },
+        { key: "wedding", name: "ウェディングドレス", cat: "fantasy", jp: "純白のウェディングドレス。ベール、白手袋、ブーケを持った花嫁姿", tags: "wedding dress, bridal veil, white dress, bouquet, white gloves" },
+        { key: "gothloli", name: "ゴスロリ", cat: "fantasy", jp: "黒×白フリルのゴシックロリータ。ヘッドドレス、コルセット風ウエスト、日傘", tags: "gothic lolita, black frilled dress, headdress, lace trim, parasol" },
+        { key: "elf", name: "エルフ", cat: "fantasy", jp: "白いロングドレスのエルフ。尖り耳、ファー付きマント、サークレット、深いスリット", tags: "elf costume, pointy ears, white dress, circlet, fur-trimmed cape, side slit" },
+        { key: "elfprincess", name: "エルフのお姫様", cat: "fantasy", jp: "クリーム色のロングドレスを着たエルフのお姫様。金の葉模様の刺繍、深緑のマント、宝石付きのサークレット、尖り耳、裾の深いスリット", tags: "elf princess, elf costume, pointy ears, cream long dress, gold leaf embroidery, dark green cape, circlet, gemstone accessories, side slit, strappy high heels" },
+        { key: "nun", name: "シスター", cat: "fantasy", jp: "修道服のシスターコス。ベールと十字架のネックレスで清楚に", tags: "nun costume, habit, veil, cross necklace" },
+        { key: "android", name: "サイバーアンドロイド", cat: "fantasy", jp: "白×黒の近未来ボディスーツ。機械関節とハーネスが映えるサイバーアンドロイド", tags: "android girl, cyberpunk outfit, bodysuit, mechanical joints, headset" },
+        { key: "fallenrose", name: "堕ちた薔薇姫", cat: "fantasy", jp: "黒いゴシックなボールガウン。深紅の薔薇を全身にあしらい、黒レース手袋、チョーカー、小さな冠。裾が前だけ短いフィッシュテールで脚が見える", tags: "gothic ball gown, black frilled dress, red rose ornaments, rose hair ornament, black lace gloves, choker, small crown, tiara, high-low hem dress, black high heels" },
+        { key: "idol", name: "アイドル", cat: "fantasy", jp: "ピンク×白のフリルたっぷりアイドルドレス。大きな胸リボン、パフスリーブ、白い編み上げショートブーツ、手にはマイク", tags: "idol costume, pink frilled dress, large bow, puff sleeves, microphone, white lace-up boots, heart choker" },
+        { key: "ballerina", name: "バレリーナ", cat: "fantasy", jp: "白いバレエ衣装。レース付きレオタード、チュールチュチュ、白タイツ、ピンクのトウシューズ", tags: "ballerina, ballet costume, white leotard, lace trim, tutu, tulle skirt, white tights, pointe shoes, pink ribbon" },
+        /* 和・中華系 */
+        { key: "china", name: "チャイナドレス", cat: "wa", jp: "サイドスリットのチャイナドレス。マンダリンカラー、お団子ヘア", tags: "china dress, cheongsam, side slit, mandarin collar, hair bun" },
+        { key: "wamaid", name: "和風メイド", cat: "wa", jp: "着物風メイド服。白エプロンと合わせて和モダンに", tags: "wa maid, kimono maid outfit, apron" },
+        { key: "furisode", name: "振袖着物", cat: "wa", jp: "白地に青い花柄の着物ドレス。黒い帯、深めのスリット、髪には青い花飾り。足元は厚底ヒールで今風に", tags: "kimono dress, white kimono, floral pattern, obi, deep slit, kanzashi, platform heels, japanese clothes" },
+        { key: "hakama", name: "卒業袴", cat: "wa", jp: "花柄の着物に濃い紫の袴を合わせた卒業式スタイル。大きなリボンの髪飾り、足元は茶色の編み上げブーツ", tags: "hakama, graduation hakama, floral kimono, purple hakama, large ribbon hair accessory, brown lace-up boots, japanese clothes" },
+        /* 際どい系 */
+        { key: "catmaid", name: "猫耳メイド", cat: "spicy", jp: "猫耳メイド。猫の尻尾、肉球手袋、鈴付きチョーカー", tags: "cat maid, maid outfit, cat ears, cat tail, paw gloves, bell choker" },
+        { key: "revbunny", name: "逆バニー", cat: "spicy", jp: "逆バニーコス。うさ耳、蝶ネクタイ、カフスの攻めたバニー", tags: "reverse bunny suit, bunny ears, bowtie, cuffs" },
+        { key: "succubus", name: "サキュバス", cat: "spicy", jp: "黒レオタードのサキュバス。小さな角、二対のコウモリ羽、ハートのカットアウトとハート型の尻尾、蝶ネクタイ", tags: "succubus costume, demon horns, demon wings, demon tail, heart cutout, heart motif, black leotard, bowtie, cuffs" },
+        { key: "sheermaid", name: "シースルーメイド", cat: "spicy", jp: "透け感エプロンのメイドコス。ヘッドドレス付きの際どいメイド", tags: "sheer maid outfit, see-through apron, maid outfit, headdress" },
+        { key: "babydoll", name: "ベビードール", cat: "spicy", jp: "透け感ベビードール。レースとリボンの甘いナイトウェア風", tags: "babydoll, sheer nightgown, lace trim, ribbon" },
+        { key: "highleg", name: "ハイレグ競泳", cat: "spicy", jp: "ハイレグの競泳水着。レーシングタイプのスポーティーな水着コス", tags: "competition swimsuit, highleg swimsuit, racing swimsuit" },
+        { key: "heartcut", name: "ハートカットアウト", cat: "spicy", jp: "胸元がハート型に開いた白いリブニットワンピース。タートルネック、ミニ丈、白ヒール", tags: "heart cutout, heart-shaped cutout, white ribbed knit dress, turtleneck sweater dress, mini dress, white high heels" },
+        { key: "deepchina", name: "深スリットチャイナ", cat: "spicy", jp: "深いサイドスリットのチャイナドレス。脚が大胆に見える中華コス", tags: "china dress, cheongsam, deep side slit, mandarin collar, hair bun" },
+        { key: "leopard", name: "女豹レオタード", cat: "spicy", jp: "ヒョウ柄レオタード。アニマル柄とハイヒールの女豹コス", tags: "leopard print leotard, animal print, high heels" },
+        { key: "minipolice", name: "ミニスカポリス", cat: "spicy", jp: "ミニスカートの婦警コス。制帽と手錠で逮捕しちゃう系", tags: "police uniform, miniskirt, policewoman, peaked cap, handcuffs" },
+        { key: "sexynurse", name: "セクシーナース", cat: "spicy", jp: "ミニ丈ナース服。ナースキャップと聴診器の際どい白衣", tags: "nurse outfit, miniskirt, nurse cap, stethoscope, white uniform" },
+        { key: "fishbunny", name: "網タイツバニー", cat: "spicy", jp: "網タイツ合わせのバニースーツ。うさ耳、蝶ネクタイ、カフス", tags: "bunny suit, fishnet stockings, bunny ears, bowtie, cuffs" },
+        /* 水着系 */
+        { key: "microbikini", name: "マイクロビキニ", cat: "swim", jp: "黒のマイクロビキニ。ゴールドチェーンがアクセントの最小面積ビキニ", tags: "micro bikini, tiny bikini, string bikini, chain bikini, black bikini, gold chain" },
+        { key: "stringbikini", name: "ストリングビキニ（赤）", cat: "swim", jp: "赤い三角ビキニ。ホルターネック、サイド結びの王道ビキニ", tags: "string bikini, triangle bikini, red bikini, halter neck, side tie bikini" },
+        { key: "whitebikini", name: "フリル白ビキニ", cat: "swim", jp: "白いフリルビキニ。リボン付きの甘めホルタービキニ", tags: "white bikini, frill bikini, ribbon bikini, halter bikini" },
+        { key: "leopardbikini", name: "ヒョウ柄ビキニ", cat: "swim", jp: "ヒョウ柄ビキニ。アニマル柄のホルタービキニでワイルドに", tags: "leopard print bikini, animal print bikini, halter bikini" },
+        { key: "pareobikini", name: "パレオ付き花柄ビキニ", cat: "swim", jp: "ハイビスカス柄ビキニにパレオを巻いた南国リゾート風", tags: "floral bikini, hibiscus print bikini, pareo, sarong, tropical bikini" },
+        { key: "sukumizu", name: "スク水", cat: "swim", jp: "紺のスクール水着。ジップ付きワンピースタイプ", tags: "school swimsuit, sukumizu, navy swimsuit, one-piece swimsuit, zipper swimsuit" },
+        { key: "monokini", name: "モノキニ（黒）", cat: "swim", jp: "黒のモノキニ。カットアウトが映えるホルター型ワンピース水着", tags: "monokini, black monokini, cutout swimsuit, halter swimsuit, one-piece swimsuit" },
+        { key: "whitemonokini", name: "白モノキニ", cat: "swim", jp: "白いモノキニ。リング金具とカットアウトのワンピース水着", tags: "white monokini, cutout swimsuit, ring detail swimsuit, one-piece swimsuit" },
+        /* 下着・ランジェリー系 */
+        { key: "pinkslip", name: "サテンスリップ（ピンク）", cat: "lingerie", jp: "ピンクのサテンスリップ。レース縁取りのキャミドレス型ランジェリー", tags: "satin slip, pink lingerie, lace trim slip, camisole dress, satin lingerie" },
+        { key: "wineslip", name: "サテンスリップ（ワイン）", cat: "lingerie", jp: "ワインレッドのサテンスリップ。黒レースの縁取りで大人っぽく", tags: "satin slip, wine red lingerie, black lace trim, camisole dress, satin lingerie" },
+        { key: "camisoleset", name: "キャミソールセット（水色）", cat: "lingerie", jp: "水色のキャミソールセット。レースキャミとリボン、ショーツのセットアップ", tags: "camisole set, light blue lingerie, lace camisole, ribbon, shorts set" },
+        { key: "robeset", name: "ローブ付きサテンセット", cat: "lingerie", jp: "シャンパン色のサテンセット。キャミ＋ショーツに透け感ローブを羽織って", tags: "satin camisole set, sheer robe, satin shorts, champagne lingerie, lace trim robe" },
+        { key: "blacksatinset", name: "黒サテン＆ローブセット", cat: "lingerie", jp: "黒サテンのキャミセット。ローブとショーツの3点セット", tags: "black satin camisole set, satin robe, satin shorts, black lingerie, lace trim" },
+        { key: "corsetlingerie", name: "コルセットランジェリー", cat: "lingerie", jp: "黒コルセットのランジェリー。編み上げビスチェ、フリルスカート、ガーター付き網タイツ、黒ヒール", tags: "corset lingerie, black corset, bustier, lace-up corset, garter stockings, fishnet stockings, frilled skirt" }
+      ];
+      ITEMS.forEach(function (it, i) { it.no = i + 1; });
+      var BY_KEY = {};
+      ITEMS.forEach(function (it) { BY_KEY[it.key] = it; });
+
+      var PER_PAGE = 12;
+      var state = { cat: "all", query: "", page: 1, detailKey: null, returnPage: 1 };
+
+      var el = function (id) { return document.getElementById(id); };
+      var viewList = el("view-list"), viewDetail = el("view-detail");
+      var grid = el("grid"), pager = el("pager"), emptyMsg = el("empty");
+      var hitCount = el("hit-count"), searchInput = el("search"), tabsBox = el("cat-tabs");
+      var toast = el("toast");
+      var toastTimer = null;
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 1800);
+      }
+
+      function copyText(text, label) {
+        function done() { showToast(label + "をコピーしたよ"); }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+        } else { fallback(); }
+        function fallback() {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); done(); }
+          catch (e) { showToast("コピーできなかった…長押しで選択してね"); }
+          document.body.removeChild(ta);
+        }
+      }
+
+      function overallText(it) {
+        return "【衣装】\n" + it.jp + "\n\n【備考】\n・衣装の小物と靴は見本イラストとタグの内容を一致させる";
+      }
+
+      function renderOverall(it) {
+        var box = el("d-jp");
+        box.innerHTML = "";
+        function sec(title, body) {
+          var s = document.createElement("div");
+          s.className = "sec";
+          var t = document.createElement("div");
+          t.className = "sec-title"; t.textContent = "【" + title + "】";
+          var b = document.createElement("div");
+          b.textContent = body;
+          s.appendChild(t); s.appendChild(b);
+          box.appendChild(s);
+        }
+        sec("衣装", it.jp);
+        var s3 = document.createElement("div");
+        s3.className = "sec";
+        var t3 = document.createElement("div");
+        t3.className = "sec-title"; t3.textContent = "【備考】";
+        var ul = document.createElement("ul");
+        ["衣装の小物と靴は見本イラストとタグの内容を一致させる"].forEach(function (txt) {
+          var li = document.createElement("li");
+          li.textContent = txt;
+          ul.appendChild(li);
+        });
+        s3.appendChild(t3); s3.appendChild(ul);
+        box.appendChild(s3);
+        el("d-jp-count").textContent = overallText(it).length + "文字";
+      }
+
+      function filtered() {
+        var q = state.query.trim().toLowerCase();
+        return ITEMS.filter(function (it) {
+          if (state.cat !== "all" && it.cat !== state.cat) return false;
+          if (!q) return true;
+          return it.name.toLowerCase().indexOf(q) >= 0 || it.tags.toLowerCase().indexOf(q) >= 0;
+        });
+      }
+
+      function renderTabs() {
+        tabsBox.innerHTML = "";
+        CATEGORIES.forEach(function (c) {
+          var n = c.id === "all" ? ITEMS.length : ITEMS.filter(function (it) { return it.cat === c.id; }).length;
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "cat-tab";
+          b.setAttribute("role", "tab");
+          b.setAttribute("aria-selected", state.cat === c.id ? "true" : "false");
+          b.innerHTML = "";
+          b.appendChild(document.createTextNode(c.name));
+          var s = document.createElement("span");
+          s.className = "n"; s.textContent = n;
+          b.appendChild(s);
+          b.addEventListener("click", function () {
+            state.cat = c.id; state.page = 1;
+            renderTabs(); renderGrid();
+          });
+          tabsBox.appendChild(b);
+        });
+      }
+
+      function renderGrid() {
+        var list = filtered();
+        var pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+        if (state.page > pages) state.page = pages;
+        hitCount.textContent = list.length;
+        emptyMsg.hidden = list.length > 0;
+
+        grid.innerHTML = "";
+        var start = (state.page - 1) * PER_PAGE;
+        list.slice(start, start + PER_PAGE).forEach(function (it) {
+          var card = document.createElement("button");
+          card.type = "button";
+          card.className = "card";
+          card.setAttribute("aria-label", it.name + "の詳細を開く");
+          var thumb = document.createElement("div");
+          thumb.className = "thumb";
+          var img = document.createElement("img");
+          img.src = "assets/" + it.key + ".jpg";
+          img.alt = "ミュウのコスプレ：" + it.name;
+          img.loading = "lazy";
+          thumb.appendChild(img);
+          var body = document.createElement("div");
+          body.className = "card-body";
+          var no = document.createElement("div");
+          no.className = "no"; no.textContent = "No." + String(it.no).padStart(2, "0");
+          var nm = document.createElement("div");
+          nm.className = "name"; nm.textContent = it.name;
+          var cn = document.createElement("div");
+          cn.className = "cat-name"; cn.textContent = CAT_NAME[it.cat];
+          body.appendChild(no); body.appendChild(nm); body.appendChild(cn);
+          card.appendChild(thumb); card.appendChild(body);
+          card.addEventListener("click", function () { openDetail(it.key); });
+          grid.appendChild(card);
+        });
+
+        pager.innerHTML = "";
+        if (pages > 1) {
+          var prev = document.createElement("button");
+          prev.type = "button"; prev.textContent = "← 前へ";
+          prev.disabled = state.page <= 1;
+          prev.addEventListener("click", function () { state.page--; renderGrid(); scrollToControls(); });
+          pager.appendChild(prev);
+          for (var p = 1; p <= pages; p++) {
+            (function (p) {
+              var b = document.createElement("button");
+              b.type = "button"; b.textContent = p;
+              if (p === state.page) b.setAttribute("aria-current", "page");
+              b.addEventListener("click", function () { state.page = p; renderGrid(); scrollToControls(); });
+              pager.appendChild(b);
+            })(p);
+          }
+          var next = document.createElement("button");
+          next.type = "button"; next.textContent = "次へ →";
+          next.disabled = state.page >= pages;
+          next.addEventListener("click", function () { state.page++; renderGrid(); scrollToControls(); });
+          pager.appendChild(next);
+        }
+      }
+
+      function scrollToControls() {
+        document.querySelector(".controls").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function openDetail(key) {
+        var it = BY_KEY[key];
+        if (!it) return;
+        state.detailKey = key;
+        state.returnPage = state.page;
+        el("d-img").src = "assets/" + it.key + ".jpg";
+        el("d-img").alt = "ミュウのコスプレ：" + it.name + "（全身）";
+        el("d-no").textContent = "No." + String(it.no).padStart(2, "0") + " / 全" + ITEMS.length + "着";
+        el("d-name").textContent = it.name;
+        el("d-cat").textContent = "カテゴリ：" + CAT_NAME[it.cat];
+        renderOverall(it);
+        el("d-tags").textContent = it.tags;
+        el("d-negative").textContent = NEG;
+
+        var idx = ITEMS.indexOf(it);
+        var prevIt = ITEMS[idx - 1], nextIt = ITEMS[idx + 1];
+        var prevBtn = el("prev-btn"), nextBtn = el("next-btn");
+        prevBtn.disabled = !prevIt;
+        nextBtn.disabled = !nextIt;
+        el("prev-name").textContent = prevIt ? prevIt.name : "―";
+        el("next-name").textContent = nextIt ? nextIt.name : "―";
+        prevBtn.onclick = prevIt ? function () { openDetail(prevIt.key); window.scrollTo({ top: 0 }); } : null;
+        nextBtn.onclick = nextIt ? function () { openDetail(nextIt.key); window.scrollTo({ top: 0 }); } : null;
+
+        viewList.hidden = true;
+        viewDetail.hidden = false;
+        window.scrollTo({ top: 0 });
+        if (location.hash !== "#/" + key) {
+          history.pushState(null, "", "#/" + key);
+        }
+      }
+
+      function closeDetail() {
+        state.detailKey = null;
+        viewDetail.hidden = true;
+        viewList.hidden = false;
+        state.page = state.returnPage;
+        renderGrid();
+        if (location.hash) history.pushState(null, "", location.pathname + location.search);
+      }
+
+      el("back-btn").addEventListener("click", closeDetail);
+      el("to-list-btn").addEventListener("click", closeDetail);
+      el("random-btn").addEventListener("click", function () {
+        var pool = ITEMS.filter(function (x) { return x.key !== state.detailKey; });
+        var pick = pool[Math.floor(Math.random() * pool.length)];
+        if (pick) { openDetail(pick.key); window.scrollTo({ top: 0 }); }
+      });
+      document.querySelectorAll("[data-copy]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var it = BY_KEY[state.detailKey];
+          if (!it) return;
+          var kind = btn.getAttribute("data-copy");
+          if (kind === "jp") copyText(overallText(it), "全体プロンプト");
+          else if (kind === "tags") copyText(it.tags, "衣装タグ");
+          else copyText(NEG, "ネガティブ");
+        });
+      });
+
+      searchInput.addEventListener("input", function () {
+        state.query = searchInput.value;
+        state.page = 1;
+        renderGrid();
+      });
+
+      window.addEventListener("popstate", function () {
+        var m = location.hash.match(/^#\/(.+)$/);
+        if (m && BY_KEY[m[1]]) {
+          if (state.detailKey !== m[1]) openDetail(m[1]);
+        } else if (state.detailKey) {
+          closeDetail();
+        }
+      });
+
+      renderTabs();
+      renderGrid();
+      var initial = location.hash.match(/^#\/(.+)$/);
+      if (initial && BY_KEY[initial[1]]) openDetail(initial[1]);
+    </script>
+  </body>
+</html>

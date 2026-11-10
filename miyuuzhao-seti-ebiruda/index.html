@@ -400,7 +400,7 @@ border-radius: 12px;
 </a>
 <span class="hub-label">ComfyUIプロンプトビルダー（最終調整・出力）へ</span>
 </div>
-<p class="lead">ここは<strong>私服の部屋</strong>です。まず下の<strong>私服プリセット（40種）</strong>からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
+<p class="lead">ここは<strong>私服の部屋</strong>です。まず下の<strong>私服プリセット（43種）</strong>からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
 
 <nav class="room-nav" aria-label="部屋ナビ">
 <a href="../comfyuipuronputobiruda/">ハブ：ComfyUIプロンプトビルダー</a>
@@ -546,7 +546,11 @@ bottoms: [
 { id: "pleated-long", name: "プリーツロングスカート", desc: "プリーツのロングスカート。揺れる細かいプリーツ、足首丈", tags: "pleated long skirt, ankle length"},
 { id: "slit-tight", name: "スリットタイトスカート", desc: "タイトスカート。サイドに深めのスリット入り", tags: "tight skirt, side slit"},
 { id: "jogger", name: "ジョガーパンツ", desc: "ジョガーパンツ。裾リブでスポーティなシルエット", tags: "jogger pants, ribbed cuffs, sporty"},
-{ id: "tiered-mini", name: "ティアードミニスカート", desc: "段々に重なったティアードフリルのミニスカート", tags: "tiered skirt, frills, miniskirt"}
+{ id: "tiered-mini", name: "ティアードミニスカート", desc: "段々に重なったティアードフリルのミニスカート", tags: "tiered skirt, frills, miniskirt"},
+{ id: "pinstripe-bow-mini", name: "ピンストライプリボンミニスカート", desc: "ピンストライプ柄のプリーツミニスカート。裾にレースの縁取りとリボン付き", tags: "pinstripe skirt, pleated skirt, miniskirt, lace trim, bow, ribbon", note: "裾のレース縁取りとリボンを必ず描く"},
+{ id: "lounge-shorts", name: "ラウンジショーツ", desc: "ボーダー柄ニットのショートパンツ。幅広のウエストバンド、体に沿うフィット感の部屋着風ラウンジショーツ", tags: "striped shorts, knit shorts, lounge shorts, loungewear, fitted shorts"},
+{ id: "denim-shorts", name: "デニムショートパンツ", desc: "デニムのショートパンツ。マイクロ丈より少し長めの通常丈、背面ポケット付き", tags: "denim shorts, jean shorts, back pockets", note: "丈はマイクロ丈にせず、通常のショート丈にする"},
+{ id: "pleated-jersey-mini", name: "プリーツジャージーミニスカート", desc: "ジャージー素材のプリーツミニスカート。細かいプリーツが裾でふんわり広がるフレアシルエット", tags: "jersey pleated skirt, pleated skirt, miniskirt, flare skirt"}
 ],
 outer: [
 { id: "lace-bolero", name: "レースボレロ（薔薇姫）", desc: "シャンティイレースの薄手ボレロ。透け感のある薔薇と蔓草柄のレース長袖、手首で小さく広がるベルカフス、袖口に小さな薔薇のチャーム", tags: "chantilly lace bolero, see-through lace sleeves, bell cuffs, rose charm", note: "袖のレースは薔薇と蔓草の模様を繊細に描く"},
@@ -679,7 +683,7 @@ var CATS = [
 { id: "other", label: "その他", pool: "other", noneMode: "omit", noneLabel: "なし（使わない）", hint: "クレイのオリジナル衣装を、まるごと1着で選ぶ項目です（元はカメラアングル早見表にあった衣装）。選ぶと衣装一式がそのまま【その他】に入ります。トップス〜小物と組み合わせる場合は、重なるアイテム側を「なし」にしてください。"}
 ];
 
-/* 私服プリセット41種: sel=アイテム / col=色テーマ（カテゴリID -> 色ID） */
+/* 私服プリセット43種: sel=アイテム / col=色テーマ（カテゴリID -> 色ID） */
 var PRESETS = [
 { name: "清楚系お嬢様", img: "preset-ojousama.jpg", sel: { tops: "plain-blouse", bottoms: "long-skirt", outer: "short-cardigan", shoes: "strap-pumps", socks: "high-socks", acc1: "ribbon-clip", acc2: null}, col: { tops: "white", bottoms: "blue", outer: "lightbrown", shoes: "brown", socks: "white"}},
 { name: "ギャル定番コーデ", img: "preset-galcoord.jpg", sel: { tops: "baby-tee", bottoms: "pleated-skirt", outer: "fur-jacket", shoes: "loafers", socks: "loose-socks", acc1: "ribbon-clip", acc2: "heart-bag"}, col: { tops: "pink"}},
@@ -720,7 +724,10 @@ var PRESETS = [
 { name: "旅行コーデ", img: "preset-travel.jpg", sel: { tops: "knit-sweater", bottoms: "wide-pants", outer: "trench", shoes: "canvas-sneakers", socks: "ankle-socks", acc1: "backpack", acc2: "straw-hat"}, col: { outer: "beige"}},
 { name: "おしゃれルームウェア", img: "preset-roomwear2.jpg", sel: { tops: "boyfriend-shirt", bottoms: "sweat-shorts", outer: "long-cardigan", shoes: "slippers", socks: "leg-warmers", acc1: "none", acc2: null}, col: { outer: "pink"}},
 { name: "グランジ風", img: "preset-grunge.jpg", sel: { tops: "baby-tee", bottoms: "denim-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "lace-choker", acc2: "chain-belt"}, col: { tops: "black"}},
-{ name: "ストラップレスレース＆ローライズデニム", img: "preset-lacedenim.jpg", sel: { tops: "strapless-lace", bottoms: "lowrise-denim", outer: "none", shoes: "heel-sandals", socks: "none", acc1: "hoop-earrings", acc2: null}, col: { tops: "white", bottoms: "blue", shoes: "white"}}
+{ name: "ストラップレスレース＆ローライズデニム", img: "preset-lacedenim.jpg", sel: { tops: "strapless-lace", bottoms: "lowrise-denim", outer: "none", shoes: "heel-sandals", socks: "none", acc1: "hoop-earrings", acc2: null}, col: { tops: "white", bottoms: "blue", shoes: "white"}},
+{ name: "お嬢様コーデ", img: "preset-ojocode.jpg", sel: { tops: "offshoulder", bottoms: "flare-skirt", outer: "none", shoes: "strap-pumps", socks: "ankle-socks", acc1: "heart-bag", acc2: null}, col: { tops: "pink", bottoms: "white", shoes: "pink"}},
+{ name: "マイクロホットパンツ×見せブラ（サテン生地）", img: "preset-misebra.jpg", sel: { tops: "satin-bra", bottoms: "micro-shorts", outer: "denim-jacket", shoes: "platform-boots", socks: "none", acc1: "heart-sunglasses", acc2: "chain-belt"}, col: { tops: "pink"}},
+{ name: "マイクロホットパンツ×マイクロチューブブラ（サテン生地）", img: "preset-microtube.jpg", sel: { tops: "micro-tube-top", bottoms: "micro-shorts", outer: "denim-jacket", shoes: "platform-boots", socks: "none", acc1: "heart-sunglasses", acc2: "chain-belt"}, col: { tops: "pink"}}
 ];
 
 var PRESET_CAT = {
@@ -728,7 +735,8 @@ var PRESET_CAT = {
 "おうちリラックス": "casual", "パジャマパーティー": "casual", "カレッジガール": "casual", "森ガール": "casual", "雨の日コーデ": "casual", "紅葉狩りコーデ": "casual", "冬のあったかコーデ": "casual", "春のピクニック": "casual", "海コーデ": "casual", "カフェ店員風": "casual", "デニムオンデニム": "casual", "ボーイッシュ": "casual", "放課後コーデ": "casual", "旅行コーデ": "casual", "おしゃれルームウェア": "casual",
 "ギャル定番コーデ": "gal", "マイクロホットパンツ×クロップドキャミ": "gal", "ストリートギャル": "gal", "モノトーンコーデ": "gal", "夏のお出かけ": "gal", "ショッピングコーデ": "gal", "ライブ参戦コーデ": "gal", "甘辛ミックス": "gal",
 "背開きニットドレス Ver.2": "trend", "パステルコーデ": "trend", "ビビッドポップ": "trend", "韓国カジュアル": "trend", "スポーティカジュアル": "trend", "ストラップレスレース＆ローライズデニム": "trend",
-"お嬢様カフェ": "other", "フェミニンワンピ": "other", "グランジ風": "other", "レトロガール": "other"
+"お嬢様カフェ": "other", "フェミニンワンピ": "other", "グランジ風": "other", "レトロガール": "other",
+"お嬢様コーデ": "kireime", "マイクロホットパンツ×見せブラ（サテン生地）": "gal", "マイクロホットパンツ×マイクロチューブブラ（サテン生地）": "gal"
 };
 PRESETS.forEach(function (p) { p.cat = PRESET_CAT[p.name] || "other";});
 

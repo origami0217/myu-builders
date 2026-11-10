@@ -1,0 +1,119 @@
+ハブに戻る (→ /spaces/v2/comfyuipuronputobiruda/)
+アングル早見表へ
+(→ /spaces/v2/kameraanguruzao-jian-biao/)
+ComfyUIプロンプトビルダー（最終調整・出力）へ
+# ミュウ カメラアングルカタログ
+画角15種を、衣装（白T＋デニムショーツ）とキャラを固定して画角だけを変えたComfyUI生成サンプルで比べられるカタログ。模式図じゃなく実際の生成結果で見比べられるから、「この画角だとこう写る」が一目で分かるよ。気になる画角を開くと、そのまま使えるComfyUIタグとChatGPTフレーズが取れるよ。
+全15種
+高さ・角度 6種・距離 4種・特殊 5種
+サンプルはComfyUI生成
+衣装統一：白T＋デニムショーツ
+画角だけを変更して比較
+ハブ：ComfyUIプロンプトビルダー (→ /spaces/v2/comfyuipuronputobiruda/) 衣装：コスプレカタログ (→ /spaces/v2/miyuu-kosupurekatarogu/) 衣装：着せ替えビルダー（私服） (→ /spaces/v2/miyuuzhao-seti-ebiruda/) カメラ：アングル早見表 (→ /spaces/v2/kameraanguruzao-jian-biao/)
+カメラ：アングルカタログ
+[input search: 画角名・タグで探す（例：ローアングル、from below、魚眼）]
+15 種ヒット
+[button: すべて15] [button: 高さ・角度編6] [button: 距離編4] [button: 特殊編5]
+## 高さ・角度編
+カメラをどこに置くか・6種
+[button:
+[image: ローアングル（あおり）のサンプル画像]
+ANGLE 01
+ローアングル（あおり）
+Low angle / from below
+] [button:
+[image: ワームズアイのサンプル画像]
+ANGLE 02
+ワームズアイ
+Worm's-eye view
+] [button:
+[image: ハイアングル（ふかん）のサンプル画像]
+ANGLE 03
+ハイアングル（ふかん）
+High angle / from above
+] [button:
+[image: バーズアイ／真上のサンプル画像]
+ANGLE 04
+バーズアイ／真上
+Bird's-eye view / top-down
+] [button:
+[image: ダッチアングルのサンプル画像]
+ANGLE 05
+ダッチアングル
+Dutch angle
+] [button:
+[image: アイレベルのサンプル画像]
+ANGLE 06
+アイレベル
+Eye level
+]
+## 距離編
+どこまで写すか・4種
+[button:
+[image: クローズアップのサンプル画像]
+ANGLE 07
+クローズアップ
+Close-up
+] [button:
+[image: バストアップのサンプル画像]
+ANGLE 08
+バストアップ
+Bust shot
+] [button:
+[image: カウボーイショットのサンプル画像]
+ANGLE 09
+カウボーイショット
+Cowboy shot
+] [button:
+[image: 全身のサンプル画像]
+ANGLE 10
+全身
+Full body
+]
+## 特殊編
+レンズと視点のワザ・5種
+[button:
+[image: 魚眼のサンプル画像]
+ANGLE 11
+魚眼
+Fisheye
+] [button:
+[image: POV（一人称視点）のサンプル画像]
+ANGLE 12
+POV（一人称視点）
+POV / first-person view
+] [button:
+[image: オーバーショルダーのサンプル画像]
+ANGLE 13
+オーバーショルダー
+Over-the-shoulder
+] [button:
+[image: 鏡越しのサンプル画像]
+ANGLE 14
+鏡越し
+Mirror selfie / reflection
+] [button:
+[image: 逆光シルエットのサンプル画像]
+ANGLE 15
+逆光シルエット
+Backlit silhouette
+]
+[hidden] 見つからなかった…検索ワードを変えてみて
+コピーしたらハブで最終調整 → (→ /spaces/v2/comfyuipuronputobiruda/) ポーズ・視線・表情は早見表で選ぶ → (→ /spaces/v2/kameraanguruzao-jian-biao/)
+ハブに戻る（ComfyUIプロンプトビルダー） (→ /spaces/v2/comfyuipuronputobiruda/)
+[hidden] [button:
+[hidden] 一覧に戻る ] ハブに戻る
+[hidden] (→ /spaces/v2/comfyuipuronputobiruda/)
+[hidden] [image: no alt text]
+[hidden] どんな画角？
+[hidden] ### COMFYUI タグ
+[hidden] [button: コピー]
+[hidden] ### CHATGPT フレーズ
+[hidden] [button: コピー]
+[hidden] サンプル画像は衣装（白T＋デニムショーツ）とキャラを固定し、画角タグだけを変えてComfyUIで生成したもの。同じタグでも衣装やポーズが変わると写り方は変わるから、最終調整はハブで。
+[hidden] コピーしたらハブで最終調整 → (→ /spaces/v2/comfyuipuronputobiruda/) ポーズ・視線・表情は早見表で選ぶ → (→ /spaces/v2/kameraanguruzao-jian-biao/)
+[hidden] [button:
+[hidden] ← 前の画角
+[hidden] ] [button:
+[hidden] 次の画角 →
+[hidden] ]

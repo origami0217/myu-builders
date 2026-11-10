@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>ミュウ カメラアングルカタログ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #fdf8f9;
+        --bg-soft: #fbf0f4;
+        --card: #ffffff;
+        --ink: #2b1d23;
+        --ink-soft: #92707d;
+        --line: #f0d3dd;
+        --accent: #dd1c7f;
+        --accent-strong: #c2136c;
+        --accent-soft: #fde9f2;
+        --accent-ink: #ffffff;
+        --chip: #fbf0f4;
+        --chip-ink: #7c4a5c;
+        --gold: #a87e2f;
+        --gold-soft: #faf3e0;
+        --shadow: 0 10px 28px rgba(194, 19, 108, 0.13);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #171114;
+          --bg-soft: #2c2229;
+          --card: #231b20;
+          --ink: #f9eef3;
+          --ink-soft: #c09dab;
+          --line: #413039;
+          --accent: #ff5da2;
+          --accent-strong: #ff77ae;
+          --accent-soft: #40222f;
+          --accent-ink: #33101f;
+          --chip: #2c2229;
+          --chip-ink: #e3c3d0;
+          --gold: #d9ab4e;
+          --gold-soft: #38301d;
+          --shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+        line-height: 1.6;
+      }
+      button { font: inherit; cursor: pointer; }
+      img { display: block; max-width: 100%; }
+
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px 64px; }
+
+      /* ---------- hub return bar (always visible) ---------- */
+      .hub-bar {
+        position: sticky; top: 0; z-index: 40;
+        display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: blur(8px);
+        padding: 10px 0 8px;
+        border-bottom: 1.5px solid var(--line);
+      }
+      .hub-back {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: var(--accent); color: var(--accent-ink);
+        font-size: 13.5px; font-weight: 900; text-decoration: none;
+        border-radius: 999px; padding: 8px 16px;
+        box-shadow: var(--shadow);
+      }
+      .hub-back:hover { background: var(--accent-strong); }
+      .hub-bar .hub-right {
+        display: flex; align-items: center; gap: 10px; min-width: 0;
+      }
+      .hub-alt {
+        flex: none; display: inline-flex; align-items: center; gap: 6px;
+        background: var(--card); color: var(--accent-strong);
+        border: 1.5px solid var(--accent);
+        font-size: 13px; font-weight: 900; text-decoration: none;
+        border-radius: 999px; padding: 7px 14px;
+      }
+      .hub-alt:hover { background: var(--accent-soft); }
+      @media (prefers-color-scheme: dark) { .hub-alt { color: var(--accent); } }
+      .hub-bar .hub-label {
+        font-size: 11.5px; font-weight: 700; color: var(--ink-soft);
+        text-align: right; line-height: 1.45;
+      }
+      @media (max-width: 560px) { .hub-bar .hub-label { display: none; } }
+
+      /* ---------- header / lead ---------- */
+      .lead { padding: 26px 2px 6px; }
+      .lead h1 {
+        font-family: "M PLUS Rounded 1c", "Zen Kaku Gothic New", sans-serif;
+        font-weight: 800;
+        font-size: clamp(26px, 6vw, 40px);
+        letter-spacing: 0.04em;
+        margin: 0 0 6px;
+      }
+      .lead h1 .accent { color: var(--accent); }
+      .lead p { margin: 0; color: var(--ink-soft); font-size: 14px; max-width: 640px; }
+      .lead .meta-line { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+      .meta-chip {
+        font-size: 11.5px; font-weight: 700; color: var(--chip-ink);
+        background: var(--chip); border-radius: 999px; padding: 3px 10px;
+      }
+
+      /* ---------- room nav ---------- */
+      .room-nav {
+        display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;
+      }
+      .room-nav a, .room-nav span {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 12.5px; font-weight: 700; text-decoration: none;
+        border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 13px;
+        background: var(--card); color: var(--ink-soft);
+      }
+      .room-nav a:hover { border-color: var(--accent); color: var(--accent-strong); }
+      .room-nav span[aria-current="page"] {
+        background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong);
+      }
+      @media (prefers-color-scheme: dark) {
+        .room-nav span[aria-current="page"] { color: var(--accent); }
+        .room-nav a:hover { color: var(--accent); }
+      }
+      .detail-links {
+        margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px;
+      }
+      .detail-links a {
+        font-size: 12.5px; font-weight: 700; color: var(--accent-strong);
+        text-decoration: none; border: 1.5px solid var(--line); border-radius: 999px;
+        padding: 6px 13px; background: var(--card);
+      }
+      .detail-links a:hover { border-color: var(--accent); }
+      @media (prefers-color-scheme: dark) { .detail-links a { color: var(--accent); } }
+
+      /* ---------- controls ---------- */
+      .controls {
+        position: sticky; top: 52px; z-index: 20;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: blur(8px);
+        padding: 12px 0 10px;
+        margin-top: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      .search-row { display: flex; gap: 8px; align-items: center; }
+      .search-box {
+        flex: 1; display: flex; align-items: center; gap: 8px;
+        background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+        padding: 0 12px;
+      }
+      .search-box svg { flex: none; color: var(--ink-soft); }
+      .search-box input {
+        flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+        color: var(--ink); font: inherit; font-size: 15px; padding: 10px 0;
+      }
+      .count-badge {
+        flex: none; font-size: 12.5px; font-weight: 700; color: var(--ink-soft);
+        white-space: nowrap;
+      }
+      .count-badge b { color: var(--accent); font-size: 15px; }
+      .cat-tabs {
+        display: flex; gap: 8px; margin-top: 10px;
+        overflow-x: auto; padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+      .cat-tabs::-webkit-scrollbar { display: none; }
+      .cat-tab {
+        flex: none; border: 1.5px solid var(--line); background: var(--card);
+        color: var(--ink); border-radius: 999px; padding: 7px 14px;
+        font-size: 13.5px; font-weight: 700;
+      }
+      .cat-tab .n { color: var(--ink-soft); font-weight: 500; font-size: 12px; margin-left: 4px; }
+      .cat-tab[aria-selected="true"] {
+        background: var(--ink); color: var(--bg); border-color: var(--ink);
+      }
+      .cat-tab[aria-selected="true"] .n { color: inherit; opacity: 0.7; }
+
+      /* ---------- section heads ---------- */
+      .sec-head {
+        display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+        margin-top: 30px;
+      }
+      .sec-head h2 {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+        font-size: 21px; margin: 0;
+      }
+      .sec-head .count { font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+      .sec-note { margin: 4px 0 0; font-size: 13px; color: var(--ink-soft); }
+
+      /* ---------- grid ---------- */
+      .grid {
+        display: grid; gap: 14px; margin-top: 14px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (min-width: 620px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+      @media (min-width: 960px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+      .card {
+        background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+        overflow: hidden; text-align: left; padding: 0; width: 100%;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+      .card .thumb { display: block; aspect-ratio: 832 / 1216; background: var(--bg-soft); overflow: hidden; }
+      .card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+      .card .card-body { display: block; padding: 10px 12px 12px; }
+      .card .no {
+        font-size: 10.5px; font-weight: 900; letter-spacing: 0.14em; color: var(--gold);
+      }
+      .card .name {
+        display: block;
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+        font-size: 16.5px; line-height: 1.35; margin: 1px 0 2px;
+      }
+      .card .en-name { font-size: 11.5px; color: var(--ink-soft); }
+      .empty {
+        margin-top: 40px; text-align: center; color: var(--ink-soft); font-size: 14.5px;
+      }
+
+      /* ---------- detail ---------- */
+      .detail { margin-top: 18px; }
+      .back-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: none; border: 0; color: var(--accent); font-weight: 900;
+        font-size: 14.5px; padding: 6px 0;
+      }
+      .detail-layout { display: grid; gap: 22px; margin-top: 8px; }
+      @media (min-width: 760px) {
+        .detail-layout { grid-template-columns: minmax(0, 430px) 1fr; align-items: start; }
+      }
+      .detail-photo {
+        border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
+        background: var(--bg-soft); box-shadow: var(--shadow);
+      }
+      .detail-info .no { font-size: 11px; font-weight: 900; letter-spacing: 0.16em; color: var(--gold); }
+      .detail-info h2 {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800;
+        font-size: clamp(24px, 5vw, 32px); margin: 2px 0 4px; line-height: 1.3;
+      }
+      .detail-info .en-name { color: var(--ink-soft); font-size: 13.5px; font-weight: 700; }
+      .detail-info .cat-name { color: var(--ink-soft); font-size: 13px; margin-bottom: 14px; }
+      .fx-box {
+        background: var(--accent-soft); border-radius: 12px;
+        padding: 12px 14px; font-size: 14px; line-height: 1.7; margin-bottom: 18px;
+      }
+      .fx-box .fx-label {
+        display: block; font-size: 11px; font-weight: 900; letter-spacing: 0.1em;
+        color: var(--accent-strong); margin-bottom: 3px;
+      }
+      @media (prefers-color-scheme: dark) { .fx-box .fx-label { color: var(--accent); } }
+      .prompt-block { margin-bottom: 16px; }
+      .prompt-block .pb-head {
+        display: flex; justify-content: space-between; align-items: center; gap: 8px;
+        margin-bottom: 6px;
+      }
+      .prompt-block h3 { font-size: 13px; font-weight: 900; margin: 0; letter-spacing: 0.05em; }
+      .copy-btn {
+        flex: none; border: 0; border-radius: 8px; padding: 6px 14px;
+        background: var(--accent); color: var(--accent-ink);
+        font-size: 12.5px; font-weight: 900;
+      }
+      .copy-btn.sub { background: var(--chip); color: var(--chip-ink); }
+      .prompt-text {
+        background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px;
+        padding: 10px 12px; font-size: 13.5px; line-height: 1.65;
+        word-break: break-word; white-space: pre-wrap;
+      }
+      .prompt-text.mono {
+        font-size: 12.5px;
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      }
+      .settings-note {
+        font-size: 12.5px; color: var(--ink-soft);
+        border-top: 1px dashed var(--line); padding-top: 12px;
+      }
+      .settings-note b { color: var(--ink); }
+      .detail-nav {
+        display: flex; justify-content: space-between; gap: 10px; margin-top: 26px;
+      }
+      .detail-nav button {
+        flex: 1; max-width: 46%;
+        border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+        border-radius: 12px; padding: 12px; text-align: left;
+      }
+      .detail-nav button.next { text-align: right; margin-left: auto; }
+      .detail-nav .dn-label { font-size: 11px; color: var(--ink-soft); font-weight: 700; }
+      .detail-nav .dn-name {
+        font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 800; font-size: 15.5px;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .detail-nav button:disabled { opacity: 0.35; }
+
+      /* ---------- toast ---------- */
+      .toast {
+        position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom));
+        transform: translate(-50%, 16px);
+        background: var(--ink); color: var(--bg);
+        font-size: 13.5px; font-weight: 700;
+        padding: 10px 20px; border-radius: 999px;
+        opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease;
+        z-index: 50; box-shadow: var(--shadow);
+      }
+      .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- ======= ハブへ戻るバー（一覧・詳細の両方で常時表示） ======= -->
+      <div class="hub-bar">
+        <a class="hub-back" href="/spaces/v2/comfyuipuronputobiruda/">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+          ハブに戻る
+        </a>
+        <div class="hub-right">
+          <a class="hub-alt" href="/spaces/v2/kameraanguruzao-jian-biao/">
+            アングル早見表へ
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+          </a>
+          <span class="hub-label">ComfyUIプロンプトビルダー（最終調整・出力）へ</span>
+        </div>
+      </div>
+
+      <!-- ======= 一覧ページ ======= -->
+      <section id="view-list">
+        <div class="lead">
+          <h1>ミュウ <span class="accent">カメラアングル</span>カタログ</h1>
+          <p>画角15種を、ミュウの生成サンプルで比べられるカタログ。模式図じゃなく実際の生成結果で見比べられるから、「この画角だとこう写る」が一目で分かるよ。気になる画角を開くと、そのまま使えるComfyUIタグとChatGPTフレーズが取れるよ。</p>
+          <div class="meta-line">
+            <span class="meta-chip">全15種</span>
+            <span class="meta-chip">高さ・角度 6種・距離 4種・特殊 5種</span>
+            <span class="meta-chip">サンプルは実際の生成画像</span>
+          </div>
+        </div>
+
+        <nav class="room-nav" aria-label="部屋ナビ">
+          <a href="/spaces/v2/comfyuipuronputobiruda/">ハブ：ComfyUIプロンプトビルダー</a>
+          <a href="/spaces/v2/miyuu-kosupurekatarogu/">衣装：コスプレカタログ</a>
+          <a href="/spaces/v2/miyuuzhao-seti-ebiruda/">衣装：着せ替えビルダー（私服）</a>
+          <a href="/spaces/v2/kameraanguruzao-jian-biao/">カメラ：アングル早見表</a>
+          <span aria-current="page">カメラ：アングルカタログ</span>
+        </nav>
+
+        <div class="controls">
+          <div class="search-row">
+            <label class="search-box">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+              <input id="search" type="search" placeholder="画角名・タグで探す（例：ローアングル、from below、魚眼）" autocomplete="off" />
+            </label>
+            <span class="count-badge"><b id="hit-count">15</b> 種ヒット</span>
+          </div>
+          <div class="cat-tabs" id="cat-tabs" role="tablist" aria-label="カテゴリ"></div>
+        </div>
+
+        <div id="sections"></div>
+        <p class="empty" id="empty" hidden>見つからなかった…検索ワードを変えてみて</p>
+
+        <div class="detail-links">
+          <a href="/spaces/v2/comfyuipuronputobiruda/">コピーしたらハブで最終調整 →</a>
+          <a href="/spaces/v2/kameraanguruzao-jian-biao/">ポーズ・視線・表情は早見表で選ぶ →</a>
+        </div>
+        <div style="text-align:center; margin-top:30px;">
+          <a class="hub-back" href="/spaces/v2/comfyuipuronputobiruda/">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+            ハブに戻る（ComfyUIプロンプトビルダー）
+          </a>
+        </div>
+      </section>
+
+      <!-- ======= 詳細ページ ======= -->
+      <section id="view-detail" hidden>
+        <div class="detail">
+          <div style="display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center;">
+            <button class="back-btn" id="back-btn" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+              一覧に戻る
+            </button>
+            <a href="/spaces/v2/comfyuipuronputobiruda/" style="display:inline-flex; align-items:center; gap:6px; color:var(--accent); font-weight:900; font-size:14.5px; text-decoration:none; padding:6px 0;">
+              ハブに戻る
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div class="detail-layout">
+            <div class="detail-photo">
+              <img id="d-img" alt="" />
+            </div>
+            <div class="detail-info">
+              <span class="no" id="d-no"></span>
+              <h2 id="d-name"></h2>
+              <div class="en-name" id="d-en"></div>
+              <div class="cat-name" id="d-cat"></div>
+
+              <div class="fx-box">
+                <span class="fx-label">どんな画角？</span>
+                <span id="d-fx"></span>
+              </div>
+
+              <div class="prompt-block">
+                <div class="pb-head">
+                  <h3>COMFYUI タグ</h3>
+                  <button class="copy-btn" id="copy-tags" type="button">コピー</button>
+                </div>
+                <div class="prompt-text mono" id="d-tags"></div>
+              </div>
+
+              <div class="prompt-block">
+                <div class="pb-head">
+                  <h3>CHATGPT フレーズ</h3>
+                  <button class="copy-btn sub" id="copy-phrase" type="button">コピー</button>
+                </div>
+                <div class="prompt-text" id="d-phrase"></div>
+              </div>
+
+              <p class="settings-note">サンプル画像は<b>その画角の写り方をつかむための見本</b>。同じタグでも衣装やポーズ、背景が変わると写り方は変わるから、最終調整はハブで。</p>
+
+              <div class="detail-links">
+                <a href="/spaces/v2/comfyuipuronputobiruda/">コピーしたらハブで最終調整 →</a>
+                <a href="/spaces/v2/kameraanguruzao-jian-biao/">ポーズ・視線・表情は早見表で選ぶ →</a>
+              </div>
+            </div>
+          </div>
+
+          <nav class="detail-nav" aria-label="前後の画角">
+            <button id="prev-btn" type="button">
+              <div class="dn-label">← 前の画角</div>
+              <div class="dn-name" id="prev-name"></div>
+            </button>
+            <button id="next-btn" class="next" type="button">
+              <div class="dn-label">次の画角 →</div>
+              <div class="dn-name" id="next-name"></div>
+            </button>
+          </nav>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script>
+      var CATS = [
+        { id: "height",   name: "高さ・角度編", note: "カメラをどこに置くか" },
+        { id: "distance", name: "距離編",       note: "どこまで写すか" },
+        { id: "special",  name: "特殊編",       note: "レンズと視点のワザ" }
+      ];
+      var ITEMS = [
+        { id: "frombelow", cat: "height", name: "ローアングル（あおり）", en: "Low angle / from below",
+          fx: "下から見上げる。迫力が出て、脚が長く見える。かっこいい系の基本形。",
+          phrase: "下から見上げるローアングルで", tags: "from below, low angle" },
+        { id: "wormseye", cat: "height", name: "ワームズアイ", en: "Worm's-eye view",
+          fx: "地面すれすれの超ローアングル。空が広く入って、いちばんダイナミックになる。",
+          phrase: "地面すれすれの超ローアングルで、空を大きく入れて", tags: "worm's-eye view, extreme low angle" },
+        { id: "fromabove", cat: "height", name: "ハイアングル（ふかん）", en: "High angle / from above",
+          fx: "上から見下ろす。小さく可愛く見えるし、自撮り風の画角にもなる。",
+          phrase: "上から見下ろすハイアングルで", tags: "from above, high angle" },
+        { id: "birdseye", cat: "height", name: "バーズアイ／真上", en: "Bird's-eye view / top-down",
+          fx: "真上から見下ろす。寝転んだポーズや、机の上の小物の俯瞰に。",
+          phrase: "真上から見下ろして", tags: "bird's-eye view, top-down view" },
+        { id: "dutchangle", cat: "height", name: "ダッチアングル", en: "Dutch angle",
+          fx: "画面を斜めに傾ける。スピード感・躍動感が出て、不安定な雰囲気も演出できる。",
+          phrase: "画面を斜めに傾けたダッチアングルで", tags: "dutch angle, tilted frame" },
+        { id: "eyelevel", cat: "height", name: "アイレベル", en: "Eye level",
+          fx: "目の高さで撮る、いちばん自然な画角。親近感が出て、会話してるみたいな距離感に。",
+          phrase: "目の高さの自然な画角で", tags: "eye-level shot" },
+        { id: "closeup", cat: "distance", name: "クローズアップ", en: "Close-up",
+          fx: "顔のアップ。表情が主役の1枚に。メイクやピアスを見せたい時もこれ。",
+          phrase: "顔のクローズアップで", tags: "close-up" },
+        { id: "upperbody", cat: "distance", name: "バストアップ", en: "Bust shot",
+          fx: "胸から上。衣装の上半身と表情を両立できる、使い勝手のいい距離。",
+          phrase: "胸から上のバストアップで", tags: "upper body" },
+        { id: "cowboyshot", cat: "distance", name: "カウボーイショット", en: "Cowboy shot",
+          fx: "膝から上（海外の言い方で太ももから上）。ポーズの躍動感と衣装を両方見せられる。",
+          phrase: "膝から上のカウボーイショットで", tags: "cowboy shot" },
+        { id: "fullbody", cat: "distance", name: "全身", en: "Full body",
+          fx: "頭から足先まで。衣装全体を見せたい時の鉄板。靴まで指定が届く。",
+          phrase: "頭から足先まで入る全身ショットで", tags: "full body" },
+        { id: "fisheye", cat: "special", name: "魚眼", en: "Fisheye",
+          fx: "近い部分が大きく歪むレンズ効果。手や足をカメラに突き出すと効果が倍増する。",
+          phrase: "魚眼レンズで、手をカメラに突き出す感じで", tags: "fisheye lens" },
+        { id: "pov", cat: "special", name: "POV（一人称視点）", en: "POV / first-person view",
+          fx: "自分の目線で見る視点。相手がこちらに手を伸ばしてくる、みたいな没入感のある構図に。",
+          phrase: "一人称視点で、こちらに手を伸ばしていて", tags: "pov, first-person view" },
+        { id: "ots", cat: "special", name: "オーバーショルダー", en: "Over-the-shoulder",
+          fx: "誰かの肩越しに見る構図。会話シーンや、誰かと向き合ってる空気感を出すのに最適。",
+          phrase: "肩越しの構図で", tags: "over-the-shoulder shot" },
+        { id: "mirrorselfie", cat: "special", name: "鏡越し", en: "Mirror selfie / reflection",
+          fx: "姿見や窓ガラスへの映り込み。自撮り風の定番で、コーデ記録っぽい自然さが出る。",
+          phrase: "姿見の鏡越しの自撮り風で", tags: "mirror selfie, reflection" },
+        { id: "backlight", cat: "special", name: "逆光シルエット", en: "Backlit silhouette",
+          fx: "夕日などを背にして、輪郭だけが浮かぶ。雰囲気抜群で、エモい1枚の鉄板。",
+          phrase: "夕日を背にした逆光シルエットで", tags: "backlighting, silhouette" }
+      ];
+      ITEMS.forEach(function (it, i) {
+        it.no = "ANGLE " + ("0" + (i + 1)).slice(-2);
+      });
+
+      var state = { cat: "all", query: "", current: null };
+      var $ = function (s) { return document.querySelector(s); };
+
+      function catName(id) {
+        for (var i = 0; i < CATS.length; i++) if (CATS[i].id === id) return CATS[i].name;
+        return "";
+      }
+      function matches(it) {
+        if (state.cat !== "all" && it.cat !== state.cat) return false;
+        if (!state.query) return true;
+        var q = state.query.toLowerCase();
+        var hay = (it.name + " " + it.en + " " + it.tags + " " + it.phrase + " " + it.fx).toLowerCase();
+        return hay.indexOf(q) !== -1;
+      }
+
+      function renderTabs() {
+        var tabs = [{ id: "all", name: "すべて" }].concat(CATS);
+        $("#cat-tabs").innerHTML = tabs.map(function (c) {
+          var n = c.id === "all" ? ITEMS.length : ITEMS.filter(function (it) { return it.cat === c.id; }).length;
+          return '<button class="cat-tab" type="button" role="tab" data-cat="' + c.id + '" aria-selected="' + (state.cat === c.id) + '">' +
+            c.name + '<span class="n">' + n + "</span></button>";
+        }).join("");
+        Array.prototype.forEach.call(document.querySelectorAll(".cat-tab"), function (b) {
+          b.addEventListener("click", function () {
+            state.cat = b.getAttribute("data-cat");
+            renderTabs(); renderList();
+          });
+        });
+      }
+
+      function renderList() {
+        var hit = 0;
+        var html = CATS.map(function (c) {
+          var items = ITEMS.filter(function (it) { return it.cat === c.id && matches(it); });
+          if (!items.length) return "";
+          hit += items.length;
+          var cards = items.map(function (it) {
+            return '<button class="card" type="button" data-id="' + it.id + '">' +
+              '<span class="thumb"><img src="assets/' + it.id + '.jpg" alt="' + it.name + 'のサンプル画像" /></span>' +
+              '<span class="card-body">' +
+              '<span class="no">' + it.no + "</span>" +
+              '<span class="name">' + it.name + "</span>" +
+              '<span class="en-name">' + it.en + "</span>" +
+              "</span></button>";
+          }).join("");
+          return '<div class="sec-head"><h2>' + c.name + '</h2><span class="count">' + c.note + "・" + items.length + '種</span></div>' +
+            '<div class="grid">' + cards + "</div>";
+        }).join("");
+        $("#sections").innerHTML = html;
+        $("#hit-count").textContent = hit;
+        $("#empty").hidden = hit > 0;
+        Array.prototype.forEach.call(document.querySelectorAll(".card"), function (b) {
+          b.addEventListener("click", function () { openDetail(b.getAttribute("data-id")); });
+        });
+      }
+
+      function scrollTop() { window.scrollTo(0, 0); }
+
+      function openDetail(id) {
+        var idx = -1;
+        for (var i = 0; i < ITEMS.length; i++) if (ITEMS[i].id === id) idx = i;
+        if (idx < 0) return;
+        state.current = idx;
+        var it = ITEMS[idx];
+        $("#d-img").src = "assets/" + it.id + ".jpg";
+        $("#d-img").alt = it.name + "のサンプル画像";
+        $("#d-no").textContent = it.no;
+        $("#d-name").textContent = it.name;
+        $("#d-en").textContent = it.en;
+        $("#d-cat").textContent = catName(it.cat);
+        $("#d-fx").textContent = it.fx;
+        $("#d-tags").textContent = it.tags;
+        $("#d-phrase").textContent = "「" + it.phrase + "」";
+        $("#copy-tags").onclick = function () { copyText(it.tags, "ComfyUIタグをコピーしたよ"); };
+        $("#copy-phrase").onclick = function () { copyText(it.phrase, "ChatGPTフレーズをコピーしたよ"); };
+        var prev = ITEMS[idx - 1], next = ITEMS[idx + 1];
+        $("#prev-btn").disabled = !prev;
+        $("#next-btn").disabled = !next;
+        $("#prev-name").textContent = prev ? prev.name : "—";
+        $("#next-name").textContent = next ? next.name : "—";
+        $("#prev-btn").onclick = prev ? function () { openDetail(prev.id); } : null;
+        $("#next-btn").onclick = next ? function () { openDetail(next.id); } : null;
+        $("#view-list").hidden = true;
+        $("#view-detail").hidden = false;
+        scrollTop();
+      }
+
+      function copyText(text, msg) {
+        function fallback() {
+          var ta = document.createElement("textarea");
+          ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand("copy"); showToast(msg); }
+          catch (e) { showToast("コピーできなかった…長押しで選んでね"); }
+          document.body.removeChild(ta);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { showToast(msg); }, fallback);
+        } else { fallback(); }
+      }
+      var toastTimer = null;
+      function showToast(msg) {
+        var t = $("#toast");
+        t.textContent = msg; t.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2200);
+      }
+
+      $("#search").addEventListener("input", function (e) {
+        state.query = e.target.value.trim();
+        renderList();
+      });
+      $("#back-btn").addEventListener("click", function () {
+        $("#view-detail").hidden = true;
+        $("#view-list").hidden = false;
+        scrollTop();
+      });
+
+      renderTabs();
+      renderList();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "schema_version": "hatch.probe_ui_session.v1",
+  "socket": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/.harness/probe-ui/sock",
+  "slug": "miyuu-kosupurekatarogu",
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-ded161d1-3ef9-4b0f-bffc-6c3915b1a841/",
+  "audit_session_id": "4eebd36b-618e-4fc6-8281-de2fc83b63a3",
+  "pid": 3518,
+  "phone_first": true
+}

@@ -1,0 +1,183 @@
+# カメラアングル早見表
+「どう頼めばいいか分からない」をなくすための、画角の言い方カタログ。気に入ったアングルの日本語フレーズをChatGPTにそのまま貼るだけ。ComfyUI派には英語タグも付けたよ。
+軸1カメラの高さ・角度
+軸2被写体との距離
+軸3特殊なレンズ・視点
+高さ・角度編（6） 距離編（4） 特殊編（5） 組み合わせ例
+## 高さ・角度編
+カメラをどこに置くか
+まずはこの軸が基本。同じポーズでも、カメラの高さだけで印象がガラッと変わる。
+### ローアングル（あおり）
+Low angle / from below
+下から見上げる。迫力が出て、脚が長く見える。かっこいい系の基本形。
+CHATGPT フレーズ
+「下から見上げるローアングルで」
+[button: コピー]
+COMFYUI タグ
+from below, low angle
+[button: コピー]
+空が広く入る
+### ワームズアイ
+Worm's-eye view
+地面すれすれの超ローアングル。空が広く入って、いちばんダイナミックになる。
+CHATGPT フレーズ
+「地面すれすれの超ローアングルで、空を大きく入れて」
+[button: コピー]
+COMFYUI タグ
+worm's-eye view, extreme low angle
+[button: コピー]
+### ハイアングル（ふかん）
+High angle / from above
+上から見下ろす。小さく可愛く見えるし、自撮り風の画角にもなる。
+CHATGPT フレーズ
+「上から見下ろすハイアングルで」
+[button: コピー]
+COMFYUI タグ
+from above, high angle
+[button: コピー]
+カメラは真上
+寝転び・机の上の俯瞰に
+### バーズアイ／真上
+Bird's-eye view / top-down
+真上から見下ろす。寝転んだポーズや、机の上の小物の俯瞰に。
+CHATGPT フレーズ
+「真上から見下ろして」
+[button: コピー]
+COMFYUI タグ
+bird's-eye view, top-down view
+[button: コピー]
+画面ごと傾ける
+### ダッチアングル
+Dutch angle
+画面を斜めに傾ける。スピード感・躍動感が出て、不安定な雰囲気も演出できる。
+CHATGPT フレーズ
+「画面を斜めに傾けたダッチアングルで」
+[button: コピー]
+COMFYUI タグ
+dutch angle, tilted frame
+[button: コピー]
+目の高さ
+### アイレベル
+Eye level
+目の高さで撮る、いちばん自然な画角。親近感が出て、会話してるみたいな距離感に。
+CHATGPT フレーズ
+「目の高さの自然な画角で」
+[button: コピー]
+COMFYUI タグ
+eye-level shot
+[button: コピー]
+## 距離編
+どこまで写すか
+図の破線の枠が「画面に入る範囲」。衣装を見せたい範囲に合わせて選ぶのがコツ。
+顔だけ
+### クローズアップ
+Close-up
+顔のアップ。表情が主役の1枚に。メイクやピアスを見せたい時もこれ。
+CHATGPT フレーズ
+「顔のクローズアップで」
+[button: コピー]
+COMFYUI タグ
+close-up
+[button: コピー]
+胸から上
+### バストアップ
+Bust shot
+胸から上。衣装の上半身と表情を両立できる、使い勝手のいい距離。
+CHATGPT フレーズ
+「胸から上のバストアップで」
+[button: コピー]
+COMFYUI タグ
+upper body
+[button: コピー]
+膝から上
+### カウボーイショット
+Cowboy shot
+膝から上（海外の言い方で太ももから上）。ポーズの躍動感と衣装を両方見せられる。
+CHATGPT フレーズ
+「膝から上のカウボーイショットで」
+[button: コピー]
+COMFYUI タグ
+cowboy shot
+[button: コピー]
+足先まで
+### 全身
+Full body
+頭から足先まで。衣装全体を見せたい時の鉄板。靴まで指定が届く。
+CHATGPT フレーズ
+「頭から足先まで入る全身ショットで」
+[button: コピー]
+COMFYUI タグ
+full body
+[button: コピー]
+## 特殊編
+レンズと視点のワザ
+いつもの画角に飽きたらこれ。1つ足すだけで「おっ」となる変化球。
+近い手が大きく
+### 魚眼
+Fisheye
+近い部分が大きく歪むレンズ効果。手や足をカメラに突き出すと効果が倍増する。
+CHATGPT フレーズ
+「魚眼レンズで、手をカメラに突き出す感じで」
+[button: コピー]
+COMFYUI タグ
+fisheye lens
+[button: コピー]
+自分の手
+相手が手を伸ばす
+### POV（一人称視点）
+POV / first-person view
+自分の目線で見る視点。相手がこちらに手を伸ばしてくる、みたいな没入感のある構図に。
+CHATGPT フレーズ
+「一人称視点で、こちらに手を伸ばしていて」
+[button: コピー]
+COMFYUI タグ
+pov, first-person view
+[button: コピー]
+肩越しに見る
+### オーバーショルダー
+Over-the-shoulder
+誰かの肩越しに見る構図。会話シーンや、誰かと向き合ってる空気感を出すのに最適。
+CHATGPT フレーズ
+「肩越しの構図で」
+[button: コピー]
+COMFYUI タグ
+over-the-shoulder shot
+[button: コピー]
+後ろ姿＋スマホ
+### 鏡越し
+Mirror selfie / reflection
+姿見や窓ガラスへの映り込み。自撮り風の定番で、コーデ記録っぽい自然さが出る。
+CHATGPT フレーズ
+「姿見の鏡越しの自撮り風で」
+[button: コピー]
+COMFYUI タグ
+mirror selfie, reflection
+[button: コピー]
+### 逆光シルエット
+Backlit silhouette
+夕日などを背にして、輪郭だけが浮かぶ。雰囲気抜群で、エモい1枚の鉄板。
+CHATGPT フレーズ
+「夕日を背にした逆光シルエットで」
+[button: コピー]
+COMFYUI タグ
+backlighting, silhouette
+[button: コピー]
+## 組み合わせ例：軸は重ねて指定できる
+「高さ・角度」＋「距離」＋「傾け／特殊」は、同時に指定してOK。むしろ重ねた方が、狙った構図にピンポイントで届く。
+ワームズアイ
+高さ・角度
+×
+全身
+距離
+×
+ダッチアングル
+傾け
+＝
+屋上アクションの迫力構図
+CHATGPT フレーズ（合体版）
+「地面すれすれの超ローアングルで、画面を斜めに傾けて、頭から足先まで入る全身ショットで」
+[button: コピー]
+COMFYUI タグ（合体版）
+worm's-eye view, full body, dutch angle
+[button: コピー]
+フレーズはシーンやポーズの指定と一緒に使うと効果的。例：「雨上がりの路地でウォールランしながら」＋「ダッチアングルで」

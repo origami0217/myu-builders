@@ -1,0 +1,348 @@
+# ミュウ プロンプトビルダー v2.7 ♥
+普段は短い「通常版」でOK。LoRAに焼き込まれた顔・髪・体型は繰り返さず、事故防止の要点だけ残しました。LoRAなし／他モデル／img2img の時だけ「完全版」に切り替えてください。衣装は下の「衣装プリセット」からコスプレ／私服をワンタップで出せます。
+[button: 最小構成にリセット]
+## プロンプトの長さまずここだけ選べばOK
+[input radio: promptMode = lite]
+通常版（LoRAあり・短い）
+[input radio: promptMode = full]
+完全版（LoRAなし・フル）
+通常版（推奨） — LoRA myu_original_v2（strength 0.8）使用時。固定タグはトリガー＋肌の均一さ＋指輪だけ。顔・髪・体型を外から重ねないので、LoRAと喧嘩せず絵が硬くなりにくいです。
+## 固定ブロックキャラの同一性用。常時ON・モードで中身が変わります
+masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger
+通常版の固定ブロック：14タグ / 209文字（完全版は 37タグ）。短い方がデフォルトです。
+## 人数ソロ／二人（男）／二人（女）で土台（ポジティブ・ネガティブ両方）が切り替わります
+[input radio: people = solo]
+ソロ
+[input radio: people = duo_m]
+二人（男）
+[input radio: people = duo_f]
+二人（女）
+[input text: 相手の特徴タグ（二人の時だけ有効。例：black hair, tall, muscular）]
+[button: 「俺」セットを相手タグに入力]
+二人モードでは、LoRAが相手までミュウ寄りに引っ張るのを防ぐため、相手の特徴を明確に違うタグで指定するのがコツです。「俺」セットの中身はスクリプト冒頭の ORE_TAGS で自分のイメージに合わせて編集できます。
+## 衣装プリセットコスプレ／私服をワンタップでセット。下の細かい選択も連動します
+[button: 🎀 コスプレ
+全27種 — 選ぶと衣装レイヤーは上書きされます
+] [button: 👕 私服
+全10コーデ — アウター〜靴まで一括でセット
+]
+選択中：なし（下の各グループで手動選択中）
+定番
+[button: メイド] [button: 猫耳メイド] [button: バニースーツ] [button: 逆バニー] [button: ネグリジェ] [button: セーラー服（コスプレ）] [button: サンタコス]
+制服系
+[button: 警察官] [button: 軍服] [button: CA] [button: 教師] [button: ナース] [button: レースクイーン] [button: チアリーダー]
+ファンタジー・イベント
+[button: 魔法少女] [button: 魔女（ハロウィン）] [button: ヴァンパイア] [button: 悪魔コス] [button: ウェディングドレス] [button: ゴスロリ] [button: エルフ] [button: シスター] [button: サイバーアンドロイド]
+和・中華
+[button: 巫女] [button: チャイナドレス] [button: 和風メイド] [button: 着物（振袖）]
+[hidden] [button:
+[hidden] いつものミュウ
+[hidden] 定番ギャル。パーカー×黒タンク×カーゴで迷ったらこれ。
+[hidden] 基本パーカー / 黒タンクトップ / カーゴパンツ / 白スニーカー
+[hidden] ] [button:
+[hidden] ギャルおでかけ
+[hidden] ジャケット＋マイクロ丈で攻める街コーデ。
+[hidden] ジャケット / クロップドキャミ / マイクロホットパンツ / ブーツ / 黒ニーソ
+[hidden] ] [button:
+[hidden] デートコーデ
+[hidden] カーディガン×プリーツで少し甘めに。
+[hidden] カーディガン / キャミソール / プリーツスカート / ヒール / タイツ
+[hidden] ] [button:
+[hidden] カフェまったり
+[hidden] ブラウス×ジーンズの落ち着いた休日コーデ。
+[hidden] カーディガン / ブラウス / ジーンズ / ローファー / アンクルソックス
+[hidden] ] [button:
+[hidden] 大人っぽコーデ
+[hidden] ブレザー×スラックスできちんと感のある大人ギャル。
+[hidden] ブレザー / ブラウス / スラックス / ヒール / タイツ
+[hidden] ] [button:
+[hidden] 冬のおでかけ
+[hidden] ロングコート×ニット×ロングスカートの冬仕様。
+[hidden] コート / ニット / ロングスカート / ブーツ / タイツ
+[hidden] ] [button:
+[hidden] 真夏コーデ
+[hidden] クロップドキャミ×ショーツ×サンダルの涼しい夏仕様。
+[hidden] クロップドキャミ / ショーツ / サンダル
+[hidden] ] [button:
+[hidden] オフショルデート
+[hidden] オフショルニット×ミニスカで色気寄せ。
+[hidden] オフショルニット / ミニスカート / ヒール / 黒ニーソ
+[hidden] ] [button:
+[hidden] 部屋着リラックス
+[hidden] パーカー×Tシャツ×ショーツ。室内シーン用に靴はスリッパ。
+[hidden] 基本パーカー / Tシャツ / ショーツ / スリッパ
+[hidden] ] [button:
+[hidden] スポーティ
+[hidden] スポーツブラ×レザーショーツ×スニーカーのアクティブ系。
+[hidden] 黒タンクトップ / スポーツブラ / レザーショーツ / 白スニーカー / アンクルソックス
+[hidden] ]
+[button: プリセットを解除（衣装を初期状態に戻す）]
+私服プリセットは組み合わせの出発点です。適用後に下の「アウター／インナー／ボトムス／靴」などを変えればそのまま微調整できます（変えた時点でプリセット表示は解除されます）。コスプレ適用中は私服レイヤーが無効になる既存仕様のままです。
+## コスプレ全27種・1つ選択。選ぶと下の衣装レイヤーは上書き
+[input radio: cosplay = なし]
+なし
+[input radio: cosplay = ネグリジェ]
+ネグリジェ
+[input radio: cosplay = バニースーツ]
+バニースーツ
+[input radio: cosplay = セーラー服（コスプレ）]
+セーラー服（コスプレ）
+[input radio: cosplay = メイド]
+メイド
+[input radio: cosplay = ナース]
+ナース
+[input radio: cosplay = 巫女]
+巫女
+[input radio: cosplay = 悪魔コス]
+悪魔コス
+[input radio: cosplay = サンタコス]
+サンタコス
+[input radio: cosplay = 警察官]
+警察官
+[input radio: cosplay = 軍服]
+軍服
+[input radio: cosplay = CA]
+CA
+[input radio: cosplay = 教師]
+教師
+[input radio: cosplay = レースクイーン]
+レースクイーン
+[input radio: cosplay = チアリーダー]
+チアリーダー
+[input radio: cosplay = 魔法少女]
+魔法少女
+[input radio: cosplay = 魔女（ハロウィン）]
+魔女（ハロウィン）
+[input radio: cosplay = ヴァンパイア]
+ヴァンパイア
+[input radio: cosplay = ウェディングドレス]
+ウェディングドレス
+[input radio: cosplay = ゴスロリ]
+ゴスロリ
+[input radio: cosplay = エルフ]
+エルフ
+[input radio: cosplay = チャイナドレス]
+チャイナドレス
+[input radio: cosplay = 和風メイド]
+和風メイド
+[input radio: cosplay = 着物（振袖）]
+着物（振袖）
+[input radio: cosplay = 猫耳メイド]
+猫耳メイド
+[input radio: cosplay = 逆バニー]
+逆バニー
+[input radio: cosplay = シスター]
+シスター
+[input radio: cosplay = サイバーアンドロイド]
+サイバーアンドロイド
+## アウター（上半身）1つ選択
+[input radio: outer = なし]
+なし
+[input radio: outer = 基本パーカー]
+基本パーカー
+[input radio: outer = ジャケット]
+ジャケット
+[input radio: outer = カーディガン]
+カーディガン
+[input radio: outer = ブレザー]
+ブレザー
+[input radio: outer = コート]
+コート
+## インナー（上半身）1つ選択
+[input radio: inner = 黒タンクトップ]
+黒タンクトップ
+[input radio: inner = Tシャツ]
+Tシャツ
+[input radio: inner = ブラウス]
+ブラウス
+[input radio: inner = ニット]
+ニット
+[input radio: inner = オフショルニット]
+オフショルニット
+[input radio: inner = キャミソール]
+キャミソール
+[input radio: inner = クロップドキャミ]
+クロップドキャミ
+## ブラ1つ選択
+[input radio: bra = 指定なし]
+指定なし
+[input radio: bra = 黒レース]
+黒レース
+[input radio: bra = 白]
+白
+[input radio: bra = ピンク]
+ピンク
+[input radio: bra = スポーツブラ]
+スポーツブラ
+## ボトムス（下半身）1つ選択
+[input radio: bottoms = カーゴパンツ]
+カーゴパンツ
+[input radio: bottoms = ジーンズ]
+ジーンズ
+[input radio: bottoms = ショーツ]
+ショーツ
+[input radio: bottoms = マイクロホットパンツ]
+マイクロホットパンツ
+[input radio: bottoms = レザーショーツ]
+レザーショーツ
+[input radio: bottoms = ミニスカート]
+ミニスカート
+[input radio: bottoms = プリーツスカート]
+プリーツスカート
+[input radio: bottoms = ロングスカート]
+ロングスカート
+[input radio: bottoms = スラックス]
+スラックス
+[input radio: bottoms = なし]
+なし
+## パンティ1つ選択
+[input radio: panties = 指定なし]
+指定なし
+[input radio: panties = 黒レース]
+黒レース
+[input radio: panties = 白]
+白
+[input radio: panties = ボーダー]
+ボーダー
+[input radio: panties = ピンク]
+ピンク
+[input radio: panties = 紐パン]
+紐パン
+## 靴1つ選択。室内シーン（ベッドルーム／リビング／バスルーム等）では素足かスリッパ
+[input radio: shoes = 白スニーカー]
+白スニーカー
+[input radio: shoes = ブーツ]
+ブーツ
+[input radio: shoes = ヒール]
+ヒール
+[input radio: shoes = サンダル]
+サンダル
+[input radio: shoes = ローファー]
+ローファー
+[input radio: shoes = スリッパ]
+スリッパ
+[input radio: shoes = 素足]
+素足
+## 靴下・レッグウェア1つ選択
+[input radio: legwear = 指定なし]
+指定なし
+[input radio: legwear = 黒ニーソ]
+黒ニーソ
+[input radio: legwear = 白ニーソ]
+白ニーソ
+[input radio: legwear = 網タイツ]
+網タイツ
+[input radio: legwear = タイツ]
+タイツ
+[input radio: legwear = アンクルソックス]
+アンクルソックス
+[input radio: legwear = ガーターベルト]
+ガーターベルト
+## 体勢1つ選択
+[input radio: posture = 立っている]
+立っている
+[input radio: posture = 椅子に座る]
+椅子に座る
+[input radio: posture = 床に座る]
+床に座る
+[input radio: posture = ベッドに寝転がる]
+ベッドに寝転がる
+[input radio: posture = 膝立ち]
+膝立ち
+[input radio: posture = W座り]
+W座り
+[input radio: posture = しゃがむ]
+しゃがむ
+[input radio: posture = 壁に寄りかかる]
+壁に寄りかかる
+[input radio: posture = 四つん這い]
+四つん這い
+## 構図・カメラ複数選択OK
+[input checkbox: camera = 自撮り風]
+自撮り風
+[input checkbox: camera = 俯瞰]
+俯瞰
+[input checkbox: camera = 横から]
+横から
+[input checkbox: camera = 全身]
+全身
+[input checkbox: camera = 顔アップ]
+顔アップ
+[input checkbox: camera = カメラ目線]
+カメラ目線
+[input checkbox: camera = 頬杖]
+頬杖
+[input checkbox: camera = ピース]
+ピース
+[input checkbox: camera = 歩き]
+歩き
+## 表情1つ選択
+[input radio: expr = やさしい笑顔]
+やさしい笑顔
+[input radio: expr = ウインク]
+ウインク
+[input radio: expr = 笑い]
+笑い
+[input radio: expr = 眠そう]
+眠そう
+[input radio: expr = 驚き]
+驚き
+[input radio: expr = じっと見つめる]
+じっと見つめる
+## 背景1つ選択
+[input radio: bg = カフェ]
+カフェ
+[input radio: bg = 街]
+街
+[input radio: bg = ビーチ（夕景）]
+ビーチ（夕景）
+[input radio: bg = ベッドルーム]
+ベッドルーム
+[input radio: bg = ホテルの部屋]
+ホテルの部屋
+[input radio: bg = バスルーム]
+バスルーム
+[input radio: bg = 温泉]
+温泉
+[input radio: bg = プール]
+プール
+[input radio: bg = オフィス]
+オフィス
+[input radio: bg = 図書室]
+図書室
+[input radio: bg = 屋上]
+屋上
+[input radio: bg = リビング]
+リビング
+[input radio: bg = 無地背景]
+無地背景
+[input radio: bg = 夜景]
+夜景
+## 光・時間帯1つ選択
+[input radio: light = 昼の光]
+昼の光
+[input radio: light = 夕日]
+夕日
+[input radio: light = ランプの光]
+ランプの光
+[input radio: light = 夜]
+夜
+## シーン追加タグ自分で足したいタグをカンマ区切りで入力
+[input text: 例：holding cup, steam, window seat]
+## カスタムプリセット自分のプロンプトを登録してワンクリックで呼び出し（ブラウザに保存）
+[input text: プリセット名（例：お気に入り1）]
+[textarea: 登録したいタグ文字列を貼り付け]
+[button: プリセットを登録]
+## ネガティブ設定失敗パターンの先回り防止
+[input checkbox: = on]
+手の破綻を防ぐ
+[input checkbox: = on]
+日焼け跡・色割れを防ぐ
+## ポジティブ・プロンプト — 27タグ / 429文字
+[textarea: = masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger, black cropped tank top, dark cargo pants with rings and straps, white chunky sneakers, standing, gentle expression, soft smile, light blush, cheek blush, cafe interior, coffee shop, window seat, daylight, natural light]
+[button: コピーする]
+## ネガティブ・プロンプト — 33タグ / 384文字
+[textarea: = worst quality, low quality, bad anatomy, watermark, text, child, loli, young, pale skin, tan lines, muscular, abs, censored, multiple views, 2girls, 1boy, multiple girls, split screen, duplicate, clone, bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands, (tan lines:1.5), tanlines, (uneven skin tone:1.4), two-tone skin, pale skin, fair skin, white skin]
+[button: コピーする]
+推奨設定（通常版＋ Prefect Illustrious XL v8 ＋ LoRA myu_original_v2、strength 0.8）：サイズ 832×1216 / steps 28 / CFG 5.5 / sampler euler_ancestral / FaceDetailer ON（denoise 0.30）。トリガーワード myu_original は固定ブロックに含まれています。絵が崩れる時だけ完全版に切り替えるのがおすすめです。
+MYU PROMPT BUILDER v2.7 — option lists are editable in the GROUPS object at the top of the script. Outfit presets live in COSPLAY_CATS / SHIFUKU_PRESETS.

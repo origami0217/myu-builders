@@ -1,0 +1,3434 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>プロンプトビルダー（画角・ポーズ・視線・衣装）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f4f4f0;
+        --surface: #ffffff;
+        --ink: #1d1f26;
+        --ink-2: #4c5058;
+        --ink-3: #83878f;
+        --line: #e0e0d8;
+        --accent: #0f766e;
+        --accent-ink: #0b5a54;
+        --accent-soft: #e3f2ef;
+        --amber: #e8930c;
+        --code-bg: #eef0e9;
+        --fig-bg: #eef4f2;
+        --shadow: 0 1px 2px rgba(20, 24, 20, .05), 0 8px 24px rgba(20, 24, 20, .05);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #131519;
+          --surface: #1e2127;
+          --ink: #f1f2f5;
+          --ink-2: #b9bdc6;
+          --ink-3: #878d99;
+          --line: #30343d;
+          --accent: #45c4b2;
+          --accent-ink: #7fd8ca;
+          --accent-soft: #173330;
+          --amber: #f5a623;
+          --code-bg: #262a31;
+          --fig-bg: #182420;
+          --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 18px 72px; }
+
+      /* ---------- header ---------- */
+      header { padding: 40px 0 8px; }
+      h1 { font-size: clamp(26px, 6vw, 40px); font-weight: 900; letter-spacing: .02em; margin: 0 0 10px; line-height: 1.3; }
+      .lead { color: var(--ink-2); font-size: 15px; margin: 0 0 20px; max-width: 640px; }
+      .lead strong { color: var(--ink); }
+      .axes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+      .axis {
+        font-size: 13px; font-weight: 700; color: var(--ink-2);
+        background: var(--surface); border: 1px solid var(--line);
+        padding: 6px 12px; border-radius: 999px;
+      }
+      .axis b { color: var(--accent-ink); margin-right: 4px; }
+      nav.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+      nav.toc a {
+        font-size: 13.5px; font-weight: 700; text-decoration: none;
+        color: var(--accent-ink); background: var(--accent-soft);
+        padding: 8px 14px; border-radius: 999px;
+      }
+      nav.toc a:active { opacity: .7; }
+
+      /* ---------- sections ---------- */
+      section { margin-top: 44px; scroll-margin-top: 16px; }
+      .sec-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+      .sec-head h2 { font-size: 21px; font-weight: 900; margin: 0; }
+      .sec-head .count { font-size: 12.5px; font-weight: 700; color: var(--ink-3); }
+      .sec-note { color: var(--ink-2); font-size: 14px; margin: 0 0 18px; }
+      .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+      @media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+      @media (min-width: 1024px) { .grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+      /* ---------- cards ---------- */
+      .card {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
+        display: flex; flex-direction: column;
+      }
+      .fig { background: var(--fig-bg); padding: 10px 14px 4px; border-bottom: 1px solid var(--line); }
+      .fig svg { width: 100%; height: auto; display: block; }
+      .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+      .card h3 { font-size: 18px; font-weight: 900; margin: 0; line-height: 1.45; }
+      .card h3 .en { display: block; font-size: 12.5px; font-weight: 700; color: var(--accent-ink); letter-spacing: .04em; margin-top: 2px; }
+      .fx { font-size: 14px; color: var(--ink-2); margin: 0; }
+      .row { border-top: 1px dashed var(--line); padding-top: 10px; }
+      .row .label {
+        display: inline-block; font-size: 11px; font-weight: 900; letter-spacing: .08em;
+        color: var(--ink-3); margin-bottom: 4px;
+      }
+      .phrase-line { display: flex; align-items: flex-start; gap: 8px; }
+      .phrase-text { font-size: 14.5px; font-weight: 700; margin: 0; flex: 1; }
+      .tags-line { display: flex; align-items: center; gap: 8px; }
+      code {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 13px; background: var(--code-bg); color: var(--ink);
+        padding: 4px 8px; border-radius: 6px; flex: 1; word-break: break-word;
+      }
+      .copy {
+        flex: none; font-family: inherit; font-size: 12.5px; font-weight: 700;
+        color: var(--accent-ink); background: var(--accent-soft);
+        border: 1px solid transparent; border-radius: 8px;
+        padding: 7px 12px; cursor: pointer; min-height: 36px;
+      }
+      .copy:active { transform: scale(.96); }
+      .copy.done { background: var(--accent); color: #fff; }
+
+      /* ---------- SVG diagram parts ---------- */
+      .person { stroke: var(--ink); stroke-width: 3.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .person-h { fill: var(--ink); }
+      .dim { opacity: .25; }
+      .cam { fill: var(--accent); }
+      .lens { fill: var(--fig-bg); }
+      .sight { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 5; fill: none; opacity: .8; }
+      .ground { stroke: var(--ink-2); stroke-width: 2; opacity: .45; }
+      .frame { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 7 5; }
+      .sun { fill: var(--amber); }
+      .sil { fill: var(--ink); }
+      .mirror { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.5; }
+      .fig-note { fill: var(--ink-3); font-size: 9.5px; font-weight: 700; font-family: inherit; }
+
+      /* ---------- selectable ---------- */
+      .card { cursor: pointer; transition: border-color .15s, box-shadow .15s; position: relative; }
+      .card.selected { border-color: var(--accent); border-width: 2px; box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow); }
+      .card .sel-badge { position: absolute; top: 10px; right: 10px; z-index: 2; width: 28px; height: 28px; border-radius: 999px; background: var(--surface); border: 2px solid var(--line); display: grid; place-items: center; font-size: 15px; font-weight: 900; color: transparent; }
+      .card.selected .sel-badge { background: var(--accent); border-color: var(--accent); color: #fff; }
+      .select-hint { font-size: 12px; font-weight: 700; color: var(--accent-ink); background: var(--accent-soft); display: inline-block; padding: 3px 9px; border-radius: 999px; }
+      .face { fill: none; stroke: var(--ink); stroke-width: 3; }
+      .eye { fill: var(--ink); }
+      .arrow { stroke: var(--accent); stroke-width: 2.5; fill: none; marker-end: url(#ah); }
+      /* ---------- builder ---------- */
+      .builder { margin-top: 48px; background: var(--surface); border: 2px solid var(--accent); border-radius: 16px; padding: 24px 22px; box-shadow: var(--shadow); }
+      .builder h2 { font-size: 21px; font-weight: 900; margin: 0 0 6px; }
+      .builder .sub { color: var(--ink-2); font-size: 14.5px; margin: 0 0 14px; }
+      .selected-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; min-height: 28px; }
+      .sel-chip { font-size: 12.5px; font-weight: 700; background: var(--accent-soft); color: var(--accent-ink); padding: 4px 10px; border-radius: 999px; }
+      .empty-note { color: var(--ink-3); font-size: 14px; font-weight: 700; }
+      .out-box { background: var(--code-bg); border-radius: 10px; padding: 12px 14px; font-size: 14.5px; font-weight: 700; line-height: 1.6; word-break: break-word; }
+      .out-box.en { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 400; font-size: 13.5px; }
+      .clear-btn { font-family: inherit; font-size: 12.5px; font-weight: 700; color: var(--ink-2); background: none; border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; cursor: pointer; min-height: 36px; }
+      .sticky-bar { position: sticky; bottom: 10px; z-index: 20; margin-top: 20px; background: var(--accent); color: #fff; border-radius: 999px; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.25); font-weight: 900; font-size: 14px; }
+      .sticky-bar a { color: #fff; text-decoration: none; background: rgba(255,255,255,.22); padding: 6px 14px; border-radius: 999px; font-size: 13px; white-space: nowrap; }
+      /* ---------- combo ---------- */
+      .combo {
+        margin-top: 48px; background: var(--surface);
+        border: 2px solid var(--accent); border-radius: 16px;
+        padding: 24px 22px; box-shadow: var(--shadow);
+      }
+      .combo h2 { font-size: 21px; font-weight: 900; margin: 0 0 6px; }
+      .combo .sub { color: var(--ink-2); font-size: 14.5px; margin: 0 0 18px; }
+      .formula { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; }
+      .chip {
+        font-weight: 900; font-size: 15px; background: var(--accent-soft); color: var(--accent-ink);
+        padding: 8px 14px; border-radius: 10px;
+      }
+      .chip small { display: block; font-size: 11px; font-weight: 700; opacity: .8; letter-spacing: .03em; }
+      .op { font-weight: 900; color: var(--ink-3); font-size: 17px; }
+      .result {
+        font-weight: 900; font-size: 15px; color: #fff; background: var(--accent);
+        padding: 8px 14px; border-radius: 10px;
+      }
+      .combo .row { margin-top: 14px; }
+      footer { margin-top: 40px; color: var(--ink-3); font-size: 12.5px; text-align: center; }
+
+      /* ---------- char / outfit / boilerplate ---------- */
+      .pick-grid { display:grid; grid-template-columns:1fr; gap:14px; }
+      @media(min-width:640px){ .pick-grid{grid-template-columns:1fr 1fr;} }
+      @media(min-width:1024px){ .pick-grid.four{grid-template-columns:1fr 1fr 1fr 1fr;} .pick-grid.two{grid-template-columns:1fr 1fr;} }
+      .pick-card{ background:var(--surface); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow); cursor:pointer; position:relative; text-align:left; font-family:inherit; color:var(--ink); padding:0; width:100%; }
+      .pick-card.selected{ border:2px solid var(--accent); box-shadow:0 0 0 3px var(--accent-soft), var(--shadow); }
+      .pick-card .thumb{ background:var(--fig-bg); border-bottom:1px solid var(--line); padding:10px; }
+      .pick-card .thumb svg{ width:100%; height:auto; display:block; }
+      .pick-card .thumb img{ width:100%; height:170px; object-fit:cover; object-position:top center; display:block; border-radius:8px; }
+      .pick-card .pbody{ padding:14px 16px 16px; }
+      .pick-card h3{ font-size:16.5px; font-weight:900; margin:0 0 4px; line-height:1.4; }
+      .pick-card p{ font-size:13.5px; color:var(--ink-2); margin:0; line-height:1.6; }
+      .pick-badge{ position:absolute; top:10px; right:10px; z-index:2; width:28px; height:28px; border-radius:999px; background:var(--surface); border:2px solid var(--line); display:grid; place-items:center; font-size:15px; font-weight:900; color:transparent; }
+      .pick-card.selected .pick-badge{ background:var(--accent); border-color:var(--accent); color:#fff; }
+      .char-row{ display:flex; flex-wrap:wrap; gap:10px; }
+      .char-btn{ font-family:inherit; font-size:15px; font-weight:900; padding:12px 22px; border-radius:999px; border:2px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; min-height:48px; }
+      .char-btn.selected{ border-color:var(--accent); background:var(--accent); color:#fff; }
+      .mini-note{ font-size:12.5px; color:var(--ink-3); margin:10px 0 0; }
+      .preview-box{ margin-top:14px; background:var(--code-bg); border-radius:10px; padding:12px 14px; font-size:14px; line-height:1.7; white-space:pre-wrap; word-break:break-word; }
+      .bp-list{ display:grid; gap:12px; }
+      .bp-item{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start; box-shadow:var(--shadow); }
+      .bp-item.off{ opacity:.55; }
+      .bp-main{ flex:1; min-width:0; }
+      .bp-main strong{ display:block; font-size:14.5px; margin-bottom:2px; }
+      .bp-main p{ margin:0; font-size:13.5px; color:var(--ink-2); white-space:pre-wrap; }
+      .toggle-btn{ flex:none; font-family:inherit; font-size:12.5px; font-weight:900; border-radius:999px; padding:8px 14px; cursor:pointer; min-height:38px; border:2px solid var(--accent); background:var(--accent); color:#fff; }
+      .bp-item.off .toggle-btn{ background:var(--surface); color:var(--ink-2); border-color:var(--line); }
+      .full-out{ background:var(--code-bg); border-radius:10px; padding:14px 16px; font-size:14px; line-height:1.75; white-space:pre-wrap; word-break:break-word; min-height:80px; }
+      .full-out.en{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; }
+      .big-copy{ font-family:inherit; font-size:14px; font-weight:900; color:#fff; background:var(--accent); border:none; border-radius:10px; padding:12px 18px; cursor:pointer; min-height:48px; width:100%; }
+      .big-copy.done{ opacity:.85; }
+      /* ---------- pose hierarchy ---------- */
+      .pose-steps{ display:grid; gap:18px; }
+      .pose-step{ background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 18px 18px; box-shadow:var(--shadow); }
+      .pose-step-head{ display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+      .step-no{ width:28px; height:28px; border-radius:999px; background:var(--accent); color:#fff; display:grid; place-items:center; font-weight:900; font-size:14px; flex:none; }
+      .pose-step-head strong{ font-size:15.5px; }
+      .pose-step-head span.hint{ font-size:12.5px; color:var(--ink-3); font-weight:700; }
+      .major-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      @media(min-width:640px){ .major-grid{ grid-template-columns:repeat(4,1fr); } }
+      .major-btn,.mid-btn{ font-family:inherit; cursor:pointer; text-align:left; border:2px solid var(--line); background:var(--surface); color:var(--ink); border-radius:12px; padding:12px 12px; min-height:52px; }
+      .major-btn{ font-weight:900; font-size:15px; display:flex; flex-direction:column; gap:2px; }
+      .major-btn small{ font-weight:700; font-size:11.5px; color:var(--ink-3); }
+      .major-btn.selected,.mid-btn.selected{ border-color:var(--accent); background:var(--accent-soft); box-shadow:0 0 0 3px var(--accent-soft); }
+      .mid-row{ display:flex; flex-wrap:wrap; gap:8px; }
+      .mid-btn{ font-weight:800; font-size:14px; padding:10px 14px; min-height:44px; }
+      .leaf-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+      @media(min-width:640px){ .leaf-grid{ grid-template-columns:1fr 1fr; } }
+      @media(min-width:1024px){ .leaf-grid{ grid-template-columns:1fr 1fr 1fr; } }
+      .leaf-card{ background:var(--surface); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow); cursor:pointer; position:relative; text-align:left; font-family:inherit; color:var(--ink); padding:0; width:100%; display:flex; flex-direction:column; }
+      .leaf-card.selected{ border:2px solid var(--accent); box-shadow:0 0 0 3px var(--accent-soft), var(--shadow); }
+      .leaf-card .fig{ background:var(--fig-bg); padding:10px 14px 4px; border-bottom:1px solid var(--line); }
+      .leaf-card .fig svg{ width:100%; height:auto; display:block; }
+      .leaf-body{ padding:13px 15px 15px; display:flex; flex-direction:column; gap:7px; }
+      .leaf-body h4{ font-size:15.5px; font-weight:900; margin:0; line-height:1.45; }
+      .leaf-body h4 .en{ display:block; font-size:11.5px; font-weight:700; color:var(--accent-ink); margin-top:2px; word-break:break-word; }
+      .leaf-body p{ font-size:13px; color:var(--ink-2); margin:0; line-height:1.6; }
+      .fix-note{ font-size:12.5px; line-height:1.6; background:#fff7e6; color:#7a4a00; border:1px solid #f0d48a; border-radius:8px; padding:8px 10px; }
+      @media (prefers-color-scheme: dark){ .fix-note{ background:#33270d; color:#f5c86b; border-color:#6b551f; } }
+      .fix-note b{ display:block; font-size:11px; letter-spacing:.06em; }
+      .breadcrumb{ font-size:13px; font-weight:800; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; padding:8px 11px; line-height:1.6; word-break:break-word; }
+    </style>
+    <style data-hatch-cvm-bundle></style>
+</head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>プロンプトビルダー</h1>
+        <p class="lead">キャラ・衣装・定型文・画角・ポーズ・視線を<strong>選ぶだけで</strong>、GPT Image 2.6の公式ガイド型（ラベル付きセクション構造）のプロンプト一式が組み上がるよ。下の「完成プロンプト」から一式コピーしてChatGPTに貼ってね。英語タグ版も併記。</p>
+        <div class="axes">
+          <span class="axis"><b>画角</b>高さ・距離・特殊</span>
+          <span class="axis"><b>ポーズ</b>棒人間で図解</span>
+          <span class="axis"><b>視線</b>目の向き</span>
+        </div>
+        <nav class="toc">
+          <a href="#character">キャラクター</a>
+          <a href="#outfit">衣装</a>
+          <a href="#boilerplate">定型文</a>
+          <a href="#height">高さ・角度編（6）</a>
+          <a href="#distance">距離編（4）</a>
+          <a href="#special">特殊編（5）</a>
+          <a href="#poses">ポーズ編（3階層）</a>
+          <a href="#gaze">視線編（10）</a>
+          <a href="#builder">完成プロンプト</a>
+        </nav>
+      </header>
+
+
+      <!-- ============ キャラクター ============ -->
+      <section id="character">
+        <div class="sec-head"><h2>キャラクター</h2><span class="count">選ぶとパーソナルプロンプトが入る</span></div>
+        <p class="sec-note">キャラを選ぶと、そのキャラ専用の外見プロンプトが【キャラクター】欄に自動で入るよ。未選択でもOK。</p>
+        <div class="char-row" id="char-row"></div>
+        <p class="mini-note">キャラは今後追加できます（データ追加だけで選択肢が増える構造になっています）。</p>
+        <div class="preview-box" id="char-preview">キャラクター未選択 — ボタンを押すとここにパーソナルプロンプトが表示されるよ。</div>
+      </section>
+
+      <!-- ============ 衣装 ============ -->
+      <section id="outfit">
+        <div class="sec-head"><h2>衣装</h2><span class="count">登録済み衣装・1つだけ選択</span></div>
+        <p class="sec-note">ミュウに登録済みの服だよ。カードを選ぶと【衣装】欄にその服のプロンプトが入る。使う時は衣装シートを「画像2」として一緒に添付してね。</p>
+        <div class="pick-grid four" id="outfit-grid"></div>
+        <div class="preview-box" id="outfit-preview">衣装未選択 — カードを選ぶとここに衣装プロンプトが表示されるよ。</div>
+      </section>
+
+      <!-- ============ 定型文 ============ -->
+      <section id="boilerplate">
+        <div class="sec-head"><h2>定型文</h2><span class="count">デフォルトON・個別にON/OFF＆コピー可</span></div>
+        <p class="sec-note">GPT Image 2.6の書き方に合わせた固定ブロック。ONにしたものだけ完成プロンプトに入るよ。単体コピーもできる。</p>
+        <div class="bp-list" id="bp-list"></div>
+      </section>
+
+      <!-- ============ 高さ・角度編 ============ -->
+      <section id="height">
+        <div class="sec-head"><h2>高さ・角度編</h2><span class="count">カメラをどこに置くか</span></div>
+        <p class="sec-note">まずはこの軸が基本。同じポーズでも、カメラの高さだけで印象がガラッと変わる。</p>
+        <div class="grid">
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="ローアングルの模式図：低い位置のカメラが人物を見上げている">
+                <line class="ground" x1="8" y1="102" x2="192" y2="102" />
+                <line class="sight" x1="52" y1="86" x2="146" y2="24" />
+                <line class="sight" x1="52" y1="94" x2="146" y2="102" />
+                <g class="person"><path d="M148 44 V74 M148 54 L136 66 M148 54 L160 62 M148 74 L140 102 M148 74 L157 102" /></g>
+                <circle class="person-h" cx="148" cy="35" r="8" />
+                <g transform="translate(38,90) rotate(-26)">
+                  <rect class="cam" x="-14" y="-10" width="28" height="20" rx="4" />
+                  <rect class="cam" x="-5" y="-15" width="11" height="6" rx="2" />
+                  <circle class="lens" cx="3" cy="0" r="5.5" />
+                </g>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>ローアングル（あおり）<span class="en">Low angle / from below</span></h3>
+              <p class="fx">下から見上げる。迫力が出て、脚が長く見える。かっこいい系の基本形。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「下から見上げるローアングルで」</p>
+                  <button class="copy" data-copy="下から見上げるローアングルで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>from below, low angle</code>
+                  <button class="copy" data-copy="from below, low angle">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="ワームズアイの模式図：地面すれすれのカメラが空を背景に人物を見上げている">
+                <circle class="sun" cx="172" cy="20" r="9" />
+                <path d="M14 22 q8 -7 16 0 M34 16 q7 -6 14 0" stroke="var(--ink-3)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7" />
+                <line class="ground" x1="8" y1="104" x2="192" y2="104" />
+                <line class="sight" x1="42" y1="98" x2="118" y2="12" />
+                <line class="sight" x1="42" y1="102" x2="118" y2="104" />
+                <g class="person"><path d="M120 30 V68 M120 42 L104 56 M120 42 L137 52 M120 68 L110 104 M120 68 L132 104" /></g>
+                <circle class="person-h" cx="120" cy="19" r="10" />
+                <g transform="translate(30,100) rotate(-38)">
+                  <rect class="cam" x="-12" y="-8" width="24" height="16" rx="4" />
+                  <circle class="lens" cx="3" cy="0" r="4.5" />
+                </g>
+                <text class="fig-note" x="192" y="112" text-anchor="end">空が広く入る</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>ワームズアイ<span class="en">Worm's-eye view</span></h3>
+              <p class="fx">地面すれすれの超ローアングル。空が広く入って、いちばんダイナミックになる。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「地面すれすれの超ローアングルで、空を大きく入れて」</p>
+                  <button class="copy" data-copy="地面すれすれの超ローアングルで、空を大きく入れて">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>worm's-eye view, extreme low angle</code>
+                  <button class="copy" data-copy="worm's-eye view, extreme low angle">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="ハイアングルの模式図：高い位置のカメラが人物を見下ろしている">
+                <line class="ground" x1="8" y1="102" x2="192" y2="102" />
+                <line class="sight" x1="52" y1="26" x2="138" y2="52" />
+                <line class="sight" x1="52" y1="34" x2="140" y2="102" />
+                <g class="person"><path d="M140 66 V84 M140 72 L131 80 M140 72 L149 79 M140 84 L134 102 M140 84 L147 102" /></g>
+                <circle class="person-h" cx="140" cy="58" r="7" />
+                <g transform="translate(38,26) rotate(28)">
+                  <rect class="cam" x="-14" y="-10" width="28" height="20" rx="4" />
+                  <rect class="cam" x="-5" y="-15" width="11" height="6" rx="2" />
+                  <circle class="lens" cx="3" cy="0" r="5.5" />
+                </g>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>ハイアングル（ふかん）<span class="en">High angle / from above</span></h3>
+              <p class="fx">上から見下ろす。小さく可愛く見えるし、自撮り風の画角にもなる。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「上から見下ろすハイアングルで」</p>
+                  <button class="copy" data-copy="上から見下ろすハイアングルで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>from above, high angle</code>
+                  <button class="copy" data-copy="from above, high angle">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="バーズアイの模式図：真上のカメラが真下の人物を捉えている">
+                <ellipse cx="140" cy="102" rx="26" ry="5" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4" opacity=".8" />
+                <line class="sight" x1="140" y1="30" x2="140" y2="66" />
+                <path d="M140 70 l-5 -8 h10 z" fill="var(--accent)" />
+                <g class="person"><path d="M140 84 V96 M140 88 L132 94 M140 88 L148 94 M140 96 L135 104 M140 96 L145 104" /></g>
+                <circle class="person-h" cx="140" cy="77" r="6.5" />
+                <g transform="translate(140,18)">
+                  <rect class="cam" x="-14" y="-10" width="28" height="20" rx="4" />
+                  <circle class="lens" cx="0" cy="2" r="5.5" />
+                </g>
+                <text class="fig-note" x="62" y="16" text-anchor="middle">カメラは真上</text>
+                <text class="fig-note" x="52" y="112" text-anchor="middle">寝転び・俯瞰に</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>バーズアイ／真上<span class="en">Bird's-eye view / top-down</span></h3>
+              <p class="fx">真上から見下ろす。寝転んだポーズや、机の上の小物の俯瞰に。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「真上から見下ろして」</p>
+                  <button class="copy" data-copy="真上から見下ろして">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>bird's-eye view, top-down view</code>
+                  <button class="copy" data-copy="bird's-eye view, top-down view">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="ダッチアングルの模式図：画面全体が斜めに傾いている">
+                <rect x="30" y="10" width="140" height="98" fill="none" stroke="var(--ink-3)" stroke-width="1.5" stroke-dasharray="4 4" opacity=".6" />
+                <g transform="rotate(-14 100 59)">
+                  <rect x="22" y="4" width="156" height="110" fill="var(--fig-bg)" />
+                  <line class="ground" x1="26" y1="98" x2="174" y2="98" />
+                  <circle class="sun" cx="152" cy="26" r="8" />
+                  <g class="person"><path d="M104 42 V72 M104 52 L92 64 M104 52 L116 60 M104 72 L96 98 M104 72 L113 98" /></g>
+                  <circle class="person-h" cx="104" cy="33" r="8" />
+                </g>
+                <text class="fig-note" x="188" y="112" text-anchor="end">画面ごと傾ける</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>ダッチアングル<span class="en">Dutch angle</span></h3>
+              <p class="fx">画面を斜めに傾ける。スピード感・躍動感が出て、不安定な雰囲気も演出できる。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「画面を斜めに傾けたダッチアングルで」</p>
+                  <button class="copy" data-copy="画面を斜めに傾けたダッチアングルで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>dutch angle, tilted frame</code>
+                  <button class="copy" data-copy="dutch angle, tilted frame">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="アイレベルの模式図：カメラが人物の目の高さにある">
+                <line class="ground" x1="8" y1="102" x2="192" y2="102" />
+                <line x1="52" y1="35" x2="138" y2="35" stroke="var(--ink-3)" stroke-width="1.5" stroke-dasharray="3 4" opacity=".7" />
+                <line class="sight" x1="52" y1="30" x2="140" y2="27" />
+                <line class="sight" x1="52" y1="42" x2="140" y2="102" />
+                <g class="person"><path d="M142 44 V74 M142 54 L130 66 M142 54 L154 62 M142 74 L134 102 M142 74 L151 102" /></g>
+                <circle class="person-h" cx="142" cy="35" r="8" />
+                <g transform="translate(38,35)">
+                  <rect class="cam" x="-14" y="-10" width="28" height="20" rx="4" />
+                  <rect class="cam" x="-5" y="-15" width="11" height="6" rx="2" />
+                  <circle class="lens" cx="3" cy="0" r="5.5" />
+                </g>
+                <text class="fig-note" x="56" y="26">目の高さ</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>アイレベル<span class="en">Eye level</span></h3>
+              <p class="fx">目の高さで撮る、いちばん自然な画角。親近感が出て、会話してるみたいな距離感に。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「目の高さの自然な画角で」</p>
+                  <button class="copy" data-copy="目の高さの自然な画角で">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>eye-level shot</code>
+                  <button class="copy" data-copy="eye-level shot">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ============ 距離編 ============ -->
+      <section id="distance">
+        <div class="sec-head"><h2>距離編</h2><span class="count">どこまで写すか</span></div>
+        <p class="sec-note">図の破線の枠が「画面に入る範囲」。衣装を見せたい範囲に合わせて選ぶのがコツ。</p>
+        <div class="grid">
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="クローズアップの模式図：顔だけが枠に入っている">
+                <line class="ground" x1="8" y1="108" x2="192" y2="108" />
+                <g class="person dim"><path d="M100 32 V64 M100 42 L86 56 M100 42 L114 54 M100 64 L94 84 L92 108 M100 64 L106 84 L108 108" /></g>
+                <circle class="person-h" cx="100" cy="24" r="8" />
+                <rect class="frame" x="76" y="6" width="48" height="42" rx="3" />
+                <text class="fig-note" x="130" y="30">顔だけ</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>クローズアップ<span class="en">Close-up</span></h3>
+              <p class="fx">顔のアップ。表情が主役の1枚に。メイクやピアスを見せたい時もこれ。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「顔のクローズアップで」</p>
+                  <button class="copy" data-copy="顔のクローズアップで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>close-up</code>
+                  <button class="copy" data-copy="close-up">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="バストアップの模式図：胸から上が枠に入っている">
+                <line class="ground" x1="8" y1="108" x2="192" y2="108" />
+                <g class="person dim"><path d="M100 64 L94 84 L92 108 M100 64 L106 84 L108 108" /></g>
+                <g class="person"><path d="M100 32 V64 M100 42 L86 56 M100 42 L114 54" /></g>
+                <circle class="person-h" cx="100" cy="24" r="8" />
+                <rect class="frame" x="60" y="6" width="80" height="64" rx="3" />
+                <text class="fig-note" x="146" y="42">胸から上</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>バストアップ<span class="en">Bust shot</span></h3>
+              <p class="fx">胸から上。衣装の上半身と表情を両立できる、使い勝手のいい距離。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「胸から上のバストアップで」</p>
+                  <button class="copy" data-copy="胸から上のバストアップで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>upper body</code>
+                  <button class="copy" data-copy="upper body">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="カウボーイショットの模式図：膝から上が枠に入っている">
+                <line class="ground" x1="8" y1="108" x2="192" y2="108" />
+                <g class="person dim"><path d="M94 84 L92 108 M106 84 L108 108" /></g>
+                <g class="person"><path d="M100 32 V64 M100 42 L86 56 M100 42 L114 54 M100 64 L94 84 M100 64 L106 84" /></g>
+                <circle class="person-h" cx="100" cy="24" r="8" />
+                <rect class="frame" x="56" y="6" width="88" height="84" rx="3" />
+                <text class="fig-note" x="150" y="52">膝から上</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>カウボーイショット<span class="en">Cowboy shot</span></h3>
+              <p class="fx">膝から上（海外の言い方で太ももから上）。ポーズの躍動感と衣装を両方見せられる。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「膝から上のカウボーイショットで」</p>
+                  <button class="copy" data-copy="膝から上のカウボーイショットで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>cowboy shot</code>
+                  <button class="copy" data-copy="cowboy shot">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="全身ショットの模式図：頭から足先まで枠に入っている">
+                <line class="ground" x1="8" y1="108" x2="192" y2="108" />
+                <g class="person"><path d="M100 32 V64 M100 42 L86 56 M100 42 L114 54 M100 64 L94 84 L92 108 M100 64 L106 84 L108 108" /></g>
+                <circle class="person-h" cx="100" cy="24" r="8" />
+                <rect class="frame" x="52" y="4" width="96" height="110" rx="3" />
+                <text class="fig-note" x="192" y="60" text-anchor="end">足先まで</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>全身<span class="en">Full body</span></h3>
+              <p class="fx">頭から足先まで。衣装全体を見せたい時の鉄板。靴まで指定が届く。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「頭から足先まで入る全身ショットで」</p>
+                  <button class="copy" data-copy="頭から足先まで入る全身ショットで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>full body</code>
+                  <button class="copy" data-copy="full body">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ============ 特殊編 ============ -->
+      <section id="special">
+        <div class="sec-head"><h2>特殊編</h2><span class="count">レンズと視点のワザ</span></div>
+        <p class="sec-note">いつもの画角に飽きたらこれ。1つ足すだけで「おっ」となる変化球。</p>
+        <div class="grid">
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="魚眼レンズの模式図：円形の画面で中心が膨らんで歪んでいる">
+                <circle cx="100" cy="59" r="52" fill="none" stroke="var(--accent)" stroke-width="2.5" />
+                <path d="M52 40 Q100 22 148 40 M48 59 Q100 44 152 59 M52 78 Q100 96 148 78 M74 12 Q60 59 74 106 M126 12 Q140 59 126 106" fill="none" stroke="var(--ink-3)" stroke-width="1.5" opacity=".55" />
+                <g class="person"><path d="M104 44 V68 M104 50 L94 58 M104 68 L98 88 M104 68 L111 88" /></g>
+                <circle class="person-h" cx="104" cy="37" r="6.5" />
+                <circle cx="66" cy="84" r="14" fill="var(--fig-bg)" stroke="var(--ink)" stroke-width="3" />
+                <path d="M56 74 l-4 -8 M64 71 l-1 -9 M73 73 l3 -8" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round" />
+                <text class="fig-note" x="190" y="110" text-anchor="end">近い手が大きく</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>魚眼<span class="en">Fisheye</span></h3>
+              <p class="fx">近い部分が大きく歪むレンズ効果。手や足をカメラに突き出すと効果が倍増する。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「魚眼レンズで、手をカメラに突き出す感じで」</p>
+                  <button class="copy" data-copy="魚眼レンズで、手をカメラに突き出す感じで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>fisheye lens</code>
+                  <button class="copy" data-copy="fisheye lens">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="POVの模式図：相手がこちらに手を伸ばし、下端に自分の手が見えている">
+                <line class="ground" x1="8" y1="96" x2="192" y2="96" />
+                <g class="person"><path d="M100 38 V62 M100 46 L88 56 M100 62 L93 96 M100 62 L107 96" /></g>
+                <circle class="person-h" cx="100" cy="30" r="7.5" />
+                <line class="person" x1="100" y1="46" x2="100" y2="64" />
+                <circle cx="100" cy="73" r="9.5" fill="var(--fig-bg)" stroke="var(--ink)" stroke-width="3" />
+                <path d="M93 66 l-3 -7 M100 64 v-8 M107 66 l3 -7" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round" />
+                <circle class="sil" cx="24" cy="112" r="11" />
+                <circle class="sil" cx="176" cy="112" r="11" />
+                <text class="fig-note" x="27" y="86" text-anchor="middle">自分の手</text>
+                <text class="fig-note" x="192" y="20" text-anchor="end">相手が手を伸ばす</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>POV（一人称視点）<span class="en">POV / first-person view</span></h3>
+              <p class="fx">自分の目線で見る視点。相手がこちらに手を伸ばしてくる、みたいな没入感のある構図に。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「一人称視点で、こちらに手を伸ばしていて」</p>
+                  <button class="copy" data-copy="一人称視点で、こちらに手を伸ばしていて">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>pov, first-person view</code>
+                  <button class="copy" data-copy="pov, first-person view">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="オーバーショルダーの模式図：手前の人物の肩越しに向かいの人物を見ている">
+                <line class="ground" x1="8" y1="102" x2="192" y2="102" />
+                <line class="sight" x1="62" y1="76" x2="140" y2="38" />
+                <g class="person"><path d="M146 46 V74 M146 54 L135 65 M146 54 L157 62 M146 74 L139 102 M146 74 L154 102" /></g>
+                <circle class="person-h" cx="146" cy="37" r="8" />
+                <circle class="sil" cx="38" cy="84" r="19" />
+                <path class="sil" d="M0 118 L0 102 Q38 82 76 100 L82 118 Z" />
+                <text class="fig-note" x="96" y="112">肩越しに見る</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>オーバーショルダー<span class="en">Over-the-shoulder</span></h3>
+              <p class="fx">誰かの肩越しに見る構図。会話シーンや、誰かと向き合ってる空気感を出すのに最適。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「肩越しの構図で」</p>
+                  <button class="copy" data-copy="肩越しの構図で">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>over-the-shoulder shot</code>
+                  <button class="copy" data-copy="over-the-shoulder shot">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="鏡越しの模式図：スマホを持つ人物と、姿見に映る正面の姿">
+                <line class="ground" x1="8" y1="106" x2="192" y2="106" />
+                <g class="person"><path d="M56 40 V72 M56 50 L44 62 M56 72 L49 106 M56 72 L64 106" /></g>
+                <circle class="person-h" cx="56" cy="31" r="8.5" />
+                <line class="person" x1="56" y1="50" x2="72" y2="40" />
+                <g transform="rotate(8 76 34)"><rect x="71" y="26" width="10" height="16" rx="2.5" fill="var(--accent)" /></g>
+                <rect class="mirror" x="118" y="12" width="62" height="94" rx="6" />
+                <g class="person"><path d="M149 48 V74 M149 56 L139 66 M149 56 L159 64 M149 74 L143 100 M149 74 L156 100" /></g>
+                <circle class="person-h" cx="149" cy="39" r="8" />
+                <text class="fig-note" x="56" y="13" text-anchor="middle">後ろ姿＋スマホ</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>鏡越し<span class="en">Mirror selfie / reflection</span></h3>
+              <p class="fx">姿見や窓ガラスへの映り込み。自撮り風の定番で、コーデ記録っぽい自然さが出る。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「姿見の鏡越しの自撮り風で」</p>
+                  <button class="copy" data-copy="姿見の鏡越しの自撮り風で">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>mirror selfie, reflection</code>
+                  <button class="copy" data-copy="mirror selfie, reflection">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="fig">
+              <svg viewBox="0 0 200 118" role="img" aria-label="逆光シルエットの模式図：夕日を背に人物が黒い輪郭だけになっている">
+                <circle class="sun" cx="100" cy="52" r="33" />
+                <path d="M100 6 v8 M54 20 l6 6 M146 20 l-6 6 M40 52 h9 M151 52 h9" stroke="var(--amber)" stroke-width="3" stroke-linecap="round" />
+                <rect x="0" y="100" width="200" height="18" fill="#23242c" />
+                <circle cx="100" cy="36" r="9" fill="#23242c" />
+                <path d="M91 46 h18 l5 30 h-8 l-6 -20 l-6 20 h-8 z" fill="#23242c" />
+                <path d="M94 102 l6 -26 l6 26 z" fill="#23242c" />
+              </svg>
+            </div>
+            <div class="card-body">
+              <h3>逆光シルエット<span class="en">Backlit silhouette</span></h3>
+              <p class="fx">夕日などを背にして、輪郭だけが浮かぶ。雰囲気抜群で、エモい1枚の鉄板。</p>
+              <div class="row">
+                <span class="label">CHATGPT フレーズ</span>
+                <div class="phrase-line">
+                  <p class="phrase-text">「夕日を背にした逆光シルエットで」</p>
+                  <button class="copy" data-copy="夕日を背にした逆光シルエットで">コピー</button>
+                </div>
+              </div>
+              <div class="row">
+                <span class="label">COMFYUI タグ</span>
+                <div class="tags-line">
+                  <code>backlighting, silhouette</code>
+                  <button class="copy" data-copy="backlighting, silhouette">コピー</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ============ ポーズ編（3階層） ============ -->
+      <section id="poses">
+        <div class="sec-head"><h2>ポーズ編</h2><span class="count">大項目 → 中項目 → 小項目・ポーズは1つだけ</span></div>
+        <p class="sec-note">①大項目 → ②中項目 → ③小項目（末端）の順に選ぶとポーズが確定するよ。ポーズは<strong>1つだけ</strong>（選び直すと切り替わる）。紛らわしいポーズには「固定のコツ」が自動で完成プロンプトに付くから、しゃがみ方みたいな誤解が起きにくくなる。</p>
+        <div class="pose-steps">
+          <div class="pose-step">
+            <div class="pose-step-head"><span class="step-no">1</span><strong>大項目を選ぶ</strong><span class="hint">系統で絞る</span></div>
+            <div class="major-grid" id="pose-major"></div>
+          </div>
+          <div class="pose-step" id="pose-mid-wrap" hidden>
+            <div class="pose-step-head"><span class="step-no">2</span><strong>中項目を選ぶ</strong><span class="hint" id="pose-mid-hint"></span></div>
+            <div class="mid-row" id="pose-mid"></div>
+          </div>
+          <div class="pose-step" id="pose-leaf-wrap" hidden>
+            <div class="pose-step-head"><span class="step-no">3</span><strong>小項目を選ぶ（これで確定）</strong><span class="hint">棒人間で形を確認してね</span></div>
+            <div class="leaf-grid" id="pose-leaf-grid"></div>
+          </div>
+        </div>
+        <div class="preview-box" id="pose-preview">ポーズ未選択 — 大項目から順に選んでね。例：しゃがむ・膝をつく ＞ 深くしゃがむ ＞ 膝を抱えてしゃがむ</div>
+        <p style="margin:12px 0 0"><button class="clear-btn" id="clear-pose" type="button">ポーズの選択を解除</button></p>
+      </section>
+
+      <!-- ============ 視線編 ============ -->
+      <section id="gaze">
+        <div class="sec-head"><h2>視線編</h2><span class="count">目の向き・全10種</span></div>
+        <p class="sec-note">顔アップの模式図＋矢印が視線の向き。表情のニュアンスがガラッと変わる最後のひと押し。</p>
+        <div class="grid" id="gaze-grid"></div>
+      </section>
+
+      <!-- ============ 組み合わせ例 ============ -->
+      <div class="combo" id="combo">
+        <h2>組み合わせ例：軸は重ねて指定できる</h2>
+        <p class="sub">「高さ・角度」＋「距離」＋「傾け／特殊」は、同時に指定してOK。むしろ重ねた方が、狙った構図にピンポイントで届く。</p>
+        <div class="formula">
+          <span class="chip">ワームズアイ<small>高さ・角度</small></span>
+          <span class="op">×</span>
+          <span class="chip">全身<small>距離</small></span>
+          <span class="op">×</span>
+          <span class="chip">ダッチアングル<small>傾け</small></span>
+          <span class="op">＝</span>
+          <span class="result">屋上アクションの迫力構図</span>
+        </div>
+        <div class="row">
+          <span class="label">CHATGPT フレーズ（合体版）</span>
+          <div class="phrase-line">
+            <p class="phrase-text">「地面すれすれの超ローアングルで、画面を斜めに傾けて、頭から足先まで入る全身ショットで」</p>
+            <button class="copy" data-copy="地面すれすれの超ローアングルで、画面を斜めに傾けて、頭から足先まで入る全身ショットで">コピー</button>
+          </div>
+        </div>
+        <div class="row">
+          <span class="label">COMFYUI タグ（合体版）</span>
+          <div class="tags-line">
+            <code>worm's-eye view, full body, dutch angle</code>
+            <button class="copy" data-copy="worm's-eye view, full body, dutch angle">コピー</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ 完成プロンプト ============ -->
+      <div class="builder" id="builder">
+        <h2>完成プロンプト（一式コピー）</h2>
+        <p class="sub">選んだキャラ・衣装・定型文・画角・ポーズ・視線が、公式ガイド型のセクション順で自動で組み上がるよ。そのままChatGPTに貼って使ってね。</p>
+        <div class="selected-chips" id="sel-chips"><span class="empty-note">カードをタップして選んでね</span></div>
+        <div class="row">
+          <span class="label">日本語・一式（GPT Image 2.6 型）</span>
+          <div class="full-out" id="out-full">まだ何も選ばれていません</div>
+          <div style="margin-top:10px"><button class="big-copy" id="copy-full">📋 一式コピー（日本語）</button></div>
+        </div>
+        <div class="row">
+          <span class="label">画角・ポーズ・視線のみ（従来の合体版）</span>
+          <div class="phrase-line">
+            <div class="out-box" id="out-jp" style="flex:1">まだ何も選ばれていません</div>
+            <button class="copy" id="copy-jp">コピー</button>
+          </div>
+        </div>
+        <div class="row">
+          <span class="label">英語タグ版（一式の要点＋タグ）</span>
+          <div class="tags-line">
+            <div class="out-box en" id="out-en" style="flex:1">—</div>
+            <button class="copy" id="copy-en">コピー</button>
+          </div>
+        </div>
+        <div class="row" style="display:flex;justify-content:flex-end">
+          <button class="clear-btn" id="clear-sel">画角・ポーズ・視線の選択をすべて解除</button>
+        </div>
+      </div>
+      <div class="sticky-bar"><span id="sticky-count">選択中：0件</span><a href="#builder">プロンプトを見る ↓</a></div>
+
+      <footer>使い方：キャラと衣装を選び、画角・ポーズ・視線のカードを足して、「一式コピー」をChatGPTへ。直す時は「変えるのは◯◯だけ。他は維持」と1つずつ伝えるのが公式ガイドのコツだよ。</footer>
+    </div>
+
+    
+  <script data-hatch-cvm-bundle>(() => {
+  var __defProp = Object.defineProperty;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  function __accessProp(key) {
+    return this[key];
+  }
+  var __toCommonJS = (from) => {
+    var entry = (__moduleCache ??= new WeakMap).get(from), desc;
+    if (entry)
+      return entry;
+    entry = __defProp({}, "__esModule", { value: true });
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (var key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(entry, key))
+          __defProp(entry, key, {
+            get: __accessProp.bind(from, key),
+            enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
+          });
+    }
+    __moduleCache.set(from, entry);
+    return entry;
+  };
+  var __moduleCache;
+
+  // src/prelude.ts
+  var exports_prelude = {};
+
+  // src/tunnel-url.ts
+  var B64_CHUNK = 32768;
+  function computeSelfBaseDir(selfHref) {
+    if (!selfHref)
+      return "";
+    let h = selfHref;
+    const hash = h.indexOf("#");
+    if (hash >= 0)
+      h = h.slice(0, hash);
+    const q = h.indexOf("?");
+    if (q >= 0)
+      h = h.slice(0, q);
+    const slash = h.lastIndexOf("/");
+    return slash >= 0 ? h.slice(0, slash + 1) : "";
+  }
+  function isSelfOriginUrl(u, selfBaseDir, selfHref, objectUrls) {
+    if (!selfBaseDir || !u.startsWith(selfBaseDir))
+      return false;
+    if (u === selfHref)
+      return false;
+    return !objectUrls.has(u);
+  }
+  function isExternalUrl(u, selfBaseDir, selfHref, objectUrls) {
+    if (!u)
+      return false;
+    if (u.startsWith("#"))
+      return true;
+    if (isSelfOriginUrl(u, selfBaseDir, selfHref, objectUrls))
+      return false;
+    if (u.startsWith("data:") || u.startsWith("blob:"))
+      return true;
+    if (u.startsWith("about:") || u.startsWith("javascript:"))
+      return true;
+    if (u.startsWith("//"))
+      return true;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(u)) {
+      return true;
+    }
+    return false;
+  }
+  function normalizeToRelPath(u, selfBaseDir) {
+    let s = u;
+    if (selfBaseDir && s.startsWith(selfBaseDir)) {
+      s = s.slice(selfBaseDir.length);
+    }
+    s = s.replace(/^\.\//, "");
+    s = s.replace(/^\/+/, "");
+    return s;
+  }
+  function blobInner(base, NativeURL) {
+    if (base == null)
+      return null;
+    const s = typeof base === "string" ? base : base instanceof NativeURL ? base.href : String(base);
+    return s.startsWith("blob:") ? s.slice("blob:".length) : null;
+  }
+  var OPAQUE_BLOB_ORIGIN = "https://hatch-cvm-opaque.invalid";
+  function isAbsoluteUrlString(s, NativeURL) {
+    try {
+      new NativeURL(s);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+  function resolveAgainstBlobBase(u, base, NativeURL) {
+    const inner = blobInner(base, NativeURL);
+    if (inner === null)
+      return null;
+    if (isAbsoluteUrlString(inner, NativeURL)) {
+      return new NativeURL("blob:" + new NativeURL(u, inner).href);
+    }
+    const slash = inner.indexOf("/");
+    const token = slash >= 0 ? inner.slice(0, slash) : inner;
+    const path = slash >= 0 ? inner.slice(slash) : "/";
+    const resolved = new NativeURL(u, OPAQUE_BLOB_ORIGIN + path);
+    return new NativeURL("blob:" + token + resolved.pathname + resolved.search + resolved.hash);
+  }
+  function resolveTunnelUrl(url, base, selfHref, NativeURL) {
+    const u = url == null ? "" : typeof url === "string" ? url : url instanceof NativeURL ? url.href : String(url);
+    const uAbsolute = /^[a-z][a-z0-9+.-]*:/i.test(u) || u.startsWith("//");
+    if (base !== undefined && base !== null && !uAbsolute) {
+      const viaBlob = resolveAgainstBlobBase(u, base, NativeURL);
+      if (viaBlob !== null)
+        return viaBlob;
+      return new NativeURL(u, base);
+    }
+    if (!uAbsolute && selfHref) {
+      const viaBlob = resolveAgainstBlobBase(u, selfHref, NativeURL);
+      if (viaBlob !== null)
+        return viaBlob;
+    }
+    return base === undefined ? new NativeURL(u) : new NativeURL(u, base);
+  }
+  function bytesToBase64(bytes) {
+    const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+    let s = "";
+    for (let i = 0;i < u8.length; i += B64_CHUNK) {
+      s += String.fromCharCode.apply(null, Array.from(u8.subarray(i, i + B64_CHUNK)));
+    }
+    return btoa(s);
+  }
+  function base64ToBytes(b64) {
+    const bin = atob(b64);
+    const out = new Uint8Array(bin.length);
+    for (let i = 0;i < bin.length; i++)
+      out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  function importMetaUrl(selfHref, selfBaseDir) {
+    return selfBaseDir ? `${selfBaseDir}assets/cvm-bundle.js` : selfHref;
+  }
+
+  // src/download-links.ts
+  function installDownloadLinks(fetchAsset, isExternalUrl, revokeDelayMs) {
+    document.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+      const anchor = event.composedPath().find((node) => node instanceof HTMLAnchorElement);
+      if (!anchor?.hasAttribute("download"))
+        return;
+      const href = anchor.getAttribute("href");
+      if (!href || isExternalUrl(href))
+        return;
+      event.preventDefault();
+      const filename = anchor.download || resourceFilename(href);
+      (async () => {
+        const response = await fetchAsset(href);
+        if (!response.ok) {
+          throw new Error(`Artifact download failed: HTTP ${response.status}`);
+        }
+        const url = URL.createObjectURL(await response.blob());
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        link.hidden = true;
+        document.body.appendChild(link);
+        try {
+          link.click();
+        } finally {
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(url), revokeDelayMs);
+        }
+      })().catch((error) => reportError(error));
+    });
+  }
+  function resourceFilename(href) {
+    const path = new URL(href, document.baseURI).pathname;
+    const name = path.slice(path.lastIndexOf("/") + 1);
+    try {
+      return decodeURIComponent(name);
+    } catch {
+      return name;
+    }
+  }
+
+  // src/fragment-links.ts
+  function installFragmentLinks() {
+    if (!location.href.startsWith("blob:null/"))
+      return;
+    const NativeURL = URL;
+    const pushState = history.pushState.bind(history);
+    const replaceState = history.replaceState.bind(history);
+    window.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+      const anchor = event.composedPath().find((node) => node instanceof HTMLAnchorElement);
+      if (!anchor || anchor.hasAttribute("download"))
+        return;
+      const targetName = anchor.getAttribute("target") ?? document.querySelector("base[target]")?.getAttribute("target") ?? "";
+      if (targetName !== "" && targetName.toLowerCase() !== "_self")
+        return;
+      const href = anchor.getAttribute("href");
+      if (!href?.startsWith("#"))
+        return;
+      const oldURL = location.href;
+      const nextURL = new NativeURL(href, oldURL);
+      event.preventDefault();
+      const changed = nextURL.href !== oldURL;
+      if (changed) {
+        pushState(null, "", nextURL.href);
+      } else {
+        replaceState(null, "", nextURL.href);
+      }
+      window.dispatchEvent(new PopStateEvent("popstate", { state: null }));
+      const target = fragmentTarget(nextURL.hash);
+      if (target) {
+        target.scrollIntoView();
+        if (target !== document.documentElement && (target instanceof HTMLElement || target instanceof SVGElement)) {
+          const hadTabIndex = target.hasAttribute("tabindex");
+          if (!hadTabIndex)
+            target.setAttribute("tabindex", "-1");
+          target.focus({ preventScroll: true });
+          if (!hadTabIndex)
+            target.removeAttribute("tabindex");
+        }
+      }
+      if (changed) {
+        queueMicrotask(() => window.dispatchEvent(new HashChangeEvent("hashchange", {
+          oldURL,
+          newURL: nextURL.href
+        })));
+      }
+    });
+  }
+  function fragmentTarget(hash) {
+    const bytes = hash.slice(1).replace(/%([0-9a-f]{2})/gi, (_match, hex) => String.fromCharCode(parseInt(hex, 16)));
+    const fragment = new TextDecoder().decode(Uint8Array.from(bytes, (byte) => byte.charCodeAt(0)));
+    if (fragment === "")
+      return document.documentElement;
+    const idTarget = document.getElementById(fragment);
+    if (idTarget)
+      return idTarget;
+    const namedTarget = Array.from(document.getElementsByName(fragment)).find((node) => node instanceof HTMLAnchorElement);
+    return namedTarget ?? (fragment.toLowerCase() === "top" ? document.documentElement : null);
+  }
+
+  // src/prelude.ts
+  (function installTunnel() {
+    installFragmentLinks();
+    let port = null;
+    let portReadyResolve = null;
+    const portReady = new Promise((res) => {
+      portReadyResolve = res;
+    });
+    const pending = new Map;
+    const openWs = new Map;
+    function newId() {
+      return Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
+    }
+    function bytesToB64(bytes) {
+      return bytesToBase64(bytes);
+    }
+    function b64ToBytes(b64) {
+      return base64ToBytes(b64);
+    }
+    async function httpReq(method, path, body, headers) {
+      const p = port ?? await portReady;
+      const id = newId();
+      const headerArr = [];
+      if (headers) {
+        const h = new Headers(headers);
+        h.forEach((v, k) => headerArr.push([k, v]));
+      }
+      let bodyB64 = "";
+      if (body != null && body !== "") {
+        let bytes;
+        if (typeof body === "string") {
+          bytes = new TextEncoder().encode(body);
+        } else if (body instanceof ArrayBuffer) {
+          bytes = new Uint8Array(body);
+        } else if (body instanceof Uint8Array) {
+          bytes = body;
+        } else if (body instanceof Blob) {
+          bytes = new Uint8Array(await body.arrayBuffer());
+        } else if (body instanceof FormData) {
+          const boundary = "----HatchBoundary" + Math.random().toString(36).slice(2);
+          let s = "";
+          for (const [k, v] of body.entries()) {
+            s += `--${boundary}\r
+Content-Disposition: form-data; name="${k}"`;
+            if (v instanceof File) {
+              s += `; filename="${v.name}"\r
+Content-Type: ${v.type || "application/octet-stream"}\r
+\r
+`;
+              const fb = new Uint8Array(await v.arrayBuffer());
+              s += new TextDecoder("latin1").decode(fb);
+            } else {
+              s += `\r
+\r
+${v}`;
+            }
+            s += `\r
+`;
+          }
+          s += `--${boundary}--\r
+`;
+          bytes = new TextEncoder().encode(s);
+          headerArr.push([
+            "content-type",
+            `multipart/form-data; boundary=${boundary}`
+          ]);
+        } else {
+          bytes = new TextEncoder().encode(String(body));
+        }
+        bodyB64 = bytesToB64(bytes);
+      }
+      return new Promise((resolve, reject) => {
+        pending.set(id, {
+          resolve: (msg) => {
+            if (msg.error) {
+              reject(new Error(msg.error.message ?? "tunnel error"));
+              return;
+            }
+            resolve({
+              status: msg.status,
+              headers: msg.headers,
+              bytes: msg.bodyB64 ? b64ToBytes(msg.bodyB64) : new Uint8Array(0)
+            });
+          },
+          reject
+        });
+        p.postMessage({
+          type: "http.req",
+          id,
+          method,
+          path,
+          headers: headerArr,
+          bodyB64
+        });
+      });
+    }
+    async function tunnelFetch(input, init) {
+      let urlStr;
+      let method = init?.method ?? "GET";
+      let headers = init?.headers;
+      let body = init?.body;
+      if (input instanceof Request) {
+        urlStr = input.url;
+        method = init?.method ?? input.method;
+        headers = init?.headers ?? input.headers;
+        if (body == null && input.body) {
+          body = await input.arrayBuffer();
+        }
+      } else {
+        urlStr = String(input);
+      }
+      if (isExternalUrl2(urlStr)) {
+        return originalFetch(input, init);
+      }
+      const relPath = normalizeToRelPath2(urlStr);
+      const r = await httpReq(method, relPath, body ?? null, headers);
+      const respHeaders = new Headers;
+      for (const [k, v] of r.headers ?? [])
+        respHeaders.set(k, v);
+      return new Response(r.bytes, {
+        status: r.status,
+        headers: respHeaders
+      });
+    }
+
+    class TunnelWebSocket extends EventTarget {
+      readyState = 0;
+      static CONNECTING = 0;
+      static OPEN = 1;
+      static CLOSING = 2;
+      static CLOSED = 3;
+      CONNECTING = 0;
+      OPEN = 1;
+      CLOSING = 2;
+      CLOSED = 3;
+      url;
+      binaryType = "blob";
+      bufferedAmount = 0;
+      protocol = "";
+      extensions = "";
+      onopen = null;
+      onmessage = null;
+      onclose = null;
+      onerror = null;
+      _id;
+      constructor(urlIn, _protocols) {
+        super();
+        const urlStr = String(urlIn);
+        this.url = urlStr;
+        this._id = newId();
+        openWs.set(this._id, this);
+        const path = normalizeToRelPath2(urlStr);
+        (async () => {
+          const p = port ?? await portReady;
+          p.postMessage({ type: "ws.open", id: this._id, path });
+        })();
+      }
+      _handle(msg) {
+        if (msg.type === "ws.opened") {
+          this.readyState = 1;
+          const ev = new Event("open");
+          this.onopen?.(ev);
+          this.dispatchEvent(ev);
+        } else if (msg.type === "ws.message") {
+          const bytes = msg.dataB64 ? b64ToBytes(msg.dataB64) : new Uint8Array(0);
+          let data;
+          if (msg.binary) {
+            data = this.binaryType === "arraybuffer" ? bytes.buffer : new Blob([bytes]);
+          } else {
+            data = new TextDecoder().decode(bytes);
+          }
+          const ev = new MessageEvent("message", { data });
+          this.onmessage?.(ev);
+          this.dispatchEvent(ev);
+        } else if (msg.type === "ws.closed") {
+          this.readyState = 3;
+          const ev = new CloseEvent("close", {
+            code: msg.code ?? 1000,
+            reason: msg.reason ?? ""
+          });
+          this.onclose?.(ev);
+          this.dispatchEvent(ev);
+          openWs.delete(this._id);
+        } else if (msg.type === "ws.error") {
+          const ev = new Event("error");
+          this.onerror?.(ev);
+          this.dispatchEvent(ev);
+        }
+      }
+      send(data) {
+        (async () => {
+          const p = port ?? await portReady;
+          let bytes;
+          let binary = false;
+          if (typeof data === "string") {
+            bytes = new TextEncoder().encode(data);
+          } else if (data instanceof Blob) {
+            bytes = new Uint8Array(await data.arrayBuffer());
+            binary = true;
+          } else if (data instanceof ArrayBuffer) {
+            bytes = new Uint8Array(data);
+            binary = true;
+          } else if (ArrayBuffer.isView(data)) {
+            bytes = new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+            binary = true;
+          } else {
+            bytes = new TextEncoder().encode(String(data));
+          }
+          p.postMessage({
+            type: "ws.send",
+            id: this._id,
+            dataB64: bytesToB64(bytes),
+            binary
+          });
+        })();
+      }
+      close(code, reason) {
+        (async () => {
+          const p = port ?? await portReady;
+          p.postMessage({ type: "ws.close", id: this._id, code, reason });
+        })();
+      }
+      addEventListener(type, listener, options) {
+        super.addEventListener(type, listener, options);
+      }
+    }
+
+    class TunnelXHR extends EventTarget {
+      static UNSENT = 0;
+      static OPENED = 1;
+      static HEADERS_RECEIVED = 2;
+      static LOADING = 3;
+      static DONE = 4;
+      UNSENT = 0;
+      OPENED = 1;
+      HEADERS_RECEIVED = 2;
+      LOADING = 3;
+      DONE = 4;
+      readyState = 0;
+      status = 0;
+      statusText = "";
+      responseText = "";
+      response = null;
+      responseType = "";
+      responseURL = "";
+      withCredentials = false;
+      timeout = 0;
+      upload = new EventTarget;
+      onreadystatechange = null;
+      onload = null;
+      onerror = null;
+      onloadend = null;
+      onabort = null;
+      onprogress = null;
+      ontimeout = null;
+      _method = "GET";
+      _url = "";
+      _reqHeaders = [];
+      _respHeaders = [];
+      _aborted = false;
+      open(method, url) {
+        this._method = method;
+        this._url = url;
+        this.readyState = 1;
+        this.onreadystatechange?.();
+      }
+      setRequestHeader(name, value) {
+        this._reqHeaders.push([name, value]);
+      }
+      getAllResponseHeaders() {
+        return this._respHeaders.map(([k, v]) => `${k}: ${v}`).join(`\r
+`);
+      }
+      getResponseHeader(name) {
+        const lc = name.toLowerCase();
+        const hit = this._respHeaders.find(([k]) => k.toLowerCase() === lc);
+        return hit ? hit[1] : null;
+      }
+      abort() {
+        this._aborted = true;
+        this.readyState = 0;
+      }
+      send(body) {
+        if (isExternalUrl2(this._url)) {
+          const real = new originalXHR;
+          real.open(this._method, this._url);
+          for (const [k, v] of this._reqHeaders)
+            real.setRequestHeader(k, v);
+          real.onload = () => {
+            this.status = real.status;
+            this.responseText = real.responseText;
+            this.response = real.response;
+            this.readyState = 4;
+            this.onreadystatechange?.();
+            this.onload?.();
+            this.onloadend?.();
+            this.dispatchEvent(new Event("load"));
+          };
+          real.onerror = () => {
+            this.onerror?.();
+            this.dispatchEvent(new Event("error"));
+          };
+          real.send(body);
+          return;
+        }
+        const relPath = normalizeToRelPath2(this._url);
+        httpReq(this._method, relPath, body ?? null, this._reqHeaders).then((r) => {
+          if (this._aborted)
+            return;
+          this.status = r.status;
+          this._respHeaders = r.headers ?? [];
+          this.responseText = new TextDecoder().decode(r.bytes);
+          if (this.responseType === "arraybuffer") {
+            this.response = r.bytes.buffer;
+          } else if (this.responseType === "blob") {
+            this.response = new Blob([r.bytes]);
+          } else if (this.responseType === "json") {
+            try {
+              this.response = JSON.parse(this.responseText);
+            } catch {
+              this.response = null;
+            }
+          } else {
+            this.response = this.responseText;
+          }
+          this.readyState = 4;
+          this.onreadystatechange?.();
+          this.onload?.();
+          this.onloadend?.();
+          this.dispatchEvent(new Event("load"));
+        }, () => {
+          if (this._aborted)
+            return;
+          this.onerror?.();
+          this.dispatchEvent(new Event("error"));
+        });
+      }
+    }
+
+    class TunnelEventSource extends EventTarget {
+      static CONNECTING = 0;
+      static OPEN = 1;
+      static CLOSED = 2;
+      readyState = 0;
+      url;
+      withCredentials = false;
+      onopen = null;
+      onmessage = null;
+      onerror = null;
+      constructor(url) {
+        super();
+        this.url = String(url);
+        (async () => {
+          try {
+            const relPath = normalizeToRelPath2(this.url);
+            const r = await httpReq("GET", relPath, null, [
+              ["accept", "text/event-stream"]
+            ]);
+            this.readyState = 1;
+            this.onopen?.(new Event("open"));
+            const text = new TextDecoder().decode(r.bytes);
+            for (const block of text.split(/\n\n/)) {
+              const data = block.split(`
+`).filter((l) => l.startsWith("data:")).map((l) => l.slice(5).trim()).join(`
+`);
+              if (data) {
+                const ev = new MessageEvent("message", { data });
+                this.onmessage?.(ev);
+                this.dispatchEvent(ev);
+              }
+            }
+            this.readyState = 2;
+          } catch {
+            this.onerror?.(new Event("error"));
+          }
+        })();
+      }
+      close() {
+        this.readyState = 2;
+      }
+    }
+    const SELF_HREF = (() => {
+      try {
+        return globalThis.location?.href ?? "";
+      } catch {
+        return "";
+      }
+    })();
+    const SELF_BASE_DIR = computeSelfBaseDir(SELF_HREF);
+    const objectUrls = new Set;
+    function isSelfOriginUrl2(u) {
+      return isSelfOriginUrl(u, SELF_BASE_DIR, SELF_HREF, objectUrls);
+    }
+    function isExternalUrl2(u) {
+      return isExternalUrl(u, SELF_BASE_DIR, SELF_HREF, objectUrls);
+    }
+    function normalizeToRelPath2(u) {
+      return normalizeToRelPath(u, SELF_BASE_DIR);
+    }
+    const URL_ATTRS = new Set([
+      "src",
+      "srcset",
+      "href",
+      "poster",
+      "action",
+      "formaction",
+      "data",
+      "background",
+      "cite",
+      "longdesc",
+      "usemap",
+      "manifest"
+    ]);
+    const URL_STYLE_PROPS = new Set([
+      "background",
+      "backgroundImage",
+      "background-image",
+      "borderImage",
+      "border-image",
+      "borderImageSource",
+      "border-image-source",
+      "listStyle",
+      "list-style",
+      "listStyleImage",
+      "list-style-image",
+      "cursor",
+      "mask",
+      "maskImage",
+      "mask-image",
+      "webkitMask",
+      "-webkit-mask",
+      "webkitMaskImage",
+      "-webkit-mask-image",
+      "content",
+      "src"
+    ]);
+    const __BLOB_CACHE_MAX = 256;
+    const __BLOB_REVOKE_DELAY_MS = 30000;
+    const blobCache = new Map;
+    const blobStats = {
+      created: 0,
+      revoked: 0,
+      hits: 0,
+      misses: 0,
+      inFlightRevokes: 0
+    };
+    function __evictIfOverCap() {
+      while (blobCache.size > __BLOB_CACHE_MAX) {
+        const oldestKey = blobCache.keys().next().value;
+        if (oldestKey === undefined)
+          break;
+        const ent = blobCache.get(oldestKey);
+        blobCache.delete(oldestKey);
+        blobStats.inFlightRevokes++;
+        const t = setTimeout(() => {
+          ent.url.then((u) => {
+            if (typeof u === "string" && u.startsWith("blob:")) {
+              try {
+                URL.revokeObjectURL(u);
+                blobStats.revoked++;
+              } catch {}
+            }
+          }).finally(() => {
+            blobStats.inFlightRevokes--;
+          });
+        }, __BLOB_REVOKE_DELAY_MS);
+        ent.pendingRevoke = t;
+      }
+    }
+    function resolveToBlobUrl(rel) {
+      if (isExternalUrl2(rel))
+        return Promise.resolve(rel);
+      const hashIdx = rel.indexOf("#");
+      const pathPart = hashIdx >= 0 ? rel.slice(0, hashIdx) : rel;
+      const frag = hashIdx >= 0 ? rel.slice(hashIdx) : "";
+      const key = normalizeToRelPath2(pathPart);
+      let ent = blobCache.get(key);
+      if (ent) {
+        if (ent.pendingRevoke != null) {
+          clearTimeout(ent.pendingRevoke);
+          ent.pendingRevoke = undefined;
+          blobStats.inFlightRevokes--;
+        }
+        blobCache.delete(key);
+        blobCache.set(key, ent);
+        blobStats.hits++;
+      } else {
+        blobStats.misses++;
+        const url = httpReq("GET", key, null).then((r) => {
+          const ctHeader = r.headers.find(([k]) => k.toLowerCase() === "content-type");
+          const ct = ctHeader?.[1] ?? "application/octet-stream";
+          const blob = new Blob([r.bytes], { type: ct });
+          blobStats.created++;
+          return URL.createObjectURL(blob);
+        });
+        ent = { url };
+        blobCache.set(key, ent);
+        __evictIfOverCap();
+      }
+      return frag ? ent.url.then((b) => b + frag) : ent.url;
+    }
+    const HATCH_PIXEL_PREFIX = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    const HATCH_FRAG = "#hatch=";
+    function isHatchPlaceholder(url) {
+      return url.indexOf(HATCH_PIXEL_PREFIX + HATCH_FRAG) === 0;
+    }
+    function unwrapHatchPlaceholder(url) {
+      if (!isHatchPlaceholder(url))
+        return null;
+      return decodeURIComponent(url.slice((HATCH_PIXEL_PREFIX + HATCH_FRAG).length));
+    }
+    async function rewriteCssTextAsync(text) {
+      const re = /url\(\s*(['"]?)([^'")]+)\1\s*\)/g;
+      const tasks = [];
+      let m;
+      while ((m = re.exec(text)) !== null) {
+        tasks.push({ match: m[0], index: m.index, url: m[2].trim() });
+      }
+      if (tasks.length === 0)
+        return text;
+      const resolved = await Promise.all(tasks.map(async (t) => {
+        if (t.url.startsWith("blob:"))
+          return t.url;
+        const unwrapped = unwrapHatchPlaceholder(t.url);
+        if (unwrapped != null) {
+          try {
+            return await resolveToBlobUrl(unwrapped);
+          } catch {
+            return t.url;
+          }
+        }
+        if (isExternalUrl2(t.url))
+          return t.url;
+        try {
+          return await resolveToBlobUrl(t.url);
+        } catch {
+          return t.url;
+        }
+      }));
+      let out = "";
+      let last = 0;
+      tasks.forEach((t, i) => {
+        out += text.slice(last, t.index);
+        out += `url("${resolved[i]}")`;
+        last = t.index + t.match.length;
+      });
+      out += text.slice(last);
+      return out;
+    }
+    function rewriteCssText(text) {
+      return rewriteCssTextAsync(text);
+    }
+    const mediaSourceLoads = new WeakMap;
+    window.addEventListener("error", (event) => {
+      const source = event.target;
+      if (!event.isTrusted || !(source instanceof HTMLSourceElement) || !(source.parentElement instanceof HTMLMediaElement) || source.hasAttribute("src"))
+        return;
+      const state = mediaSourceLoads.get(source);
+      if (state === "pending" || state === undefined && source.hasAttribute("data-hatch-src")) {
+        event.stopImmediatePropagation();
+      }
+    }, true);
+    function isElement(el) {
+      if (el instanceof Element)
+        return true;
+      const ownerWindow = el?.ownerDocument?.defaultView;
+      return ownerWindow != null && el instanceof ownerWindow.Element;
+    }
+    function setAttr(el, name, value, ...rest) {
+      if (!isElement(el)) {
+        return el.setAttribute(name, value, ...rest);
+      }
+      name = String(name);
+      if (value == null) {
+        if (name.toLowerCase() === "src" && el instanceof HTMLSourceElement) {
+          mediaSourceLoads.set(el, "settled");
+        }
+        try {
+          el.removeAttribute(name);
+        } catch {}
+        return;
+      }
+      const v = String(value);
+      const lcName = name.toLowerCase();
+      const tag = el.tagName?.toUpperCase();
+      if ((tag === "A" || tag === "BASE" || tag === "AREA") && lcName === "href") {
+        el.setAttribute(name, v);
+        return;
+      }
+      if (!URL_ATTRS.has(lcName) && lcName !== "style" && lcName !== "srcset") {
+        el.setAttribute(name, v);
+        return;
+      }
+      if (lcName === "srcset") {
+        const parts = v.split(",").map((s) => s.trim()).filter(Boolean);
+        Promise.all(parts.map(async (p) => {
+          const segs = p.split(/\s+/);
+          const url = segs[0];
+          const rest = segs.slice(1).join(" ");
+          if (isExternalUrl2(url))
+            return p;
+          const resolved = await resolveToBlobUrl(url);
+          return rest ? `${resolved} ${rest}` : resolved;
+        })).then((rebuilt) => {
+          try {
+            el.setAttribute("srcset", rebuilt.join(", "));
+          } catch {}
+        });
+        return;
+      }
+      if (URL_ATTRS.has(lcName)) {
+        const isMediaSource = tag === "SOURCE" && lcName === "src";
+        if (isExternalUrl2(v)) {
+          if (isMediaSource)
+            mediaSourceLoads.set(el, "settled");
+          el.setAttribute(name, v);
+          return;
+        }
+        if (isMediaSource)
+          mediaSourceLoads.set(el, "pending");
+        if (tag === "IMG" || tag === "VIDEO" && lcName === "poster") {
+          el.setAttribute(name, TRANSPARENT_PIXEL);
+        }
+        resolveToBlobUrl(v).then((blobUrl) => {
+          if (isMediaSource)
+            mediaSourceLoads.set(el, "settled");
+          try {
+            el.setAttribute(name, blobUrl);
+            if (isMediaSource) {
+              const media = el.parentElement;
+              if (media instanceof HTMLMediaElement && media.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+                const nextSibling = el.nextSibling;
+                el.remove();
+                media.insertBefore(el, nextSibling);
+              }
+            }
+          } catch {}
+        }, () => {
+          if (isMediaSource) {
+            mediaSourceLoads.set(el, "settled");
+            el.dispatchEvent(new Event("error"));
+          }
+        });
+        return;
+      }
+      if (lcName === "style") {
+        setStyleAttr(el, v);
+        return;
+      }
+      el.setAttribute(name, v);
+    }
+    function setAttrNS(el, ns, name, value, ...rest) {
+      if (!isElement(el)) {
+        return el.setAttributeNS(ns, name, value, ...rest);
+      }
+      name = String(name);
+      if (value == null) {
+        try {
+          el.removeAttributeNS(ns ?? null, name);
+        } catch {}
+        return;
+      }
+      const v = String(value);
+      const lcName = name.split(":").pop().toLowerCase();
+      if (lcName === "href" && URL_ATTRS.has("href")) {
+        if (isExternalUrl2(v)) {
+          el.setAttributeNS(ns ?? null, name, v);
+          return;
+        }
+        resolveToBlobUrl(v).then((blobUrl) => {
+          try {
+            el.setAttributeNS(ns ?? null, name, blobUrl);
+          } catch {}
+        }, () => {});
+        return;
+      }
+      try {
+        el.setAttributeNS(ns ?? null, name, v);
+      } catch {}
+    }
+    function setUrlProp(el, name, value) {
+      if (isElement(el)) {
+        setAttr(el, name.toLowerCase(), value);
+      } else {
+        el[name] = value;
+      }
+      return value;
+    }
+    const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+    const HTML_TAG_ATTRS = {
+      img: ["src", "srcset", "poster"],
+      image: ["href"],
+      video: ["src", "poster"],
+      audio: ["src"],
+      source: ["src", "srcset"],
+      script: ["src"],
+      link: ["href"],
+      iframe: ["src"],
+      embed: ["src"],
+      object: ["data"],
+      track: ["src"],
+      input: ["src"],
+      form: ["action"],
+      button: ["formaction"],
+      use: ["href"]
+    };
+    function rewriteHtmlString(html) {
+      return html.replace(/<([a-zA-Z][a-zA-Z0-9-]*)\b([^>]*)>/g, (m, tag, attrs) => {
+        const lc = String(tag).toLowerCase();
+        const candidates = HTML_TAG_ATTRS[lc];
+        if (!candidates)
+          return m;
+        let out = attrs;
+        for (const a of candidates) {
+          const re = new RegExp(`\\b${a}\\s*=\\s*("([^"]*)"|'([^']*)'|([^\\s>]+))`, "i");
+          const matched = out.match(re);
+          if (!matched)
+            continue;
+          const value = matched[2] ?? matched[3] ?? matched[4] ?? "";
+          if (isExternalUrl2(value))
+            continue;
+          out = out.replace(re, `data-hatch-${a}="${value.replace(/"/g, "&quot;")}"`);
+        }
+        const styleRe = /\bstyle\s*=\s*("([^"]*)"|'([^']*)')/i;
+        const sm = out.match(styleRe);
+        if (sm) {
+          const value = sm[2] ?? sm[3] ?? "";
+          if (value.includes("url(")) {
+            out = out.replace(styleRe, `data-hatch-style="${value.replace(/"/g, "&quot;")}"`);
+          }
+        }
+        return `<${tag}${out}>`;
+      });
+    }
+    const HTML_URL_ATTRS_BY_TAG = {
+      IMG: ["src", "srcset", "poster"],
+      IMAGE: ["href"],
+      VIDEO: ["src", "poster"],
+      AUDIO: ["src"],
+      SOURCE: ["src", "srcset"],
+      SCRIPT: ["src"],
+      LINK: ["href"],
+      IFRAME: ["src"],
+      EMBED: ["src"],
+      OBJECT: ["data"],
+      TRACK: ["src"],
+      INPUT: ["src"],
+      FORM: ["action"],
+      BUTTON: ["formaction"],
+      USE: ["href", "xlink:href"]
+    };
+    function rewriteSubtreeForTunnel(root) {
+      if (!root)
+        return;
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+      let n = walker.currentNode;
+      if (root.nodeType === 1)
+        processOne(root);
+      while (n = walker.nextNode()) {
+        processOne(n);
+      }
+    }
+    function processOne(el) {
+      const tag = (el.tagName ?? "").toUpperCase();
+      const attrs = HTML_URL_ATTRS_BY_TAG[tag];
+      if (attrs) {
+        for (const a of attrs) {
+          const v = el.getAttribute(a);
+          if (v == null)
+            continue;
+          if (isExternalUrl2(v))
+            continue;
+          el.setAttribute("data-hatch-" + a, v);
+          el.removeAttribute(a);
+        }
+      }
+      const style = el.getAttribute("style");
+      if (style && style.includes("url(")) {
+        el.setAttribute("data-hatch-style", style);
+        el.removeAttribute("style");
+      }
+    }
+    function parseAndCleanHtml(html) {
+      const tpl = document.createElement("template");
+      tpl.innerHTML = html;
+      rewriteSubtreeForTunnel(tpl.content);
+      return tpl.content;
+    }
+    function setInnerHTML(el, html, which = "innerHTML") {
+      const s = html == null ? "" : String(html);
+      if (which === "innerHTML" && typeof el.tagName === "string" && el.tagName.toUpperCase() === "TEMPLATE") {
+        try {
+          el.innerHTML = s;
+        } catch {}
+        return;
+      }
+      if (which === "outerHTML") {
+        const frag = parseAndCleanHtml(s);
+        const wrap = document.createElement("div");
+        wrap.appendChild(frag);
+        try {
+          el.outerHTML = wrap.innerHTML;
+        } catch {}
+        queueMicrotask(() => processDataHatchAttrs(document.body));
+        return;
+      }
+      const frag = parseAndCleanHtml(s);
+      try {
+        while (el.firstChild)
+          el.removeChild(el.firstChild);
+        el.appendChild(frag);
+      } catch {}
+      queueMicrotask(() => processDataHatchAttrs(el));
+    }
+    function insertAdjacentHTMLT(el, position, html) {
+      const s = html == null ? "" : String(html);
+      const frag = parseAndCleanHtml(s);
+      const wrap = document.createElement("template");
+      wrap.content.appendChild(frag);
+      try {
+        el.insertAdjacentHTML(position, wrap.innerHTML);
+      } catch {}
+      queueMicrotask(() => processDataHatchAttrs(document.body));
+    }
+    function processDataHatchAttrs(root) {
+      const SELECTORS = "[data-hatch-src], [data-hatch-href], [data-hatch-srcset], [data-hatch-poster], [data-hatch-action], [data-hatch-data], [data-hatch-style]";
+      root.querySelectorAll(SELECTORS).forEach((el) => {
+        const attrs = el.getAttributeNames();
+        for (const a of attrs) {
+          if (!a.startsWith("data-hatch-"))
+            continue;
+          const real = a.slice("data-hatch-".length);
+          const value = el.getAttribute(a) ?? "";
+          el.removeAttribute(a);
+          if (real === "style")
+            setStyleAttr(el, value);
+          else
+            setAttr(el, real, value);
+        }
+      });
+    }
+    const styleProxyCache = new WeakMap;
+    function getStyle(el) {
+      if (el == null)
+        return el;
+      let real;
+      try {
+        real = el.style;
+      } catch {
+        return;
+      }
+      if (real == null || typeof real !== "object" && typeof real !== "function") {
+        return real;
+      }
+      let proxy = styleProxyCache.get(real);
+      if (proxy)
+        return proxy;
+      proxy = new Proxy(real, {
+        get(target, prop, _receiver) {
+          const v = Reflect.get(target, prop, target);
+          if (typeof v === "function")
+            return v.bind(target);
+          return v;
+        },
+        set(target, prop, value) {
+          if (typeof prop === "string") {
+            setStyle(el, prop, value);
+            return true;
+          }
+          return Reflect.set(target, prop, value, target);
+        }
+      });
+      styleProxyCache.set(real, proxy);
+      return proxy;
+    }
+    function setStyle(el, propName, value) {
+      const v = value == null ? "" : String(value);
+      if (propName.startsWith("--")) {
+        rewriteCssText(v).then((rewritten) => {
+          try {
+            el.style.setProperty(propName, rewritten);
+          } catch {}
+        });
+        return;
+      }
+      if (URL_STYLE_PROPS.has(propName) && v.includes("url(")) {
+        rewriteCssText(v).then((rewritten) => {
+          try {
+            el.style[propName] = rewritten;
+          } catch {}
+        });
+        return;
+      }
+      try {
+        el.style[propName] = v;
+      } catch {}
+    }
+    function setStyleAttr(el, attrValue) {
+      if (!attrValue.includes("url(")) {
+        el.setAttribute("style", attrValue);
+        return;
+      }
+      rewriteCssText(attrValue).then((rewritten) => {
+        try {
+          el.setAttribute("style", rewritten);
+        } catch {}
+      });
+    }
+    function setStyleText(styleEl, text) {
+      if (!(styleEl instanceof HTMLStyleElement)) {
+        try {
+          styleEl.textContent = text;
+        } catch {}
+        return;
+      }
+      if (!text.includes("url(")) {
+        styleEl.textContent = text;
+        return;
+      }
+      rewriteCssText(text).then((rewritten) => {
+        try {
+          styleEl.textContent = rewritten;
+        } catch {}
+      });
+    }
+    function tunnelImage(_w, _h) {
+      const img = new originalImage;
+      const desc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+      if (desc?.set) {
+        const origSet = desc.set;
+        const origGet = desc.get;
+        Object.defineProperty(img, "src", {
+          configurable: true,
+          get() {
+            return origGet.call(img);
+          },
+          set(v) {
+            if (v == null)
+              return origSet.call(img, "");
+            const s = String(v);
+            if (isExternalUrl2(s))
+              return origSet.call(img, s);
+            resolveToBlobUrl(s).then((b) => origSet.call(img, b), () => origSet.call(img, s));
+          }
+        });
+      }
+      return img;
+    }
+    function tunnelSendBeacon(url, data) {
+      tunnelFetch(url, { method: "POST", body: data, keepalive: true }).catch(() => {});
+      return true;
+    }
+    function tunnelWorker(_url) {
+      throw new Error("[__tunnel] new Worker() is not supported in Muse web artifacts.");
+    }
+    function tunnelImport(spec) {
+      throw new Error("[__tunnel] dynamic import() of '" + String(spec) + "' is not supported in Muse web artifacts.");
+    }
+    function installCssObserver() {
+      try {
+        const proto = window.CSSStyleSheet?.prototype;
+        if (proto) {
+          const origInsertRule = proto.insertRule;
+          proto.insertRule = function(rule, index) {
+            if (typeof rule === "string" && rule.includes("url(")) {
+              const idx = origInsertRule.call(this, rule, index);
+              rewriteCssText(rule).then((rewritten) => {
+                if (rewritten !== rule) {
+                  try {
+                    this.deleteRule(idx);
+                    origInsertRule.call(this, rewritten, idx);
+                  } catch {}
+                }
+              });
+              return idx;
+            }
+            return origInsertRule.call(this, rule, index);
+          };
+          const origReplace = proto.replace;
+          if (origReplace) {
+            proto.replace = function(text) {
+              if (typeof text === "string" && text.includes("url(")) {
+                return rewriteCssText(text).then((rewritten) => origReplace.call(this, rewritten));
+              }
+              return origReplace.call(this, text);
+            };
+          }
+          const origReplaceSync = proto.replaceSync;
+          if (origReplaceSync) {
+            proto.replaceSync = function(text) {
+              if (typeof text === "string" && text.includes("url(")) {
+                const ret = origReplaceSync.call(this, text);
+                rewriteCssText(text).then((rewritten) => {
+                  try {
+                    origReplaceSync.call(this, rewritten);
+                  } catch {}
+                });
+                return ret;
+              }
+              return origReplaceSync.call(this, text);
+            };
+          }
+        }
+      } catch (e) {}
+      function sweepSheet(sheet) {
+        try {
+          const rules = sheet.cssRules;
+          for (let i = 0;i < rules.length; i++) {
+            const rule = rules[i];
+            const txt = rule.cssText;
+            if (txt && (txt.includes(HATCH_FRAG) || txt.includes("url(") && !/url\(\s*["']?(blob:|https?:|data:image\/gif;base64,R0)/.test(txt))) {
+              rewriteCssText(txt).then((rewritten) => {
+                if (rewritten !== txt) {
+                  try {
+                    sheet.deleteRule(i);
+                    sheet.insertRule(rewritten, i);
+                  } catch {}
+                }
+              });
+            }
+          }
+        } catch {}
+      }
+      function sweepAll() {
+        for (const sheet of Array.from(document.styleSheets)) {
+          sweepSheet(sheet);
+        }
+      }
+      const mo = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          for (const node of Array.from(m.addedNodes)) {
+            if (node instanceof HTMLStyleElement) {
+              const txt = node.textContent ?? "";
+              if (txt.includes("url(")) {
+                rewriteCssText(txt).then((rewritten) => {
+                  if (rewritten !== txt) {
+                    try {
+                      node.textContent = rewritten;
+                    } catch {}
+                  }
+                });
+              }
+            } else if (node instanceof HTMLLinkElement && node.rel === "stylesheet") {
+              node.addEventListener("load", () => sweepSheet(node.sheet), { once: true });
+            }
+          }
+        }
+      });
+      mo.observe(document, { subtree: true, childList: true });
+      Promise.resolve().then(sweepAll);
+      setTimeout(sweepAll, 0);
+      setTimeout(sweepAll, 50);
+      setTimeout(sweepAll, 250);
+    }
+    function rewriteAuthoredHtml() {
+      const SELECTORS = "[data-hatch-src], [data-hatch-href], [data-hatch-srcset]";
+      document.querySelectorAll(SELECTORS).forEach((el) => {
+        const src = el.getAttribute("data-hatch-src");
+        const href = el.getAttribute("data-hatch-href");
+        const srcset = el.getAttribute("data-hatch-srcset");
+        if (src)
+          setAttr(el, "src", src);
+        if (href)
+          setAttr(el, "href", href);
+        if (srcset)
+          setAttr(el, "srcset", srcset);
+      });
+    }
+    let historyUrlWarned = false;
+    function warnHistoryUrlDropped(method, url) {
+      if (url === undefined || url === null)
+        return;
+      if (historyUrlWarned)
+        return;
+      historyUrlWarned = true;
+      try {
+        console.warn("[__tunnel] history." + method + "() was called with a URL; the URL was ignored. A Muse web artifact " + "renders in an opaque origin with no navigable URL of its own, so " + "the browser rejects any URL change. State kept in the URL will not " + "persist or survive a reload — keep it in component state, or in " + "the artifact's database through a server action.");
+      } catch {}
+    }
+    const originalFetch = globalThis.fetch?.bind(globalThis) ?? (() => {
+      throw new Error("no native fetch");
+    });
+    const originalXHR = globalThis.XMLHttpRequest;
+    const originalImage = globalThis.Image;
+    const tunnel = {
+      fetch: tunnelFetch,
+      XHR: TunnelXHR,
+      WebSocket: TunnelWebSocket,
+      EventSource: TunnelEventSource,
+      Image: tunnelImage,
+      Worker: tunnelWorker,
+      import: tunnelImport,
+      sendBeacon: tunnelSendBeacon,
+      setAttr,
+      setAttrNS,
+      setUrlProp,
+      setStyle,
+      getStyle,
+      setStyleAttr,
+      setStyleText,
+      setInnerHTML,
+      insertAdjacentHTML: insertAdjacentHTMLT,
+      rewriteCssText,
+      resolveToBlobUrl,
+      processDataHatchAttrs,
+      rewriteHtmlString,
+      _resolveUrlString: (v) => v,
+      _resolveCssValue: (v) => v,
+      _resolveCssText: (v) => v,
+      _resolveStyleProp: (v) => v,
+      _importMeta: {
+        get url() {
+          return importMetaUrl(SELF_HREF, SELF_BASE_DIR);
+        }
+      },
+      _state: {
+        get port() {
+          return port;
+        },
+        get inFlight() {
+          return pending.size;
+        },
+        get blobCacheSize() {
+          return blobCache.size;
+        },
+        get blobStats() {
+          return { ...blobStats };
+        }
+      }
+    };
+    globalThis.__tunnel = tunnel;
+    window.__tunnel = tunnel;
+    try {
+      globalThis.fetch = tunnelFetch;
+      window.fetch = tunnelFetch;
+      globalThis.XMLHttpRequest = TunnelXHR;
+      window.XMLHttpRequest = TunnelXHR;
+      globalThis.WebSocket = TunnelWebSocket;
+      window.WebSocket = TunnelWebSocket;
+      globalThis.EventSource = TunnelEventSource;
+      window.EventSource = TunnelEventSource;
+      const nav = globalThis.navigator;
+      if (nav && typeof nav.sendBeacon === "function") {
+        nav.sendBeacon = (url, data) => tunnelSendBeacon(url, data);
+      }
+      const NativeURL = globalThis.URL;
+      const TunnelURL = function(url, base) {
+        return resolveTunnelUrl(url, base, SELF_HREF, NativeURL);
+      };
+      TunnelURL.prototype = NativeURL.prototype;
+      for (const k of Object.getOwnPropertyNames(NativeURL)) {
+        if (k === "prototype" || k === "length" || k === "name")
+          continue;
+        try {
+          TunnelURL[k] = NativeURL[k];
+        } catch {}
+      }
+      globalThis.URL = TunnelURL;
+      window.URL = TunnelURL;
+    } catch {}
+    try {
+      const hist = globalThis.history;
+      if (hist && typeof hist.pushState === "function" && typeof hist.replaceState === "function") {
+        const nativePushState = hist.pushState.bind(hist);
+        const nativeReplaceState = hist.replaceState.bind(hist);
+        hist.pushState = function(state, title, url) {
+          warnHistoryUrlDropped("pushState", url);
+          return nativePushState(state, title ?? "");
+        };
+        hist.replaceState = function(state, title, url) {
+          warnHistoryUrlDropped("replaceState", url);
+          return nativeReplaceState(state, title ?? "");
+        };
+      }
+    } catch {}
+    try {
+      const nativeCreateObjectURL = URL.createObjectURL.bind(URL);
+      const nativeRevokeObjectURL = URL.revokeObjectURL.bind(URL);
+      URL.createObjectURL = function(obj) {
+        const created = nativeCreateObjectURL(obj);
+        try {
+          objectUrls.add(created);
+        } catch {}
+        return created;
+      };
+      URL.revokeObjectURL = function(objectUrl) {
+        try {
+          objectUrls.delete(objectUrl);
+        } catch {}
+        nativeRevokeObjectURL(objectUrl);
+      };
+    } catch {}
+    const announceEpoch = Math.random().toString(36).slice(2) + "-" + Date.now().toString(36);
+    let announceTimer = null;
+    function announce() {
+      try {
+        window.parent.postMessage({ type: "bundle:ready", epoch: announceEpoch }, "*");
+      } catch {}
+    }
+    function startAnnouncing() {
+      announce();
+      announceTimer = setInterval(() => {
+        if (port != null) {
+          if (announceTimer != null)
+            clearInterval(announceTimer);
+          announceTimer = null;
+          return;
+        }
+        announce();
+      }, 120);
+    }
+    function onParentMessage(ev) {
+      const data = ev.data;
+      if (!data || typeof data !== "object")
+        return;
+      if (data.type === "bundle:init-port" && ev.ports && ev.ports[0]) {
+        if (port != null)
+          return;
+        if (announceTimer != null) {
+          clearInterval(announceTimer);
+          announceTimer = null;
+        }
+        port = ev.ports[0];
+        port.onmessage = (pe) => {
+          const msg = pe.data;
+          if (!msg || typeof msg !== "object")
+            return;
+          if (msg.type === "http.res") {
+            const ent = pending.get(msg.id);
+            if (ent) {
+              pending.delete(msg.id);
+              ent.resolve(msg);
+            }
+          } else if (msg.type === "ws.opened" || msg.type === "ws.message" || msg.type === "ws.closed" || msg.type === "ws.error") {
+            openWs.get(msg.id)?._handle(msg);
+          }
+        };
+        port.start?.();
+        portReadyResolve?.(port);
+        installCssObserver();
+        rewriteAuthoredHtml();
+        try {
+          window.parent.postMessage({ type: "bundle:port-attached" }, "*");
+        } catch {}
+      }
+    }
+    window.addEventListener("message", onParentMessage);
+    installDownloadLinks(tunnelFetch, isExternalUrl2, __BLOB_REVOKE_DELAY_MS);
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      startAnnouncing();
+    } else {
+      document.addEventListener("DOMContentLoaded", startAnnouncing);
+    }
+  })();
+})();
+
+;
+var G = '<line class="ground" x1="8" y1="108" x2="192" y2="108"/>';
+function P(body, head) {
+  return G + '<g class="person"><path d="' + body + '"/></g><circle class="person-h" cx="' + (head ? head[0] : 100) + '" cy="' + (head ? head[1] : 24) + '" r="8"/>';
+}
+function svgStand(body, head) {
+  return P(body, head);
+}
+var SVG_STAND = P('M100 32 V64 M100 42 L86 56 M100 42 L114 54 M100 64 L93 108 M100 64 L107 108');
+var SVG_WALL = '<line x1="52" y1="8" x2="52" y2="108" stroke="var(--ink-3)" stroke-width="5" opacity=".5"/>' + P('M96 34 L92 64 M94 44 L76 54 M94 44 L112 56 M92 64 L88 108 M92 64 L106 108', [100, 25]);
+var SVG_CHAIR = '<path d="M72 74 h56 M78 74 v34 M122 74 v34 M78 90 h44" stroke="var(--ink-3)" stroke-width="3" fill="none"/><g class="person"><path d="M100 40 V66 M100 48 L86 58 M100 48 L113 56 M100 66 L118 76 L102 92 M100 66 L84 78"/></g><circle class="person-h" cx="100" cy="31" r="8"/>';
+var SVG_FLOOR = '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 52 V80 M100 60 L85 72 M100 60 L115 72 M100 80 L76 96 L96 102 M100 80 L124 96 L104 102"/></g><circle class="person-h" cx="100" cy="43" r="8"/>';
+var SVG_EDGE = '<path d="M40 78 h120 M52 78 v30 M148 78 v30" stroke="var(--ink-3)" stroke-width="4" fill="none"/><g class="person"><path d="M100 34 V62 M100 42 L86 54 M100 42 L114 52 M100 62 L94 84 L96 104 M100 62 L108 84 L106 104"/></g><circle class="person-h" cx="100" cy="25" r="8"/>';
+var SVG_LYING = '<line class="ground" x1="8" y1="92" x2="192" y2="92"/><ellipse cx="52" cy="86" rx="10" ry="7" fill="var(--ink)"/><path d="M62 86 H150 M110 86 L138 78 M84 86 L96 96" stroke="var(--ink)" stroke-width="3.5" fill="none" stroke-linecap="round"/>';
+var SVG_MOVE = P('M104 34 L96 62 M100 44 L80 52 M100 44 L118 40 M96 62 L74 76 L84 92 M96 62 L118 84 L134 80', [110, 26]);
+var SVG_GEST = P('M100 32 V64 M100 42 L82 30 M100 42 L118 30 M100 64 L93 108 M100 64 L107 108') + '<path d="M76 22 l-3 -8 M82 24 l1 -9 M118 24 l-1 -9 M124 22 l3 -8" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/>';
+var SVG_BACK = P('M100 32 V64 M100 42 L85 55 M100 42 L116 50 M100 64 L93 108 M100 64 L108 108') + '<path d="M92 20 q-6 6 0 10" stroke="var(--accent)" stroke-width="2.5" fill="none"/><path d="M90 30 l-2 -6 l6 3 z" fill="var(--accent)"/>';
+var SQ = {
+  hug: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 48 V72 M100 56 L80 62 L84 82 M100 56 L120 62 L116 82 M100 72 L82 76 L80 92 L86 106 M100 72 L118 76 L120 92 L114 106"/></g><circle class="person-h" cx="100" cy="39" r="8"/><path d="M74 58 q26 -10 52 0" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3" fill="none"/><text class="fig-note" x="100" y="116" text-anchor="middle">両足裏は地面・膝は浮く</text>',
+  together: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 50 V74 M100 58 L86 70 M100 58 L114 70 M100 74 L90 80 L90 94 L94 106 M100 74 L110 80 L110 94 L106 106"/></g><circle class="person-h" cx="100" cy="41" r="8"/><text class="fig-note" x="100" y="116" text-anchor="middle">足を閉じて深く</text>',
+  kneesUp: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 50 V72 M100 58 L82 66 L78 56 M100 58 L118 66 L122 56 M100 72 L80 78 L82 94 L86 106 M100 72 L120 78 L118 94 L114 106"/></g><circle class="person-h" cx="100" cy="41" r="8"/><text class="fig-note" x="100" y="116" text-anchor="middle">腕は膝の上・抱えない</text>',
+  heels: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 50 V74 M100 58 L84 70 M100 58 L116 70 M100 74 L82 80 L84 92 L78 104 M100 74 L118 80 L116 92 L122 104"/></g><circle class="person-h" cx="100" cy="41" r="8"/><path d="M70 104 l10 -4 M120 104 l10 -4" stroke="var(--accent)" stroke-width="2.5"/><text class="fig-note" x="100" y="116" text-anchor="middle">踵は浮く・つま先立ち</text>',
+  yankee: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 54 V76 M100 62 L82 72 M100 62 L118 72 M100 76 L74 82 L76 94 L68 104 M100 76 L126 82 L124 94 L132 104"/></g><circle class="person-h" cx="100" cy="45" r="8"/><text class="fig-note" x="100" y="116" text-anchor="middle">低く・足少し開き・踵浮き</text>',
+  oneKnee: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 38 V66 M100 46 L86 58 M100 46 L114 56 M100 66 L84 72 L84 106 M100 66 L116 84 L134 84 L134 106"/></g><circle class="person-h" cx="100" cy="29" r="8"/><circle cx="126" cy="102" r="5" fill="var(--accent)"/><text class="fig-note" x="100" y="116" text-anchor="middle">片膝は地面につく</text>',
+  kneel: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 40 V64 M100 48 L86 60 M100 48 L114 58 M100 64 L88 78 L88 106 M100 64 L112 78 L112 106"/></g><circle class="person-h" cx="100" cy="31" r="8"/><text class="fig-note" x="100" y="116" text-anchor="middle">両膝とも地面につく</text>',
+  heelsSit: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 48 V70 M100 56 L86 66 M100 56 L114 64 M100 70 L86 82 L92 100 L108 100 L114 82"/></g><circle class="person-h" cx="100" cy="39" r="8"/><text class="fig-note" x="100" y="116" text-anchor="middle">膝立ちで踵にお尻</text>'
+};
+var FIX_SQUAT_HUG = '両足の裏を地面につけ、両膝を抱え込むように深くしゃがむ。膝は地面につけない（片膝立ち・正座ではない）';
+var FIX_SQUAT = '両足の裏を地面につけ、深くしゃがむ。膝は地面につけない（片膝立ち・正座ではない）';
+var POSE_TREE = [{
+  major: '立つ',
+  sub: '基本の立ち姿',
+  mids: [{
+    mid: '基本',
+    leaves: [{
+      n: 'まっすぐ立つ',
+      jp: '背筋を伸ばしてまっすぐ立つポーズで',
+      tag: 'standing',
+      fx: 'いちばん素直な立ち姿。',
+      svg: SVG_STAND
+    }, {
+      n: '片足重心（コントラポスト）',
+      jp: '体重を片足にかけ、腰を少し落とした立ち方（コントラポスト）で',
+      tag: 'standing, contrapposto',
+      fx: '片足に体重を乗せるこなれた立ち方。',
+      svg: P('M100 32 V62 M100 42 L86 56 M100 42 L115 52 M100 62 L97 108 M100 62 L112 78 L110 96')
+    }, {
+      n: '片手を腰に',
+      jp: '片手を腰に当てたポーズで',
+      tag: 'hand on own hip',
+      fx: '王道の決めポーズ。',
+      svg: P('M100 32 V64 M100 42 L84 52 L86 64 M100 42 L114 54 M100 64 L93 108 M100 64 L107 108')
+    }, {
+      n: '両手を腰に',
+      jp: '両手を腰に当てたポーズで',
+      tag: 'hands on own hips',
+      fx: '堂々とした立ち姿。',
+      svg: P('M100 32 V64 M100 42 L82 52 L84 64 M100 42 L118 52 L116 64 M100 64 L93 108 M100 64 L107 108')
+    }, {
+      n: '腕組み',
+      jp: '腕を組んだポーズで',
+      tag: 'crossed arms',
+      fx: '自信と余裕の印象。',
+      svg: P('M100 32 V64 M100 44 L86 50 L100 56 M100 44 L114 50 L100 56 M100 64 L93 108 M100 64 L107 108')
+    }]
+  }, {
+    mid: 'もたれる・寄る',
+    leaves: [{
+      n: '壁にもたれる',
+      jp: '壁にもたれて立つポーズで',
+      tag: 'leaning against wall',
+      fx: '街角スナップの定番。',
+      svg: SVG_WALL
+    }, {
+      n: '片手をついて壁にもたれる',
+      jp: '片手を壁についてもたれるポーズで',
+      tag: 'one hand on wall, leaning',
+      fx: '壁ドン寄りの寄りかかり方。',
+      svg: SVG_WALL
+    }]
+  }, {
+    mid: '足の変化',
+    leaves: [{
+      n: '片足を上げる',
+      jp: '片足を上げて片足立ちするポーズで',
+      tag: 'standing on one leg, leg up',
+      fx: '動きのある立ちポーズ。',
+      svg: P('M100 32 V62 M100 42 L86 56 M100 42 L114 52 M100 62 L96 108 M100 62 L118 74 L112 88')
+    }, {
+      n: 'つま先立ち',
+      jp: 'つま先立ちするポーズで',
+      tag: 'tiptoe',
+      fx: '背伸びしたような軽さ。',
+      svg: P('M100 30 V62 M100 40 L86 54 M100 40 L114 50 M100 62 L94 96 L90 106 M100 62 L106 96 L110 106')
+    }, {
+      n: '足をクロスして立つ',
+      jp: '足をクロスして立つポーズで',
+      tag: 'crossed legs, standing',
+      fx: '脚を交差させるおしゃれな立ち方。',
+      svg: P('M100 32 V62 M100 42 L86 56 M100 42 L114 52 M100 62 L108 84 L96 108 M100 62 L92 84 L104 108')
+    }]
+  }]
+}, {
+  major: '座る',
+  sub: '椅子・床・縁',
+  mids: [{
+    mid: '椅子に座る',
+    leaves: [{
+      n: '脚を組む',
+      jp: '椅子に座って脚を組んだポーズで',
+      tag: 'sitting on chair, crossed legs',
+      fx: '大人っぽく余裕のある座り方。',
+      svg: SVG_CHAIR
+    }, {
+      n: '脚を閉じて座る',
+      jp: '椅子に座って脚を閉じたポーズで',
+      tag: 'sitting on chair, legs together',
+      fx: 'きちんとした座り方。',
+      svg: SVG_CHAIR
+    }, {
+      n: '頬杖をつく',
+      jp: '椅子に座って頬杖をついたポーズで',
+      tag: 'sitting on chair, chin rest',
+      fx: 'まったり・考えごと。',
+      svg: SVG_CHAIR
+    }, {
+      n: '椅子に浅く腰掛け足を伸ばす',
+      jp: '椅子に浅く腰掛けて足を前に伸ばしたポーズで',
+      tag: 'sitting on chair, legs stretched',
+      fx: 'ラフで伸びやかな座り方。',
+      svg: SVG_CHAIR
+    }]
+  }, {
+    mid: '床に座る',
+    leaves: [{
+      n: 'あぐら',
+      jp: '床にあぐらをかいて座ったポーズで',
+      tag: 'sitting, indian style',
+      fx: 'リラックスした床座り。',
+      svg: SVG_FLOOR
+    }, {
+      n: '正座',
+      jp: '床に正座したポーズで',
+      tag: 'seiza',
+      fx: '膝をついて座る正式な座り方。しゃがむとは別。',
+      svg: SQ.kneel
+    }, {
+      n: '女の子座り（ぺたん座り）',
+      jp: '床に女の子座り（ぺたん座り）したポーズで',
+      tag: 'wariza',
+      fx: '脚を左右に開く座り方。',
+      svg: SVG_FLOOR
+    }, {
+      n: '横座り',
+      jp: '床に横座りしたポーズで',
+      tag: 'yokozuwari',
+      fx: '脚を横に流す座り方。',
+      svg: SVG_FLOOR
+    }, {
+      n: '体育座り（膝を抱える）',
+      jp: '床に体育座りして両膝を抱えたポーズで（お尻は地面についている）',
+      tag: 'sitting, hugging own knees',
+      fx: '座り版の膝抱え。',
+      fix: 'これは床に座って（お尻が地面について）膝を抱えるポーズ。足裏は地面につくが「しゃがむ」とは別',
+      svg: '<line class="ground" x1="8" y1="108" x2="192" y2="108"/><g class="person"><path d="M100 46 V70 M100 54 L82 60 L84 78 M100 54 L118 60 L116 78 M100 70 L84 78 L88 100 L96 106 M100 70 L116 78 L112 100 L104 106"/></g><circle class="person-h" cx="100" cy="37" r="8"/>'
+    }]
+  }, {
+    mid: '縁に腰掛ける',
+    leaves: [{
+      n: '台の縁に腰掛ける',
+      jp: '台やベンチの縁に腰掛けたポーズで',
+      tag: 'sitting on edge',
+      fx: '腰掛けポーズの基本。',
+      svg: SVG_EDGE
+    }, {
+      n: '足をぶらぶら',
+      jp: '台の縁に腰掛けて足をぶらぶらさせたポーズで',
+      tag: 'sitting on edge, dangling legs',
+      fx: '足が宙に揺れる可愛さ。',
+      svg: SVG_EDGE
+    }]
+  }]
+}, {
+  major: 'しゃがむ・膝をつく',
+  sub: '混同注意・固定文つき',
+  mids: [{
+    mid: '深くしゃがむ（両足裏が地面・膝は地面につかない）',
+    leaves: [{
+      n: '膝を抱えてしゃがむ',
+      jp: '両膝を抱え込んで深くしゃがむポーズで',
+      tag: 'squatting, hugging own knees',
+      fx: '今回の本命。膝を抱えて小さく丸まるしゃがみ方。',
+      fix: FIX_SQUAT_HUG,
+      svg: SQ.hug
+    }, {
+      n: '足を閉じてしゃがむ',
+      jp: '足を閉じて深くしゃがむポーズで',
+      tag: 'squatting, legs together',
+      fx: '脚をそろえた深いしゃがみ。',
+      fix: FIX_SQUAT,
+      svg: SQ.together
+    }, {
+      n: '膝を上に立ててしゃがむ（膝抱えなし・腕は膝の上）',
+      jp: '膝を上に立てて深くしゃがみ、腕を膝の上に置いたポーズで（膝は抱え込まない）',
+      tag: 'squatting, knees up, arms on knees',
+      fx: '膝抱えなし版。腕は膝の上。',
+      fix: '両足の裏を地面につけ、膝を上に立てて深くしゃがむ。膝は地面につけない。腕は膝の上に置く（膝を抱え込まない）',
+      svg: SQ.kneesUp
+    }]
+  }, {
+    mid: '踵を浮かせてしゃがむ',
+    leaves: [{
+      n: 'つま先立ちで深くしゃがむ',
+      jp: '踵を浮かせ、つま先立ちで深くしゃがむポーズで',
+      tag: 'crouching, heels raised',
+      fx: '踵が浮いた深い屈み込み。',
+      fix: '踵を浮かせ、つま先でバランスを取りながら深くしゃがむ。膝は地面につけない（片膝立ちではない）',
+      svg: SQ.heels
+    }, {
+      n: 'ヤンキー座り風（低く・足開き気味）',
+      jp: '踵を浮かせ、足を少し開いて低くしゃがむポーズで（ヤンキー座り風）',
+      tag: 'crouching, heels raised, legs apart slightly',
+      fx: '低く・少し足開きのストリートな座り方。',
+      fix: '踵を浮かせ、足を少し開いて低くしゃがむ。膝は地面につけない',
+      svg: SQ.yankee
+    }]
+  }, {
+    mid: '膝をつく（しゃがむとは別物）',
+    leaves: [{
+      n: '片膝立ち',
+      jp: '片膝を地面につけた片膝立ちのポーズで',
+      tag: 'on one knee',
+      fx: '片膝だけ地面につく。今回のNG例はこちら。',
+      fix: 'これは膝を地面につけるポーズ。「しゃがむ」とは別',
+      svg: SQ.oneKnee
+    }, {
+      n: '両膝立ち',
+      jp: '両膝を地面につけた膝立ちのポーズで',
+      tag: 'kneeling',
+      fx: '両膝をつく姿勢。',
+      fix: 'これは両膝を地面につけるポーズ。「しゃがむ」とは別',
+      svg: SQ.kneel
+    }, {
+      n: '正座崩し（膝立ちで踵にお尻）',
+      jp: '膝立ちのまま踵の上にお尻を乗せたポーズで（正座崩し）',
+      tag: 'kneeling, sitting on heels',
+      fx: '膝立ち＋踵にお尻。',
+      fix: 'これは膝を地面につけるポーズ。「しゃがむ」とは別',
+      svg: SQ.heelsSit
+    }]
+  }]
+}, {
+  major: '寝転ぶ',
+  sub: '仰向け・うつ伏せなど',
+  mids: [{
+    mid: '寝姿勢',
+    leaves: [{
+      n: '仰向け',
+      jp: '仰向けに寝転ぶポーズで',
+      tag: 'lying on back',
+      fx: '背中を地面につけて寝る。',
+      svg: SVG_LYING
+    }, {
+      n: 'うつ伏せ',
+      jp: 'うつ伏せに寝転ぶポーズで（頬杖も可）',
+      tag: 'lying on stomach',
+      fx: 'お腹を地面につけて寝る。',
+      svg: SVG_LYING
+    }, {
+      n: '横向き',
+      jp: '横向きに寝転ぶポーズで',
+      tag: 'lying on side',
+      fx: '体を横にして寝る。',
+      svg: SVG_LYING
+    }, {
+      n: '丸まる（胎児ポーズ）',
+      jp: '横向きに丸まる胎児ポーズで寝転ぶポーズで',
+      tag: 'fetal position',
+      fx: '膝を抱えて丸まる寝姿。',
+      svg: '<line class="ground" x1="8" y1="92" x2="192" y2="92"/><circle cx="70" cy="72" r="9" fill="var(--ink)"/><path d="M80 74 q30 -14 44 4 q10 14 -6 20 q-28 8 -44 -6" stroke="var(--ink)" stroke-width="3.5" fill="none" stroke-linecap="round"/>'
+    }]
+  }]
+}, {
+  major: '動く',
+  sub: '歩く・走る・跳ぶ',
+  mids: [{
+    mid: '動作',
+    leaves: [{
+      n: '歩く',
+      jp: '歩いているポーズで',
+      tag: 'walking',
+      fx: '自然な歩行。',
+      svg: SVG_MOVE
+    }, {
+      n: '走る',
+      jp: '走っているポーズで',
+      tag: 'running',
+      fx: '前傾で駆ける。',
+      svg: SVG_MOVE
+    }, {
+      n: 'ジャンプ（空中）',
+      jp: '空中でジャンプしているポーズで',
+      tag: 'jumping, mid-air',
+      fx: '宙に浮いた瞬間。',
+      svg: '<line class="ground" x1="8" y1="108" x2="192" y2="108" stroke-dasharray="4 5"/><g class="person"><path d="M100 36 V62 M100 44 L80 34 M100 44 L122 38 M100 62 L84 76 L94 88 M100 62 L118 72 L112 88"/></g><circle class="person-h" cx="100" cy="27" r="8"/>'
+    }, {
+      n: '着地ポーズ（両足着地）',
+      jp: '両足で着地したポーズで',
+      tag: 'landing pose, both feet',
+      fx: 'ヒーローランディング寄りだが両足で。',
+      fix: '両足で着地する。片膝をつかない（片膝立ちにしない）',
+      svg: SQ.together
+    }, {
+      n: 'ダンス',
+      jp: '踊っているポーズで',
+      tag: 'dancing',
+      fx: 'リズムに乗る動き。',
+      svg: SVG_GEST
+    }, {
+      n: '伸び・あくび',
+      jp: '伸びをしてあくびするポーズで',
+      tag: 'stretching, yawning',
+      fx: '朝やオフのゆるさ。',
+      svg: P('M100 36 V64 M100 44 L84 20 M100 44 L116 20 M100 64 L93 108 M100 64 L107 108', [100, 28])
+    }]
+  }]
+}, {
+  major: '手・腕のジェスチャー',
+  sub: 'ピース・ハートなど',
+  mids: [{
+    mid: 'ピースサイン／片手ピース',
+    leaves: [{
+      n: '普通のピース',
+      jp: '片手でピースサインをしたポーズで',
+      tag: 'v sign',
+      fx: '定番の片手ピース。',
+      svg: SVG_GEST
+    }, {
+      n: 'ギャルピース（手の甲を外に向け下向き気味）',
+      jp: '片手でギャルピースをしたポーズで（手の甲を外側に向け、指を下向き気味に）',
+      tag: 'gyaru peace',
+      fx: 'ギャル定番の下向きピース。',
+      svg: SVG_GEST
+    }, {
+      n: '目の横にピース',
+      jp: '片手ピースを目の横に添えたポーズで',
+      tag: 'v over eye',
+      fx: '目の横にV。',
+      svg: SVG_GEST
+    }, {
+      n: 'ほっぺに手を添えてピース',
+      jp: '片手ピースをほっぺに添えたポーズで',
+      tag: 'v sign, hand on cheek',
+      fx: 'ほっぺ添えピース。',
+      svg: SVG_GEST
+    }]
+  }, {
+    mid: 'ピースサイン／ダブルピース',
+    leaves: [{
+      n: '両手ピース（顔の両脇）',
+      jp: '顔の両脇で両手ピースをしたポーズで',
+      tag: 'double v',
+      fx: '顔の両脇ダブルピース。',
+      svg: SVG_GEST
+    }, {
+      n: 'お調子者ピース（両手を高く大きく広げて）',
+      jp: '両手を高く大きく広げてダブルピースをした、お調子者なポーズで',
+      tag: 'double v, arms raised high, playful',
+      fx: '大きく広げるノリのいいピース。',
+      svg: P('M100 34 V64 M100 44 L72 18 M100 44 L128 18 M100 64 L93 108 M100 64 L107 108', [100, 26])
+    }, {
+      n: '頭の上でダブルピース',
+      jp: '頭の上でダブルピースをしたポーズで',
+      tag: 'double v above head',
+      fx: '頭上ダブルピース。',
+      svg: SVG_GEST
+    }]
+  }, {
+    mid: 'その他の手',
+    leaves: [{
+      n: '指ハート',
+      jp: '指ハートを作ったポーズで',
+      tag: 'finger heart',
+      fx: '親指と人差し指のミニハート。',
+      svg: SVG_GEST
+    }, {
+      n: '両手でハート',
+      jp: '両手でハートを作ったポーズで',
+      tag: 'heart hands',
+      fx: '両手ハート。',
+      svg: SVG_GEST
+    }, {
+      n: '手招き',
+      jp: '手招きするポーズで',
+      tag: 'beckoning',
+      fx: '「こっち来て」の合図。',
+      svg: P('M100 32 V64 M100 42 L85 56 M100 42 L122 50 M100 64 L93 108 M100 64 L107 108')
+    }, {
+      n: '投げキッス',
+      jp: '投げキッスするポーズで',
+      tag: 'blowing kiss',
+      fx: '手からキッスを送る。',
+      svg: SVG_GEST
+    }, {
+      n: '髪をかき上げる',
+      jp: '髪をかき上げる仕草で',
+      tag: 'hand in own hair',
+      fx: '手を髪に通す。',
+      svg: P('M100 34 V64 M100 44 L86 58 M100 44 L116 28 M100 64 L93 108 M100 64 L107 108', [100, 26])
+    }, {
+      n: '両手で頬を包む',
+      jp: '両手で頬を包むポーズで',
+      tag: 'hands on own cheeks',
+      fx: '頬を両手で包む。',
+      svg: SVG_GEST
+    }, {
+      n: '手を振る',
+      jp: '手を振るポーズで',
+      tag: 'waving hand',
+      fx: 'バイバイの手振り。',
+      svg: SVG_GEST
+    }]
+  }]
+}, {
+  major: '振り返り・背中',
+  sub: '後ろ姿・肩越し',
+  mids: [{
+    mid: '向き',
+    leaves: [{
+      n: '振り返る',
+      jp: '肩越しに振り返るポーズで',
+      tag: 'looking back over shoulder',
+      fx: '顔だけ肩越しにこちらへ。',
+      svg: SVG_BACK
+    }, {
+      n: '背中を向ける',
+      jp: 'カメラに背中を向けたポーズで',
+      tag: 'back to viewer',
+      fx: '後ろ姿が主役。',
+      svg: SVG_BACK
+    }, {
+      n: '肩越しに見る',
+      jp: '肩越しにこちらを見るポーズで',
+      tag: 'over-the-shoulder glance',
+      fx: '肩越しの視線。',
+      svg: SVG_BACK
+    }]
+  }]
+}];
+var poseMajorIdx = -1,
+  poseMidIdx = -1,
+  poseSelection = null;
+function FACE(eyes, extra, arrow) {
+  return '<circle cx="100" cy="57" r="37" class="face"/><path d="M64 48 q4 -30 36 -30 q32 0 36 30 q-10 -14 -20 -16 q4 6 2 10 q-8 -12 -18 -12 q-26 0 -36 18z" fill="var(--ink)" opacity=".85"/>' + eyes + (extra || '') + (arrow || '');
+}
+function ARROW(d) {
+  return '<path d="' + d + '" stroke="var(--accent)" stroke-width="2.5" fill="none"/><path d="M0 0" fill="var(--accent)"/>';
+}
+var E_OPEN = '<circle class="eye" cx="86" cy="60" r="4"/><circle class="eye" cx="114" cy="60" r="4"/>';
+var GAZE = [{
+  n: 'カメラ目線',
+  en: 'Looking at viewer',
+  fx: 'まっすぐカメラを見る。訴求力No.1で、アイキャッチに最適。',
+  jp: 'カメラ目線で',
+  tag: 'looking at viewer',
+  svg: FACE(E_OPEN + '<circle cx="86" cy="60" r="8" fill="none" stroke="var(--accent)" stroke-width="2"/><circle cx="114" cy="60" r="8" fill="none" stroke="var(--accent)" stroke-width="2"/>')
+}, {
+  n: '視線外し',
+  en: 'Looking away',
+  fx: '目線をカメラからそらす。自然体で、ふとした瞬間を切り取った感じに。',
+  jp: '視線をカメラから外して',
+  tag: 'looking away',
+  svg: FACE('<circle class="eye" cx="80" cy="60" r="4"/><circle class="eye" cx="106" cy="60" r="4"/>', '', ARROW('M128 52 q18 -6 26 -18') + '<path d="M154 26 l2 10 l-9 -3z" fill="var(--accent)"/>')
+}, {
+  n: '見上げ',
+  en: 'Looking up',
+  fx: '上目遣い気味に見上げる。あどけなさや、空・高い建物を見るシーンに。',
+  jp: '上を見上げて',
+  tag: 'looking up',
+  svg: FACE('<circle class="eye" cx="86" cy="54" r="4"/><circle class="eye" cx="114" cy="54" r="4"/><path d="M78 50 q8 -5 16 0 M106 50 q8 -5 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none"/>', '', ARROW('M150 84 V48') + '<path d="M150 40 l-5 10 h10z" fill="var(--accent)"/>')
+}, {
+  n: '見下ろし',
+  en: 'Looking down',
+  fx: '上から見下ろす視線。ハイアングルの逆で、強さ・余裕の演出に。',
+  jp: '下を見下ろして',
+  tag: 'looking down',
+  svg: FACE('<circle class="eye" cx="86" cy="66" r="4"/><circle class="eye" cx="114" cy="66" r="4"/><path d="M78 56 q8 4 16 0 M106 56 q8 4 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none"/>', '', ARROW('M150 34 v36') + '<path d="M150 78 l-5 -10 h10z" fill="var(--accent)"/>')
+}, {
+  n: '流し目（横目）',
+  en: 'Sidelong glance',
+  fx: '顔は正面、目だけ横へ流す。小悪魔っぽさや意味深な雰囲気に。',
+  jp: '横目で流し目をして',
+  tag: 'sidelong glance',
+  svg: FACE('<ellipse cx="86" cy="60" rx="7" ry="4.5" fill="#fff" stroke="var(--ink)" stroke-width="2"/><ellipse cx="114" cy="60" rx="7" ry="4.5" fill="#fff" stroke="var(--ink)" stroke-width="2"/><circle class="eye" cx="91" cy="60" r="3.2"/><circle class="eye" cx="119" cy="60" r="3.2"/>', '', ARROW('M136 60 h28') + '<path d="M172 60 l-10 -5 v10z" fill="var(--accent)"/>')
+}, {
+  n: '振り返り目線',
+  en: 'Looking back at viewer',
+  fx: '振り返ってカメラを捉える目線。振り返りポーズとセットで使うと最強。',
+  jp: '振り返ってカメラを見て',
+  tag: 'looking back at viewer',
+  svg: FACE('<circle class="eye" cx="82" cy="60" r="4"/><circle class="eye" cx="108" cy="60" r="4"/><path d="M58 84 q-14 -22 -4 -44" stroke="var(--accent)" stroke-width="2.5" fill="none"/>', '<path d="M52 34 l-3 10 l9 -4z" fill="var(--accent)"/>')
+}, {
+  n: '目を閉じて',
+  en: 'Closed eyes',
+  fx: '目を閉じて微笑む・リラックス。幸せそうな空気感の演出に。',
+  jp: '目を閉じて',
+  tag: 'closed eyes',
+  svg: FACE('<path d="M78 60 q8 6 16 0 M106 60 q8 6 16 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M92 80 q8 5 16 0" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round"/>')
+}, {
+  n: 'ウインク',
+  en: 'Wink, one eye closed',
+  fx: '片目だけ閉じるウインク。お茶目さとファンサ感が出る。',
+  jp: 'ウインクして',
+  tag: 'wink, one eye closed',
+  svg: FACE('<circle class="eye" cx="86" cy="60" r="4.2"/><path d="M106 60 q8 5 16 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M146 34 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2z" fill="var(--amber)"/>')
+}, {
+  n: '伏し目',
+  en: 'Downcast eyes',
+  fx: '目を伏せる、しっとりした表情。物思いや切ないシーンに。',
+  jp: '伏し目がちに',
+  tag: 'downcast eyes',
+  svg: FACE('<path d="M78 58 q8 7 16 1 M106 58 q8 7 16 1" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/><circle class="eye" cx="86" cy="65" r="2.6"/><circle class="eye" cx="114" cy="65" r="2.6"/>')
+}, {
+  n: 'スマホを見つめる',
+  en: 'Looking at smartphone',
+  fx: '手元のスマホに視線を落とす。日常スナップやLINE風自撮りの空気感に。',
+  jp: 'スマホを見つめて',
+  tag: 'looking at smartphone',
+  svg: FACE('<circle class="eye" cx="86" cy="65" r="3.4"/><circle class="eye" cx="114" cy="65" r="3.4"/>', '<g transform="rotate(-6 100 108)"><rect x="84" y="90" width="32" height="24" rx="4" fill="var(--accent)"/><rect x="89" y="95" width="22" height="12" rx="2" fill="var(--fig-bg)"/></g>')
+}];
+function cardHTML(item, label) {
+  return '<article class="card" tabindex="0" role="button" aria-pressed="false">' + '<span class="sel-badge">✓</span>' + '<div class="fig"><svg viewBox="0 0 200 118" role="img" aria-label="' + item.n + 'の模式図">' + item.svg + '</svg></div>' + '<div class="card-body"><h3>' + item.n + '<span class="en">' + item.en + '</span></h3>' + '<p class="fx">' + item.fx + '</p><span class="select-hint">タップで選択</span>' + '<div class="row"><span class="label">CHATGPT フレーズ</span><div class="phrase-line"><p class="phrase-text">「' + item.jp + '」</p><button class="copy" data-copy="' + item.jp + '">コピー</button></div></div>' + '<div class="row"><span class="label">COMFYUI タグ</span><div class="tags-line"><code>' + item.tag + '</code><button class="copy" data-copy="' + item.tag + '">コピー</button></div></div>' + '</div></article>';
+}
+__tunnel.setInnerHTML(document.getElementById('gaze-grid'), GAZE.map(function (g) {
+  return cardHTML(g);
+}).join(''), "innerHTML");
+var poseMajorEl = document.getElementById('pose-major');
+var poseMidWrap = document.getElementById('pose-mid-wrap');
+var poseMidEl = document.getElementById('pose-mid');
+var poseMidHint = document.getElementById('pose-mid-hint');
+var poseLeafWrap = document.getElementById('pose-leaf-wrap');
+var poseLeafGrid = document.getElementById('pose-leaf-grid');
+var posePreview = document.getElementById('pose-preview');
+function poseText() {
+  if (!poseSelection) return '';
+  var s = poseSelection.leaf.jp;
+  if (poseSelection.leaf.fix) s += '。固定のコツ：' + poseSelection.leaf.fix;
+  return s;
+}
+function updatePosePreview() {
+  if (!poseSelection) {
+    posePreview.textContent = 'ポーズ未選択 — 大項目から順に選んでね。例：しゃがむ・膝をつく ＞ 深くしゃがむ ＞ 膝を抱えてしゃがむ';
+    return;
+  }
+  var txt = '選択中：' + poseSelection.major + ' ＞ ' + poseSelection.mid + ' ＞ ' + poseSelection.leaf.n + '\n（ポーズ精密文）' + poseText();
+  posePreview.textContent = txt;
+}
+function renderPoseMajors() {
+  __tunnel.setInnerHTML(poseMajorEl, '', "innerHTML");
+  POSE_TREE.forEach(function (m, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'major-btn' + (i === poseMajorIdx ? ' selected' : '');
+    __tunnel.setAttr(b, 'aria-pressed', i === poseMajorIdx ? 'true' : 'false');
+    __tunnel.setInnerHTML(b, '', "innerHTML");
+    b.appendChild(document.createTextNode(m.major));
+    var sm = document.createElement('small');
+    sm.textContent = m.sub;
+    b.appendChild(sm);
+    b.addEventListener('click', function () {
+      poseMajorIdx = i;
+      poseMidIdx = -1;
+      poseSelection = null;
+      renderPoseMajors();
+      renderPoseMids();
+      poseLeafWrap.hidden = true;
+      updatePosePreview();
+      if (typeof renderBuilder === 'function') renderBuilder();
+    });
+    poseMajorEl.appendChild(b);
+  });
+}
+function renderPoseMids() {
+  if (poseMajorIdx < 0) {
+    poseMidWrap.hidden = true;
+    return;
+  }
+  poseMidWrap.hidden = false;
+  poseMidHint.textContent = POSE_TREE[poseMajorIdx].major;
+  __tunnel.setInnerHTML(poseMidEl, '', "innerHTML");
+  POSE_TREE[poseMajorIdx].mids.forEach(function (md, j) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'mid-btn' + (j === poseMidIdx ? ' selected' : '');
+    b.textContent = md.mid;
+    __tunnel.setAttr(b, 'aria-pressed', j === poseMidIdx ? 'true' : 'false');
+    b.addEventListener('click', function () {
+      poseMidIdx = j;
+      poseSelection = null;
+      renderPoseMids();
+      renderPoseLeaves();
+      updatePosePreview();
+      if (typeof renderBuilder === 'function') renderBuilder();
+    });
+    poseMidEl.appendChild(b);
+  });
+}
+function renderPoseLeaves() {
+  if (poseMajorIdx < 0 || poseMidIdx < 0) {
+    poseLeafWrap.hidden = true;
+    return;
+  }
+  poseLeafWrap.hidden = false;
+  __tunnel.setInnerHTML(poseLeafGrid, '', "innerHTML");
+  var leaves = POSE_TREE[poseMajorIdx].mids[poseMidIdx].leaves;
+  leaves.forEach(function (leaf) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'leaf-card' + (poseSelection && poseSelection.leaf === leaf ? ' selected' : '');
+    __tunnel.setAttr(b, 'aria-pressed', poseSelection && poseSelection.leaf === leaf ? 'true' : 'false');
+    var fixHtml = leaf.fix ? '<div class="fix-note"><b>固定のコツ（自動付記）</b>' + leaf.fix + '</div>' : '';
+    __tunnel.setInnerHTML(b, '<span class="pick-badge">✓</span><div class="fig"><svg viewBox="0 0 200 118" role="img" aria-label="' + leaf.n + 'の棒人間図">' + leaf.svg + '</svg></div><div class="leaf-body"><h4>' + leaf.n + '<span class="en">' + leaf.tag + '</span></h4><p>' + leaf.fx + '</p><p><strong>精密文：</strong>' + leaf.jp + '</p>' + fixHtml + '</div>', "innerHTML");
+    b.addEventListener('click', function () {
+      if (poseSelection && poseSelection.leaf === leaf) {
+        poseSelection = null;
+      } else {
+        poseSelection = {
+          major: POSE_TREE[poseMajorIdx].major,
+          mid: POSE_TREE[poseMajorIdx].mids[poseMidIdx].mid,
+          leaf: leaf
+        };
+      }
+      renderPoseLeaves();
+      updatePosePreview();
+      renderBuilder();
+    });
+    poseLeafGrid.appendChild(b);
+  });
+}
+function clearPose() {
+  poseSelection = null;
+  poseMajorIdx = -1;
+  poseMidIdx = -1;
+  renderPoseMajors();
+  poseMidWrap.hidden = true;
+  poseLeafWrap.hidden = true;
+  updatePosePreview();
+}
+renderPoseMajors();
+updatePosePreview();
+document.getElementById('clear-pose').addEventListener('click', function () {
+  clearPose();
+  renderBuilder();
+});
+function cleanPhrase(t) {
+  return t.replace(/[「」]/g, '').trim();
+}
+document.querySelectorAll('.card').forEach(function (card) {
+  var badge = document.createElement('span');
+  badge.className = 'sel-badge';
+  badge.textContent = '✓';
+  if (!card.querySelector('.sel-badge')) card.insertBefore(badge, card.firstChild);
+  if (!card.querySelector('.select-hint')) {
+    var hint = document.createElement('span');
+    hint.className = 'select-hint';
+    hint.textContent = 'タップで選択';
+    var fx = card.querySelector('.fx');
+    if (fx) fx.after(hint);
+  }
+  var pt = card.querySelector('.phrase-text');
+  var code = card.querySelector('code');
+  var title = card.querySelector('h3');
+  card.dataset.jp = pt ? cleanPhrase(pt.textContent) : '';
+  card.dataset.en = code ? code.textContent.trim() : '';
+  card.dataset.name = title ? title.childNodes[0].textContent.trim() : '';
+  __tunnel.setAttr(card, 'tabindex', '0');
+  __tunnel.setAttr(card, 'role', 'button');
+  __tunnel.setAttr(card, 'aria-pressed', 'false');
+});
+var selected = [];
+var outJp = document.getElementById('out-jp');
+var outEn = document.getElementById('out-en');
+var chips = document.getElementById('sel-chips');
+var stickyCount = document.getElementById('sticky-count');
+function renderBuilder() {
+  if (!selected.length) {
+    outJp.textContent = 'まだ何も選ばれていません';
+    outEn.textContent = '—';
+    __tunnel.setInnerHTML(chips, '<span class="empty-note">カードをタップして選んでね（画角・ポーズ・視線、どれも複数OK）</span>', "innerHTML");
+  } else {
+    outJp.textContent = selected.map(function (c) {
+      return c.dataset.jp;
+    }).filter(Boolean).join('、');
+    outEn.textContent = selected.map(function (c) {
+      return c.dataset.en;
+    }).filter(Boolean).join(', ');
+    __tunnel.setInnerHTML(chips, selected.map(function (c) {
+      return '<span class="sel-chip">' + c.dataset.name + '</span>';
+    }).join(''), "innerHTML");
+  }
+  stickyCount.textContent = '選択中：' + selected.length + '件';
+}
+function toggleCard(card) {
+  var i = selected.indexOf(card);
+  if (i >= 0) {
+    selected.splice(i, 1);
+    card.classList.remove('selected');
+    __tunnel.setAttr(card, 'aria-pressed', 'false');
+  } else {
+    selected.push(card);
+    card.classList.add('selected');
+    __tunnel.setAttr(card, 'aria-pressed', 'true');
+  }
+  renderBuilder();
+}
+document.querySelectorAll('.card').forEach(function (card) {
+  card.addEventListener('click', function (e) {
+    if (e.target.closest('.copy')) return;
+    toggleCard(card);
+  });
+  card.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleCard(card);
+    }
+  });
+});
+document.getElementById('clear-sel').addEventListener('click', function () {
+  selected.slice().forEach(function (c) {
+    c.classList.remove('selected');
+    __tunnel.setAttr(c, 'aria-pressed', 'false');
+  });
+  selected = [];
+  clearPose();
+  renderBuilder();
+});
+function copyText(text, btn) {
+  function done() {
+    var old = btn.textContent;
+    btn.textContent = 'コピーした ✓';
+    btn.classList.add('done');
+    setTimeout(function () {
+      btn.textContent = old;
+      btn.classList.remove('done');
+    }, 1600);
+  }
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    __tunnel.setStyle(ta, "position", 'fixed');
+    __tunnel.setStyle(ta, "opacity", '0');
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      done();
+    } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(fallback);
+  } else {
+    fallback();
+  }
+}
+document.addEventListener('click', function (e) {
+  var btn = e.target.closest('.copy');
+  if (!btn) return;
+  e.stopPropagation();
+  if (btn.id === 'copy-jp') {
+    if (selected.length || poseSelection) copyText(outJp.textContent, btn);
+    return;
+  }
+  if (btn.id === 'copy-en') {
+    if (outEn.textContent && outEn.textContent !== '—') copyText(outEn.textContent, btn);
+    return;
+  }
+  var t = btn.getAttribute('data-copy');
+  if (t) copyText(t, btn);
+});
+var CHARACTERS = [{
+  id: 'myu',
+  name: 'ミュウ',
+  desc: '27歳・黒ギャル',
+  jp: '27歳の成人女性。短いmessyなゴールデンブロンド髪、ウォームブラウンの瞳、細めで自然な眉、全身均一な健康的小麦色の肌。幼く見えない大人の顔立ち。両耳にピアス。左手薬指に結婚指輪。',
+  en: '27-year-old adult woman, short messy golden blonde hair, warm brown eyes, natural thin eyebrows, even golden brown skin, mature face, earrings in both ears, wedding ring on left ring finger'
+}];
+var selectedChar = null;
+var charRow = document.getElementById('char-row');
+var charPreview = document.getElementById('char-preview');
+CHARACTERS.forEach(function (c) {
+  var b = document.createElement('button');
+  b.className = 'char-btn';
+  b.type = 'button';
+  b.textContent = c.name;
+  __tunnel.setAttr(b, 'aria-pressed', 'false');
+  b.addEventListener('click', function () {
+    if (selectedChar === c) {
+      selectedChar = null;
+      b.classList.remove('selected');
+      __tunnel.setAttr(b, 'aria-pressed', 'false');
+      charPreview.textContent = 'キャラクター未選択 — ボタンを押すとここにパーソナルプロンプトが表示されるよ。';
+    } else {
+      selectedChar = c;
+      charRow.querySelectorAll('.char-btn').forEach(function (x) {
+        x.classList.remove('selected');
+        __tunnel.setAttr(x, 'aria-pressed', 'false');
+      });
+      b.classList.add('selected');
+      __tunnel.setAttr(b, 'aria-pressed', 'true');
+      charPreview.textContent = '【' + c.name + '】' + c.jp;
+    }
+    renderBuilder();
+  });
+  charRow.appendChild(b);
+});
+function outfitThumb(o) {
+  if (o.img) return '<img src="' + o.img + '" alt="' + o.name + 'の衣装シート">';
+  return '<svg viewBox="0 0 200 118" role="img" aria-label="衣装シート自由"><rect x="34" y="14" width="132" height="88" rx="8" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="7 5"/><text x="100" y="54" text-anchor="middle" font-size="13" font-weight="900" fill="var(--accent-ink)">画像2のシート</text><text x="100" y="74" text-anchor="middle" font-size="11" fill="var(--ink-3)">そのまま再現</text></svg>';
+}
+var URBAN_PROMPT = 'An urban expedition techwear outfit in deep petrol teal, warm ivory, and charcoal, with brushed bronze hardware and small muted coral accents.\n\nOuterwear: A cropped, oversized technical jacket ending above the waist. Deep petrol-teal body, warm-ivory shoulder panels and upper-back yoke, thin bronze piping along the panel edges, and a tall stand collar. An asymmetrical front opening with bronze snap fasteners, worn open. Voluminous sleeves with adjustable charcoal cuff straps and bronze buckles. A zippered chest pocket with a muted coral zipper pull, discreet vertical pockets, and a small center-back tab. Matte, densely woven technical nylon with natural folds and a subtle sheen.\n\nTop: A warm-ivory cropped athletic top with opaque, fully lined bust coverage and wide charcoal edging. A high charcoal neckline frame with a small rectangular bronze connector above a large geometric upper-chest cutout. Curved supportive seams, a fitted charcoal underband, and a racerback with a central vertical strap. Smooth stretch-jersey fabric. The top ends directly beneath the bust, leaving the midriff exposed.\n\nPants: Low-rise, oversized petrol-teal parachute cargo pants, cropped to the lower calves. Loose hips and thighs, articulated knees with angular charcoal reinforcement panels, and thin ivory piping forming diagonal lines around the knees. Large asymmetrical utility pockets, flap pockets with bronze snaps, and projecting charcoal zippered thigh pockets with muted coral zipper pulls. Dark hanging webbing straps. Gathered cuffs with adjustable coral drawcord loops. Lightweight crinkled nylon with ripstop reinforcement and realistic fabric volume.\n\nAccessories: A charcoal webbing utility belt with a brushed-bronze quick-release buckle, a bronze carabiner attached near the hip, and a small detachable warm-ivory utility pouch with charcoal edging, zippered compartments, a coral zipper pull, and a dark adjustable crossbody strap.\n\nFootwear: Chunky mid-top technical sneakers in warm ivory, petrol teal, and charcoal. Layered nylon, mesh, and synthetic-leather panels, bronze-toned lace hardware, beige laces, muted coral heel pull tabs, thick sculpted ivory midsoles, and dark rubber treaded outsoles.\n\nPreserve the coordinated panel construction, practical utility details, cropped proportions, and consistent color palette. Detailed stitching, realistic fabric textures, restrained metallic highlights, no visible branding.';
+var URBAN_NEG = 'logos, text, camouflage print, neon colors, glossy latex, long coat, full-length pants, tight-fitting pants, skirt, dress, high heels, excessive armor, oversized weapons';
+var BACKLESS_PROMPT = 'A medium heather-gray backless halter-neck knit mini dress. A thick, softly folded ribbed turtleneck collar supports a completely sleeveless front panel. Bare shoulders, very deep open sides, and a broad U-shaped open back extending down to the lower waist, just above the hips.\n\nMatching flat knitted ties form a bow at the center back directly below the collar, with two long ribbon tails hanging toward the waist.\n\nThe continuous front panel covers the chest and abdomen, falling loosely with natural gravity-driven folds. The lower edge of the open back drapes into soft cowl folds. A short upper-thigh-length skirt with a broad ribbed hem band, continuous around the hips.\n\nOpaque, soft, slightly fuzzy knit fabric; fine stockinette stitches; subtle mixed-gray yarn; realistic fabric weight and relaxed draping. Preserve the exact garment design shown in the attached reference images.';
+var BACKLESS_NEG = 'sleeves, shoulder straps, closed back, shallow back opening, separate skirt, pants, belt, lace, cable-knit pattern, transparent fabric, side slits, extra ribbons, logos';
+var BACKLESS_JP = 'ヘザーグレーの背開きホルターネック・ニットミニワンピース。太めに折り返したリブ編みタートル襟、完全ノースリーブの前身頃。裸の肩、大きく開いたサイド、腰のすぐ上（ヒップの上）まで届く広いU字のオープンバック。襟のすぐ下、背中心に同素材の平たいリボン（長いテール2本が腰へ垂れる）。前身頃は胸と腹を覆い、自然なドレープで落ちる。背開きの下端はカウル状のたるみに。太もも上丈のスカート部、裾は幅広のリブ編みバンド。不透明で柔らかく少し起毛したニット。';
+var OUTFITS = [{
+  id: 'urban',
+  name: 'アーバン・エクスペディション',
+  img: 'assets/outfit-urban-garments.jpg',
+  jp: 'ディープペトロールティール×ウォームアイボリー×チャコールのテックウェア。金具はブラッシュドブロンズ、差し色はミュートコーラル。腰上で終わるクロップド・オーバーサイズの技術ジャケット（アイボリーの肩パネルと背ヨーク、ブロンズのパイピング、スタンドカラー、アシンメトリーのスナップ開閉をオープンに着る、胸にファスナーポケット）。幾何学カットアウトのクロップド・アスレチックトップ（バスト下で終わり腹部が見える）。ローライズのオーバーサイズ・パラシュートカーゴパンツ（すね丈クロップド、膝の補強パネルと斜めアイボリーパイピング、大型ユーティリティポケット、垂れたウェビングストラップ、裾ドローコード）。チャコールのユーティリティベルト（ブロンズのクイックリリースバックルとカラビナ）、着脱式アイボリー・ユーティリティポーチ。ティール×アイボリー×チャコールのチャンキーなミッドトップ・テクニカルスニーカー。ロゴ・ブランド表示なし。',
+  en: 'urban expedition techwear, deep petrol teal warm ivory and charcoal, brushed bronze hardware, muted coral accents, cropped oversized technical jacket worn open, geometric cutout cropped athletic top, low-rise cropped parachute cargo pants, utility belt with detachable pouch, chunky mid-top technical sneakers, no branding',
+  prompt: URBAN_PROMPT,
+  neg: URBAN_NEG
+}, {
+  id: 'blade',
+  name: 'Ivory Blade',
+  img: 'assets/outfit-ivory-blade.jpg',
+  jp: 'アイボリー×チャコール×金縁刺繍のファンタジー剣士衣装。刀を携える。',
+  en: 'ivory and charcoal fantasy swordswoman outfit with gold trim embroidery, katana'
+}, {
+  id: 'basic',
+  name: 'ミュウの基本コーデ',
+  img: 'assets/outfit-basic.jpg',
+  jp: '開けたライトベージュのオーバーサイズジップパーカー、黒のクロップドタンクトップ、リングとストラップ付きのダークなカーゴパンツ、白のチャンキースニーカー、黒のスタッズレザーバングル。',
+  en: 'open light beige oversized zip hoodie, black cropped tank top, dark cargo pants with rings and straps, white chunky sneakers, black studded leather bangle'
+}, {
+  id: 'lace-strapless',
+  name: 'ストラップレスレース＆ローライズデニム',
+  img: 'assets/outfit-lace-strapless.jpg',
+  jp: 'ネイビーブラックの花柄レースのストラップレスブラ（1/2カップ・ワイヤー入り、花柄レースと裏地）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー。',
+  en: 'navy black floral lace strapless bra, half cup with underwire, low-rise washed blue denim micro shorts, front button and zip fly, frayed hem, distressed details, back pockets, silver hardware'
+}, {
+  id: 'lace-navy',
+  name: 'ネイビーレース＆ローライズデニム',
+  img: 'assets/outfit-lace-navy.jpg',
+  jp: 'ネイビーブラックの花柄レースのトライアングルブラ（細ストラップ、花柄レースと裏地、アンダーとストラップ）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー。',
+  en: 'navy black floral lace triangle bra with thin straps, low-rise washed blue denim micro shorts, front button and zip fly, frayed hem, distressed details, back pockets, silver hardware'
+}, {
+  id: 'backless-v2',
+  name: '背開きホルターニット・ミニワンピース Ver.2（本命）',
+  img: 'assets/outfit-backless-v2.jpg',
+  jp: BACKLESS_JP + '【Ver.2の差分】U字の背開きがより深く、背面リボンのテールが長めで、カウルのドレープが強め。',
+  en: 'heather gray backless halter-neck knit mini dress, ribbed turtleneck collar, sleeveless, very deep U-shaped open back down to just above the hips, deep open sides, bow with long ribbon tails at center back, strong cowl drape, ribbed hem band',
+  prompt: BACKLESS_PROMPT,
+  neg: BACKLESS_NEG
+}, {
+  id: 'backless-v1',
+  name: '背開きホルターニット・ミニワンピース Ver.1',
+  img: 'assets/outfit-backless-v1.jpg',
+  jp: BACKLESS_JP,
+  en: 'heather gray backless halter-neck knit mini dress, ribbed turtleneck collar, sleeveless, broad U-shaped open back down to the lower waist, deep open sides, bow with ribbon tails at center back, cowl drape, ribbed hem band',
+  prompt: BACKLESS_PROMPT,
+  neg: BACKLESS_NEG
+}, {
+  id: 'free',
+  name: '衣装シートのまま（自由）',
+  jp: '画像2の衣装シートの配色と構造を厳密に再現する',
+  en: 'reproduce the outfit design sheet (image 2) exactly'
+}];
+var selectedOutfit = null;
+var outfitGrid = document.getElementById('outfit-grid');
+var outfitPreview = document.getElementById('outfit-preview');
+OUTFITS.forEach(function (o) {
+  var b = document.createElement('button');
+  b.className = 'pick-card';
+  b.type = 'button';
+  __tunnel.setAttr(b, 'aria-pressed', 'false');
+  __tunnel.setInnerHTML(b, '<span class="pick-badge">✓</span><div class="thumb">' + outfitThumb(o) + '</div><div class="pbody"><h3>' + o.name + '</h3><p>' + o.jp + '</p></div>', "innerHTML");
+  b.addEventListener('click', function () {
+    if (selectedOutfit === o) {
+      selectedOutfit = null;
+      b.classList.remove('selected');
+      __tunnel.setAttr(b, 'aria-pressed', 'false');
+      outfitPreview.textContent = '衣装未選択 — カードを選ぶとここに衣装プロンプトが表示されるよ。';
+    } else {
+      selectedOutfit = o;
+      outfitGrid.querySelectorAll('.pick-card').forEach(function (x) {
+        x.classList.remove('selected');
+        __tunnel.setAttr(x, 'aria-pressed', 'false');
+      });
+      b.classList.add('selected');
+      __tunnel.setAttr(b, 'aria-pressed', 'true');
+      outfitPreview.textContent = '【衣装】' + o.jp + (o.prompt ? '\n（英語の詳細プロンプトとネガティブプロンプトも完成プロンプト一式に含まれます）' : '');
+    }
+    renderBuilder();
+  });
+  outfitGrid.appendChild(b);
+});
+var BOILERPLATE = [{
+  id: 'role',
+  title: '入力画像の役割',
+  text: '画像1＝キャラクター設定資料（人物の基準）\n画像2＝衣装のデザインシート（衣装の基準）',
+  on: true
+}, {
+  id: 'make',
+  title: '作るもの',
+  text: '画像1のキャラクターに、画像2の衣装を着せたシーン写真。X投稿用の1枚。',
+  on: true
+}, {
+  id: 'keep',
+  title: '厳密に維持するもの',
+  text: '- キャラクターの顔立ち、髪、瞳の色、肌の色\n- 衣装の配色と構造',
+  on: true
+}, {
+  id: 'forbid',
+  title: '禁止事項',
+  text: '- 衣装の色替え・アイテムの追加や省略をしない\n- テキストやロゴを入れない\n- 実写・フォトリアルにしない（アニメイラスト調を維持）',
+  on: true
+}];
+var bpList = document.getElementById('bp-list');
+BOILERPLATE.forEach(function (bp) {
+  var d = document.createElement('div');
+  d.className = 'bp-item';
+  __tunnel.setInnerHTML(d, '<div class="bp-main"><strong>【' + bp.title + '】</strong><p></p></div>', "innerHTML");
+  d.querySelector('p').textContent = bp.text;
+  var tg = document.createElement('button');
+  tg.className = 'toggle-btn';
+  tg.type = 'button';
+  tg.textContent = 'ON';
+  tg.addEventListener('click', function () {
+    bp.on = !bp.on;
+    d.classList.toggle('off', !bp.on);
+    tg.textContent = bp.on ? 'ON' : 'OFF';
+    renderBuilder();
+  });
+  var cp = document.createElement('button');
+  cp.className = 'copy';
+  cp.type = 'button';
+  cp.textContent = 'コピー';
+  cp.addEventListener('click', function (e) {
+    e.stopPropagation();
+    copyText('【' + bp.title + '】\n' + bp.text, cp);
+  });
+  d.appendChild(tg);
+  d.appendChild(cp);
+  bpList.appendChild(d);
+});
+var outFull = document.getElementById('out-full');
+function bpOn(id) {
+  var f = BOILERPLATE.filter(function (x) {
+    return x.id === id;
+  })[0];
+  return f && f.on;
+}
+function buildFull() {
+  var parts = [];
+  if (bpOn('role')) parts.push('【入力画像の役割】\n画像1＝キャラクター設定資料（人物の基準）\n画像2＝衣装のデザインシート（衣装の基準）');
+  if (bpOn('make')) parts.push('【作るもの】\n画像1のキャラクターに、画像2の衣装を着せたシーン写真。X投稿用の1枚。');
+  if (selectedChar) parts.push('【キャラクター】\n' + selectedChar.jp);
+  if (selectedOutfit) parts.push('【衣装】\n' + selectedOutfit.jp);
+  if (selectedOutfit && selectedOutfit.prompt) parts.push('【衣装の詳細プロンプト（英語）】\n' + selectedOutfit.prompt);
+  if (selectedOutfit && selectedOutfit.neg) parts.push('【衣装のネガティブプロンプト】\n' + selectedOutfit.neg);
+  var sceneJp = selected.map(function (c) {
+    return c.dataset.jp;
+  }).filter(Boolean);
+  if (poseSelection) sceneJp.push('（ポーズ）' + poseText());
+  if (sceneJp.length) parts.push('【シーン・画角・ポーズ・視線】\n' + sceneJp.join('、'));
+  if (bpOn('keep')) parts.push('【厳密に維持するもの】\n- キャラクターの顔立ち、髪、瞳の色、肌の色\n- 衣装の配色と構造');
+  if (bpOn('forbid')) parts.push('【禁止事項】\n- 衣装の色替え・アイテムの追加や省略をしない\n- テキストやロゴを入れない\n- 実写・フォトリアルにしない（アニメイラスト調を維持）');
+  return parts.join('\n\n');
+}
+function buildEnFull() {
+  var tags = [];
+  if (selectedChar) tags.push(selectedChar.en);
+  if (selectedOutfit) tags.push(selectedOutfit.prompt ? selectedOutfit.prompt.replace(/\n+/g, ' ') : selectedOutfit.en);
+  selected.forEach(function (c) {
+    if (c.dataset.en) tags.push(c.dataset.en);
+  });
+  if (poseSelection) tags.push(poseSelection.leaf.tag);
+  return tags.join(', ');
+}
+var _origRender = renderBuilder;
+renderBuilder = function () {
+  _origRender();
+  var jpParts = selected.map(function (c) {
+    return c.dataset.jp;
+  }).filter(Boolean);
+  if (poseSelection) jpParts.push('（ポーズ）' + poseText());
+  if (jpParts.length) {
+    outJp.textContent = jpParts.join('、');
+  } else if (!selected.length) {
+    outJp.textContent = 'まだ何も選ばれていません';
+  }
+  var full = buildFull();
+  outFull.textContent = full || 'まだ何も選ばれていません（定型文をONにするか、キャラ・衣装・カードを選んでね）';
+  var enFull = buildEnFull();
+  if (enFull) outEn.textContent = enFull;else if (!selected.length && !poseSelection) outEn.textContent = '—';
+  var extra = '';
+  if (selectedChar) extra += '<span class="sel-chip">キャラ：' + selectedChar.name + '</span>';
+  if (selectedOutfit) extra += '<span class="sel-chip">衣装：' + selectedOutfit.name + '</span>';
+  if (poseSelection) extra += '<span class="sel-chip">ポーズ：' + poseSelection.major + ' ＞ ' + poseSelection.mid + ' ＞ ' + poseSelection.leaf.n + '</span>';
+  if (extra) {
+    if (selected.length) __tunnel.setInnerHTML(chips, extra + chips.innerHTML, "innerHTML");else __tunnel.setInnerHTML(chips, extra, "innerHTML");
+  }
+  var total = selected.length + (selectedChar ? 1 : 0) + (selectedOutfit ? 1 : 0) + (poseSelection ? 1 : 0);
+  stickyCount.textContent = '選択中：' + total + '件';
+};
+document.getElementById('copy-full').addEventListener('click', function () {
+  var t = outFull.textContent;
+  if (t && t.indexOf('まだ何も') !== 0) copyText(t, this);
+});
+renderBuilder();</script>
+</body>
+</html>

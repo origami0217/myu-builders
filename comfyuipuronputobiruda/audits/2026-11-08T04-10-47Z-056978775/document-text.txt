@@ -1,0 +1,236 @@
+# ミュウ プロンプトビルダー v2.3 ♥
+要素を選ぶと、ミュウ固定タグ入りのプロンプトが組み上がります。コスプレを選ぶと衣装レイヤーは上書きされます。
+## 固定ブロックキャラの同一性用。常時ON
+masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, (messy spiky short hair:1.35), choppy layered bob hair, bangs covering forehead, hair between eyes, light blonde beige hair, brown eyes, thin eyebrows, small nose, small mouth, ear piercings, multiple piercings, dark skin, dark-skinned female, (tanned skin:1.15), golden brown skin, healthy skin, (even skin tone:1.3), uniform skin color all over body, (curvy:1.2), toned body, (large breasts:1.15), wide hips, narrow waist, (long legs:1.25), long slender legs
+## 人数ソロ／二人（男）／二人（女）で土台（ポジティブ・ネガティブ両方）が切り替わります
+[input radio: people = solo]
+ソロ
+[input radio: people = duo_m]
+二人（男）
+[input radio: people = duo_f]
+二人（女）
+[input text: 相手の特徴タグ（二人の時だけ有効。例：black hair, tall, muscular）]
+[button: 「俺」セットを相手タグに入力]
+二人モードでは、LoRAが相手までミュウ寄りに引っ張るのを防ぐため、相手の特徴を明確に違うタグで指定するのがコツです。「俺」セットの中身はスクリプト冒頭の ORE_TAGS で自分のイメージに合わせて編集できます。
+## コスプレ1つ選択。選ぶと下の衣装レイヤーは上書き
+[input radio: cosplay = なし]
+なし
+[input radio: cosplay = ネグリジェ]
+ネグリジェ
+[input radio: cosplay = バニースーツ]
+バニースーツ
+[input radio: cosplay = セーラー服（コスプレ）]
+セーラー服（コスプレ）
+[input radio: cosplay = メイド]
+メイド
+[input radio: cosplay = ナース]
+ナース
+[input radio: cosplay = 巫女]
+巫女
+[input radio: cosplay = 悪魔コス]
+悪魔コス
+[input radio: cosplay = サンタコス]
+サンタコス
+## アウター（上半身）1つ選択
+[input radio: outer = なし]
+なし
+[input radio: outer = 基本パーカー]
+基本パーカー
+[input radio: outer = ジャケット]
+ジャケット
+[input radio: outer = カーディガン]
+カーディガン
+[input radio: outer = ブレザー]
+ブレザー
+[input radio: outer = コート]
+コート
+## インナー（上半身）1つ選択
+[input radio: inner = 黒タンクトップ]
+黒タンクトップ
+[input radio: inner = Tシャツ]
+Tシャツ
+[input radio: inner = ブラウス]
+ブラウス
+[input radio: inner = ニット]
+ニット
+[input radio: inner = オフショルニット]
+オフショルニット
+[input radio: inner = キャミソール]
+キャミソール
+## ブラ1つ選択
+[input radio: bra = 指定なし]
+指定なし
+[input radio: bra = 黒レース]
+黒レース
+[input radio: bra = 白]
+白
+[input radio: bra = ピンク]
+ピンク
+[input radio: bra = スポーツブラ]
+スポーツブラ
+## ボトムス（下半身）1つ選択
+[input radio: bottoms = カーゴパンツ]
+カーゴパンツ
+[input radio: bottoms = ジーンズ]
+ジーンズ
+[input radio: bottoms = ショーツ]
+ショーツ
+[input radio: bottoms = レザーショーツ]
+レザーショーツ
+[input radio: bottoms = ミニスカート]
+ミニスカート
+[input radio: bottoms = プリーツスカート]
+プリーツスカート
+[input radio: bottoms = ロングスカート]
+ロングスカート
+[input radio: bottoms = スラックス]
+スラックス
+[input radio: bottoms = なし]
+なし
+## パンティ1つ選択
+[input radio: panties = 指定なし]
+指定なし
+[input radio: panties = 黒レース]
+黒レース
+[input radio: panties = 白]
+白
+[input radio: panties = ボーダー]
+ボーダー
+[input radio: panties = ピンク]
+ピンク
+[input radio: panties = 紐パン]
+紐パン
+## 靴1つ選択
+[input radio: shoes = 白スニーカー]
+白スニーカー
+[input radio: shoes = ブーツ]
+ブーツ
+[input radio: shoes = ヒール]
+ヒール
+[input radio: shoes = サンダル]
+サンダル
+[input radio: shoes = ローファー]
+ローファー
+[input radio: shoes = 素足]
+素足
+## 靴下・レッグウェア1つ選択
+[input radio: legwear = 指定なし]
+指定なし
+[input radio: legwear = 黒ニーソ]
+黒ニーソ
+[input radio: legwear = 白ニーソ]
+白ニーソ
+[input radio: legwear = 網タイツ]
+網タイツ
+[input radio: legwear = タイツ]
+タイツ
+[input radio: legwear = アンクルソックス]
+アンクルソックス
+[input radio: legwear = ガーターベルト]
+ガーターベルト
+## 体勢1つ選択
+[input radio: posture = 立っている]
+立っている
+[input radio: posture = 椅子に座る]
+椅子に座る
+[input radio: posture = 床に座る]
+床に座る
+[input radio: posture = ベッドに寝転がる]
+ベッドに寝転がる
+[input radio: posture = 膝立ち]
+膝立ち
+[input radio: posture = しゃがむ]
+しゃがむ
+[input radio: posture = 壁に寄りかかる]
+壁に寄りかかる
+[input radio: posture = 四つん這い]
+四つん這い
+## 構図・カメラ複数選択OK
+[input checkbox: camera = 自撮り風]
+自撮り風
+[input checkbox: camera = 俯瞰]
+俯瞰
+[input checkbox: camera = 横から]
+横から
+[input checkbox: camera = 全身]
+全身
+[input checkbox: camera = 顔アップ]
+顔アップ
+[input checkbox: camera = カメラ目線]
+カメラ目線
+[input checkbox: camera = 頬杖]
+頬杖
+[input checkbox: camera = ピース]
+ピース
+[input checkbox: camera = 歩き]
+歩き
+## 表情1つ選択
+[input radio: expr = やさしい笑顔]
+やさしい笑顔
+[input radio: expr = ウインク]
+ウインク
+[input radio: expr = 笑い]
+笑い
+[input radio: expr = 眠そう]
+眠そう
+[input radio: expr = 驚き]
+驚き
+[input radio: expr = じっと見つめる]
+じっと見つめる
+## 背景1つ選択
+[input radio: bg = カフェ]
+カフェ
+[input radio: bg = 街]
+街
+[input radio: bg = ビーチ（夕景）]
+ビーチ（夕景）
+[input radio: bg = ベッドルーム]
+ベッドルーム
+[input radio: bg = ホテルの部屋]
+ホテルの部屋
+[input radio: bg = バスルーム]
+バスルーム
+[input radio: bg = 温泉]
+温泉
+[input radio: bg = プール]
+プール
+[input radio: bg = オフィス]
+オフィス
+[input radio: bg = 図書室]
+図書室
+[input radio: bg = 屋上]
+屋上
+[input radio: bg = リビング]
+リビング
+[input radio: bg = 無地背景]
+無地背景
+[input radio: bg = 夜景]
+夜景
+## 光・時間帯1つ選択
+[input radio: light = 昼の光]
+昼の光
+[input radio: light = 夕日]
+夕日
+[input radio: light = ランプの光]
+ランプの光
+[input radio: light = 夜]
+夜
+## シーン追加タグ自分で足したいタグをカンマ区切りで入力
+[input text: 例：holding cup, steam, window seat]
+## カスタムプリセット自分のプロンプトを登録してワンクリックで呼び出し（ブラウザに保存）
+[input text: プリセット名（例：お気に入り1）]
+[textarea: 登録したいタグ文字列を貼り付け]
+[button: プリセットを登録]
+## ネガティブ設定失敗パターンの先回り防止
+[input checkbox: = on]
+手の破綻を防ぐ
+[input checkbox: = on]
+日焼け跡・色割れを防ぐ
+## ポジティブ・プロンプト
+[textarea: = masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, (messy spiky short hair:1.35), choppy layered bob hair, bangs covering forehead, hair between eyes, light blonde beige hair, brown eyes, thin eyebrows, small nose, small mouth, ear piercings, multiple piercings, dark skin, dark-skinned female, (tanned skin:1.15), golden brown skin, healthy skin, (even skin tone:1.3), uniform skin color all over body, (curvy:1.2), toned body, (large breasts:1.15), wide hips, narrow waist, (long legs:1.25), long slender legs, black cropped tank top, dark cargo pants with rings and straps, white chunky sneakers, standing, gentle expression, soft smile, light blush, cheek blush, cafe interior, coffee shop, window seat, daylight, natural light]
+[button: コピーする]
+## ネガティブ・プロンプト
+[textarea: = bad quality, worst quality, low quality, lowres, blurry, bad anatomy, watermark, text, logo, signature, long hair, medium hair, very long hair, smooth straight hair, heavy makeup, thick eyebrows, child, teen, loli, young looking, censored, mosaic censoring, bar censor, multiple views, character sheet, 2girls, 1boy, multiple girls, split screen, duplicate, clone, bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands, (tan lines:1.5), (uneven skin tone:1.4), two-tone skin, pale skin, fair skin, white skin]
+[button: コピーする]
+推奨設定（Prefect Illustrious XL v8）：サイズ 832×1216 / steps 28 / CFG 5.5 / sampler euler_ancestral / FaceDetailer ON（denoise 0.30）
+MYU PROMPT BUILDER v2.3 — option lists are editable in the GROUPS object at the top of the script.

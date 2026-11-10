@@ -1,0 +1,8 @@
+{
+  "runtime": "static",
+  "platformVersion": 15,
+  "entry": "index.html",
+  "name": "ミュウ着せ替えビルダー",
+  "slug": "miyuuzhao-seti-ebiruda",
+  "managedCronJobs": []
+}

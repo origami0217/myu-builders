@@ -1,0 +1,134 @@
+{
+  "ok": true,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-9326e636-8421-4b1b-ab2f-f70f73fc0229/",
+  "duration_ms": 3727.551809,
+  "output_dir": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-09T12-21-43Z-980154554",
+  "nav_status": 200,
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-09T12-21-43Z-980154554/screenshot.png",
+      "fullpage_screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-09T12-21-43Z-980154554/screenshot-full.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-09T12-21-43Z-980154554/screenshot-mobile.png"
+    }
+  },
+  "mobile_layout": {
+    "viewport_width": 390,
+    "scroll_width": 390,
+    "overflow_px": 0,
+    "widest_selector": null,
+    "verdict": "pass"
+  },
+  "horizontal_scrollers": [],
+  "unreachable_controls": {
+    "desktop": [],
+    "mobile": []
+  },
+  "clipped": {
+    "desktop": [],
+    "mobile": []
+  },
+  "images": {
+    "total": 0,
+    "broken": [],
+    "duplicate": [],
+    "unstable": [],
+    "failed_requests": [],
+    "external_blocked": {
+      "count": 0,
+      "sample": []
+    },
+    "sample_urls": [],
+    "verdict": "pass"
+  },
+  "text_issues": [],
+  "console_errors": [],
+  "console_warnings": [],
+  "external_fetch_failures": 2,
+  "external_fetch_failure_samples": [
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)",
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)"
+  ],
+  "blocked_requests": [],
+  "external_requests": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap",
+      "method": "GET",
+      "resource_type": "stylesheet"
+    }
+  ],
+  "external_requests_dropped": 0,
+  "external_requests_dropped_data_bearing": 0,
+  "transport_ledger_active": true,
+  "egress_lockdown": true,
+  "transport_connections": [
+    {
+      "host": "artifact-capture.invalid",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 3996,
+      "bytes_down": 2483
+    },
+    {
+      "host": "fonts.googleapis.com",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 0,
+      "bytes_down": 0,
+      "policy_denied": true
+    }
+  ],
+  "transport_udp_attempts": 0,
+  "transport_overflow": 0,
+  "unexplained_transport_hosts": [],
+  "broken_assets": [],
+  "blocked_affordances": [],
+  "interactive_nodes": 25,
+  "aria_snapshot": "- banner:\n  - heading \"ミュウ プロンプトビルダー v3.1 ♥\" [level=1]\n  - paragraph:\n    - text: ここは\n    - strong: 最終調整のハブ\n    - text: です。衣装・表情・カメラ・背景・光などの\n    - strong: 選択は各部屋に一元化\n    - text: したので、このページには選択項目を置いていません。各部屋で作ったシンプルな断片を受け取って、重複除去とタグ数チェックをしてから出力します。出力は2系統：\n    - strong: 英語＝ComfyUI用\n    - text: （品質タグ＋短いタグ列）と\n    - strong: 日本語＝ChatGPT用\n    - text: （品質タグなし、キャラ説明も文章で組み立て）。普段は短い「通常版」でOK、LoRAなし／他モデル／img2img の時だけ「完全版」に切り替えてください。\n  - button \"最小構成にリセット\"\n- main:\n  - heading \"部屋マップ要素ごとに部屋を分けて管理し、選択できる場所は各部屋に一元化\" [level=2]\n  - link \"ハブ（このページ） 固定ブロック・人数と、各部屋の断片を受け取り、重複除去とタグ数チェックをして、英語／日本語で出力します。 稼働中\":\n    - /url: \"#outSec\"\n  - link \"コスプレカタログ コスプレ41着を画像で選ぶ部屋。衣装タグをコピーして、このページの「断片の取り込み」に貼ります。 別の部屋へ →\":\n    - /url: ../miyuu-kosupurekatarogu/\n  - link \"着せ替えビルダー 私服40プリセット＋アイテムと色テーマで組む部屋。タグをコピーして「断片の取り込み」に貼ります。 別の部屋へ →\":\n    - /url: ../miyuuzhao-seti-ebiruda/\n  - link \"カメラアングル早見表 画角・ポーズ・視線・表情の部屋。表情もカメラまわりとしてここに一元化しています。 別の部屋へ →\":\n    - /url: ../kameraanguruzao-jian-biao/\n  - link \"背景・環境／光・時間帯 専用の部屋はまだ無いので、当面は作った断片を「断片の取り込み」に貼れば、両方の出力へ反映されます。 取り込み対応\":\n    - /url: \"#fragSec\"\n  - link \"シチュエーション（一人／二人） 専用の部屋は次段階で新設。それまでは「断片の取り込み」に貼れば、両方の出力へ反映されます。 取り込み対応\":\n    - /url: \"#fragSec\"\n  - paragraph: 各部屋の断片は「1要素＝タグ5つまで」を目安にシンプルに保つのがルール。ハブ側で重複を機械的に除去するので、全部合わせても ComfyUI の入力欄を圧迫しにくくなります。デザインと色味は、コスプレカタログ／着せ替えビルダーとこのハブで統一しています。\n  - heading \"衣装を選ぶ衣装の選択はここでは行いません。種類を選ぶと専用の部屋へ飛びます\" [level=2]\n  - link \"コスプレで選ぶ 「ミュウコスプレカタログ」へ飛びます。キャラ・ポーズ固定の立ち絵で41着を画像で見比べて、着せたい1着の衣装タグをコピーしてください。 全41着・画像付きカテゴリ＋検索 コスプレカタログを開く →\":\n    - /url: ../miyuu-kosupurekatarogu/\n  - link \"私服で選ぶ 「ミュウ着せ替えビルダー」へ飛びます。私服プリセット40種（立ち絵の見本付き）から選ぶか、アイテムと色テーマを組み合わせて、タグをコピーしてください。 プリセット40種・見本付き色テーマ対応 着せ替えビルダーを開く →\":\n    - /url: ../miyuuzhao-seti-ebiruda/\n  - text: 1. 部屋で選んでタグをコピー → 2. 下の「断片の取り込み」に貼る → 3. 仕上げ済みの出力をコピー\n  - paragraph: 表情・ポーズ・画角は「カメラアングル早見表」、背景や時間帯の断片も同じ流れです。リンクが開かない時は、サイドバーの各スペースからも同じ部屋に入れます。\n  - heading \"プロンプトの長さまずここだけ選べばOK\" [level=2]\n  - radio \"通常版（LoRAあり・短い）\" [checked]\n  - text: 通常版（LoRAあり・短い）\n  - radio \"完全版（LoRAなし・フル）\"\n  - text: 完全版（LoRAなし・フル）\n  - paragraph:\n    - strong: 通常版（推奨）\n    - text: — LoRA myu_original_v2（strength 0.8）使用時。固定タグはトリガー＋肌の均一さ＋指輪だけ。顔・髪・体型を外から重ねないので、LoRAと喧嘩せず絵が硬くなりにくいです。\n  - heading \"固定ブロックキャラの同一性用。常時ON・モードで中身が変わります\" [level=2]\n  - text: masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger\n  - paragraph: 通常版の固定ブロック：14タグ / 209文字（完全版は 37タグ）。短い方がデフォルトです。\n  - heading \"人数ソロ／二人（男）／二人（女）で土台（ポジティブ・ネガティブ両方）が切り替わります\" [level=2]\n  - radio \"ソロ\" [checked]\n  - text: ソロ\n  - radio \"二人（男）\"\n  - text: 二人（男）\n  - radio \"二人（女）\"\n  - text: 二人（女）\n  - textbox \"相手の特徴タグ（二人の時だけ有効。例：black hair, tall, muscular）\" [disabled]\n  - textbox \"相手の説明（二人の時だけ有効。例：黒髪で背の高い男性）\" [disabled]\n  - button \"「俺」セットを相手タグに入力\" [disabled]\n  - paragraph: 二人モードでは、LoRAが相手までミュウ寄りに引っ張るのを防ぐため、相手の特徴を明確に違うタグで指定するのがコツです。「俺」セットの中身はスクリプト冒頭の ORE_TAGS で自分のイメージに合わせて編集できます。\n  - heading \"断片の取り込み各部屋で作った断片を貼ると、出力に合流します\" [level=2]\n  - paragraph: 英語タグ（ComfyUI用）— 衣装・カメラ・背景など、部屋でコピーしたタグをまとめて貼れます。重複除去の対象になります\n  - textbox \"例（衣装）：maid outfit, apron, headdress 例（カメラ）：from below, full body, gentle smile\"\n  - paragraph: 日本語の文（ChatGPT用）— 文の形で貼るとそのまま文章に差し込まれます\n  - textbox \"例：メイド服を着て、カフェで微笑んでいる。夕日の光が差し込んでいる\"\n  - paragraph: 衣装・表情・カメラ・背景・光・時間帯・シチュエーションの断片は、すべてここが唯一の受け口です。断片は短く保つのがコツ（1要素＝タグ5つまで目安）。\n  - heading \"シーン追加タグ英語タグ（ComfyUI用）。自分で足したいタグをカンマ区切りで入力\" [level=2]\n  - textbox \"例：holding cup, steam, window seat\"\n  - heading \"カスタムプリセット自分のプロンプトを登録してワンクリックで呼び出し（ブラウザに保存）\" [level=2]\n  - textbox \"プリセット名（例：お気に入り1）\"\n  - textbox \"登録したいタグ文字列を貼り付け\"\n  - button \"プリセットを登録\"\n  - heading \"ネガティブ設定失敗パターンの先回り防止\" [level=2]\n  - checkbox \"手の破綻を防ぐ\" [checked]\n  - text: 手の破綻を防ぐ\n  - checkbox \"日焼け跡・色割れを防ぐ\" [checked]\n  - text: 日焼け跡・色割れを防ぐ\n  - heading \"英語プロンプト（ComfyUI用）— ポジティブ — 14タグ / 209文字\" [level=2]\n  - textbox: masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger\n  - button \"コピーする\"\n  - heading \"英語プロンプト（ComfyUI用）— ネガティブ — 32タグ / 373文字（重複 1 件を除去）\" [level=2]\n  - textbox: worst quality, low quality, bad anatomy, watermark, text, child, loli, young, pale skin, tan lines, muscular, abs, censored, multiple views, 2girls, 1boy, multiple girls, split screen, duplicate, clone, bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands, (tan lines:1.5), tanlines, (uneven skin tone:1.4), two-tone skin, fair skin, white skin\n  - button \"コピーする\"\n  - paragraph: 推奨設定（通常版＋ Prefect Illustrious XL v8 ＋ LoRA myu_original_v2、strength 0.8）：サイズ 832×1216 / steps 28 / CFG 5.5 / sampler euler_ancestral / FaceDetailer ON（denoise 0.30）。トリガーワード myu_original は固定ブロックに含まれています。絵が崩れる時だけ完全版に切り替えるのがおすすめです。\n  - heading \"日本語プロンプト（ChatGPT用） — 119文字\" [level=2]\n  - textbox: アニメ風のイラスト。27歳の成人女性「ミュウ」。黒ギャルで、明るいベージュブロンドの短いレイヤードボブ、茶色の瞳、小さめの鼻と口元、耳ピアス。肌はディープブロンズの均一な褐色で、体型は曲線的で柔らか。左手の薬指に銀の結婚指輪を着けている。\n  - button \"コピーする\"\n  - paragraph: ChatGPT用は品質タグ（masterpiece等）とネガティブを使わないので省き、キャラ説明も文章で組み立てています。人数と「断片の取り込み」の日本語欄がそのまま反映されます。\n- contentinfo: MYU PROMPT BUILDER v3.1 (HUB) — 衣装・表情・カメラ・背景・光の選択は各部屋に一元化。ハブは固定ブロック・人数・断片の取り込み・仕上げ・出力だけを担当します。",
+  "document_text": {
+    "path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-09T12-21-43Z-980154554/document-text.txt",
+    "chars": 4286,
+    "truncated": false
+  },
+  "audit_session_id": "feb5a478-6d21-4284-9677-81e78a5e439a",
+  "readiness": {
+    "desktop": {
+      "settled": true,
+      "settle_ms": 483,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    },
+    "mobile": {
+      "settled": true,
+      "settle_ms": 491,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    }
+  },
+  "color_scheme": {
+    "declared": "light dark",
+    "media_dependent": null,
+    "dark_frame": false
+  },
+  "mobile_ms": 1890.4352679999997,
+  "cold_launch_ms": 675.1747170000001,
+  "desktop_ms": 2230.591901,
+  "browser_launches": 1,
+  "audit_path": "shared-concurrent",
+  "diagnostics": {
+    "audit_path": "shared-concurrent",
+    "concurrent_ran": true,
+    "concurrent_desktop_retry": false,
+    "concurrent_mobile_retry": false,
+    "shared_launch_failed": false,
+    "nav_retries": 0,
+    "settle_retries": 0
+  }
+}

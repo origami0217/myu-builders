@@ -1,0 +1,9 @@
+{
+  "schema_version": "hatch.probe_ui_session.v1",
+  "socket": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/.harness/probe-ui/sock",
+  "slug": "comfyuipuronputobiruda",
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-46051b0e-c05f-45b8-9a7c-cad18adbd8c0/",
+  "audit_session_id": "5bc4f697-524e-444b-ab9b-1930d9f41def",
+  "pid": 14542,
+  "phone_first": true
+}

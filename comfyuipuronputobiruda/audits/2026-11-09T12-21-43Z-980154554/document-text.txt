@@ -1,0 +1,63 @@
+# ミュウ プロンプトビルダー v3.1 ♥
+ここは最終調整のハブです。衣装・表情・カメラ・背景・光などの選択は各部屋に一元化したので、このページには選択項目を置いていません。各部屋で作ったシンプルな断片を受け取って、重複除去とタグ数チェックをしてから出力します。出力は2系統：英語＝ComfyUI用（品質タグ＋短いタグ列）と日本語＝ChatGPT用（品質タグなし、キャラ説明も文章で組み立て）。普段は短い「通常版」でOK、LoRAなし／他モデル／img2img の時だけ「完全版」に切り替えてください。
+[button: 最小構成にリセット]
+## 部屋マップ要素ごとに部屋を分けて管理し、選択できる場所は各部屋に一元化
+ハブ（このページ） 固定ブロック・人数と、各部屋の断片を受け取り、重複除去とタグ数チェックをして、英語／日本語で出力します。 稼働中 コスプレカタログ コスプレ41着を画像で選ぶ部屋。衣装タグをコピーして、このページの「断片の取り込み」に貼ります。 別の部屋へ → (→ ../miyuu-kosupurekatarogu/) 着せ替えビルダー 私服40プリセット＋アイテムと色テーマで組む部屋。タグをコピーして「断片の取り込み」に貼ります。 別の部屋へ → (→ ../miyuuzhao-seti-ebiruda/) カメラアングル早見表 画角・ポーズ・視線・表情の部屋。表情もカメラまわりとしてここに一元化しています。 別の部屋へ → (→ ../kameraanguruzao-jian-biao/) 背景・環境／光・時間帯 専用の部屋はまだ無いので、当面は作った断片を「断片の取り込み」に貼れば、両方の出力へ反映されます。 取り込み対応 シチュエーション（一人／二人） 専用の部屋は次段階で新設。それまでは「断片の取り込み」に貼れば、両方の出力へ反映されます。 取り込み対応
+各部屋の断片は「1要素＝タグ5つまで」を目安にシンプルに保つのがルール。ハブ側で重複を機械的に除去するので、全部合わせても ComfyUI の入力欄を圧迫しにくくなります。デザインと色味は、コスプレカタログ／着せ替えビルダーとこのハブで統一しています。
+## 衣装を選ぶ衣装の選択はここでは行いません。種類を選ぶと専用の部屋へ飛びます
+🎀 コスプレで選ぶ 「ミュウコスプレカタログ」へ飛びます。キャラ・ポーズ固定の立ち絵で41着を画像で見比べて、着せたい1着の衣装タグをコピーしてください。 全41着・画像付きカテゴリ＋検索 コスプレカタログを開く → (→ ../miyuu-kosupurekatarogu/) 👕 私服で選ぶ 「ミュウ着せ替えビルダー」へ飛びます。私服プリセット40種（立ち絵の見本付き）から選ぶか、アイテムと色テーマを組み合わせて、タグをコピーしてください。 プリセット40種・見本付き色テーマ対応 着せ替えビルダーを開く → (→ ../miyuuzhao-seti-ebiruda/)
+1. 部屋で選んでタグをコピー
+→
+2. 下の「断片の取り込み」に貼る
+→
+3. 仕上げ済みの出力をコピー
+表情・ポーズ・画角は「カメラアングル早見表」、背景や時間帯の断片も同じ流れです。リンクが開かない時は、サイドバーの各スペースからも同じ部屋に入れます。
+## プロンプトの長さまずここだけ選べばOK
+[input radio: promptMode = lite]
+通常版（LoRAあり・短い）
+[input radio: promptMode = full]
+完全版（LoRAなし・フル）
+通常版（推奨） — LoRA myu_original_v2（strength 0.8）使用時。固定タグはトリガー＋肌の均一さ＋指輪だけ。顔・髪・体型を外から重ねないので、LoRAと喧嘩せず絵が硬くなりにくいです。
+## 固定ブロックキャラの同一性用。常時ON・モードで中身が変わります
+masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger
+通常版の固定ブロック：14タグ / 209文字（完全版は 37タグ）。短い方がデフォルトです。
+## 人数ソロ／二人（男）／二人（女）で土台（ポジティブ・ネガティブ両方）が切り替わります
+[input radio: people = solo]
+ソロ
+[input radio: people = duo_m]
+二人（男）
+[input radio: people = duo_f]
+二人（女）
+[input text: 相手の特徴タグ（二人の時だけ有効。例：black hair, tall, muscular）]
+[input text: 相手の説明（二人の時だけ有効。例：黒髪で背の高い男性）]
+[button: 「俺」セットを相手タグに入力]
+二人モードでは、LoRAが相手までミュウ寄りに引っ張るのを防ぐため、相手の特徴を明確に違うタグで指定するのがコツです。「俺」セットの中身はスクリプト冒頭の ORE_TAGS で自分のイメージに合わせて編集できます。
+## 断片の取り込み各部屋で作った断片を貼ると、出力に合流します
+英語タグ（ComfyUI用）— 衣装・カメラ・背景など、部屋でコピーしたタグをまとめて貼れます。重複除去の対象になります
+[textarea: 例（衣装）：maid outfit, apron, headdress 例（カメラ）：from below, full body, gentle smile]
+日本語の文（ChatGPT用）— 文の形で貼るとそのまま文章に差し込まれます
+[textarea: 例：メイド服を着て、カフェで微笑んでいる。夕日の光が差し込んでいる]
+衣装・表情・カメラ・背景・光・時間帯・シチュエーションの断片は、すべてここが唯一の受け口です。断片は短く保つのがコツ（1要素＝タグ5つまで目安）。
+## シーン追加タグ英語タグ（ComfyUI用）。自分で足したいタグをカンマ区切りで入力
+[input text: 例：holding cup, steam, window seat]
+## カスタムプリセット自分のプロンプトを登録してワンクリックで呼び出し（ブラウザに保存）
+[input text: プリセット名（例：お気に入り1）]
+[textarea: 登録したいタグ文字列を貼り付け]
+[button: プリセットを登録]
+## ネガティブ設定失敗パターンの先回り防止
+[input checkbox: = on]
+手の破綻を防ぐ
+[input checkbox: = on]
+日焼け跡・色割れを防ぐ
+## 英語プロンプト（ComfyUI用）— ポジティブ — 14タグ / 209文字
+[textarea: = masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, dark skin, golden brown skin, (even skin tone:1.3), wedding ring, silver ring on left ring finger]
+[button: コピーする]
+## 英語プロンプト（ComfyUI用）— ネガティブ — 32タグ / 373文字（重複 1 件を除去）
+[textarea: = worst quality, low quality, bad anatomy, watermark, text, child, loli, young, pale skin, tan lines, muscular, abs, censored, multiple views, 2girls, 1boy, multiple girls, split screen, duplicate, clone, bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands, (tan lines:1.5), tanlines, (uneven skin tone:1.4), two-tone skin, fair skin, white skin]
+[button: コピーする]
+推奨設定（通常版＋ Prefect Illustrious XL v8 ＋ LoRA myu_original_v2、strength 0.8）：サイズ 832×1216 / steps 28 / CFG 5.5 / sampler euler_ancestral / FaceDetailer ON（denoise 0.30）。トリガーワード myu_original は固定ブロックに含まれています。絵が崩れる時だけ完全版に切り替えるのがおすすめです。
+## 日本語プロンプト（ChatGPT用） — 119文字
+[textarea: = アニメ風のイラスト。27歳の成人女性「ミュウ」。黒ギャルで、明るいベージュブロンドの短いレイヤードボブ、茶色の瞳、小さめの鼻と口元、耳ピアス。肌はディープブロンズの均一な褐色で、体型は曲線的で柔らか。左手の薬指に銀の結婚指輪を着けている。]
+[button: コピーする]
+ChatGPT用は品質タグ（masterpiece等）とネガティブを使わないので省き、キャラ説明も文章で組み立てています。人数と「断片の取り込み」の日本語欄がそのまま反映されます。
+MYU PROMPT BUILDER v3.1 (HUB) — 衣装・表情・カメラ・背景・光の選択は各部屋に一元化。ハブは固定ブロック・人数・断片の取り込み・仕上げ・出力だけを担当します。

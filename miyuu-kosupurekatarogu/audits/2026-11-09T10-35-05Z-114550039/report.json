@@ -1,0 +1,220 @@
+{
+  "ok": true,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-f165dc42-5efe-4dbd-a26b-8277d0403518/",
+  "duration_ms": 6102.161535,
+  "output_dir": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T10-35-05Z-114550039",
+  "nav_status": 200,
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T10-35-05Z-114550039/screenshot.png",
+      "fullpage_screenshot_path": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T10-35-05Z-114550039/screenshot-full.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T10-35-05Z-114550039/screenshot-mobile.png"
+    }
+  },
+  "mobile_layout": {
+    "viewport_width": 390,
+    "scroll_width": 390,
+    "overflow_px": 0,
+    "widest_selector": null,
+    "verdict": "pass"
+  },
+  "horizontal_scrollers": [
+    {
+      "selector": "div#cat-tabs.cat-tabs",
+      "scroll_width": 681,
+      "client_width": 358
+    }
+  ],
+  "unreachable_controls": {
+    "desktop": [],
+    "mobile": []
+  },
+  "clipped": {
+    "desktop": [],
+    "mobile": [
+      {
+        "tag": "button",
+        "text": "ファンタジー・イベント8",
+        "kind": "past_viewport",
+        "overflow_px": 81,
+        "bbox": [
+          282,
+          346,
+          189,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "8",
+        "kind": "past_viewport",
+        "overflow_px": 66,
+        "bbox": [
+          449,
+          357,
+          7,
+          17
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "和・中華系3",
+        "kind": "past_viewport",
+        "overflow_px": 197,
+        "bbox": [
+          479,
+          346,
+          108,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "3",
+        "kind": "past_viewport",
+        "overflow_px": 182,
+        "bbox": [
+          566,
+          357,
+          7,
+          17
+        ]
+      },
+      {
+        "tag": "button",
+        "text": "際どい系12",
+        "kind": "past_viewport",
+        "overflow_px": 307,
+        "bbox": [
+          595,
+          346,
+          101,
+          38
+        ]
+      },
+      {
+        "tag": "span",
+        "text": "12",
+        "kind": "past_viewport",
+        "overflow_px": 292,
+        "bbox": [
+          668,
+          357,
+          13,
+          17
+        ]
+      }
+    ]
+  },
+  "images": {
+    "total": 13,
+    "broken": [],
+    "duplicate": [],
+    "unstable": [],
+    "failed_requests": [],
+    "external_blocked": {
+      "count": 0,
+      "sample": []
+    },
+    "sample_urls": [
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f165dc42-5efe-4dbd-a26b-8277d0403518/assets/negligee.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f165dc42-5efe-4dbd-a26b-8277d0403518/assets/bunny.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f165dc42-5efe-4dbd-a26b-8277d0403518/assets/sailor.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f165dc42-5efe-4dbd-a26b-8277d0403518/assets/maid.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f165dc42-5efe-4dbd-a26b-8277d0403518/assets/nurse.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-f165dc42-5efe-4dbd-a26b-8277d0403518/assets/miko.jpg"
+    ],
+    "verdict": "pass"
+  },
+  "text_issues": [],
+  "console_errors": [],
+  "console_warnings": [],
+  "external_fetch_failures": 2,
+  "external_fetch_failure_samples": [
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)",
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)"
+  ],
+  "blocked_requests": [],
+  "external_requests": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap",
+      "method": "GET",
+      "resource_type": "stylesheet"
+    }
+  ],
+  "external_requests_dropped": 0,
+  "external_requests_dropped_data_bearing": 0,
+  "transport_ledger_active": true,
+  "egress_lockdown": true,
+  "transport_connections": [
+    {
+      "host": "artifact-capture.invalid",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 3932,
+      "bytes_down": 2485
+    },
+    {
+      "host": "fonts.googleapis.com",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 0,
+      "bytes_down": 0,
+      "policy_denied": true
+    }
+  ],
+  "transport_udp_attempts": 0,
+  "transport_overflow": 0,
+  "unexplained_transport_hosts": [],
+  "broken_assets": [],
+  "blocked_affordances": [],
+  "interactive_nodes": 25,
+  "aria_snapshot": "- heading \"ミュウ コスプレカタログ\" [level=1]\n- paragraph: キャラ・ポーズ・表情は全ページ共通の固定モデル。衣装だけが変わる41着の着せ替えカタログ。気になる1着を開くと、そのままComfyUIに貼れる衣装タグとプロンプトが取れるよ。\n- text: 全41着 seed 939393 固定 LoRA myu_original_v2（0.8） 立ちポーズ・全身・やさしい笑顔\n- img\n- searchbox\n- text: 41 着ヒット\n- tablist \"カテゴリ\":\n  - tab \"すべて41\" [selected]\n  - tab \"定番8\"\n  - tab \"制服系10\"\n  - tab \"ファンタジー・イベント8\"\n  - tab \"和・中華系3\"\n  - tab \"際どい系12\"\n- button \"ネグリジェの詳細を開く\":\n  - img \"ミュウのコスプレ：ネグリジェ\"\n  - text: No.01 ネグリジェ 定番\n- button \"バニースーツの詳細を開く\":\n  - img \"ミュウのコスプレ：バニースーツ\"\n  - text: No.02 バニースーツ 定番\n- button \"セーラー服の詳細を開く\":\n  - img \"ミュウのコスプレ：セーラー服\"\n  - text: No.03 セーラー服 定番\n- button \"メイドの詳細を開く\":\n  - img \"ミュウのコスプレ：メイド\"\n  - text: No.04 メイド 定番\n- button \"ナースの詳細を開く\":\n  - img \"ミュウのコスプレ：ナース\"\n  - text: No.05 ナース 定番\n- button \"巫女の詳細を開く\":\n  - img \"ミュウのコスプレ：巫女\"\n  - text: No.06 巫女 定番\n- button \"悪魔コスの詳細を開く\":\n  - img \"ミュウのコスプレ：悪魔コス\"\n  - text: No.07 悪魔コス 定番\n- button \"サンタコスの詳細を開く\":\n  - img \"ミュウのコスプレ：サンタコス\"\n  - text: No.08 サンタコス 定番\n- button \"警察官の詳細を開く\":\n  - img \"ミュウのコスプレ：警察官\"\n  - text: No.09 警察官 制服系\n- button \"軍服の詳細を開く\":\n  - img \"ミュウのコスプレ：軍服\"\n  - text: No.10 軍服 制服系\n- button \"CAの詳細を開く\":\n  - img \"ミュウのコスプレ：CA\"\n  - text: No.11 CA 制服系\n- button \"教師の詳細を開く\":\n  - img \"ミュウのコスプレ：教師\"\n  - text: No.12 教師 制服系\n- navigation \"ページ送り\":\n  - button \"← 前へ\" [disabled]\n  - button \"1\"\n  - button \"2\"\n  - button \"3\"\n  - button \"4\"\n  - button \"次へ →\"\n- status",
+  "document_text": {
+    "path": "/home/hatch/workspace/ts-spaces/miyuu-kosupurekatarogu/audits/2026-11-09T10-35-05Z-114550039/document-text.txt",
+    "chars": 1435,
+    "truncated": false
+  },
+  "audit_session_id": "b1ba6eff-97b1-4d3e-85c1-0ca678be00fa",
+  "readiness": {
+    "desktop": {
+      "settled": true,
+      "settle_ms": 742,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    },
+    "mobile": {
+      "settled": true,
+      "settle_ms": 709,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    }
+  },
+  "color_scheme": {
+    "declared": "light dark",
+    "media_dependent": null,
+    "dark_frame": false
+  },
+  "mobile_ms": 2482.6046579999997,
+  "cold_launch_ms": 2385.93282,
+  "desktop_ms": 2879.139037,
+  "browser_launches": 1,
+  "audit_path": "shared-concurrent",
+  "diagnostics": {
+    "audit_path": "shared-concurrent",
+    "concurrent_ran": true,
+    "concurrent_desktop_retry": false,
+    "concurrent_mobile_retry": false,
+    "shared_launch_failed": false,
+    "nav_retries": 0,
+    "settle_retries": 0
+  }
+}

@@ -1,0 +1,669 @@
+{
+  "ok": true,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-52e50f6a-9990-4f89-a5b5-d55bb8a69c6d/",
+  "duration_ms": 3758.059691,
+  "output_dir": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-08T04-06-23Z-000959315",
+  "nav_status": 200,
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-08T04-06-23Z-000959315/screenshot.png",
+      "fullpage_screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-08T04-06-23Z-000959315/screenshot-full.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-08T04-06-23Z-000959315/screenshot-mobile.png"
+    }
+  },
+  "mobile_layout": {
+    "viewport_width": 390,
+    "scroll_width": 390,
+    "overflow_px": 0,
+    "widest_selector": null,
+    "verdict": "pass"
+  },
+  "horizontal_scrollers": [],
+  "unreachable_controls": {
+    "desktop": [
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          326,
+          358,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          390,
+          358,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          493,
+          358,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          326,
+          629,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          390,
+          629,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          493,
+          629,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          608,
+          629,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          789,
+          629,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          866,
+          629,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          943,
+          629,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          1007,
+          629,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          326,
+          674,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          326,
+          784,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          390,
+          784,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          506,
+          784,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          608,
+          784,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          723,
+          784,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          814,
+          784,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          326,
+          894,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          455,
+          894,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          540,
+          894,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          630,
+          894,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          707,
+          894,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          849,
+          894,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          326,
+          1004,
+          13,
+          13
+        ]
+      }
+    ],
+    "mobile": [
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          576,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          100,
+          576,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          203,
+          576,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          887,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          100,
+          887,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          203,
+          887,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          932,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          217,
+          932,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          294,
+          932,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          977,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          100,
+          977,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          190,
+          977,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          1087,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          100,
+          1087,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          216,
+          1087,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          1132,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          151,
+          1132,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          241,
+          1132,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          1242,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          165,
+          1242,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          250,
+          1242,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          1287,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          113,
+          1287,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          255,
+          1287,
+          13,
+          13
+        ]
+      },
+      {
+        "name": "input",
+        "tag": "input",
+        "reason": "invisible",
+        "bbox": [
+          36,
+          1397,
+          13,
+          13
+        ]
+      }
+    ]
+  },
+  "clipped": {
+    "desktop": [],
+    "mobile": []
+  },
+  "images": {
+    "total": 0,
+    "broken": [],
+    "duplicate": [],
+    "unstable": [],
+    "failed_requests": [],
+    "external_blocked": {
+      "count": 0,
+      "sample": []
+    },
+    "sample_urls": [],
+    "verdict": "pass"
+  },
+  "text_issues": [],
+  "console_errors": [],
+  "console_warnings": [],
+  "external_fetch_failures": 0,
+  "external_fetch_failure_samples": [],
+  "blocked_requests": [],
+  "external_requests": [],
+  "external_requests_dropped": 0,
+  "external_requests_dropped_data_bearing": 0,
+  "transport_ledger_active": true,
+  "egress_lockdown": true,
+  "transport_connections": [
+    {
+      "host": "artifact-capture.invalid",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 3964,
+      "bytes_down": 2489
+    }
+  ],
+  "transport_udp_attempts": 0,
+  "transport_overflow": 0,
+  "unexplained_transport_hosts": [],
+  "broken_assets": [],
+  "blocked_affordances": [],
+  "interactive_nodes": 6,
+  "aria_snapshot": "- banner:\n  - heading \"ミュウ プロンプトビルダー v2.3 ♥\" [level=1]\n  - paragraph: 要素を選ぶと、ミュウ固定タグ入りのプロンプトが組み上がります。コスプレを選ぶと衣装レイヤーは上書きされます。\n- main:\n  - heading \"固定ブロックキャラの同一性用。常時ON\" [level=2]\n  - text: masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, (messy spiky short hair:1.35), choppy layered bob hair, bangs covering forehead, hair between eyes, light blonde beige hair, brown eyes, thin eyebrows, small nose, small mouth, ear piercings, multiple piercings, dark skin, dark-skinned female, (tanned skin:1.15), golden brown skin, healthy skin, (even skin tone:1.3), uniform skin color all over body, (curvy:1.2), toned body, (large breasts:1.15), wide hips, narrow waist, (long legs:1.25), long slender legs\n  - heading \"人数ソロ／二人（男）／二人（女）で土台（ポジティブ・ネガティブ両方）が切り替わります\" [level=2]\n  - radio [checked]\n  - text: ソロ\n  - radio\n  - text: 二人（男）\n  - radio\n  - text: 二人（女）\n  - textbox \"相手の特徴タグ（二人の時だけ有効。例：black hair, tall, muscular）\" [disabled]\n  - button \"「俺」セットを相手タグに入力\" [disabled]\n  - paragraph: 二人モードでは、LoRAが相手までミュウ寄りに引っ張るのを防ぐため、相手の特徴を明確に違うタグで指定するのがコツです。「俺」セットの中身はスクリプト冒頭の ORE_TAGS で自分のイメージに合わせて編集できます。\n  - heading \"コスプレ1つ選択。選ぶと下の衣装レイヤーは上書き\" [level=2]\n  - radio [checked]\n  - text: なし\n  - radio\n  - text: ネグリジェ\n  - radio\n  - text: バニースーツ\n  - radio\n  - text: セーラー服（コスプレ）\n  - radio\n  - text: メイド\n  - radio\n  - text: ナース\n  - radio\n  - text: 巫女\n  - radio\n  - text: 悪魔コス\n  - radio\n  - text: サンタコス\n  - heading \"アウター（上半身）1つ選択\" [level=2]\n  - radio [checked]\n  - text: なし\n  - radio\n  - text: 基本パーカー\n  - radio\n  - text: ジャケット\n  - radio\n  - text: カーディガン\n  - radio\n  - text: ブレザー\n  - radio\n  - text: コート\n  - heading \"インナー（上半身）1つ選択\" [level=2]\n  - radio [checked]\n  - text: 黒タンクトップ\n  - radio\n  - text: Tシャツ\n  - radio\n  - text: ブラウス\n  - radio\n  - text: ニット\n  - radio\n  - text: オフショルニット\n  - radio\n  - text: キャミソール\n  - heading \"ブラ1つ選択\" [level=2]\n  - radio [checked]\n  - text: 指定なし\n  - radio\n  - text: 黒レース\n  - radio\n  - text: 白\n  - radio\n  - text: ピンク\n  - radio\n  - text: スポーツブラ\n  - heading \"ボトムス（下半身）1つ選択\" [level=2]\n  - radio [checked]\n  - text: カーゴパンツ\n  - radio\n  - text: ジーンズ\n  - radio\n  - text: ショーツ\n  - radio\n  - text: レザーショーツ\n  - radio\n  - text: ミニスカート\n  - radio\n  - text: プリーツスカート\n  - radio\n  - text: ロングスカート\n  - radio\n  - text: スラックス\n  - radio\n  - text: なし\n  - heading \"パンティ1つ選択\" [level=2]\n  - radio [checked]\n  - text: 指定なし\n  - radio\n  - text: 黒レース\n  - radio\n  - text: 白\n  - radio\n  - text: ボーダー\n  - radio\n  - text: ピンク\n  - radio\n  - text: 紐パン\n  - heading \"靴1つ選択\" [level=2]\n  - radio [checked]\n  - text: 白スニーカー\n  - radio\n  - text: ブーツ\n  - radio\n  - text: ヒール\n  - radio\n  - text: サンダル\n  - radio\n  - text: ローファー\n  - radio\n  - text: 素足\n  - heading \"靴下・レッグウェア1つ選択\" [level=2]\n  - radio [checked]\n  - text: 指定なし\n  - radio\n  - text: 黒ニーソ\n  - radio\n  - text: 白ニーソ\n  - radio\n  - text: 網タイツ\n  - radio\n  - text: タイツ\n  - radio\n  - text: アンクルソックス\n  - radio\n  - text: ガーターベルト\n  - heading \"体勢1つ選択\" [level=2]\n  - radio [checked]\n  - text: 立っている\n  - radio\n  - text: 椅子に座る\n  - radio\n  - text: 床に座る\n  - radio\n  - text: ベッドに寝転がる\n  - radio\n  - text: 膝立ち\n  - radio\n  - text: しゃがむ\n  - radio\n  - text: 壁に寄りかかる\n  - radio\n  - text: 四つん這い\n  - heading \"構図・カメラ複数選択OK\" [level=2]\n  - checkbox\n  - text: 自撮り風\n  - checkbox\n  - text: 俯瞰\n  - checkbox\n  - text: 横から\n  - checkbox\n  - text: 全身\n  - checkbox\n  - text: 顔アップ\n  - checkbox\n  - text: カメラ目線\n  - checkbox\n  - text: 頬杖\n  - checkbox\n  - text: ピース\n  - checkbox\n  - text: 歩き\n  - heading \"表情1つ選択\" [level=2]\n  - radio [checked]\n  - text: やさしい笑顔\n  - radio\n  - text: ウインク\n  - radio\n  - text: 笑い\n  - radio\n  - text: 眠そう\n  - radio\n  - text: 驚き\n  - radio\n  - text: じっと見つめる\n  - heading \"背景1つ選択\" [level=2]\n  - radio [checked]\n  - text: カフェ\n  - radio\n  - text: 街\n  - radio\n  - text: ビーチ（夕景）\n  - radio\n  - text: ベッドルーム\n  - radio\n  - text: ホテルの部屋\n  - radio\n  - text: バスルーム\n  - radio\n  - text: 温泉\n  - radio\n  - text: プール\n  - radio\n  - text: オフィス\n  - radio\n  - text: 図書室\n  - radio\n  - text: 屋上\n  - radio\n  - text: リビング\n  - radio\n  - text: 無地背景\n  - radio\n  - text: 夜景\n  - heading \"光・時間帯1つ選択\" [level=2]\n  - radio [checked]\n  - text: 昼の光\n  - radio\n  - text: 夕日\n  - radio\n  - text: ランプの光\n  - radio\n  - text: 夜\n  - heading \"シーン追加タグ自分で足したいタグをカンマ区切りで入力\" [level=2]\n  - textbox \"例：holding cup, steam, window seat\"\n  - heading \"カスタムプリセット自分のプロンプトを登録してワンクリックで呼び出し（ブラウザに保存）\" [level=2]\n  - textbox \"プリセット名（例：お気に入り1）\"\n  - textbox \"登録したいタグ文字列を貼り付け\"\n  - button \"プリセットを登録\"\n  - heading \"ネガティブ設定失敗パターンの先回り防止\" [level=2]\n  - checkbox [checked]\n  - text: 手の破綻を防ぐ\n  - checkbox [checked]\n  - text: 日焼け跡・色割れを防ぐ\n  - heading \"ポジティブ・プロンプト\" [level=2]\n  - textbox: masterpiece, best quality, amazing quality, myu_original, (solo:1.3), 1girl, adult woman, mature female, gyaru, (messy spiky short hair:1.35), choppy layered bob hair, bangs covering forehead, hair between eyes, light blonde beige hair, brown eyes, thin eyebrows, small nose, small mouth, ear piercings, multiple piercings, dark skin, dark-skinned female, (tanned skin:1.15), golden brown skin, healthy skin, (even skin tone:1.3), uniform skin color all over body, (curvy:1.2), toned body, (large breasts:1.15), wide hips, narrow waist, (long legs:1.25), long slender legs, black cropped tank top, dark cargo pants with rings and straps, white chunky sneakers, standing, gentle expression, soft smile, light blush, cheek blush, cafe interior, coffee shop, window seat, daylight, natural light\n  - button \"コピーする\"\n  - heading \"ネガティブ・プロンプト\" [level=2]\n  - textbox: bad quality, worst quality, low quality, lowres, blurry, bad anatomy, watermark, text, logo, signature, long hair, medium hair, very long hair, smooth straight hair, heavy makeup, thick eyebrows, child, teen, loli, young looking, censored, mosaic censoring, bar censor, multiple views, character sheet, 2girls, 1boy, multiple girls, split screen, duplicate, clone, bad hands, extra fingers, missing fingers, extra arms, extra legs, deformed hands, (tan lines:1.5), (uneven skin tone:1.4), two-tone skin, pale skin, fair skin, white skin\n  - button \"コピーする\"\n  - paragraph: 推奨設定（Prefect Illustrious XL v8）：サイズ 832×1216 / steps 28 / CFG 5.5 / sampler euler_ancestral / FaceDetailer ON（denoise 0.30）\n- contentinfo: MYU PROMPT BUILDER v2.3 — option lists are editable in the GROUPS object at the top of the script.",
+  "document_text": {
+    "path": "/home/hatch/workspace/ts-spaces/comfyuipuronputobiruda/audits/2026-11-08T04-06-23Z-000959315/document-text.txt",
+    "chars": 6362,
+    "truncated": false
+  },
+  "audit_session_id": "b0738091-33c0-485c-883b-4ec8a4e698a2",
+  "readiness": {
+    "desktop": {
+      "settled": true,
+      "settle_ms": 505,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    },
+    "mobile": {
+      "settled": true,
+      "settle_ms": 473,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    }
+  },
+  "color_scheme": {
+    "declared": "normal",
+    "media_dependent": null,
+    "dark_frame": false
+  },
+  "mobile_ms": 2735.426399,
+  "cold_launch_ms": 301.79400400000003,
+  "desktop_ms": 3082.61034,
+  "browser_launches": 1,
+  "audit_path": "shared-concurrent",
+  "diagnostics": {
+    "audit_path": "shared-concurrent",
+    "concurrent_ran": true,
+    "concurrent_desktop_retry": false,
+    "concurrent_mobile_retry": false,
+    "shared_launch_failed": false,
+    "nav_retries": 0,
+    "settle_retries": 0
+  }
+}

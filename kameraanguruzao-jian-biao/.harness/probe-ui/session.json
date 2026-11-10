@@ -1,0 +1,9 @@
+{
+  "schema_version": "hatch.probe_ui_session.v1",
+  "socket": "/home/hatch/workspace/ts-spaces/kameraanguruzao-jian-biao/.harness/probe-ui/sock",
+  "slug": "kameraanguruzao-jian-biao",
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-e670db32-51fb-41cc-aa62-283f1788dc55/",
+  "audit_session_id": "bb32654e-e99d-4c4a-bd26-c98da6a4d7a1",
+  "pid": 2186,
+  "phone_first": true
+}

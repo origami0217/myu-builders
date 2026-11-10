@@ -1,0 +1,275 @@
+{
+  "ok": true,
+  "url": "https://artifact-capture.invalid/spaces/v2/hatch-audit-5a65d59e-bc01-4552-a7f2-024aed942210/",
+  "duration_ms": 7789.704468999999,
+  "output_dir": "/home/hatch/workspace/ts-spaces/kameraanguruzao-jian-biao/audits/2026-11-09T12-55-07Z-572195868",
+  "nav_status": 200,
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/kameraanguruzao-jian-biao/audits/2026-11-09T12-55-07Z-572195868/screenshot.png",
+      "fullpage_screenshot_path": "/home/hatch/workspace/ts-spaces/kameraanguruzao-jian-biao/audits/2026-11-09T12-55-07Z-572195868/screenshot-full.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "screenshot_path": "/home/hatch/workspace/ts-spaces/kameraanguruzao-jian-biao/audits/2026-11-09T12-55-07Z-572195868/screenshot-mobile.png"
+    }
+  },
+  "mobile_layout": {
+    "viewport_width": 390,
+    "scroll_width": 390,
+    "overflow_px": 0,
+    "widest_selector": null,
+    "verdict": "pass"
+  },
+  "horizontal_scrollers": [],
+  "unreachable_controls": {
+    "desktop": [],
+    "mobile": []
+  },
+  "clipped": {
+    "desktop": [
+      {
+        "tag": "text",
+        "text": "寝転び・俯瞰に",
+        "kind": "text_truncated",
+        "overflow_px": 22,
+        "bbox": [
+          223,
+          3883,
+          107,
+          22
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "「膝から上のカウボーイショットで」",
+        "kind": "text_truncated",
+        "overflow_px": 6,
+        "bbox": [
+          930,
+          4828,
+          241,
+          25
+        ]
+      },
+      {
+        "tag": "text",
+        "text": "自分の手",
+        "kind": "text_truncated",
+        "overflow_px": 15,
+        "bbox": [
+          573,
+          5818,
+          61,
+          22
+        ]
+      },
+      {
+        "tag": "text",
+        "text": "後ろ姿＋スマホ",
+        "kind": "text_truncated",
+        "overflow_px": 17,
+        "bbox": [
+          230,
+          6290,
+          106,
+          22
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "「夕日を背にした逆光シルエットで」",
+        "kind": "text_truncated",
+        "overflow_px": 6,
+        "bbox": [
+          564,
+          6693,
+          241,
+          25
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "「ムッと不機嫌そうに唇を尖らせて」",
+        "kind": "text_truncated",
+        "overflow_px": 5,
+        "bbox": [
+          930,
+          11470,
+          241,
+          25
+        ]
+      }
+    ],
+    "mobile": [
+      {
+        "tag": "text",
+        "text": "寝転び・俯瞰に",
+        "kind": "text_truncated",
+        "overflow_px": 23,
+        "bbox": [
+          63,
+          7815,
+          108,
+          22
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "「膝から上のカウボーイショットで」",
+        "kind": "text_truncated",
+        "overflow_px": 3,
+        "bbox": [
+          37,
+          11106,
+          244,
+          25
+        ]
+      },
+      {
+        "tag": "text",
+        "text": "自分の手",
+        "kind": "text_truncated",
+        "overflow_px": 16,
+        "bbox": [
+          46,
+          12721,
+          62,
+          22
+        ]
+      },
+      {
+        "tag": "text",
+        "text": "後ろ姿＋スマホ",
+        "kind": "text_truncated",
+        "overflow_px": 18,
+        "bbox": [
+          70,
+          13775,
+          107,
+          22
+        ]
+      },
+      {
+        "tag": "p",
+        "text": "「夕日を背にした逆光シルエットで」",
+        "kind": "text_truncated",
+        "overflow_px": 3,
+        "bbox": [
+          37,
+          14760,
+          244,
+          25
+        ]
+      }
+    ]
+  },
+  "images": {
+    "total": 7,
+    "broken": [],
+    "duplicate": [],
+    "unstable": [],
+    "failed_requests": [],
+    "external_blocked": {
+      "count": 0,
+      "sample": []
+    },
+    "sample_urls": [
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-5a65d59e-bc01-4552-a7f2-024aed942210/assets/outfit-urban-garments.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-5a65d59e-bc01-4552-a7f2-024aed942210/assets/outfit-ivory-blade.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-5a65d59e-bc01-4552-a7f2-024aed942210/assets/outfit-basic.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-5a65d59e-bc01-4552-a7f2-024aed942210/assets/outfit-lace-strapless.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-5a65d59e-bc01-4552-a7f2-024aed942210/assets/outfit-lace-navy.jpg",
+      "https://artifact-capture.invalid/spaces/v2/hatch-audit-5a65d59e-bc01-4552-a7f2-024aed942210/assets/outfit-backless-v2.jpg"
+    ],
+    "verdict": "pass"
+  },
+  "text_issues": [],
+  "console_errors": [],
+  "console_warnings": [],
+  "external_fetch_failures": 2,
+  "external_fetch_failure_samples": [
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)",
+    "console.error: Failed to load resource: net::ERR_SOCKS_CONNECTION_FAILED (https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap)"
+  ],
+  "blocked_requests": [],
+  "external_requests": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap",
+      "method": "GET",
+      "resource_type": "stylesheet"
+    }
+  ],
+  "external_requests_dropped": 0,
+  "external_requests_dropped_data_bearing": 0,
+  "transport_ledger_active": true,
+  "egress_lockdown": true,
+  "transport_connections": [
+    {
+      "host": "artifact-capture.invalid",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 3900,
+      "bytes_down": 2484
+    },
+    {
+      "host": "fonts.googleapis.com",
+      "port": 443,
+      "connects": 2,
+      "bytes_up": 0,
+      "bytes_down": 0,
+      "policy_denied": true
+    }
+  ],
+  "transport_udp_attempts": 0,
+  "transport_overflow": 0,
+  "unexplained_transport_hosts": [],
+  "broken_assets": [],
+  "blocked_affordances": [],
+  "interactive_nodes": 27,
+  "aria_snapshot": "- link \"ハブに戻る\":\n  - /url: /spaces/comfyuipuronputobiruda/\n- text: ComfyUIプロンプトビルダー（最終調整・出力）へ\n- banner:\n  - heading \"プロンプトビルダー\" [level=1]\n  - paragraph:\n    - text: キャラ・衣装・定型文・画角・ポーズ・視線・表情を\n    - strong: 選ぶだけで\n    - text: 、GPT Image 2.6の公式ガイド型（ラベル付きセクション構造）のプロンプト一式が組み上がるよ。下の「完成プロンプト」から一式コピーしてChatGPTに貼ってね。英語タグ版に加えて、\n    - strong: ComfyUI用（LoRAトリガー＋ネガティブ付き、そのまま貼れる形）\n    - text: も出力されるよ。\n  - text: 画角高さ・距離・特殊 ポーズ棒人間で図解 視線目の向き\n  - navigation:\n    - link \"キャラクター\":\n      - /url: \"#character\"\n    - link \"衣装\":\n      - /url: \"#outfit\"\n    - link \"定型文\":\n      - /url: \"#boilerplate\"\n    - link \"高さ・角度編（6）\":\n      - /url: \"#height\"\n    - link \"距離編（4）\":\n      - /url: \"#distance\"\n    - link \"特殊編（5）\":\n      - /url: \"#special\"\n    - link \"ポーズ編（3階層）\":\n      - /url: \"#poses\"\n    - link \"視線編（10）\":\n      - /url: \"#gaze\"\n    - link \"表情編（32）\":\n      - /url: \"#expression\"\n    - link \"完成プロンプト\":\n      - /url: \"#builder\"\n  - navigation \"部屋ナビ\":\n    - link \"ハブ：ComfyUIプロンプトビルダー\":\n      - /url: /spaces/comfyuipuronputobiruda/\n    - link \"衣装：コスプレカタログ\":\n      - /url: /spaces/miyuu-kosupurekatarogu/\n    - link \"衣装：着せ替えビルダー（私服）\":\n      - /url: /spaces/miyuuzhao-seti-ebiruda/\n    - text: カメラ：アングル早見表（このページ）\n- heading \"キャラクター\" [level=2]\n- text: 選ぶとパーソナルプロンプトが入る\n- paragraph: キャラを選ぶと、そのキャラ専用の外見プロンプトが【キャラクター】欄に自動で入るよ。未選択でもOK。\n- button \"ミュウ\"\n- paragraph: キャラは今後追加できます（データ追加だけで選択肢が増える構造になっています）。\n- text: キャラクター未選択 — ボタンを押すとここにパーソナルプロンプトが表示されるよ。\n- heading \"衣装\" [level=2]\n- text: 登録済み衣装・1つだけ選択\n- paragraph: ミュウに登録済みの服だよ。カードを選ぶと【衣装】欄にその服のプロンプトが入る。使う時は衣装シートを「画像2」として一緒に添付してね。\n- button \"✓ アーバン・エクスペディションの衣装シート アーバン・エクスペディション ディープペトロールティール×ウォームアイボリー×チャコールのテックウェア。金具はブラッシュドブロンズ、差し色はミュートコーラル。腰上で終わるクロップド・オーバーサイズの技術ジャケット（アイボリーの肩パネルと背ヨーク、ブロンズのパイピング、スタンドカラー、アシンメトリーのスナップ開閉をオープンに着る、胸にファスナーポケット）。幾何学カットアウトのクロップド・アスレチックトップ（バスト下で終わり腹部が見える）。ローライズのオーバーサイズ・パラシュートカーゴパンツ（すね丈クロップド、膝の補強パネルと斜めアイボリーパイピング、大型ユーティリティポケット、垂れたウェビングストラップ、裾ドローコード）。チャコールのユーティリティベルト（ブロンズのクイックリリースバックルとカラビナ）、着脱式アイボリー・ユーティリティポーチ。ティール×アイボリー×チャコールのチャンキーなミッドトップ・テクニカルスニーカー。ロゴ・ブランド表示なし。\":\n  - text: ✓\n  - img \"アーバン・エクスペディションの衣装シート\"\n  - heading \"アーバン・エクスペディション\" [level=3]\n  - paragraph: ディープペトロールティール×ウォームアイボリー×チャコールのテックウェア。金具はブラッシュドブロンズ、差し色はミュートコーラル。腰上で終わるクロップド・オーバーサイズの技術ジャケット（アイボリーの肩パネルと背ヨーク、ブロンズのパイピング、スタンドカラー、アシンメトリーのスナップ開閉をオープンに着る、胸にファスナーポケット）。幾何学カットアウトのクロップド・アスレチックトップ（バスト下で終わり腹部が見える）。ローライズのオーバーサイズ・パラシュートカーゴパンツ（すね丈クロップド、膝の補強パネルと斜めアイボリーパイピング、大型ユーティリティポケット、垂れたウェビングストラップ、裾ドローコード）。チャコールのユーティリティベルト（ブロンズのクイックリリースバックルとカラビナ）、着脱式アイボリー・ユーティリティポーチ。ティール×アイボリー×チャコールのチャンキーなミッドトップ・テクニカルスニーカー。ロゴ・ブランド表示なし。\n- button \"✓ Ivory Bladeの衣装シート Ivory Blade アイボリー×チャコール×金縁刺繍のファンタジー剣士衣装。刀を携える。\":\n  - text: ✓\n  - img \"Ivory Bladeの衣装シート\"\n  - heading \"Ivory Blade\" [level=3]\n  - paragraph: アイボリー×チャコール×金縁刺繍のファンタジー剣士衣装。刀を携える。\n- button \"✓ ミュウの基本コーデの衣装シート ミュウの基本コーデ 開けたライトベージュのオーバーサイズジップパーカー、黒のクロップドタンクトップ、リングとストラップ付きのダークなカーゴパンツ、白のチャンキースニーカー、黒のスタッズレザーバングル。\":\n  - text: ✓\n  - img \"ミュウの基本コーデの衣装シート\"\n  - heading \"ミュウの基本コーデ\" [level=3]\n  - paragraph: 開けたライトベージュのオーバーサイズジップパーカー、黒のクロップドタンクトップ、リングとストラップ付きのダークなカーゴパンツ、白のチャンキースニーカー、黒のスタッズレザーバングル。\n- button \"✓ ストラップレスレース＆ローライズデニムの衣装シート ストラップレスレース＆ローライズデニム ネイビーブラックの花柄レースのストラップレスブラ（1/2カップ・ワイヤー入り、花柄レースと裏地）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー。\":\n  - text: ✓\n  - img \"ストラップレスレース＆ローライズデニムの衣装シート\"\n  - heading \"ストラップレスレース＆ローライズデニム\" [level=3]\n  - paragraph: ネイビーブラックの花柄レースのストラップレスブラ（1/2カップ・ワイヤー入り、花柄レースと裏地）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー。\n- button \"✓ ネイビーレース＆ローライズデニムの衣装シート ネイビーレース＆ローライズデニム ネイビーブラックの花柄レースのトライアングルブラ（細ストラップ、花柄レースと裏地、アンダーとストラップ）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー。\":\n  - text: ✓\n  - img \"ネイビーレース＆ローライズデニムの衣装シート\"\n  - heading \"ネイビーレース＆ローライズデニム\" [level=3]\n  - paragraph: ネイビーブラックの花柄レースのトライアングルブラ（細ストラップ、花柄レースと裏地、アンダーとストラップ）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー。\n- button \"✓ 背開きホルターニット・ミニワンピース Ver.2（本命）の衣装シート 背開きホルターニット・ミニワンピース Ver.2（本命） ヘザーグレーの背開きホルターネック・ニットミニワンピース。太めに折り返したリブ編みタートル襟、完全ノースリーブの前身頃。裸の肩、大きく開いたサイド、腰のすぐ上（ヒップの上）まで届く広いU字のオープンバック。襟のすぐ下、背中心に同素材の平たいリボン（長いテール2本が腰へ垂れる）。前身頃は胸と腹を覆い、自然なドレープで落ちる。背開きの下端はカウル状のたるみに。太もも上丈のスカート部、裾は幅広のリブ編みバンド。不透明で柔らかく少し起毛したニット。【Ver.2の差分】U字の背開きがより深く、背面リボンのテールが長めで、カウルのドレープが強め。\":\n  - text: ✓\n  - img \"背開きホルターニット・ミニワンピース Ver.2（本命）の衣装シート\"\n  - heading \"背開きホルターニット・ミニワンピース Ver.2（本命）\" [level=3]\n  - paragraph: ヘザーグレーの背開きホルターネック・ニットミニワンピース。太めに折り返したリブ編みタートル襟、完全ノースリーブの前身頃。裸の肩、大きく開いたサイド、腰のすぐ上（ヒップの上）まで届く広いU字のオープンバック。襟のすぐ下、背中心に同素材の平たいリボン（長いテール2本が腰へ垂れる）。前身頃は胸と腹を覆い、自然なドレープで落ちる。背開きの下端はカウル状のたるみに。太もも上丈のスカート部、裾は幅広のリブ編みバンド。不透明で柔らかく少し起毛したニット。【Ver.2の差分】U字の背開きがより深く、背面リボンのテールが長めで、カウルのドレープが強め。\n- button \"✓ 背開きホルターニット・ミニワンピース Ver.1の衣装シート 背開きホルターニット・ミニワンピース Ver.1 ヘザーグレーの背開きホルターネック・ニットミニワンピース。太めに折り返したリブ編みタートル襟、完全ノースリーブの前身頃。裸の肩、大きく開いたサイド、腰のすぐ上（ヒップの上）まで届く広いU字のオープンバック。襟のすぐ下、背中心に同素材の平たいリボン（長いテール2本が腰へ垂れる）。前身頃は胸と腹を覆い、自然なドレープで落ちる。背開きの下端はカウル状のたるみに。太もも上丈のスカート部、裾は幅広のリブ編みバンド。不透明で柔らかく少し起毛したニット。\":\n  - text: ✓\n  - img \"背開きホルターニット・ミニワンピース Ver.1の衣装シート\"\n  - heading \"背開きホルターニット・ミニワンピース Ver.1\" [level=3]\n  - paragraph: ヘザーグレーの背開きホルターネック・ニットミニワンピース。太めに折り返したリブ編みタートル襟、完全ノースリーブの前身頃。裸の肩、大きく開いたサイド、腰のすぐ上（ヒップの上）まで届く広いU字のオープンバック。襟のすぐ下、背中心に同素材の平たいリボン（長いテール2本が腰へ垂れる）。前身頃は胸と腹を覆い、自然なドレープで落ちる。背開きの下端はカウル状のたるみに。太もも上丈のスカート部、裾は幅広のリブ編みバンド。不透明で柔らかく少し起毛したニット。\n- button \"✓ 衣装シート自由 衣装シートのまま（自由） 画像2の衣装シートの配色と構造を厳密に再現する\":\n  - text: ✓\n  - img \"衣装シート自由\": 画像2のシート そのまま再現\n  - heading \"衣装シートのまま（自由）\" [level=3]\n  - paragraph: 画像2の衣装シートの配色と構造を厳密に再現する\n- text: 衣装未選択 — カードを選ぶとここに衣装プロンプトが表示されるよ。\n- heading \"定型文\" [level=2]\n- text: デフォルトON・個別にON/OFF＆コピー可\n- paragraph: GPT Image 2.6の書き方に合わせた固定ブロック。ONにしたものだけ完成プロンプトに入るよ。単体コピーもできる。\n- strong: 【入力画像の役割】\n- paragraph: 画像1＝キャラクター設定資料（人物の基準） 画像2＝衣装のデザインシート（衣装の基準）\n- button \"ON\"\n- button \"コピー\"\n- strong: 【作るもの】\n- paragraph: 画像1のキャラクターに、画像2の衣装を着せたシーン写真。X投稿用の1枚。\n- button \"ON\"\n- button \"コピー\"\n- strong: 【厳密に維持するもの】\n- paragraph: \"- キャラクターの顔立ち、髪、瞳の色、肌の色 - 衣装の配色と構造\"\n- button \"ON\"\n- button \"コピー\"\n- strong: 【禁止事項】\n- paragraph: \"- 衣装の色替え・アイテムの追加や省略をしない - テキストやロゴを入れない - 実写・フォトリアルにしない（アニメイラスト調を維持）\"\n- button \"ON\"\n- button \"コピー\"\n- heading \"高さ・角度編\" [level=2]\n- text: カメラをどこに置くか\n- paragraph: まずはこの軸が基本。同じポーズでも、カメラの高さだけで印象がガラッと変わる。\n- button \"✓ ローアングルの模式図：低い位置のカメラが人物を見上げている ローアングル（あおり） Low angle / from below 下から見上げる。迫力が出て、脚が長く見える。かっこいい系の基本形。 タップで選択 CHATGPT フレーズ 「下から見上げるローアングルで」 コピー COMFYUI タグ from below, low angle コピー\":\n  - text: ✓\n  - img \"ローアングルの模式図：低い位置のカメラが人物を見上げている\"\n  - heading \"ローアングル（あおり） Low angle / from below\" [level=3]\n  - paragraph: 下から見上げる。迫力が出て、脚が長く見える。かっこいい系の基本形。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「下から見上げるローアングルで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: from below, low angle\n  - button \"コピー\"\n- button \"✓ ワームズアイの模式図：地面すれすれのカメラが空を背景に人物を見上げている ワームズアイ Worm's-eye view 地面すれすれの超ローアングル。空が広く入って、いちばんダイナミックになる。 タップで選択 CHATGPT フレーズ 「地面すれすれの超ローアングルで、空を大きく入れて」 コピー COMFYUI タグ worm's-eye view, extreme low angle コピー\":\n  - text: ✓\n  - img \"ワームズアイの模式図：地面すれすれのカメラが空を背景に人物を見上げている\": 空が広く入る\n  - heading \"ワームズアイ Worm's-eye view\" [level=3]\n  - paragraph: 地面すれすれの超ローアングル。空が広く入って、いちばんダイナミックになる。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「地面すれすれの超ローアングルで、空を大きく入れて」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: worm's-eye view, extreme low angle\n  - button \"コピー\"\n- button \"✓ ハイアングルの模式図：高い位置のカメラが人物を見下ろしている ハイアングル（ふかん） High angle / from above 上から見下ろす。小さく可愛く見えるし、自撮り風の画角にもなる。 タップで選択 CHATGPT フレーズ 「上から見下ろすハイアングルで」 コピー COMFYUI タグ from above, high angle コピー\":\n  - text: ✓\n  - img \"ハイアングルの模式図：高い位置のカメラが人物を見下ろしている\"\n  - heading \"ハイアングル（ふかん） High angle / from above\" [level=3]\n  - paragraph: 上から見下ろす。小さく可愛く見えるし、自撮り風の画角にもなる。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「上から見下ろすハイアングルで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: from above, high angle\n  - button \"コピー\"\n- button \"✓ バーズアイの模式図：真上のカメラが真下の人物を捉えている バーズアイ／真上 Bird's-eye view / top-down 真上から見下ろす。寝転んだポーズや、机の上の小物の俯瞰に。 タップで選択 CHATGPT フレーズ 「真上から見下ろして」 コピー COMFYUI タグ bird's-eye view, top-down view コピー\":\n  - text: ✓\n  - img \"バーズアイの模式図：真上のカメラが真下の人物を捉えている\": カメラは真上 寝転び・俯瞰に\n  - heading \"バーズアイ／真上 Bird's-eye view / top-down\" [level=3]\n  - paragraph: 真上から見下ろす。寝転んだポーズや、机の上の小物の俯瞰に。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「真上から見下ろして」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: bird's-eye view, top-down view\n  - button \"コピー\"\n- button \"✓ ダッチアングルの模式図：画面全体が斜めに傾いている ダッチアングル Dutch angle 画面を斜めに傾ける。スピード感・躍動感が出て、不安定な雰囲気も演出できる。 タップで選択 CHATGPT フレーズ 「画面を斜めに傾けたダッチアングルで」 コピー COMFYUI タグ dutch angle, tilted frame コピー\":\n  - text: ✓\n  - img \"ダッチアングルの模式図：画面全体が斜めに傾いている\": 画面ごと傾ける\n  - heading \"ダッチアングル Dutch angle\" [level=3]\n  - paragraph: 画面を斜めに傾ける。スピード感・躍動感が出て、不安定な雰囲気も演出できる。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「画面を斜めに傾けたダッチアングルで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: dutch angle, tilted frame\n  - button \"コピー\"\n- button \"✓ アイレベルの模式図：カメラが人物の目の高さにある アイレベル Eye level 目の高さで撮る、いちばん自然な画角。親近感が出て、会話してるみたいな距離感に。 タップで選択 CHATGPT フレーズ 「目の高さの自然な画角で」 コピー COMFYUI タグ eye-level shot コピー\":\n  - text: ✓\n  - img \"アイレベルの模式図：カメラが人物の目の高さにある\": 目の高さ\n  - heading \"アイレベル Eye level\" [level=3]\n  - paragraph: 目の高さで撮る、いちばん自然な画角。親近感が出て、会話してるみたいな距離感に。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「目の高さの自然な画角で」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: eye-level shot\n  - button \"コピー\"\n- heading \"距離編\" [level=2]\n- text: どこまで写すか\n- paragraph: 図の破線の枠が「画面に入る範囲」。衣装を見せたい範囲に合わせて選ぶのがコツ。\n- button \"✓ クローズアップの模式図：顔だけが枠に入っている クローズアップ Close-up 顔のアップ。表情が主役の1枚に。メイクやピアスを見せたい時もこれ。 タップで選択 CHATGPT フレーズ 「顔のクローズアップで」 コピー COMFYUI タグ close-up コピー\":\n  - text: ✓\n  - img \"クローズアップの模式図：顔だけが枠に入っている\": 顔だけ\n  - heading \"クローズアップ Close-up\" [level=3]\n  - paragraph: 顔のアップ。表情が主役の1枚に。メイクやピアスを見せたい時もこれ。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「顔のクローズアップで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: close-up\n  - button \"コピー\"\n- button \"✓ バストアップの模式図：胸から上が枠に入っている バストアップ Bust shot 胸から上。衣装の上半身と表情を両立できる、使い勝手のいい距離。 タップで選択 CHATGPT フレーズ 「胸から上のバストアップで」 コピー COMFYUI タグ upper body コピー\":\n  - text: ✓\n  - img \"バストアップの模式図：胸から上が枠に入っている\": 胸から上\n  - heading \"バストアップ Bust shot\" [level=3]\n  - paragraph: 胸から上。衣装の上半身と表情を両立できる、使い勝手のいい距離。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「胸から上のバストアップで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: upper body\n  - button \"コピー\"\n- button \"✓ カウボーイショットの模式図：膝から上が枠に入っている カウボーイショット Cowboy shot 膝から上（海外の言い方で太ももから上）。ポーズの躍動感と衣装を両方見せられる。 タップで選択 CHATGPT フレーズ 「膝から上のカウボーイショットで」 コピー COMFYUI タグ cowboy shot コピー\":\n  - text: ✓\n  - img \"カウボーイショットの模式図：膝から上が枠に入っている\": 膝から上\n  - heading \"カウボーイショット Cowboy shot\" [level=3]\n  - paragraph: 膝から上（海外の言い方で太ももから上）。ポーズの躍動感と衣装を両方見せられる。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「膝から上のカウボーイショットで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: cowboy shot\n  - button \"コピー\"\n- button \"✓ 全身ショットの模式図：頭から足先まで枠に入っている 全身 Full body 頭から足先まで。衣装全体を見せたい時の鉄板。靴まで指定が届く。 タップで選択 CHATGPT フレーズ 「頭から足先まで入る全身ショットで」 コピー COMFYUI タグ full body コピー\":\n  - text: ✓\n  - img \"全身ショットの模式図：頭から足先まで枠に入っている\": 足先まで\n  - heading \"全身 Full body\" [level=3]\n  - paragraph: 頭から足先まで。衣装全体を見せたい時の鉄板。靴まで指定が届く。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「頭から足先まで入る全身ショットで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: full body\n  - button \"コピー\"\n- heading \"特殊編\" [level=2]\n- text: レンズと視点のワザ\n- paragraph: いつもの画角に飽きたらこれ。1つ足すだけで「おっ」となる変化球。\n- button \"✓ 魚眼レンズの模式図：円形の画面で中心が膨らんで歪んでいる 魚眼 Fisheye 近い部分が大きく歪むレンズ効果。手や足をカメラに突き出すと効果が倍増する。 タップで選択 CHATGPT フレーズ 「魚眼レンズで、手をカメラに突き出す感じで」 コピー COMFYUI タグ fisheye lens コピー\":\n  - text: ✓\n  - img \"魚眼レンズの模式図：円形の画面で中心が膨らんで歪んでいる\": 近い手が大きく\n  - heading \"魚眼 Fisheye\" [level=3]\n  - paragraph: 近い部分が大きく歪むレンズ効果。手や足をカメラに突き出すと効果が倍増する。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「魚眼レンズで、手をカメラに突き出す感じで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: fisheye lens\n  - button \"コピー\"\n- button \"✓ POVの模式図：相手がこちらに手を伸ばし、下端に自分の手が見えている POV（一人称視点） POV / first-person view 自分の目線で見る視点。相手がこちらに手を伸ばしてくる、みたいな没入感のある構図に。 タップで選択 CHATGPT フレーズ 「一人称視点で、こちらに手を伸ばしていて」 コピー COMFYUI タグ pov, first-person view コピー\":\n  - text: ✓\n  - img \"POVの模式図：相手がこちらに手を伸ばし、下端に自分の手が見えている\": 自分の手 相手が手を伸ばす\n  - heading \"POV（一人称視点） POV / first-person view\" [level=3]\n  - paragraph: 自分の目線で見る視点。相手がこちらに手を伸ばしてくる、みたいな没入感のある構図に。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「一人称視点で、こちらに手を伸ばしていて」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: pov, first-person view\n  - button \"コピー\"\n- button \"✓ オーバーショルダーの模式図：手前の人物の肩越しに向かいの人物を見ている オーバーショルダー Over-the-shoulder 誰かの肩越しに見る構図。会話シーンや、誰かと向き合ってる空気感を出すのに最適。 タップで選択 CHATGPT フレーズ 「肩越しの構図で」 コピー COMFYUI タグ over-the-shoulder shot コピー\":\n  - text: ✓\n  - img \"オーバーショルダーの模式図：手前の人物の肩越しに向かいの人物を見ている\": 肩越しに見る\n  - heading \"オーバーショルダー Over-the-shoulder\" [level=3]\n  - paragraph: 誰かの肩越しに見る構図。会話シーンや、誰かと向き合ってる空気感を出すのに最適。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「肩越しの構図で」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: over-the-shoulder shot\n  - button \"コピー\"\n- button \"✓ 鏡越しの模式図：スマホを持つ人物と、姿見に映る正面の姿 鏡越し Mirror selfie / reflection 姿見や窓ガラスへの映り込み。自撮り風の定番で、コーデ記録っぽい自然さが出る。 タップで選択 CHATGPT フレーズ 「姿見の鏡越しの自撮り風で」 コピー COMFYUI タグ mirror selfie, reflection コピー\":\n  - text: ✓\n  - img \"鏡越しの模式図：スマホを持つ人物と、姿見に映る正面の姿\": 後ろ姿＋スマホ\n  - heading \"鏡越し Mirror selfie / reflection\" [level=3]\n  - paragraph: 姿見や窓ガラスへの映り込み。自撮り風の定番で、コーデ記録っぽい自然さが出る。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「姿見の鏡越しの自撮り風で」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: mirror selfie, reflection\n  - button \"コピー\"\n- button \"✓ 逆光シルエットの模式図：夕日を背に人物が黒い輪郭だけになっている 逆光シルエット Backlit silhouette 夕日などを背にして、輪郭だけが浮かぶ。雰囲気抜群で、エモい1枚の鉄板。 タップで選択 CHATGPT フレーズ 「夕日を背にした逆光シルエットで」 コピー COMFYUI タグ backlighting, silhouette コピー\":\n  - text: ✓\n  - img \"逆光シルエットの模式図：夕日を背に人物が黒い輪郭だけになっている\"\n  - heading \"逆光シルエット Backlit silhouette\" [level=3]\n  - paragraph: 夕日などを背にして、輪郭だけが浮かぶ。雰囲気抜群で、エモい1枚の鉄板。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「夕日を背にした逆光シルエットで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: backlighting, silhouette\n  - button \"コピー\"\n- heading \"ポーズ編\" [level=2]\n- text: 大項目 → 中項目 → 小項目・ポーズは1つだけ\n- paragraph:\n  - text: ①大項目 → ②中項目 → ③小項目（末端）の順に選ぶとポーズが確定するよ。ポーズは\n  - strong: 1つだけ\n  - text: （選び直すと切り替わる）。紛らわしいポーズには「固定のコツ」が自動で完成プロンプトに付くから、しゃがみ方みたいな誤解が起きにくくなる。\n- text: \"1\"\n- strong: 大項目を選ぶ\n- text: 系統で絞る\n- button \"立つ 基本の立ち姿\"\n- button \"座る 椅子・床・縁\"\n- button \"しゃがむ・膝をつく 混同注意・固定文つき\"\n- button \"寝転ぶ 仰向け・うつ伏せなど\"\n- button \"動く 歩く・走る・跳ぶ\"\n- button \"手・腕のジェスチャー ピース・ハートなど\"\n- button \"振り返り・背中 後ろ姿・肩越し\"\n- text: ポーズ未選択 — 大項目から順に選んでね。例：しゃがむ・膝をつく ＞ 深くしゃがむ ＞ 膝を抱えてしゃがむ\n- paragraph:\n  - button \"ポーズの選択を解除\"\n- heading \"視線編\" [level=2]\n- text: 目の向き・全10種\n- paragraph: 顔アップの模式図＋矢印が視線の向き。表情のニュアンスがガラッと変わる最後のひと押し。\n- button \"✓ カメラ目線の模式図 カメラ目線 Looking at viewer まっすぐカメラを見る。訴求力No.1で、アイキャッチに最適。 タップで選択 CHATGPT フレーズ 「カメラ目線で」 コピー COMFYUI タグ looking at viewer コピー\":\n  - text: ✓\n  - img \"カメラ目線の模式図\"\n  - heading \"カメラ目線 Looking at viewer\" [level=3]\n  - paragraph: まっすぐカメラを見る。訴求力No.1で、アイキャッチに最適。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「カメラ目線で」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: looking at viewer\n  - button \"コピー\"\n- button \"✓ 視線外しの模式図 視線外し Looking away 目線をカメラからそらす。自然体で、ふとした瞬間を切り取った感じに。 タップで選択 CHATGPT フレーズ 「視線をカメラから外して」 コピー COMFYUI タグ looking away コピー\":\n  - text: ✓\n  - img \"視線外しの模式図\"\n  - heading \"視線外し Looking away\" [level=3]\n  - paragraph: 目線をカメラからそらす。自然体で、ふとした瞬間を切り取った感じに。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「視線をカメラから外して」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: looking away\n  - button \"コピー\"\n- button \"✓ 見上げの模式図 見上げ Looking up 上目遣い気味に見上げる。あどけなさや、空・高い建物を見るシーンに。 タップで選択 CHATGPT フレーズ 「上を見上げて」 コピー COMFYUI タグ looking up コピー\":\n  - text: ✓\n  - img \"見上げの模式図\"\n  - heading \"見上げ Looking up\" [level=3]\n  - paragraph: 上目遣い気味に見上げる。あどけなさや、空・高い建物を見るシーンに。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「上を見上げて」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: looking up\n  - button \"コピー\"\n- button \"✓ 見下ろしの模式図 見下ろし Looking down 上から見下ろす視線。ハイアングルの逆で、強さ・余裕の演出に。 タップで選択 CHATGPT フレーズ 「下を見下ろして」 コピー COMFYUI タグ looking down コピー\":\n  - text: ✓\n  - img \"見下ろしの模式図\"\n  - heading \"見下ろし Looking down\" [level=3]\n  - paragraph: 上から見下ろす視線。ハイアングルの逆で、強さ・余裕の演出に。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「下を見下ろして」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: looking down\n  - button \"コピー\"\n- button \"✓ 流し目（横目）の模式図 流し目（横目） Sidelong glance 顔は正面、目だけ横へ流す。小悪魔っぽさや意味深な雰囲気に。 タップで選択 CHATGPT フレーズ 「横目で流し目をして」 コピー COMFYUI タグ sidelong glance コピー\":\n  - text: ✓\n  - img \"流し目（横目）の模式図\"\n  - heading \"流し目（横目） Sidelong glance\" [level=3]\n  - paragraph: 顔は正面、目だけ横へ流す。小悪魔っぽさや意味深な雰囲気に。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「横目で流し目をして」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: sidelong glance\n  - button \"コピー\"\n- button \"✓ 振り返り目線の模式図 振り返り目線 Looking back at viewer 振り返ってカメラを捉える目線。振り返りポーズとセットで使うと最強。 タップで選択 CHATGPT フレーズ 「振り返ってカメラを見て」 コピー COMFYUI タグ looking back at viewer コピー\":\n  - text: ✓\n  - img \"振り返り目線の模式図\"\n  - heading \"振り返り目線 Looking back at viewer\" [level=3]\n  - paragraph: 振り返ってカメラを捉える目線。振り返りポーズとセットで使うと最強。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「振り返ってカメラを見て」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: looking back at viewer\n  - button \"コピー\"\n- button \"✓ 目を閉じての模式図 目を閉じて Closed eyes 目を閉じて微笑む・リラックス。幸せそうな空気感の演出に。 タップで選択 CHATGPT フレーズ 「目を閉じて」 コピー COMFYUI タグ closed eyes コピー\":\n  - text: ✓\n  - img \"目を閉じての模式図\"\n  - heading \"目を閉じて Closed eyes\" [level=3]\n  - paragraph: 目を閉じて微笑む・リラックス。幸せそうな空気感の演出に。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「目を閉じて」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: closed eyes\n  - button \"コピー\"\n- button \"✓ ウインクの模式図 ウインク Wink, one eye closed 片目だけ閉じるウインク。お茶目さとファンサ感が出る。 タップで選択 CHATGPT フレーズ 「ウインクして」 コピー COMFYUI タグ wink, one eye closed コピー\":\n  - text: ✓\n  - img \"ウインクの模式図\"\n  - heading \"ウインク Wink, one eye closed\" [level=3]\n  - paragraph: 片目だけ閉じるウインク。お茶目さとファンサ感が出る。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「ウインクして」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: wink, one eye closed\n  - button \"コピー\"\n- button \"✓ 伏し目の模式図 伏し目 Downcast eyes 目を伏せる、しっとりした表情。物思いや切ないシーンに。 タップで選択 CHATGPT フレーズ 「伏し目がちに」 コピー COMFYUI タグ downcast eyes コピー\":\n  - text: ✓\n  - img \"伏し目の模式図\"\n  - heading \"伏し目 Downcast eyes\" [level=3]\n  - paragraph: 目を伏せる、しっとりした表情。物思いや切ないシーンに。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「伏し目がちに」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: downcast eyes\n  - button \"コピー\"\n- button \"✓ スマホを見つめるの模式図 スマホを見つめる Looking at smartphone 手元のスマホに視線を落とす。日常スナップやLINE風自撮りの空気感に。 タップで選択 CHATGPT フレーズ 「スマホを見つめて」 コピー COMFYUI タグ looking at smartphone コピー\":\n  - text: ✓\n  - img \"スマホを見つめるの模式図\"\n  - heading \"スマホを見つめる Looking at smartphone\" [level=3]\n  - paragraph: 手元のスマホに視線を落とす。日常スナップやLINE風自撮りの空気感に。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「スマホを見つめて」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: looking at smartphone\n  - button \"コピー\"\n- heading \"表情編\" [level=2]\n- text: 喜怒哀楽＋特殊・全32種／1つだけ選択\n- paragraph:\n  - text: 顔の模式図でニュアンスを確認してタップ。表情は\n  - strong: 1つだけ\n  - text: （選び直すと切り替わり、同じカードをもう一度タップすると解除）。完成プロンプトでは「視線：◯◯／表情：◯◯」と区別して入るよ。\n- heading \"【喜】\" [level=3]\n- text: 6種\n- button \"✓ 微笑みの模式図 微笑み gentle smile 柔らかく穏やかな笑顔。日常の基本。 タップで選択 CHATGPT フレーズ 「柔らかく微笑んで」 コピー COMFYUI タグ gentle smile コピー\":\n  - text: ✓\n  - img \"微笑みの模式図\"\n  - heading \"微笑み gentle smile\" [level=3]\n  - paragraph: 柔らかく穏やかな笑顔。日常の基本。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「柔らかく微笑んで」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: gentle smile\n  - button \"コピー\"\n- button \"✓ 満面の笑みの模式図 満面の笑み big smile, open mouth smile 口を大きく開けた満面の笑顔。 タップで選択 CHATGPT フレーズ 「満面の笑みで大きく笑って」 コピー COMFYUI タグ big smile, open mouth smile コピー\":\n  - text: ✓\n  - img \"満面の笑みの模式図\"\n  - heading \"満面の笑み big smile, open mouth smile\" [level=3]\n  - paragraph: 口を大きく開けた満面の笑顔。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「満面の笑みで大きく笑って」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: big smile, open mouth smile\n  - button \"コピー\"\n- button \"✓ 目を細めて笑うの模式図 目を細めて笑う smiling with narrowed eyes 目を細める嬉しそうな笑い方。 タップで選択 CHATGPT フレーズ 「目を細めて嬉しそうに笑って」 コピー COMFYUI タグ smiling with narrowed eyes コピー\":\n  - text: ✓\n  - img \"目を細めて笑うの模式図\"\n  - heading \"目を細めて笑う smiling with narrowed eyes\" [level=3]\n  - paragraph: 目を細める嬉しそうな笑い方。\n  - text: タップで選択 CHATGPT フレーズ\n  - paragraph: 「目を細めて嬉しそうに笑って」\n  - button \"コピー\"\n  - text: COMFYUI タグ\n  - code: smiling with narrowed eyes\n  - button \"コピー\"\n- button \"✓ 爆笑の模式図 爆笑 laughing hard 声を上げて大笑い。目を閉じて弾ける。 タップで選択 CHATGPT フレーズ 「声を上げて爆笑して」 コピー COMFYUI タグ laughing hard コピー\":\n  - text: ✓\n  - img \"爆笑の模式図\": \"!\"\n  - heading \"爆笑 laughing hard\" [level=3]\n  - paragraph: 声を上げて大笑い。目を閉じて弾ける。\n  - \n… (aria snapshot truncated at 20000 chars)",
+  "document_text": {
+    "path": "/home/hatch/workspace/ts-spaces/kameraanguruzao-jian-biao/audits/2026-11-09T12-55-07Z-572195868/document-text.txt",
+    "chars": 14333,
+    "truncated": false
+  },
+  "audit_session_id": "75b5264b-0f4d-48b3-bcec-94501fd261bb",
+  "readiness": {
+    "desktop": {
+      "settled": true,
+      "settle_ms": 519,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    },
+    "mobile": {
+      "settled": true,
+      "settle_ms": 526,
+      "in_flight": null,
+      "network_idle": true,
+      "retried": false
+    }
+  },
+  "color_scheme": {
+    "declared": "light dark",
+    "media_dependent": null,
+    "dark_frame": false
+  },
+  "mobile_ms": 2979.401896,
+  "cold_launch_ms": 448.61706200000003,
+  "desktop_ms": 6766.913629,
+  "browser_launches": 1,
+  "audit_path": "shared-concurrent",
+  "diagnostics": {
+    "audit_path": "shared-concurrent",
+    "concurrent_ran": true,
+    "concurrent_desktop_retry": false,
+    "concurrent_mobile_retry": false,
+    "shared_launch_failed": false,
+    "nav_retries": 0,
+    "settle_retries": 0
+  }
+}

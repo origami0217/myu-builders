@@ -1,0 +1,1263 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>ミュウ着せ替えビルダー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 配色・書体はハブ（ComfyUIプロンプトビルダー）と統一 */
+:root {
+color-scheme: light dark;
+--bg: #fdf7f3;
+--panel: #fffdf9;
+--panel2: #fbeef3;
+--card-bg: #fdf7f3;
+--ink: #2e2126;
+--muted: #7d6570;
+--accent: #d81b74;
+--accent-strong: #b8125f;
+--accent-ink: #ffffff;
+--accent-soft: #fbeef3;
+--accent2: #b8125f;
+--accent2-strong: #b8125f;
+--gold: #9a741f;
+--gold-soft: #faf3e0;
+--line: #ecd9d2;
+--chip: #fbf0f4;
+--shadow: 0 10px 28px rgba(196,30,110,.08);
+--radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--bg: #1b1318;
+--panel: #271d24;
+--panel2: #33252f;
+--card-bg: #1b1318;
+--ink: #f7edf2;
+--muted: #c3a6b5;
+--accent: #ff5da2;
+--accent-strong: #ff77ae;
+--accent-ink: #2a0f1e;
+--accent-soft: #33252f;
+--accent2: #ff5da2;
+--accent2-strong: #ff77ae;
+--gold: #d9ab4e;
+--gold-soft: #38301d;
+--line: #463443;
+--chip: #2c2229;
+--shadow: none;
+}
+}
+* { box-sizing: border-box;}
+html { -webkit-text-size-adjust: 100%;}
+body {
+margin: 0;
+background: var(--bg);
+color: var(--ink);
+font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+line-height: 1.6;
+}
+.wrap {
+max-width: 1180px;
+margin: 0 auto;
+padding: 20px 16px 40px;
+}
+.lead {
+margin: 2px 0 16px;
+font-size: 15px;
+font-weight: 500;
+color: var(--muted);
+}
+.lead strong { color: var(--ink);}
+/* ハブへ戻るバー（常時表示）＋部屋ナビ：他ページと共通の作り */
+.hub-bar {
+position: sticky; top: 0; z-index: 40;
+display: flex; align-items: center; justify-content: space-between; gap: 10px;
+background: var(--bg);
+padding: 10px 0 10px;
+border-bottom: 1.5px solid var(--line);
+margin-bottom: 14px;
+}
+.hub-back {
+display: inline-flex; align-items: center; gap: 7px;
+background: var(--accent); color: var(--accent-ink);
+font-size: 13.5px; font-weight: 800; text-decoration: none;
+border-radius: 999px; padding: 8px 16px;
+box-shadow: var(--shadow);
+white-space: nowrap;
+}
+.hub-back:hover { background: var(--accent-strong);}
+.hub-back svg { width: 15px; height: 15px; flex: none;}
+.hub-bar .hub-label {
+font-size: 11.5px; font-weight: 700; color: var(--muted);
+text-align: right; line-height: 1.45;
+}
+@media (max-width: 480px) { .hub-bar .hub-label { display: none;}}
+.room-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px;}
+.room-nav a, .room-nav span {
+display: inline-flex; align-items: center; gap: 6px;
+font-size: 12.5px; font-weight: 700; text-decoration: none;
+border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 13px;
+background: var(--panel); color: var(--muted);
+}
+.room-nav a:hover { border-color: var(--accent); color: var(--accent-strong);}
+.room-nav span[aria-current="page"] {
+background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong);
+}
+.hub-go {
+display: flex; align-items: center; justify-content: center; gap: 7px;
+margin-top: 14px;
+background: var(--accent); color: var(--accent-ink);
+font-size: 14px; font-weight: 800; text-decoration: none;
+border-radius: 999px; padding: 11px 18px;
+text-align: center;
+}
+.hub-go:hover { background: var(--accent-strong);}
+.hub-go svg { width: 16px; height: 16px; flex: none;}
+.hub-foot { text-align: center; margin-top: 30px;}
+.hub-foot .hub-note { margin: 10px 0 0; font-size: 12.5px; color: var(--muted);}
+.layout {
+display: grid;
+grid-template-columns: minmax(0, 1fr) 400px;
+gap: 20px;
+align-items: start;
+}
+.controls { display: grid; gap: 16px; min-width: 0;}
+.card {
+background: var(--panel);
+border: 1px solid var(--line);
+border-radius: var(--radius);
+box-shadow: var(--shadow);
+padding: 18px;
+}
+.card h2 {
+margin: 0 0 4px;
+font-size: 16px;
+font-weight: 800;
+font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
+color: var(--accent2);
+display: flex;
+align-items: baseline;
+gap: 10px;
+flex-wrap: wrap;
+}
+.card h2 > span:not(.dot):not(.now) { color: var(--accent2);}
+.card h2 .dot {
+width: 10px; height: 10px;
+border-radius: 3px;
+background: var(--accent);
+align-self: center;
+flex: none;
+}
+.card h2 .now {
+font-size: 12.5px;
+font-weight: 700;
+color: var(--accent);
+margin-left: auto;
+text-align: right;
+}
+.card .hint { margin: 0 0 12px; font-size: 12.5px; color: var(--muted);}
+.chips { display: flex; flex-wrap: wrap; gap: 8px;}
+.chip {
+appearance: none;
+border: 1.5px solid var(--line);
+background: var(--chip);
+color: var(--ink);
+border-radius: 999px;
+padding: 7px 14px;
+font: inherit;
+font-size: 13.5px;
+font-weight: 700;
+cursor: pointer;
+transition: background.15s, color.15s, border-color.15s;
+}
+.chip:hover { border-color: var(--accent);}
+.chip[aria-pressed="true"] {
+background: var(--accent);
+border-color: var(--accent);
+color: var(--accent-ink);
+}
+.chip.none-chip[aria-pressed="true"] { background: var(--muted); border-color: var(--muted); color: var(--accent-ink);}
+.color-row { margin-top: 12px; display: none;}
+.color-row.show { display: block;}
+.color-row .c-label { font-size: 12px; font-weight: 800; color: var(--muted); margin-bottom: 6px;}
+.cchips { display: flex; flex-wrap: wrap; gap: 6px;}
+.cchip {
+appearance: none;
+border: 1.5px solid var(--line);
+background: var(--chip);
+color: var(--ink);
+border-radius: 999px;
+padding: 4px 10px 4px 6px;
+font: inherit;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+gap: 6px;
+}
+.cchip .sw { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--line); flex: none;}
+.cchip:hover { border-color: var(--accent);}
+.cchip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink);}
+.cchip.none-c[aria-pressed="true"] { background: var(--muted); border-color: var(--muted); color: var(--accent-ink);}
+.detail {
+margin-top: 12px;
+background: var(--accent-soft);
+border-radius: 12px;
+padding: 10px 12px;
+font-size: 13px;
+display: none;
+}
+.detail.show { display: block;}
+.detail .d-desc { font-weight: 500;}
+.detail .d-tags {
+margin-top: 4px;
+font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+font-size: 12px;
+color: var(--muted);
+word-break: break-word;
+}
+.detail .d-note { margin-top: 6px; font-size: 12.5px; color: var(--accent-strong); font-weight: 700;}
+.custom-input,.name-input, textarea.note-input {
+width: 100%;
+margin-top: 12px;
+border: 1.5px solid var(--line);
+border-radius: 10px;
+background: var(--card-bg);
+color: var(--ink);
+font: inherit;
+font-size: 13.5px;
+padding: 9px 12px;
+}
+.custom-input:focus,.name-input:focus, textarea.note-input:focus {
+outline: none;
+border-color: var(--accent);
+}
+.name-input { margin-top: 0; margin-bottom: 12px; font-weight: 700;}
+textarea.note-input { margin-top: 0; min-height: 76px; resize: vertical;}
+.output { position: sticky; top: 16px;}
+.out-card {
+background: var(--panel);
+border: 1.5px solid var(--accent);
+border-radius: var(--radius);
+box-shadow: var(--shadow);
+padding: 18px;
+}
+.out-head {
+display: flex;
+align-items: baseline;
+gap: 8px;
+font-size: 15px;
+font-weight: 800;
+font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", sans-serif;
+margin: 0 0 10px;
+}
+.out-head .count { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--muted);}
+.prompt-box {
+background: var(--card-bg);
+border: 1px solid var(--line);
+border-radius: 12px;
+padding: 14px;
+font-size: 13.5px;
+line-height: 1.85;
+white-space: pre-wrap;
+word-break: break-word;
+max-height: 46vh;
+overflow-y: auto;
+}
+.prompt-box .sec { color: var(--accent-strong); font-weight: 800;}
+.prompt-box .cname { font-weight: 800; font-size: 14.5px;}
+.tag-box {
+background: var(--card-bg);
+border: 1px solid var(--line);
+border-radius: 12px;
+padding: 12px 14px;
+font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+font-size: 12.5px;
+line-height: 1.7;
+word-break: break-word;
+max-height: 22vh;
+overflow-y: auto;
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;}
+.btn {
+appearance: none;
+border: none;
+border-radius: 999px;
+padding: 10px 18px;
+font: inherit;
+font-size: 14px;
+font-weight: 800;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+gap: 7px;
+}
+.btn svg { width: 16px; height: 16px; flex: none;}
+.btn-primary { background: var(--accent); color: var(--accent-ink);}
+.btn-primary:hover { background: var(--accent-strong);}
+.btn-ghost {
+background: transparent;
+color: var(--ink);
+border: 1.5px solid var(--line);
+}
+.btn-ghost:hover { border-color: var(--accent2); color: var(--accent2);}
+.out-sub { margin: 18px 0 10px;}
+.toast {
+position: fixed;
+left: 50%;
+bottom: calc(24px + env(safe-area-inset-bottom));
+transform: translate(-50%, 20px);
+background: var(--ink);
+color: var(--bg);
+font-size: 13.5px;
+font-weight: 700;
+padding: 10px 20px;
+border-radius: 999px;
+opacity: 0;
+pointer-events: none;
+transition: opacity.2s, transform.2s;
+z-index: 50;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0);}
+/* プリセット：立ち絵見本カード */
+.preset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; margin-top: 12px;}
+.preset-card {
+appearance: none;
+padding: 0;
+border: 1px solid var(--line);
+border-radius: 12px;
+background: var(--card-bg);
+color: var(--ink);
+font: inherit;
+cursor: pointer;
+overflow: hidden;
+text-align: left;
+transition: border-color.15s;
+}
+.preset-card img {
+display: block;
+width: 100%;
+aspect-ratio: 17 / 25;
+object-fit: contain;
+background: var(--card-bg);
+}
+.preset-card .p-name { display: block; padding: 8px 10px; font-size: 12.5px; font-weight: 700; line-height: 1.45;}
+.preset-card:hover { border-color: var(--accent2);}
+.preset-card[aria-pressed="true"] {
+border-color: var(--accent);
+background: var(--accent-soft);
+box-shadow: inset 0 0 0 1px var(--accent);
+}
+.preset-card[aria-pressed="true"] .p-name { color: var(--accent);}
+/* 選択中プリセットの見本プレビュー */
+.preview { margin: 0 0 14px;}
+.preview img {
+display: block;
+width: 100%;
+max-height: 430px;
+object-fit: contain;
+background: var(--card-bg);
+border: 1px solid var(--line);
+border-radius: 12px;
+}
+.preview figcaption { margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--muted);}
+.filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px;}
+.filter-tabs .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink);}
+.stage { margin: 0;}
+.stage img { display: block; width: 100%; max-height: 520px; object-fit: contain; background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px;}
+.stage figcaption { margin-top: 6px; font-size: 12.5px; font-weight: 700; color: var(--muted);}
+.card h2 .chev { margin-left: 6px; font-size: 12px; color: var(--muted); transition: transform.15s;}
+.card.open h2 .chev { transform: rotate(180deg);}
+.card .cat-body { display: none;}
+.card.open .cat-body { display: block;}
+.card h2.clickable { cursor: pointer;}
+.back-btn { justify-self: start;}
+.manual-btn { margin-top: 12px;}
+@media (max-width: 560px) {
+.preset-grid { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));}
+}
+@media (max-width: 1023px) {
+.layout { grid-template-columns: minmax(0, 1fr);}
+.output { position: static;}
+.prompt-box { max-height: none;}
+.tag-box { max-height: none;}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="hub-bar">
+<a class="hub-back" href="/spaces/v2/comfyuipuronputobiruda/">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+ハブに戻る
+</a>
+<span class="hub-label">ComfyUIプロンプトビルダー（最終調整・出力）へ</span>
+</div>
+<p class="lead">ここは<strong>私服の部屋</strong>です。まず下の<strong>私服プリセット（43種）</strong>からコーデを選ぶと、大きな立ち絵とプロンプトの画面に移ります。カテゴリ（トップス／ボトムス／アウター／シューズ／ソックス／小物１・２）は普段閉じていて、タップすると開いて個別に変更できます。「堕ちた薔薇姫」はコスプレカタログへ移動しました。</p>
+
+<nav class="room-nav" aria-label="部屋ナビ">
+<a href="/spaces/v2/comfyuipuronputobiruda/">ハブ：ComfyUIプロンプトビルダー</a>
+<a href="/spaces/v2/miyuu-kosupurekatarogu/">衣装：コスプレカタログ</a>
+<span aria-current="page">衣装：着せ替えビルダー（私服）</span>
+<a href="/spaces/v2/kameraanguruzao-jian-biao/">カメラ：アングル早見表</a>
+</nav>
+
+<div class="layout">
+<div class="controls">
+<button type="button" class="btn btn-ghost back-btn" id="backBtn" hidden>← コーデ一覧へ戻る</button>
+<figure class="stage" id="stageFig" hidden>
+<img id="stageImg" alt="" />
+<figcaption id="stageCap"></figcaption>
+</figure>
+<section class="card" id="presetSection" aria-label="私服プリセットコーデ">
+<h2><span class="dot"></span>私服プリセットコーデ</h2>
+<p class="hint">立ち絵見本カードをタップすると、コーデを構成するアイテムと色テーマが下の各カテゴリに一括でセットされます。セット後は「ロングスカート→ミニスカート」のように個別に変更できます。コーデ名は全体プロンプトの先頭に入ります。</p>
+<input class="name-input" id="coordName" type="text" placeholder="コーデ名（例：おでかけギャル）" autocomplete="off" />
+<div class="filter-tabs" id="presetFilters" role="group" aria-label="プリセットの仕分け">
+<button type="button" class="chip" data-f="all" aria-pressed="true">すべて</button>
+<button type="button" class="chip" data-f="kireime" aria-pressed="false">きれいめ系</button>
+<button type="button" class="chip" data-f="casual" aria-pressed="false">カジュアル系</button>
+<button type="button" class="chip" data-f="gal" aria-pressed="false">ギャル系</button>
+<button type="button" class="chip" data-f="trend" aria-pressed="false">トレンド系</button>
+<button type="button" class="chip" data-f="other" aria-pressed="false">その他</button>
+</div>
+<div class="preset-grid" id="presetChips"></div>
+<button type="button" class="btn btn-ghost manual-btn" id="manualBtn">プリセットなしで自分で組み立てる</button>
+<div class="color-row show">
+<div class="c-label">カラーテーマ（トップス〜ソックスの色味をまとめて変更）</div>
+<div class="cchips" id="themeChips"></div>
+</div>
+</section>
+
+<div id="catSections" style="display:grid;gap:16px;"></div>
+
+<section class="card" id="noteSection" aria-label="備考の自由記入">
+<h2><span class="dot"></span>備考（自由記入）</h2>
+<p class="hint">出力が難しい部分の補助プロンプトなど。選んだアイテムの注意書きと一緒に&#12304;備考&#12305;へ入ります。</p>
+<textarea class="note-input" id="manualNote" placeholder="例：背面もしっかり描く／指輪は左手の薬指に"></textarea>
+</section>
+</div>
+
+<aside class="output" aria-label="生成されたプロンプト">
+<div class="out-card">
+<figure class="preview" id="presetPreview" hidden>
+<img id="presetPreviewImg" alt="" />
+<figcaption id="presetPreviewCap"></figcaption>
+</figure>
+<p class="out-head">全体プロンプト<span class="count" id="charCount"></span></p>
+<div class="prompt-box" id="promptOut"></div>
+<div class="btn-row">
+<button class="btn btn-primary" id="copyPrompt" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+全体プロンプトをコピー
+</button>
+</div>
+
+<p class="out-head out-sub">Danbooruタグ形式</p>
+<div class="tag-box" id="tagOut"></div>
+<div class="btn-row">
+<button class="btn btn-ghost" id="copyTags" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+タグをコピー
+</button>
+<button class="btn btn-ghost" id="randomBtn" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>
+おまかせコーデ
+</button>
+<button class="btn btn-ghost" id="resetBtn" type="button">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+リセット
+</button>
+</div>
+<a class="hub-go" href="/spaces/v2/comfyuipuronputobiruda/">
+コピーしたらハブへ：最終調整・出力する
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+</a>
+</div>
+</aside>
+</div>
+
+<div class="hub-foot">
+<a class="hub-back" href="/spaces/v2/comfyuipuronputobiruda/">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+ハブに戻る（ComfyUIプロンプトビルダー）
+</a>
+<p class="hub-note">選んだ私服の断片は、ハブの「断片の取り込み」に貼ると全体のプロンプトに合流します。</p>
+</div>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+"use strict";
+
+/* ---------- カタログ ---------- */
+var ITEMS = {
+tops: [
+{ id: "cropped-cami", name: "クロップドキャミソール", desc: "クロップド丈キャミソール。へそが見える短い丈、細い肩紐、胸元の小さなリボン", tags: "cropped camisole, midriff, spaghetti straps, small ribbon", note: "キャミソールは本当のクロップド丈で、へそがしっかり見える短さにする"},
+{ id: "backless-sweater", name: "バックレスニットセーター", desc: "背中が大きく開いたニットセーター。前面は普通のニット、背面は大きく開いたデザイン", tags: "backless sweater, open back, knit sweater", note: "背中の開きは尾てい骨まで深く、脇腹まで広く開ける。脇の下の服も開きの一部として描く"},
+{ id: "butterfly-knit", name: "バタフライニット", desc: "蝶のモチーフを編み込んだニットトップス。ふんわりした袖", tags: "butterfly motif knit top, puff sleeves"},
+{ id: "corset-bustier", name: "コルセットビスチェ（薔薇姫）", desc: "ベルベット製コルセットビスチェ。緩やかなハート型ネックライン、スカラップレースの縁取り、胸元中央に楕円形の宝石ブローチ、縦のボーンライン、背面はリボン編み上げ", tags: "velvet corset, sweetheart neckline, scallop lace trim, gemstone brooch, boned corset, lace-up back", note: "背面中央の編み上げリボンと縦のボーンラインを必ず描く"},
+{ id: "offshoulder", name: "オフショルフリルトップス", desc: "オフショルダートップス。胸元にたっぷりのフリル", tags: "off-shoulder top, frills"},
+{ id: "baby-tee", name: "Y2KベビーTシャツ", desc: "ぴったりフィットのベビーTシャツ。ハートのロゴプリント、短めの丈", tags: "baby tee, fitted t-shirt, heart logo print, cropped"},
+{ id: "halter-dress", name: "バックレスニットドレス", desc: "バックレス・ホルターネックニットミニドレス。深いU字の背開き、背面中央にリボン、カウル状のドレープ", tags: "backless knit dress, halterneck, deep open back, ribbon, cowl drape", note: "背中のU字開きは深く、リボンのテールは長めに。ドレープは強めに描く（ワンピースなのでボトムスは「ボトムスなし」がおすすめ）"},
+{ id: "big-hoodie", name: "ビッグパーカー", desc: "オーバーサイズのパーカー。フード付き、袖は手の半分が隠れる長さ", tags: "oversized hoodie, long sleeves"},
+{ id: "boyfriend-shirt", name: "彼シャツ", desc: "大きめのワイシャツ。上のボタンを2つ開けてラフに着る", tags: "dress shirt, oversized shirt, unbuttoned"},
+{ id: "tube-top", name: "チューブトップ", desc: "チューブトップ。シンプルでタイトなシルエット", tags: "tube top, strapless, tight"},
+{ id: "satin-bra", name: "見せブラ（サテン生地）", desc: "サテン生地の見せブラ。光沢のある滑らかな生地、細い肩紐、見せる前提のブラトップ型", tags: "satin bra top, show bra, glossy satin, spaghetti straps, bra top", note: "インナーとして隠さず、見せるトップスとして描く"},
+{ id: "micro-tube-top", name: "マイクロチューブトップ", desc: "マイクロ丈のチューブトップ。バスト下で終わる極端に短い丈、肩紐なしのバンドゥ型、タイトなシルエット", tags: "micro tube top, bandeau top, strapless, cropped, tight", note: "丈はバスト下で終わる本当のマイクロ丈にする。肩紐は付けない"},
+{ id: "strapless-lace", name: "ストラップレスレーストップス", desc: "ストラップレスのレーストップス。肩紐なしのバンドゥ型、繊細な花柄レース、裾はスカラップ状のレース縁取り、肩と鎖骨はすっきり見える", tags: "strapless lace top, bandeau top, floral lace, scalloped hem, bare shoulders", note: "肩紐は付けない（ストラップレス）。レースの花柄とスカラップ状の裾縁を繊細に描く"},
+{ id: "princess-blouse", name: "姫袖ブラウス", desc: "姫袖のブラウス。レースの縁取りとパールボタン", tags: "princess sleeves, blouse, lace trim, pearl buttons"},
+{ id: "plain-blouse", name: "シンプルブラウス", desc: "シンプルなブラウス。丸襟と七分袖の清楚なデザイン", tags: "simple blouse, round collar, three-quarter sleeves"},
+{ id: "knit-sweater", name: "ベーシックニット", desc: "ベーシックなニットセーター。程よくフィットするシルエット", tags: "knit sweater, basic sweater"},
+{ id: "turtleneck", name: "タートルネックニット", desc: "タートルネックのニットセーター。首元まで暖かい", tags: "turtleneck sweater, knit"},
+{ id: "oxford-shirt", name: "オックスフォードシャツ", desc: "オックスフォードシャツ。きちんと感のある襟付きシャツ", tags: "oxford shirt, collared shirt"},
+{ id: "rib-cami", name: "リブニットキャミソール", desc: "リブ編みのニットキャミソール。体のラインに沿うフィット感、細い肩紐", tags: "ribbed knit camisole, fitted, spaghetti straps"},
+{ id: "sheer-blouse", name: "シアーブラウス", desc: "透け感のあるシアーブラウス。ふんわりした長袖、小さなドット柄", tags: "sheer blouse, see-through sleeves, dot pattern"},
+{ id: "denim-vest-top", name: "デニムベストトップス", desc: "デニムのベスト風トップス。フロントボタン、短めの丈", tags: "denim vest top, front buttons, cropped"},
+{ id: "cropped-sweat", name: "クロップドスウェット", desc: "クロップド丈のスウェットトレーナー。ゆるいシルエット、リブ裾", tags: "cropped sweatshirt, loose fit, ribbed hem"},
+{ id: "laceup-top", name: "レースアップトップス", desc: "胸元がレースアップになったトップス。編み上げリボンと短めの丈", tags: "lace-up top, ribbon lacing, cropped"}
+],
+bottoms: [
+{ id: "micro-shorts", name: "マイクロホットパンツ", desc: "デニムのマイクロホットパンツ。極端に短い丈、ローライズ", tags: "denim micro shorts, hot pants, low rise", note: "ホットパンツの丈は本当のマイクロ丈（極端に短く）にする"},
+{ id: "pleated-skirt", name: "プリーツミニスカート", desc: "チェック柄のプリーツミニスカート", tags: "plaid pleated skirt, miniskirt"},
+{ id: "denim-mini", name: "デニムミニスカート", desc: "ダメージ加工のデニムミニスカート、タイトなシルエット", tags: "denim miniskirt, distressed, tight skirt"},
+{ id: "lolita-skirt", name: "多層フリルスカート（薔薇姫）", desc: "多層フィット＆フレアスカート。内側にサテンのミニスカート、上から左右に分かれたカーテン状のオーバースカート、レースとフリルの縁取り、背面は立体的なバッスルと大きなサテンリボン", tags: "layered skirt, fit and flare, overskirt, lace trim, bustle, large satin bow", note: "前中央では内側のミニスカートが見える構造にする。背面の大きなリボンとバッスルを必ず描く"},
+{ id: "leather-mini", name: "レザーミニスカート", desc: "レザーのタイトミニスカート", tags: "leather miniskirt, tight"},
+{ id: "cargo-pants", name: "ローライズカーゴパンツ", desc: "ローライズのカーゴパンツ。大きめのポケット、裾はブーツイン", tags: "low rise cargo pants, utility pockets, boots tucked in"},
+{ id: "sweat-shorts", name: "スウェットショーツ", desc: "ゆるいスウェット素材のショートパンツ、部屋着風", tags: "sweat shorts, loungewear"},
+{ id: "maxi-skirt", name: "花柄マキシスカート", desc: "花柄のロングマキシスカート、ふんわりしたシルエット", tags: "floral maxi skirt, long skirt, flowing"},
+{ id: "skinny", name: "ハイウエストスキニー", desc: "ハイウエストのスキニーパンツ", tags: "high waisted skinny pants"},
+{ id: "lowrise-denim", name: "ローライズデニム", desc: "ローライズのデニムジーンズ。腰骨の位置で履く低いウエスト、へそが見える丈感、程よくフィットするストレートな脚のライン", tags: "low rise jeans, denim pants, low waisted, midriff", note: "ウエストは腰骨の位置まで低く（ローライズ）、へそが見えるようにする。ハイウエストにしない"},
+{ id: "tulle-skirt", name: "チュールスカート", desc: "ふわふわのチュールスカート、膝丈", tags: "tulle skirt, knee length"},
+{ id: "long-skirt", name: "ロングスカート", desc: "ロングスカート。膝下まで届く上品な丈、歩くと揺れるフレア", tags: "long skirt, below the knee, flare skirt"},
+{ id: "flare-skirt", name: "フレアスカート", desc: "フレアスカート。裾がふんわり広がるAライン", tags: "flare skirt, a-line skirt"},
+{ id: "wide-pants", name: "ワイドパンツ", desc: "ワイドパンツ。ゆったりしたシルエット", tags: "wide pants, loose fit"},
+{ id: "straight-jeans", name: "ストレートジーンズ", desc: "ストレートジーンズ。すっきりした脚のライン", tags: "straight jeans, denim pants"},
+{ id: "bermuda", name: "バミューダパンツ", desc: "膝丈のバミューダパンツ。ゆったりしたワイドなシルエット", tags: "bermuda shorts, knee length, wide fit"},
+{ id: "pleated-long", name: "プリーツロングスカート", desc: "プリーツのロングスカート。揺れる細かいプリーツ、足首丈", tags: "pleated long skirt, ankle length"},
+{ id: "slit-tight", name: "スリットタイトスカート", desc: "タイトスカート。サイドに深めのスリット入り", tags: "tight skirt, side slit"},
+{ id: "jogger", name: "ジョガーパンツ", desc: "ジョガーパンツ。裾リブでスポーティなシルエット", tags: "jogger pants, ribbed cuffs, sporty"},
+{ id: "tiered-mini", name: "ティアードミニスカート", desc: "段々に重なったティアードフリルのミニスカート", tags: "tiered skirt, frills, miniskirt"},
+{ id: "pinstripe-bow-mini", name: "ピンストライプリボンミニスカート", desc: "ピンストライプ柄のプリーツミニスカート。裾にレースの縁取りとリボン付き", tags: "pinstripe skirt, pleated skirt, miniskirt, lace trim, bow, ribbon", note: "裾のレース縁取りとリボンを必ず描く"},
+{ id: "lounge-shorts", name: "ラウンジショーツ", desc: "ボーダー柄ニットのショートパンツ。幅広のウエストバンド、体に沿うフィット感の部屋着風ラウンジショーツ", tags: "striped shorts, knit shorts, lounge shorts, loungewear, fitted shorts"},
+{ id: "denim-shorts", name: "デニムショートパンツ", desc: "デニムのショートパンツ。マイクロ丈より少し長めの通常丈、背面ポケット付き", tags: "denim shorts, jean shorts, back pockets", note: "丈はマイクロ丈にせず、通常のショート丈にする"},
+{ id: "pleated-jersey-mini", name: "プリーツジャージーミニスカート", desc: "ジャージー素材のプリーツミニスカート。細かいプリーツが裾でふんわり広がるフレアシルエット", tags: "jersey pleated skirt, pleated skirt, miniskirt, flare skirt"}
+],
+outer: [
+{ id: "lace-bolero", name: "レースボレロ（薔薇姫）", desc: "シャンティイレースの薄手ボレロ。透け感のある薔薇と蔓草柄のレース長袖、手首で小さく広がるベルカフス、袖口に小さな薔薇のチャーム", tags: "chantilly lace bolero, see-through lace sleeves, bell cuffs, rose charm", note: "袖のレースは薔薇と蔓草の模様を繊細に描く"},
+{ id: "fur-jacket", name: "ファー付きショートジャケット", desc: "フードにファーの付いたショート丈ジャケット", tags: "fur trim short jacket, hood"},
+{ id: "riders", name: "ライダースジャケット", desc: "レザーのライダースジャケット。ラフに羽織る", tags: "leather riders jacket"},
+{ id: "long-cardigan", name: "ロングカーディガン", desc: "膝丈のロングカーディガン、ゆるく羽織る", tags: "long cardigan, knee length"},
+{ id: "denim-jacket", name: "デニムジャケット", desc: "ヴィンテージ風のデニムジャケット、袖を少し捲る", tags: "denim jacket, rolled sleeves, vintage"},
+{ id: "boa-blouson", name: "ボアブルゾン", desc: "もこもこのボアブルゾン", tags: "boa fleece blouson, fluffy"},
+{ id: "cape-coat", name: "ケープコート", desc: "ロリータ風のケープコート。ファーの縁取りと大きなリボン", tags: "cape coat, fur trim, large bow, lolita fashion"},
+{ id: "ma1", name: "MA-1ブルゾン", desc: "MA-1フライトジャケット", tags: "ma-1 flight jacket"},
+{ id: "short-cardigan", name: "ショートカーディガン", desc: "ショート丈のカーディガン。前を開けて軽く羽織る", tags: "short cardigan"},
+{ id: "trench", name: "トレンチコート", desc: "トレンチコート。ウエストベルト付きのクラシックなデザイン", tags: "trench coat, belted coat"},
+{ id: "tailored", name: "テーラードジャケット", desc: "テーラードジャケット。きちんと感のある羽織り", tags: "tailored jacket, blazer"},
+{ id: "knit-vest", name: "ニットベスト", desc: "ニットベスト。シャツの上にレイヤードする", tags: "knit vest, layered"},
+{ id: "sheer-cardigan", name: "シアーカーディガン", desc: "透け感のある薄手カーディガン。軽く羽織る", tags: "sheer cardigan, light outerwear"},
+{ id: "cropped-blazer", name: "クロップドブレザー", desc: "短め丈のブレザー。きれいめなテーラードシルエット", tags: "cropped blazer, tailored"},
+{ id: "quilted-jacket", name: "キルティングジャケット", desc: "キルティングの軽量ジャケット。ダイヤ柄のステッチ", tags: "quilted jacket, diamond stitching"},
+{ id: "fleece-vest", name: "フリースベスト", desc: "フリース素材のベスト。アウトドア風のレイヤード用", tags: "fleece vest, layered, outdoorsy"}
+],
+shoes: [
+{ id: "platform-boots", name: "厚底ロングブーツ", desc: "厚底ロングブーツ。編み上げとベルトストラップ、太いプラットフォームソール", tags: "platform boots, lace-up boots, belt straps, platform sole"},
+{ id: "rose-pumps", name: "厚底ストラップパンプス（薔薇姫）", desc: "厚底ストラップパンプス。丸みのあるアーモンドトゥ、太めのブロックヒール、足首ストラップにアンティークゴールドのバックル、つま先に小さなリボンと薔薇装飾", tags: "platform pumps, almond toe, ankle strap, block heel, antique gold buckle, rose ornament"},
+{ id: "platform-sneakers", name: "厚底スニーカー", desc: "厚底スニーカー", tags: "platform sneakers"},
+{ id: "loafers", name: "厚底ローファー", desc: "厚底ローファー、ビット金具付き", tags: "platform loafers, bit ornament"},
+{ id: "knee-boots", name: "ニーハイブーツ", desc: "ニーハイブーツ、細めのヒール", tags: "knee high boots, high heels"},
+{ id: "heel-sandals", name: "ヒールサンダル", desc: "ストラップヒールサンダル、華奢なデザイン", tags: "strappy high heel sandals"},
+{ id: "mouton", name: "ムートンブーツ", desc: "ムートンブーツ、もこもこ素材", tags: "mouton boots, fluffy"},
+{ id: "barefoot", name: "裸足", desc: "裸足", tags: "barefoot", note: "室内シーンでは靴を履かせない（裸足、またはスリッパ）"},
+{ id: "slippers", name: "ルームスリッパ", desc: "ふわふわのルームスリッパ", tags: "fluffy slippers", note: "室内シーンでは靴を履かせない（裸足、またはスリッパ）"},
+{ id: "strap-pumps", name: "ワンストラップパンプス", desc: "ワンストラップパンプス。甲のストラップと低めのヒール、上品な丸トゥ", tags: "strap pumps, low heels, round toe"},
+{ id: "ballet-flats", name: "バレエシューズ", desc: "バレエシューズ風のフラットパンプス。小さなリボン付き", tags: "ballet flats, ribbon"},
+{ id: "canvas-sneakers", name: "キャンバススニーカー", desc: "キャンバス地のローカットスニーカー", tags: "canvas sneakers, low cut"},
+{ id: "short-boots", name: "ショートブーツ", desc: "足首丈のショートブーツ。太めのヒール", tags: "ankle boots, block heel"},
+{ id: "sneaker-sandals", name: "スニーカーサンダル", desc: "スニーカー風ソールのスポーツサンダル", tags: "sport sandals, sneaker sole"},
+{ id: "wedge-sandals", name: "ウェッジサンダル", desc: "ウェッジヒールのサンダル。安定感のある厚底", tags: "wedge sandals, platform"},
+{ id: "laceup-sandals", name: "レースアップサンダル", desc: "足首まで編み上げるグラディエーター風サンダル", tags: "lace-up sandals, gladiator sandals"}
+],
+socks: [
+{ id: "knee-socks", name: "ニーハイソックス", desc: "ニーハイソックス、上端に細いライン", tags: "thigh high socks"},
+{ id: "loose-socks", name: "ルーズソックス", desc: "ルーズソックス、たっぷりたるませて履く", tags: "loose socks"},
+{ id: "lace-stockings", name: "レースストッキング（薔薇姫）", desc: "花柄レースのシアーストッキング。薔薇の蔓草と小花を縦方向に配置、幅広のスカラップレースの上端、細いサテン製ガーターストラップ付き", tags: "floral lace stockings, rose vine pattern, scalloped lace top, garter straps, satin", note: "ガーターストラップは装飾用として左右対称に配置する"},
+{ id: "sheer-tights", name: "シアータイツ", desc: "薄手のシアータイツ", tags: "sheer tights"},
+{ id: "fishnet", name: "網タイツ", desc: "網タイツ", tags: "fishnet tights"},
+{ id: "crew-socks", name: "クルーソックス", desc: "クルーソックス、ワンポイントロゴ入り", tags: "crew socks"},
+{ id: "leg-warmers", name: "レッグウォーマー", desc: "ニットのレッグウォーマー、くしゅくしゅにたるませる", tags: "leg warmers, knit, scrunched"},
+{ id: "ribbon-socks", name: "リボン付きソックス", desc: "レースとリボン付きのソックス（ロリータ風）", tags: "lace socks, ribbon, lolita fashion"},
+{ id: "high-socks", name: "ハイソックス", desc: "ハイソックス。膝下までの丈", tags: "high socks, knee high socks"},
+{ id: "ankle-socks", name: "アンクルソックス", desc: "アンクルソックス。くるぶし丈", tags: "ankle socks"},
+{ id: "mesh-socks", name: "メッシュソックス", desc: "メッシュ素材のソックス。涼しげな透け感", tags: "mesh socks, see-through"},
+{ id: "line-socks", name: "ラインソックス", desc: "上端に2本ラインの入ったスポーツ風ソックス", tags: "striped socks, sporty, two stripes"},
+{ id: "sheer-socks", name: "シースルーソックス", desc: "薄手で透け感のあるシースルーソックス", tags: "sheer socks, see-through"}
+],
+acc: [
+{ id: "lace-choker", name: "レースチョーカー", desc: "花柄レースのチョーカー。中央に小さな宝石、細いチェーンと小粒パールが短く垂れ下がる", tags: "lace choker, gemstone, pearl chain"},
+{ id: "tiara", name: "ティアラ（薔薇姫）", desc: "アンティークゴールドの花冠ティアラ。蔓草モチーフに小さな薔薇と宝石、髪型を隠さない低めの位置に付ける", tags: "antique gold tiara, rose vine motif, gemstones"},
+{ id: "rose-corsage", name: "薔薇コサージュ", desc: "薔薇と小薔薇を束ねたコサージュを、腰に非対称に配置", tags: "rose corsage, roses", note: "コサージュは左右非対称にする（片側は大輪の薔薇、反対側は小薔薇の束）"},
+{ id: "cat-ears", name: "猫耳ヘッドドレス", desc: "猫耳のヘッドドレス", tags: "cat ears headband"},
+{ id: "heart-sunglasses", name: "ハートサングラス", desc: "ハート型のサングラスを頭に乗せる", tags: "heart shaped sunglasses, sunglasses on head"},
+{ id: "ribbon-clip", name: "リボンヘアクリップ", desc: "大きなサテンリボンのヘアクリップ", tags: "large satin ribbon hair clip"},
+{ id: "hoop-earrings", name: "ゴールドフープピアス", desc: "大きめのゴールドフープピアス", tags: "gold hoop earrings, large"},
+{ id: "chain-belt", name: "チェーンベルト", desc: "ウエストに巻く細いチェーンベルト、ハートのチャーム付き", tags: "chain belt, heart charm"},
+{ id: "heart-bag", name: "ハート型ミニバッグ", desc: "ハート型のミニショルダーバッグ", tags: "heart shaped bag, shoulder bag"},
+{ id: "lace-gloves", name: "レース手袋", desc: "レースの手袋、フリル付きのカフス", tags: "lace gloves, frilled cuffs"},
+{ id: "bunny-band", name: "うさ耳カチューシャ", desc: "うさ耳カチューシャ、レース付き", tags: "bunny ears headband, lace"},
+{ id: "lolita-headdress", name: "ロリータヘッドドレス", desc: "レースたっぷりのヘッドドレス、大きなリボンとパールの装飾", tags: "lolita headdress, lace, large bow, pearls"},
+{ id: "tote-bag", name: "トートバッグ", desc: "大きめのトートバッグを肩にかける", tags: "tote bag, shoulder bag"},
+{ id: "backpack", name: "リュック", desc: "リュックサックを背負う", tags: "backpack"},
+{ id: "beret", name: "ベレー帽", desc: "ベレー帽を少し斜めにかぶる", tags: "beret, tilted hat"},
+{ id: "scarf", name: "マフラー", desc: "マフラーをふんわり巻く", tags: "scarf, wrapped scarf"},
+{ id: "straw-hat", name: "麦わら帽子", desc: "麦わら帽子。リボン付き", tags: "straw hat, ribbon"},
+{ id: "pearl-necklace", name: "パールネックレス", desc: "一連のパールネックレス。上品な首元のアクセント", tags: "pearl necklace"},
+{ id: "cap", name: "キャップ", desc: "ベースボールキャップ。カジュアルな差し色", tags: "baseball cap"},
+{ id: "velvet-choker", name: "ベルベットチョーカー", desc: "ベルベットのチョーカー。小さなハートチャーム付き", tags: "velvet choker, heart charm"},
+{ id: "anklet", name: "アンクレット", desc: "足首に付ける細いチェーンのアンクレット", tags: "anklet, chain"},
+{ id: "sash-belt", name: "サッシュベルト", desc: "ウエストに巻く太めのサッシュベルト。リボン結び", tags: "sash belt, ribbon tie, wide belt"}
+],
+other: [
+{ id: "urban-expedition", name: "アーバン・エクスペディション", desc: "ディープペトロールティール×ウォームアイボリー×チャコールのテックウェア。金具はブラッシュドブロンズ、差し色はミュートコーラル。腰上で終わるクロップド・オーバーサイズの技術ジャケット（アイボリーの肩パネルと背ヨーク、ブロンズのパイピング、スタンドカラー、アシンメトリーのスナップ開閉をオープンに着る、胸にファスナーポケット）。幾何学カットアウトのクロップド・アスレチックトップ（バスト下で終わり腹部が見える）。ローライズのオーバーサイズ・パラシュートカーゴパンツ（すね丈クロップド、膝の補強パネルと斜めアイボリーパイピング、大型ユーティリティポケット、垂れたウェビングストラップ、裾ドローコード）。チャコールのユーティリティベルト（ブロンズのクイックリリースバックルとカラビナ）、着脱式アイボリー・ユーティリティポーチ。ティール×アイボリー×チャコールのチャンキーなミッドトップ・テクニカルスニーカー。ロゴ・ブランド表示なし", tags: "techwear, cropped technical jacket, stand collar, asymmetrical snap closure, cropped athletic top, cutout, midriff, low rise parachute cargo pants, cropped pants, utility pockets, webbing straps, utility belt, bronze buckle, utility pouch, chunky technical sneakers, teal, ivory, charcoal, no logo", note: "ロゴ・ブランド表示は入れない。配色（ティール×アイボリー×チャコール）とブラッシュドブロンズの金具を厳密に再現する"},
+{ id: "ivory-blade", name: "アイヴォリー・ブレイド", desc: "アイボリー×チャコール×金縁刺繍のファンタジー剣士衣装。刀を携える", tags: "fantasy swordsman outfit, ivory, charcoal, gold trim embroidery, katana", note: "刀を携える。配色はアイボリー×チャコールに金縁刺繍で厳密に再現する"},
+{ id: "base-coord", name: "ミュウの基本コーデ", desc: "開けたライトベージュのオーバーサイズジップパーカー、黒のクロップドタンクトップ、リングとストラップ付きのダークなカーゴパンツ、白のチャンキースニーカー、黒のスタッズレザーバングル", tags: "oversized zip hoodie, light beige, open hoodie, black cropped tank top, dark cargo pants, straps, white chunky sneakers, studded leather bangle"},
+{ id: "navy-lace-denim", name: "ネイビーレース＆ローライズデニム", desc: "ネイビーブラックの花柄レースのトライアングルブラ（細ストラップ、花柄レースと裏地）と、ウォッシュブルーのローライズ・デニムマイクロショートパンツ（前開きボタン＆ファスナー、裾は切りっぱなしのフリンジ＋ダメージ、背面ポケット）。金具はシルバー", tags: "navy black floral lace triangle bra, thin straps, low rise denim micro shorts, washed blue denim, frayed hem, distressed, silver hardware", note: "ブラはトライアングル型（細ストラップ）。金具はシルバーで統一する"}
+]
+};
+
+/* ---------- 色テーマ ---------- */
+var COLORS = [
+{ id: "white", label: "ホワイト", jp: "白い", en: "white", sw: "#ffffff"},
+{ id: "black", label: "ブラック", jp: "黒い", en: "black", sw: "#2b2b2b"},
+{ id: "pink", label: "ピンク", jp: "ピンクの", en: "pink", sw: "#f7a8c4"},
+{ id: "red", label: "レッド", jp: "赤い", en: "red", sw: "#d43a3a"},
+{ id: "bordeaux", label: "ボルドー", jp: "ボルドーの", en: "bordeaux", sw: "#722f37"},
+{ id: "blue", label: "ブルー", jp: "青い", en: "blue", sw: "#3a6fd8"},
+{ id: "lightblue", label: "水色", jp: "水色の", en: "light blue", sw: "#a8d4f0"},
+{ id: "navy", label: "ネイビー", jp: "ネイビーの", en: "navy", sw: "#232c4e"},
+{ id: "beige", label: "ベージュ", jp: "ベージュの", en: "beige", sw: "#e3d3b8"},
+{ id: "cream", label: "クリーム", jp: "クリーム色の", en: "cream", sw: "#f5ecd7"},
+{ id: "lightbrown", label: "ライトブラウン", jp: "ライトブラウンの", en: "light brown", sw: "#b98a5e"},
+{ id: "brown", label: "ブラウン", jp: "茶色の", en: "brown", sw: "#6f4525"},
+{ id: "gray", label: "グレー", jp: "グレーの", en: "grey", sw: "#9a9a9a"},
+{ id: "khaki", label: "カーキ", jp: "カーキの", en: "khaki", sw: "#8a8552"},
+{ id: "green", label: "グリーン", jp: "緑の", en: "green", sw: "#4d8a4f"},
+{ id: "yellow", label: "イエロー", jp: "黄色い", en: "yellow", sw: "#f2c93c"},
+{ id: "purple", label: "パープル", jp: "紫の", en: "purple", sw: "#8a5fc0"},
+{ id: "orange", label: "オレンジ", jp: "オレンジの", en: "orange", sw: "#ef8a3c"}
+];
+var colorById = {};
+COLORS.forEach(function (c) { colorById[c.id] = c;});
+
+/* 全体カラーテーマ: tops/bottoms/outer/shoes/socks へ一括適用 */
+var THEMES = [
+{ id: "pink", name: "ピンク系", map: { tops: "pink", bottoms: "pink", outer: "white", shoes: "white", socks: "white"}},
+{ id: "blue", name: "ブルー系", map: { tops: "lightblue", bottoms: "blue", outer: "white", shoes: "white", socks: "white"}},
+{ id: "brown", name: "ブラウン系", map: { tops: "cream", bottoms: "brown", outer: "lightbrown", shoes: "brown", socks: "beige"}},
+{ id: "mono", name: "モノトーン", map: { tops: "white", bottoms: "black", outer: "gray", shoes: "black", socks: "black"}},
+{ id: "navy", name: "ネイビー系", map: { tops: "white", bottoms: "navy", outer: "navy", shoes: "brown", socks: "navy"}},
+{ id: "pastel", name: "パステル", map: { tops: "pink", bottoms: "lightblue", outer: "cream", shoes: "white", socks: "white"}},
+{ id: "bordeaux", name: "ボルドー系", map: { tops: "bordeaux", bottoms: "black", outer: "bordeaux", shoes: "black", socks: "black"}},
+{ id: "green", name: "グリーン系", map: { tops: "cream", bottoms: "green", outer: "khaki", shoes: "brown", socks: "beige"}}
+];
+
+/* noneMode: "line" = なし と出力 / "omit" = セクション自体を出さない */
+var CATS = [
+{ id: "tops", label: "トップス", pool: "tops", noneMode: null},
+{ id: "bottoms", label: "ボトムス", pool: "bottoms", noneMode: "omit", noneLabel: "ボトムスなし（ワンピース等）"},
+{ id: "outer", label: "アウター", pool: "outer", noneMode: "line", noneLabel: "なし"},
+{ id: "shoes", label: "シューズ", pool: "shoes", noneMode: null},
+{ id: "socks", label: "ソックス", pool: "socks", noneMode: "line", noneLabel: "なし"},
+{ id: "acc1", label: "小物１", pool: "acc", noneMode: "line", noneLabel: "なし"},
+{ id: "acc2", label: "小物２", pool: "acc", noneMode: "omit", noneLabel: "なし"},
+{ id: "other", label: "その他", pool: "other", noneMode: "omit", noneLabel: "なし（使わない）", hint: "クレイのオリジナル衣装を、まるごと1着で選ぶ項目です（元はカメラアングル早見表にあった衣装）。選ぶと衣装一式がそのまま【その他】に入ります。トップス〜小物と組み合わせる場合は、重なるアイテム側を「なし」にしてください。"}
+];
+
+/* 私服プリセット43種: sel=アイテム / col=色テーマ（カテゴリID -> 色ID） */
+var PRESETS = [
+{ name: "清楚系お嬢様", img: "preset-ojousama.jpg", sel: { tops: "plain-blouse", bottoms: "long-skirt", outer: "short-cardigan", shoes: "strap-pumps", socks: "high-socks", acc1: "ribbon-clip", acc2: null}, col: { tops: "white", bottoms: "blue", outer: "lightbrown", shoes: "brown", socks: "white"}},
+{ name: "ギャル定番コーデ", img: "preset-galcoord.jpg", sel: { tops: "baby-tee", bottoms: "pleated-skirt", outer: "fur-jacket", shoes: "loafers", socks: "loose-socks", acc1: "ribbon-clip", acc2: "heart-bag"}, col: { tops: "pink"}},
+{ name: "おうちリラックス", img: "preset-roomwear.jpg", sel: { tops: "boyfriend-shirt", bottoms: "sweat-shorts", outer: "none", shoes: "barefoot", socks: "none", acc1: "none", acc2: null}},
+{ name: "マイクロホットパンツ×クロップドキャミ", img: "preset-gal.jpg", sel: { tops: "cropped-cami", bottoms: "micro-shorts", outer: "denim-jacket", shoes: "platform-boots", socks: "none", acc1: "heart-sunglasses", acc2: "chain-belt"}},
+{ name: "背開きニットドレス Ver.2", img: "preset-knitdress.jpg", sel: { tops: "halter-dress", bottoms: null, outer: "none", shoes: "knee-boots", socks: "none", acc1: "hoop-earrings", acc2: null}, col: { tops: "gray"}},
+{ name: "デートカフェコーデ", img: "preset-datecafe.jpg", sel: { tops: "offshoulder", bottoms: "flare-skirt", outer: "none", shoes: "strap-pumps", socks: "ankle-socks", acc1: "heart-bag", acc2: null}, col: { tops: "pink", bottoms: "white", shoes: "pink"}},
+{ name: "ニットワンピース風", img: "preset-whitedown.jpg", sel: { tops: "halter-dress", bottoms: null, outer: "long-cardigan", shoes: "knee-boots", socks: "sheer-tights", acc1: "hoop-earrings", acc2: null}, col: { tops: "beige", outer: "cream"}},
+{ name: "ストリートギャル", img: "preset-street.jpg", sel: { tops: "baby-tee", bottoms: "cargo-pants", outer: "ma1", shoes: "platform-sneakers", socks: "crew-socks", acc1: "chain-belt", acc2: "heart-sunglasses"}, col: { tops: "black", outer: "khaki"}},
+{ name: "モノトーンコーデ", img: "preset-monotone.jpg", sel: { tops: "tube-top", bottoms: "leather-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "none", acc2: null}, col: { tops: "black", bottoms: "black", outer: "black", shoes: "black"}},
+{ name: "夏のお出かけ", img: "preset-summer.jpg", sel: { tops: "tube-top", bottoms: "denim-mini", outer: "none", shoes: "heel-sandals", socks: "ankle-socks", acc1: "straw-hat", acc2: "heart-bag"}, col: { tops: "white", bottoms: "blue"}},
+{ name: "パジャマパーティー", img: "preset-pajama.jpg", sel: { tops: "big-hoodie", bottoms: "sweat-shorts", outer: "none", shoes: "slippers", socks: "crew-socks", acc1: "none", acc2: null}, col: { tops: "pink"}},
+{ name: "カレッジガール", img: "preset-afterschool.jpg", sel: { tops: "oxford-shirt", bottoms: "pleated-skirt", outer: "knit-vest", shoes: "loafers", socks: "high-socks", acc1: "backpack", acc2: null}, col: { bottoms: "navy", outer: "beige"}},
+{ name: "韓国カジュアル", img: "preset-korean.jpg", sel: { tops: "knit-sweater", bottoms: "straight-jeans", outer: "none", shoes: "canvas-sneakers", socks: "ankle-socks", acc1: "tote-bag", acc2: null}, col: { tops: "cream", bottoms: "lightblue"}},
+{ name: "フレンチガーリー", img: "preset-french.jpg", sel: { tops: "princess-blouse", bottoms: "flare-skirt", outer: "none", shoes: "ballet-flats", socks: "ribbon-socks", acc1: "beret", acc2: null}, col: { bottoms: "red"}},
+{ name: "森ガール", img: "preset-mori.jpg", sel: { tops: "plain-blouse", bottoms: "long-skirt", outer: "long-cardigan", shoes: "ballet-flats", socks: "ribbon-socks", acc1: "straw-hat", acc2: "tote-bag"}, col: { tops: "cream", bottoms: "green", outer: "beige"}},
+{ name: "スポーティカジュアル", img: "preset-sportmix.jpg", sel: { tops: "baby-tee", bottoms: "wide-pants", outer: "denim-jacket", shoes: "platform-sneakers", socks: "crew-socks", acc1: "none", acc2: null}, col: { bottoms: "khaki"}},
+{ name: "オフィスカジュアル", img: "preset-office.jpg", sel: { tops: "oxford-shirt", bottoms: "wide-pants", outer: "tailored", shoes: "strap-pumps", socks: "none", acc1: "tote-bag", acc2: null}, col: { tops: "white", bottoms: "navy", outer: "gray"}},
+{ name: "図書館コーデ", img: "preset-library.jpg", sel: { tops: "turtleneck", bottoms: "long-skirt", outer: "short-cardigan", shoes: "loafers", socks: "high-socks", acc1: "tote-bag", acc2: null}, col: { tops: "beige", bottoms: "brown", outer: "lightbrown"}},
+{ name: "雨の日コーデ", img: "preset-rain.jpg", sel: { tops: "knit-sweater", bottoms: "straight-jeans", outer: "trench", shoes: "knee-boots", socks: "none", acc1: "none", acc2: null}, col: { tops: "navy", outer: "beige"}},
+{ name: "紅葉狩りコーデ", img: "preset-outdoor.jpg", sel: { tops: "turtleneck", bottoms: "flare-skirt", outer: "long-cardigan", shoes: "knee-boots", socks: "sheer-tights", acc1: "scarf", acc2: null}, col: { tops: "bordeaux", bottoms: "brown", outer: "lightbrown"}},
+{ name: "冬のあったかコーデ", img: "preset-snow.jpg", sel: { tops: "turtleneck", bottoms: "skinny", outer: "boa-blouson", shoes: "mouton", socks: "leg-warmers", acc1: "scarf", acc2: null}, col: { tops: "white", bottoms: "black", outer: "cream"}},
+{ name: "春のピクニック", img: "preset-picnic.jpg", sel: { tops: "offshoulder", bottoms: "maxi-skirt", outer: "none", shoes: "heel-sandals", socks: "ankle-socks", acc1: "straw-hat", acc2: "heart-bag"}, col: { tops: "pink"}},
+{ name: "海コーデ", img: "preset-umi.jpg", sel: { tops: "cropped-cami", bottoms: "micro-shorts", outer: "none", shoes: "heel-sandals", socks: "none", acc1: "heart-sunglasses", acc2: "straw-hat"}, col: { tops: "white"}},
+{ name: "ショッピングコーデ", img: "preset-shopping.jpg", sel: { tops: "baby-tee", bottoms: "denim-mini", outer: "fur-jacket", shoes: "platform-sneakers", socks: "loose-socks", acc1: "heart-bag", acc2: "ribbon-clip"}, col: { tops: "pink"}},
+{ name: "ライブ参戦コーデ", img: "preset-livecoord.jpg", sel: { tops: "baby-tee", bottoms: "leather-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "chain-belt", acc2: null}, col: { tops: "black", bottoms: "black"}},
+{ name: "カフェ店員風", img: "preset-cafe.jpg", sel: { tops: "oxford-shirt", bottoms: "skinny", outer: "none", shoes: "loafers", socks: "ankle-socks", acc1: "none", acc2: null}, col: { tops: "white", bottoms: "black"}},
+{ name: "デニムオンデニム", img: "preset-denim.jpg", sel: { tops: "baby-tee", bottoms: "straight-jeans", outer: "denim-jacket", shoes: "canvas-sneakers", socks: "crew-socks", acc1: "none", acc2: null}, col: { tops: "white", bottoms: "blue", outer: "blue"}},
+{ name: "パステルコーデ", img: "preset-pink.jpg", sel: { tops: "butterfly-knit", bottoms: "tulle-skirt", outer: "none", shoes: "ballet-flats", socks: "ribbon-socks", acc1: "ribbon-clip", acc2: "heart-bag"}, col: { tops: "pink", bottoms: "lightblue"}},
+{ name: "ビビッドポップ", img: "preset-harajuku.jpg", sel: { tops: "baby-tee", bottoms: "pleated-skirt", outer: "ma1", shoes: "platform-sneakers", socks: "leg-warmers", acc1: "heart-sunglasses", acc2: null}, col: { tops: "yellow", bottoms: "purple", socks: "pink"}},
+{ name: "大人クール", img: "preset-coolbeauty.jpg", sel: { tops: "tube-top", bottoms: "wide-pants", outer: "tailored", shoes: "heel-sandals", socks: "none", acc1: "hoop-earrings", acc2: null}, col: { tops: "black", bottoms: "gray", outer: "black"}},
+{ name: "甘辛ミックス", img: "preset-bike.jpg", sel: { tops: "butterfly-knit", bottoms: "leather-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "lace-choker", acc2: null}, col: { tops: "pink", bottoms: "black"}},
+{ name: "レトロガール", img: "preset-retro.jpg", sel: { tops: "knit-sweater", bottoms: "flare-skirt", outer: "none", shoes: "strap-pumps", socks: "high-socks", acc1: "beret", acc2: null}, col: { tops: "red", bottoms: "navy"}},
+{ name: "ボーイッシュ", img: "preset-skater.jpg", sel: { tops: "boyfriend-shirt", bottoms: "cargo-pants", outer: "none", shoes: "canvas-sneakers", socks: "crew-socks", acc1: "none", acc2: "backpack"}, col: { tops: "white", bottoms: "khaki"}},
+{ name: "フェミニンワンピ", img: "preset-floral.jpg", sel: { tops: "halter-dress", bottoms: null, outer: "lace-bolero", shoes: "rose-pumps", socks: "none", acc1: "ribbon-clip", acc2: null}, col: { tops: "pink"}},
+{ name: "お嬢様カフェ", img: "preset-ojocafe.jpg", sel: { tops: "princess-blouse", bottoms: "lolita-skirt", outer: "lace-bolero", shoes: "rose-pumps", socks: "ribbon-socks", acc1: "lolita-headdress", acc2: null}},
+{ name: "放課後コーデ", img: "preset-oshikatsu.jpg", sel: { tops: "big-hoodie", bottoms: "pleated-skirt", outer: "none", shoes: "loafers", socks: "loose-socks", acc1: "backpack", acc2: null}, col: { tops: "pink"}},
+{ name: "旅行コーデ", img: "preset-travel.jpg", sel: { tops: "knit-sweater", bottoms: "wide-pants", outer: "trench", shoes: "canvas-sneakers", socks: "ankle-socks", acc1: "backpack", acc2: "straw-hat"}, col: { outer: "beige"}},
+{ name: "おしゃれルームウェア", img: "preset-roomwear2.jpg", sel: { tops: "boyfriend-shirt", bottoms: "sweat-shorts", outer: "long-cardigan", shoes: "slippers", socks: "leg-warmers", acc1: "none", acc2: null}, col: { outer: "pink"}},
+{ name: "グランジ風", img: "preset-grunge.jpg", sel: { tops: "baby-tee", bottoms: "denim-mini", outer: "riders", shoes: "platform-boots", socks: "fishnet", acc1: "lace-choker", acc2: "chain-belt"}, col: { tops: "black"}},
+{ name: "ストラップレスレース＆ローライズデニム", img: "preset-lacedenim.jpg", sel: { tops: "strapless-lace", bottoms: "lowrise-denim", outer: "none", shoes: "heel-sandals", socks: "none", acc1: "hoop-earrings", acc2: null}, col: { tops: "white", bottoms: "blue", shoes: "white"}},
+{ name: "お嬢様コーデ", img: "preset-ojocode.jpg", sel: { tops: "offshoulder", bottoms: "flare-skirt", outer: "none", shoes: "strap-pumps", socks: "ankle-socks", acc1: "heart-bag", acc2: null}, col: { tops: "pink", bottoms: "white", shoes: "pink"}},
+{ name: "マイクロホットパンツ×見せブラ（サテン生地）", img: "preset-misebra.jpg", sel: { tops: "satin-bra", bottoms: "micro-shorts", outer: "denim-jacket", shoes: "platform-boots", socks: "none", acc1: "heart-sunglasses", acc2: "chain-belt"}, col: { tops: "pink"}},
+{ name: "マイクロホットパンツ×マイクロチューブブラ（サテン生地）", img: "preset-microtube.jpg", sel: { tops: "micro-tube-top", bottoms: "micro-shorts", outer: "denim-jacket", shoes: "platform-boots", socks: "none", acc1: "heart-sunglasses", acc2: "chain-belt"}, col: { tops: "pink"}}
+];
+
+var PRESET_CAT = {
+"清楚系お嬢様": "kireime", "デートカフェコーデ": "kireime", "ニットワンピース風": "kireime", "オフィスカジュアル": "kireime", "図書館コーデ": "kireime", "フレンチガーリー": "kireime", "大人クール": "kireime",
+"おうちリラックス": "casual", "パジャマパーティー": "casual", "カレッジガール": "casual", "森ガール": "casual", "雨の日コーデ": "casual", "紅葉狩りコーデ": "casual", "冬のあったかコーデ": "casual", "春のピクニック": "casual", "海コーデ": "casual", "カフェ店員風": "casual", "デニムオンデニム": "casual", "ボーイッシュ": "casual", "放課後コーデ": "casual", "旅行コーデ": "casual", "おしゃれルームウェア": "casual",
+"ギャル定番コーデ": "gal", "マイクロホットパンツ×クロップドキャミ": "gal", "ストリートギャル": "gal", "モノトーンコーデ": "gal", "夏のお出かけ": "gal", "ショッピングコーデ": "gal", "ライブ参戦コーデ": "gal", "甘辛ミックス": "gal",
+"背開きニットドレス Ver.2": "trend", "パステルコーデ": "trend", "ビビッドポップ": "trend", "韓国カジュアル": "trend", "スポーティカジュアル": "trend", "ストラップレスレース＆ローライズデニム": "trend",
+"お嬢様カフェ": "other", "フェミニンワンピ": "other", "グランジ風": "other", "レトロガール": "other",
+"お嬢様コーデ": "kireime", "マイクロホットパンツ×見せブラ（サテン生地）": "gal", "マイクロホットパンツ×マイクロチューブブラ（サテン生地）": "gal"
+};
+PRESETS.forEach(function (p) { p.cat = PRESET_CAT[p.name] || "other";});
+
+var DEFAULTS = { tops: "cropped-cami", bottoms: "micro-shorts", outer: "none", shoes: "platform-boots", socks: "none", acc1: "hoop-earrings", acc2: null, other: null};
+
+/* 状態: catId -> { item: id|null, none: bool, custom: string, color: 色ID|"" } */
+var state = {};
+var themeState = "";
+function resetState() {
+CATS.forEach(function (c) {
+var d = DEFAULTS[c.id];
+state[c.id] = { item: (d && d!== "none")? d: null, none: d === "none", custom: "", color: ""};
+});
+themeState = "";
+}
+resetState();
+
+var catById = {};
+CATS.forEach(function (c) { catById[c.id] = c;});
+function findItem(cat, id) {
+var pool = ITEMS[cat.pool];
+for (var i = 0; i < pool.length; i++) if (pool[i].id === id) return pool[i];
+return null;
+}
+
+/* ---------- DOM構築 ---------- */
+var sectionsEl = document.getElementById("catSections");
+var ui = {}; // catId -> { chips: {key: btn}, custom: input, detail: el, now: el}
+
+CATS.forEach(function (cat) {
+var sec = document.createElement("section");
+sec.className = "card";
+sec.setAttribute("aria-label", cat.label);
+
+var h2 = document.createElement("h2");
+var dot = document.createElement("span"); dot.className = "dot";
+var title = document.createElement("span"); title.textContent = "【" + cat.label + "】";
+var now = document.createElement("span"); now.className = "now";
+h2.appendChild(dot); h2.appendChild(title); h2.appendChild(now);
+var chev = document.createElement("span");
+chev.className = "chev";
+chev.textContent = "▾";
+h2.appendChild(chev);
+h2.className = "clickable";
+h2.setAttribute("role", "button");
+h2.setAttribute("tabindex", "0");
+function toggleCat() { sec.classList.toggle("open");}
+h2.addEventListener("click", toggleCat);
+h2.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleCat();}});
+sec.appendChild(h2);
+var body = document.createElement("div");
+body.className = "cat-body";
+if (cat.hint) {
+var hintEl = document.createElement("p");
+hintEl.className = "hint";
+hintEl.textContent = cat.hint;
+body.appendChild(hintEl);
+}
+
+var chips = document.createElement("div");
+chips.className = "chips";
+var chipMap = {};
+ITEMS[cat.pool].forEach(function (item) {
+var b = document.createElement("button");
+b.type = "button";
+b.className = "chip";
+b.textContent = item.name;
+b.setAttribute("aria-pressed", "false");
+b.addEventListener("click", function () {
+state[cat.id] = { item: item.id, none: false, custom: "", color: state[cat.id].color};
+activePreset = null;
+refresh();
+});
+chipMap[item.id] = b;
+chips.appendChild(b);
+});
+if (cat.noneMode) {
+var nb = document.createElement("button");
+nb.type = "button";
+nb.className = "chip none-chip";
+nb.textContent = cat.noneLabel;
+nb.setAttribute("aria-pressed", "false");
+nb.addEventListener("click", function () {
+state[cat.id] = { item: null, none: true, custom: "", color: state[cat.id].color};
+activePreset = null;
+refresh();
+});
+chipMap["__none"] = nb;
+chips.appendChild(nb);
+}
+body.appendChild(chips);
+
+var detail = document.createElement("div");
+detail.className = "detail";
+body.appendChild(detail);
+
+var colorRow = document.createElement("div");
+colorRow.className = "color-row";
+var cLabel = document.createElement("div");
+cLabel.className = "c-label";
+cLabel.textContent = "色テーマ";
+colorRow.appendChild(cLabel);
+var cchips = document.createElement("div");
+cchips.className = "cchips";
+var cMap = {};
+var nc = document.createElement("button");
+nc.type = "button";
+nc.className = "cchip none-c";
+nc.textContent = "指定なし";
+nc.setAttribute("aria-pressed", "true");
+nc.addEventListener("click", function () {
+state[cat.id].color = "";
+themeState = "";
+activePreset = null;
+refresh();
+});
+cMap[""] = nc;
+cchips.appendChild(nc);
+COLORS.forEach(function (col) {
+var cb = document.createElement("button");
+cb.type = "button";
+cb.className = "cchip";
+cb.setAttribute("aria-pressed", "false");
+var sw = document.createElement("span");
+sw.className = "sw";
+sw.style.background = col.sw;
+cb.appendChild(sw);
+cb.appendChild(document.createTextNode(col.label));
+cb.addEventListener("click", function () {
+state[cat.id].color = col.id;
+themeState = "";
+activePreset = null;
+refresh();
+});
+cMap[col.id] = cb;
+cchips.appendChild(cb);
+});
+colorRow.appendChild(cchips);
+body.appendChild(colorRow);
+
+var custom = document.createElement("input");
+custom.type = "text";
+custom.className = "custom-input";
+custom.placeholder = "自由入力（入力するとチップの代わりになります）";
+custom.setAttribute("aria-label", cat.label + "の自由入力");
+custom.addEventListener("input", function () {
+state[cat.id].custom = custom.value;
+activePreset = null;
+refresh(false);
+});
+body.appendChild(custom);
+sec.appendChild(body);
+
+sectionsEl.appendChild(sec);
+ui[cat.id] = { chips: chipMap, custom: custom, detail: detail, now: now, colorRow: colorRow, colors: cMap};
+});
+
+/* プリセット（立ち絵見本カード） */
+var activePreset = null;
+var presetBtns = {};
+var presetWrap = document.getElementById("presetChips");
+PRESETS.forEach(function (p) {
+var b = document.createElement("button");
+b.type = "button";
+b.className = "preset-card";
+b.setAttribute("aria-pressed", "false");
+var im = document.createElement("img");
+im.src = "assets/" + p.img;
+im.alt = "「" + p.name + "」の立ち絵見本（ミュウ）";
+var nm = document.createElement("span");
+nm.className = "p-name";
+nm.textContent = p.name;
+b.appendChild(im);
+b.appendChild(nm);
+b.addEventListener("click", function () {
+CATS.forEach(function (c) {
+var v = p.sel[c.id];
+var colr = (p.col && p.col[c.id]) || "";
+if (v === null || v === undefined || v === "none") state[c.id] = { item: null, none: true, custom: "", color: colr};
+else state[c.id] = { item: v, none: false, custom: "", color: colr};
+});
+themeState = "";
+activePreset = p.name;
+document.getElementById("coordName").value = p.name;
+refresh();
+showBuild();
+});
+presetBtns[p.name] = b;
+presetWrap.appendChild(b);
+});
+
+/* 全体カラーテーマ */
+var themeWrap = document.getElementById("themeChips");
+var themeBtns = {};
+(function () {
+var nb = document.createElement("button");
+nb.type = "button";
+nb.className = "cchip none-c";
+nb.textContent = "指定なし";
+nb.setAttribute("aria-pressed", "true");
+nb.addEventListener("click", function () {
+themeState = "";
+activePreset = null;
+["tops", "bottoms", "outer", "shoes", "socks"].forEach(function (id) { state[id].color = "";});
+refresh();
+});
+themeBtns[""] = nb;
+themeWrap.appendChild(nb);
+THEMES.forEach(function (t) {
+var b = document.createElement("button");
+b.type = "button";
+b.className = "cchip";
+b.setAttribute("aria-pressed", "false");
+var sw = document.createElement("span");
+sw.className = "sw";
+sw.style.background = colorById[t.map.tops].sw;
+b.appendChild(sw);
+b.appendChild(document.createTextNode(t.name));
+b.addEventListener("click", function () {
+themeState = t.id;
+activePreset = null;
+["tops", "bottoms", "outer", "shoes", "socks"].forEach(function (id) {
+state[id].color = t.map[id] || "";
+});
+refresh();
+});
+themeBtns[t.id] = b;
+themeWrap.appendChild(b);
+});
+})();
+
+/* ---------- 選択の解決 ---------- */
+/* 戻り値: null=セクション省略 / {kind:'none'} / {kind:'custom', text} / {kind:'item', item} */
+function resolve(cat) {
+var s = state[cat.id];
+var color = (s.color && colorById[s.color])? colorById[s.color]: null;
+if (s.custom && s.custom.trim()) return { kind: "custom", text: s.custom.trim(), color: color};
+if (s.none) {
+if (cat.noneMode === "omit") return null;
+if (cat.noneMode === "line") return { kind: "none"};
+return null;
+}
+if (s.item) {
+var it = findItem(cat, s.item);
+if (it) return { kind: "item", item: it, color: color};
+}
+return null;
+}
+
+function esc(s) {
+return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+/* ---------- 出力生成 ---------- */
+function buildOutputs() {
+var name = document.getElementById("coordName").value.trim();
+var lines = []; // {sec, body} の配列（sec=null は名前行）
+var htmlParts = [];
+var tagList = [];
+var notes = [];
+
+var resolved = {};
+CATS.forEach(function (c) { resolved[c.id] = resolve(c);});
+/* 小物２が小物１と同一アイテムなら省略 */
+if (resolved.acc1 && resolved.acc2 && resolved.acc1.kind === "item" && resolved.acc2.kind === "item" && resolved.acc1.item.id === resolved.acc2.item.id) {
+resolved.acc2 = null;
+}
+
+if (name) {
+lines.push({ sec: null, body: name});
+htmlParts.push('<span class="cname">' + esc(name) + "</span>");
+}
+
+CATS.forEach(function (cat) {
+var r = resolved[cat.id];
+if (!r) return;
+var body = "";
+if (r.kind === "none") body = "なし";
+else if (r.kind === "custom") body = (r.color? r.color.jp: "") + r.text;
+else if (r.kind === "item") {
+body = (r.color? r.color.jp: "") + r.item.desc;
+var itemTags = [];
+r.item.tags.split(",").forEach(function (t) {
+t = t.trim();
+if (t) itemTags.push(t);
+});
+if (r.color && itemTags.length) {
+var noun = itemTags[0].split(" ").pop();
+var ctag = r.color.en + " " + noun;
+if (tagList.indexOf(ctag) === -1) tagList.push(ctag);
+}
+itemTags.forEach(function (t) {
+if (tagList.indexOf(t) === -1) tagList.push(t);
+});
+if (r.item.note && notes.indexOf(r.item.note) === -1) notes.push(r.item.note);
+}
+lines.push({ sec: cat.label, body: body});
+htmlParts.push('<span class="sec">【' + esc(cat.label) + '】</span>\n' + esc(body));
+});
+
+var manual = document.getElementById("manualNote").value.trim();
+if (manual) notes.push(manual);
+if (notes.length) {
+var noteBody = notes.map(function (n) { return "・" + n;}).join("\n");
+lines.push({ sec: "備考", body: noteBody});
+htmlParts.push('<span class="sec">【備考】</span>\n' + esc(noteBody));
+}
+
+var text = lines.map(function (l) {
+return l.sec === null? l.body: "【" + l.sec + "】\n" + l.body;
+}).join("\n\n");
+var tags = tagList.join(", ");
+return { text: text, html: htmlParts.join("\n\n"), tags: tags};
+}
+
+/* ---------- 描画 ---------- */
+var promptOut = document.getElementById("promptOut");
+var tagOut = document.getElementById("tagOut");
+var charCount = document.getElementById("charCount");
+var lastOutputs = { text: "", tags: ""};
+
+function refresh(syncInputs) {
+if (syncInputs === undefined) syncInputs = true;
+CATS.forEach(function (cat) {
+var u = ui[cat.id];
+var s = state[cat.id];
+var hasCustom =!!(s.custom && s.custom.trim());
+Object.keys(u.chips).forEach(function (key) {
+var pressed = false;
+if (!hasCustom) {
+if (key === "__none") pressed = s.none;
+else pressed =!s.none && s.item === key;
+}
+u.chips[key].setAttribute("aria-pressed", pressed? "true": "false");
+});
+if (syncInputs && u.custom.value!== s.custom) u.custom.value = s.custom;
+
+var r = resolve(cat);
+if (cat.id === "acc2") {
+var r1 = resolve(catById.acc1);
+if (r && r1 && r.kind === "item" && r1.kind === "item" && r.item.id === r1.item.id) r = null;
+}
+var showColor =!!(r && (r.kind === "item" || r.kind === "custom"));
+u.colorRow.className = "color-row" + (showColor? " show": "");
+Object.keys(u.colors).forEach(function (key) {
+u.colors[key].setAttribute("aria-pressed", (s.color || "") === key? "true": "false");
+});
+if (!r) {
+u.now.textContent = cat.noneMode === "omit"? "（出力なし）": "";
+u.detail.className = "detail";
+u.detail.innerHTML = "";
+} else if (r.kind === "none") {
+u.now.textContent = "なし";
+u.detail.className = "detail";
+u.detail.innerHTML = "";
+} else if (r.kind === "custom") {
+u.now.textContent = "自由入力";
+u.detail.className = "detail show";
+u.detail.innerHTML = '<div class="d-desc">' + esc((r.color? r.color.jp: "") + r.text) + "</div>";
+} else {
+u.now.textContent = r.item.name + (r.color? "（" + r.color.label + "）": "");
+u.detail.className = "detail show";
+var h = '<div class="d-desc">' + esc((r.color? r.color.jp: "") + r.item.desc) + "</div>";
+h += '<div class="d-tags">' + esc(r.item.tags) + "</div>";
+if (r.item.note) h += '<div class="d-note">備考へ追加：' + esc(r.item.note) + "</div>";
+u.detail.innerHTML = h;
+}
+});
+
+Object.keys(themeBtns).forEach(function (key) {
+themeBtns[key].setAttribute("aria-pressed", themeState === key? "true": "false");
+});
+
+Object.keys(presetBtns).forEach(function (k) {
+presetBtns[k].setAttribute("aria-pressed", activePreset === k? "true": "false");
+});
+var pv = document.getElementById("presetPreview");
+var pp = null;
+if (activePreset) PRESETS.forEach(function (p) { if (p.name === activePreset) pp = p;});
+if (pp) {
+var pimg = document.getElementById("presetPreviewImg");
+pimg.src = "assets/" + pp.img;
+pimg.alt = "「" + pp.name + "」の立ち絵見本（ミュウ）";
+document.getElementById("presetPreviewCap").textContent = "コーデ見本：" + pp.name;
+pv.hidden = false;
+var sfig = document.getElementById("stageFig");
+document.getElementById("stageImg").src = "assets/" + pp.img;
+document.getElementById("stageImg").alt = "「" + pp.name + "」の立ち絵見本（ミュウ）";
+document.getElementById("stageCap").textContent = "コーデ見本：" + pp.name;
+sfig.hidden = false;
+} else {
+pv.hidden = true;
+document.getElementById("stageFig").hidden = true;
+}
+
+lastOutputs = buildOutputs();
+promptOut.innerHTML = lastOutputs.html || '<span style="color:var(--muted)">アイテムを選んでください</span>';
+tagOut.textContent = lastOutputs.tags || "（タグなし）";
+charCount.textContent = lastOutputs.text.length + "文字";
+}
+
+/* ---------- コピー ---------- */
+var toast = document.getElementById("toast");
+var toastTimer = null;
+function showToast(msg) {
+toast.textContent = msg;
+toast.className = "toast show";
+if (toastTimer) clearTimeout(toastTimer);
+toastTimer = setTimeout(function () { toast.className = "toast";}, 2200);
+}
+function copyText(text, okMsg) {
+if (!text) { showToast("コピーする内容がありません"); return;}
+function done() { showToast(okMsg);}
+function fallback() {
+var ta = document.createElement("textarea");
+ta.value = text;
+ta.style.position = "fixed";
+ta.style.opacity = "0";
+document.body.appendChild(ta);
+ta.select();
+try { document.execCommand("copy"); done();}
+catch (e) { showToast("コピーできませんでした");}
+document.body.removeChild(ta);
+}
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(text).then(done, fallback);
+} else fallback();
+}
+
+function bindCopy(id, which, msg) {
+document.getElementById(id).addEventListener("click", function () {
+copyText(which === "tags"? lastOutputs.tags: lastOutputs.text, msg);
+});
+}
+bindCopy("copyPrompt", "text", "全体プロンプトをコピーしました");
+bindCopy("copyTags", "tags", "タグをコピーしました");
+
+
+document.getElementById("coordName").addEventListener("input", function () { activePreset = null; refresh(false);});
+document.getElementById("manualNote").addEventListener("input", function () { refresh(false);});
+
+document.getElementById("randomBtn").addEventListener("click", function () {
+function pick(pool) { return pool[Math.floor(Math.random() * pool.length)].id;}
+CATS.forEach(function (cat) {
+var r = Math.random();
+if (cat.id === "outer" || cat.id === "socks") {
+state[cat.id] = r < 0.3? { item: null, none: true, custom: ""}: { item: pick(ITEMS[cat.pool]), none: false, custom: ""};
+} else if (cat.id === "acc2" || cat.id === "other") {
+state[cat.id] = r < 0.5? { item: null, none: true, custom: ""}: { item: pick(ITEMS[cat.pool]), none: false, custom: ""};
+} else if (cat.id === "acc1") {
+state[cat.id] = r < 0.15? { item: null, none: true, custom: ""}: { item: pick(ITEMS[cat.pool]), none: false, custom: ""};
+} else {
+state[cat.id] = { item: pick(ITEMS[cat.pool]), none: false, custom: ""};
+}
+});
+var colPool = ["", "", "white", "black", "pink", "blue", "lightblue", "navy", "beige", "lightbrown", "red", "cream"];
+CATS.forEach(function (cat) {
+state[cat.id].color = (cat.id === "acc1" || cat.id === "acc2" || cat.id === "other")? "": colPool[Math.floor(Math.random() * colPool.length)];
+});
+themeState = "";
+document.getElementById("coordName").value = "おまかせコーデ";
+activePreset = null;
+refresh();
+showToast("おまかせコーデを組みました");
+});
+
+document.getElementById("resetBtn").addEventListener("click", function () {
+resetState();
+activePreset = null;
+document.getElementById("coordName").value = "";
+document.getElementById("manualNote").value = "";
+refresh();
+showToast("リセットしました");
+});
+
+/* ---------- 画面遷移（一覧 → 立ち絵＋プロンプト） ---------- */
+var presetSectionEl = document.getElementById("presetSection");
+var noteSectionEl = document.getElementById("noteSection");
+var outputEl = document.querySelector("aside.output");
+var backBtnEl = document.getElementById("backBtn");
+function showHome() {
+presetSectionEl.style.display = "";
+sectionsEl.style.display = "none";
+noteSectionEl.style.display = "none";
+outputEl.style.display = "none";
+backBtnEl.hidden = true;
+document.getElementById("stageFig").hidden = true;
+window.scrollTo(0, 0);
+}
+function showBuild() {
+presetSectionEl.style.display = "none";
+sectionsEl.style.display = "";
+noteSectionEl.style.display = "";
+outputEl.style.display = "";
+backBtnEl.hidden = false;
+var pp2 = null;
+if (activePreset) PRESETS.forEach(function (p) { if (p.name === activePreset) pp2 = p;});
+document.getElementById("stageFig").hidden = !pp2;
+window.scrollTo(0, 0);
+}
+backBtnEl.addEventListener("click", showHome);
+document.getElementById("manualBtn").addEventListener("click", function () { showBuild();});
+
+/* ---------- プリセットの仕分けフィルター ---------- */
+var presetByName = {};
+PRESETS.forEach(function (p) { presetByName[p.name] = p;});
+document.getElementById("presetFilters").addEventListener("click", function (e) {
+var b = e.target.closest("button[data-f]");
+if (!b) return;
+var f = b.getAttribute("data-f");
+var btns = this.querySelectorAll("button[data-f]");
+for (var i = 0; i < btns.length; i++) btns[i].setAttribute("aria-pressed", btns[i] === b ? "true" : "false");
+Object.keys(presetBtns).forEach(function (name) {
+var p = presetByName[name];
+presetBtns[name].style.display = (f === "all" || (p && p.cat === f)) ? "" : "none";
+});
+});
+
+showHome();
+refresh();
+})();
+</script>
+</body>
+</html>
